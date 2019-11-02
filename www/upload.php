@@ -77,6 +77,7 @@ foreach (
   }
 }
 
+rrmdir("./github_tmp/VUT_IIS-master");
 
 function rrmdir($dir) {
   if (is_dir($dir)) {
