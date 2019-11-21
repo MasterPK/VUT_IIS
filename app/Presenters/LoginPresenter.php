@@ -15,5 +15,23 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
 
         
     }
+
+    protected function createComponentRegistrationForm(): UI\Form
+    {
+        $form = new UI\Form;
+        $form->addText('email', 'Email:');
+        $form->addPassword('password', 'Heslo:');
+        $form->addSubmit('login', 'Registrovat');
+        $form->onSuccess[] = [$this, 'registrationFormSucceeded'];
+        return $form;
+    }
+
+    // volá se po úspěšném odeslání formuláře
+    public function registrationFormSucceeded(UI\Form $form, \stdClass $values): void
+    {
+        // ...
+        $this->flashMessage('Byl jste úspěšně registrován.');
+        $this->redirect('Homepage:');
+    }
     
 }
