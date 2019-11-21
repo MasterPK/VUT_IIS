@@ -4,4 +4,4 @@ parameters:
 database:
 	dsn: 'mysql:host=127.0.0.1;dbname=vutfit;'
 	user: vutfit
-	password: vutfit
+	password: VUTfit123
