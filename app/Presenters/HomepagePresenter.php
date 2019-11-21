@@ -23,7 +23,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		$this->getUser()->isLoggedIn() ? "":$this->redirect("Login:");
 
 		$data=$this->database->table("users")
-		->where("id=?",$this->user->identity->ID)
+		->where("id=?",$this->user->identity->id)
 		->fetch();
 
 		/*$userData=new Nette\Security\Identity ($this->user->identity->ID,$this->user->identity->rank,$data);
