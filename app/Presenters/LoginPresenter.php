@@ -11,11 +11,16 @@ use Nette\Application\UI;
 
 final class LoginPresenter extends Nette\Application\UI\Presenter
 {
-    public function renderDefault(): void
-    {
-        $this->flashMessage('LoginPresenter');
 
-        
+    public function renderDefault()
+    {
+        $this->getUser()->isLoggedIn() ? $this->redirect("Homepage:"):"";
+    }
+
+    public function renderOut()
+    {
+        $this->getUser()->logout();
+
     }
 
     protected function createComponentLoginForm(): UI\Form
