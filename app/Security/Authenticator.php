@@ -11,8 +11,11 @@ class Authenticator implements Nette\Security\IAuthenticator
     /** @var Nette\Security\Passwords @inject */
 	private $passwords;
 
-    /** @var Nette\Database\Context @inject */
-	private $database;
+    
+    public function __construct(Nette\Database\Context $database)
+    {
+        $this->database = $database;
+    }
 
     public function authenticate(array $credentials):Nette\Security\IIdentity
     {
