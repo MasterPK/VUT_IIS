@@ -49,9 +49,9 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         
         $this->redirect('Homepage:');
         }
-        catch (NS\AuthenticationException $e) 
+        catch (Nette\Security\AuthenticationException $e) 
         {
-            $this->template->chyba=$e->getMessage();
+            $this->template->error_login=true;
         }
 
         $this->redirect('Homepage:');
