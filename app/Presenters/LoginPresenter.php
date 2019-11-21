@@ -54,7 +54,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
             $this->template->error_login=true;
         }
 
-        $this->redirect('Homepage:');
+        $this->redirect('Login:');
     }
     
 }
