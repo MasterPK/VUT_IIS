@@ -1,50 +1,36 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+<link
+  href="{$basePath}/css/bootstrap.min.css"
+  rel="stylesheet"
+  id="bootstrap-css"
+/>
+<script src="{$basePath}/js/bootstrap.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
-      <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<head>
+
+
+</head>
 
 <style>
-.middle-box {
-  max-width: 400px;
-  z-index: 100;
-  margin: 0 auto;
-  padding-top: 40px;
-}
-.loginscreen.middle-box {
-  width: 300px;
-}
-
 
 </style>
 
 <body>
-   <div class="middle-box loginscreen">
-      <div>
-			<h1>Login</h1>
+  <div class="">
+    <div>
+      <h1>Login</h1>
+    </div>
+    <form n:name="loginForm">
+      <div class="form-group">
+        <label>Email address</label>
+        {input email}
       </div>
-                   <form n:name=loginForm>
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">Email address</label>
-                              {input email}
-                              <input type="email" name="email"  class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
-                           </div>
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">Password</label>
-                              {input password}
-                              <input type="password" name="password" id="password"  class="form-control" aria-describedby="emailHelp" placeholder="Enter Password">
-                           </div>
-                           <div class="form-group">
-                              <p class="text-center">By signing up you accept our <a href="#">Terms Of Use</a></p>
-                           </div>
-                           <div class="col-md-12 text-center ">
-                              {input login}
-                              <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Login</button>
-                           </div>
-                        </form>   
-
-      </div>   
+      <div class="form-group">
+        <label>Password</label>
+        {input password}
+      </div>
+      <div class="col-md-12 text-center ">
+        {input login}
+      </div>
+    </form>
+  </div>
 </body>

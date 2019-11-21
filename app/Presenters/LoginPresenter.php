@@ -29,8 +29,8 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         ->setHtmlAttribute('class', 'form-control')
         ->setHtmlAttribute('placeholder', 'Heslo');
 
-        $form->addSubmit('login', 'Registrovat')
-        ->setHtmlAttribute('class', 'btn btn-block mybtn btn-primary tx-tfm');
+        $form->addSubmit('login', 'Přihlásit se')
+        ->setHtmlAttribute('class', 'btn btn-block btn-primary');
         
         $form->onSuccess[] = [$this, 'loginFormSucceeded'];
         return $form;
