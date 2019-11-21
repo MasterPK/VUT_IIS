@@ -11,7 +11,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 {
     public function renderDefault(): void
     {
-        $this->flashMessage('Test1FIT');
+        $this->flashMessage('Test2FIT');
 
         
     }
