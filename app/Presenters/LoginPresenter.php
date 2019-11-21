@@ -45,7 +45,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
 
         try
         {
-        $this->getUser()->login($values->username,$values->password);
+        $this->getUser()->login($values->email,$values->password);
         
         $this->redirect('Homepage:');
         }
