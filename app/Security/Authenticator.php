@@ -20,8 +20,8 @@ class Authenticator implements Nette\Security\IAuthenticator
         $row = $this->database->table('users')
         ->where('email', $username)->fetch();
 
-        dump($password);
-        dump($row->password);
+        //dump($password);
+        //dump($row->password);
 
         if (!$row) {
             throw new NS\AuthenticationException('Uživatel nenalezen!');
