@@ -23,10 +23,12 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         $form = new UI\Form;
         $form->addText('email', 'Email:')
         ->setHtmlAttribute('class', 'form-control')
+        ->setRequired('Zadejte, prosím, email')
         ->setHtmlAttribute('placeholder', 'Emailová adresa');
 
         $form->addPassword('password', 'Heslo:')
         ->setHtmlAttribute('class', 'form-control')
+        ->setRequired('Zadejte, prosím, heslo')
         ->setHtmlAttribute('placeholder', 'Heslo');
 
         $form->addSubmit('login', 'Přihlásit se')
@@ -37,10 +39,21 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
     }
 
     // volá se po úspěšném odeslání formuláře
-    public function loginFormSucceeded(UI\Form $form, \stdClass $values): void
+    public function loginFormSucceeded(UI\Form $form): void
     {
-        // ...
-        $this->flashMessage('Byl jste úspěšně registrován.');
+        $values = $form->getValues();
+
+        try
+        {
+        $this->getUser()->login($values->username,$values->password);
+        
+        $this->redirect('Homepage:');
+        }
+        catch (NS\AuthenticationException $e) 
+        {
+            $this->template->chyba=$e->getMessage();
+        }
+
         $this->redirect('Homepage:');
     }
     
