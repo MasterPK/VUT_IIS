@@ -8,13 +8,10 @@ use Nette\Security as NS;
 
 class Authenticator implements Nette\Security\IAuthenticator
 {
-    /** @var Nette\Security\Passwords @inject */
-	private $passwords;
-
-    
-    public function __construct(Nette\Database\Context $database)
+    public function __construct(Nette\Database\Context $database, Nette\Security\Passwords $passwords)
     {
         $this->database = $database;
+        $this->passwords = $passwords;
     }
 
     public function authenticate(array $credentials):Nette\Security\IIdentity
