@@ -9,6 +9,34 @@ use Nette;
 
 final class HomepagePresenter extends Nette\Application\UI\Presenter
 {
+    /** @var Nette\Database\Context @inject */
+	private $database;
+
+
+    public function startUp()
+	{
+		parent::startup();
+
+		$this->getUser()->isLoggedIn() ? "":$this->redirect("Login:");
+
+		$data=$this->database->table("users")
+		->where("id=?",$this->user->identity->ID)
+		->fetch();
+
+		/*$userData=new Nette\Security\Identity ($this->user->identity->ID,$this->user->identity->rank,$data);
+
+		
+		if($userData!=$this->user->identity)
+		{
+			foreach($data as $key => $item)
+			{
+				$this->user->identity->$key = $item;
+			}
+		}*/
+
+	}
+
+
     public function renderDefault(): void
     {
         $this->flashMessage('Test2FIT');
