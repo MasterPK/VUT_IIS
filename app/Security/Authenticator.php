@@ -8,16 +8,15 @@ use Nette\Security as NS;
 
 class Authenticator implements Nette\Security\IAuthenticator
 {
-    public $database;
+    /** @var Nette\Security\Passwords @inject */
+	private $passwords;
 
-    function __construct(Nette\Database\Context $database)
-    {
-        $this->database = $database;
-    }
+    /** @var Nette\Database\Context @inject */
+	private $database;
 
-    public function authenticate(array $credentials):NS\IIdentity
+    public function authenticate(array $credentials):Nette\Security\IIdentity
     {
-        list($username,$password) = $credentials;
+        [$username, $password] = $credentials;
         $row = $this->database->table('users')
         ->where('email', $username)->fetch();
 
@@ -25,7 +24,7 @@ class Authenticator implements Nette\Security\IAuthenticator
             throw new NS\AuthenticationException('Uživatel nenalezen!');
         }
 
-        if (!NS\Passwords::verify($password, $row->heslo)) {
+        if (!$this->passwords->verify($password, $row->password)) {
             throw new NS\AuthenticationException('Neplatné heslo!');
         }
 
