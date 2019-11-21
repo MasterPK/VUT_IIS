@@ -21,9 +21,15 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
     protected function createComponentLoginForm(): UI\Form
     {
         $form = new UI\Form;
-        $form->addText('email', 'Email:');
-        $form->addPassword('password', 'Heslo:');
-        $form->addSubmit('login', 'Registrovat');
+        $form->addText('email', 'Email:')
+        ->setHtmlAttribute('class', 'form-control');
+        
+        $form->addPassword('password', 'Heslo:')
+        ->setHtmlAttribute('class', 'form-control');
+
+        $form->addSubmit('login', 'Registrovat')
+        ->setHtmlAttribute('class', 'btn btn-block mybtn btn-primary tx-tfm');
+        
         $form->onSuccess[] = [$this, 'loginFormSucceeded'];
         return $form;
     }
