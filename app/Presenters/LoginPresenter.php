@@ -22,10 +22,12 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
     {
         $form = new UI\Form;
         $form->addText('email', 'Email:')
-        ->setHtmlAttribute('class', 'form-control');
-        
+        ->setHtmlAttribute('class', 'form-control')
+        ->setHtmlAttribute('placeholder', 'Emailová adresa');
+
         $form->addPassword('password', 'Heslo:')
-        ->setHtmlAttribute('class', 'form-control');
+        ->setHtmlAttribute('class', 'form-control')
+        ->setHtmlAttribute('placeholder', 'Heslo');
 
         $form->addSubmit('login', 'Registrovat')
         ->setHtmlAttribute('class', 'btn btn-block mybtn btn-primary tx-tfm');
