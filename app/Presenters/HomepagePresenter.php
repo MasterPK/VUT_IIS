@@ -75,10 +75,11 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 			$this->redirect('Homepage:courses');
 		}
 		$course = $this->database->table("course")->where("id=?", $id)->fetch();
-		$course_guarantor = $this->database->table("user")->where("id=?", $course->id_guarantor)->fetch();
-		$course->guarantor=$course_guarantor->first_name . " " . $course_guarantor->surname;
+		
 		if($course)
 		{
+			$course_guarantor = $this->database->table("user")->where("id=?", $course->id_guarantor)->fetch();
+			$this->template->guarantor=$course_guarantor->first_name . " " . $course_guarantor->surname;
 			switch($course->type)
 			{
 				case P:$course->type="Povinný";break;
