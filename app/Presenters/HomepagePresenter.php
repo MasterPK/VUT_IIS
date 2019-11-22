@@ -66,5 +66,6 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	public function renderCourses(): void
 	{
 		$this->template->courses = $this->database->table("courses")->fetchAll();
+		\Tracy\Debugger::dump($this->template->courses);
 	}
 }
