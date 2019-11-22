@@ -73,7 +73,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		}
 	}
 
-	public function renderShow_course($id): void
+	public function renderShowcourse($id): void
 	{
 
 		$course = $this->database->table("course")->where("id=?", $id)->fetch();
