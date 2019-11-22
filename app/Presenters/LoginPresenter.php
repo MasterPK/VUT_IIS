@@ -17,7 +17,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         $this->getUser()->isLoggedIn() ? $this->redirect("Homepage:"):"";
     }
 
-    public function renderOut()
+    public function renderLogout()
     {
         $this->getUser()->logout();
 
