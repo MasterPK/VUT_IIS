@@ -31,7 +31,6 @@ final class RouterFactory
 		        }
 		    ],
 		]);
-		$router->addRoute('<presenter>/<action>[/<id>]', 'Homepage:default');
 		return $router;
 	}
 }
