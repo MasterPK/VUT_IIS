@@ -7,7 +7,7 @@ namespace App\Presenters;
 use Nette;
 
 
-final class StudentPresenter extends Nette\Application\UI\Presenter
+final class StudentPresenter extends Nette\Application\UI\Presenter 
 {
 	private $database;
 	public function __construct(Nette\Database\Context $database)
