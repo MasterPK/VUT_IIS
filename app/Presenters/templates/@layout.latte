@@ -29,7 +29,7 @@
       <i class="fas fa-bars"></i>
     </button>
 
-    <div class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0 text-light">{$rank}</div>
+    {ifset $rank_msg}<div class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0 text-light">{$rank_msg}</div>{/ifset}
 
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto ml-md-0">
