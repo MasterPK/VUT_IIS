@@ -4,7 +4,10 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
 
-	<title>{ifset title}{include title|stripHtml} | {/ifset}Nette Web</title>
+	<title>{ifset title}{include title|stripHtml} | {/ifset}IIS</title>
+
+	<link href="{$basePath}/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+    
 </head>
 
 <body>
@@ -14,6 +17,7 @@
 
 	{block scripts}
 	<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
+	<script src="{$basePath}/js/bootstrap.min.js"></script>
 	{/block}
 </body>
 </html>
