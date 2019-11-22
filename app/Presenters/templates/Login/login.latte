@@ -1,13 +1,11 @@
-{block header}
-<div class = "text-center">
-    <h1>Přihlášení</h1>
-</div>
-{/block}
 {block content}
 <div class="h-100 row align-items-center">
     <div class="col-md-4 col-sm-1" />
     <div class="col-md-4 col-sm-10 mlr-2 align-items-center">
-        
+        <div class = "text-center">
+            <h1>Přihlášení</h1>
+        </div>
+
         {ifset message} {include message} {/ifset} {ifset $error_login}
         <div class="alert alert-danger">
             <strong>Příhlášení bylo neúspěšné!</strong> Zadané údaje nejsou správné!
