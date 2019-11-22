@@ -41,8 +41,6 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
           <a class="dropdown-item" href="#">Nastavení profilu</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Odhlásit se</a>
         </div>
       </li>
     </ul>
@@ -76,7 +74,7 @@
       {/if}
       <li n:class="nav-item, $presenter->isLinkCurrent('Homepage:courses') ? active">
         <a class="nav-link" n:href="Homepage:courses">
-          <i class="fas fa-fw fa-graduation-cap"></i>
+          <i class="fas fa-fw fa-sign-out-alt"></i>
           <span>Kurzy</span>
         </a>
       </li>
