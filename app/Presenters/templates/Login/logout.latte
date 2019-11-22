@@ -1,6 +1,9 @@
+{block header}
+Odhlášení
+{/block}
 {block content}
 <div class = "text-center">
-    <h1>Odhlášení proběhlo úspěšně!</h1>
-    {ifset $error}<br><div class="bg-danger p-xs b-r-sm"><b>{$error}</b></div>{/ifset}
+    <h1>Odhlášení proběhlo úspěšně.</h1>
 </div>
+{ifset $error}<br><div class="bg-danger p-xs b-r-sm"><b>{$error}</b></div>{/ifset}
 {/block}
