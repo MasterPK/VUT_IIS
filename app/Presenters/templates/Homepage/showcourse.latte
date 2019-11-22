@@ -3,7 +3,19 @@
 {/block}
 {block content}
 <div class="row">
-
+    <div class="col-md-4 col-sm-12">
+        <h4>
+        {$course->id}
+        </h4>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        Type:&nbsp;
+        {$course->type}
+    </div>
+    <div class="col-md-4 col-sm-12">
+        Garant kurzu:&nbsp; 
+        {$course->guarantor}
+    </div>
 </div>
 
 {/block}
