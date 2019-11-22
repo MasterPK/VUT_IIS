@@ -13,7 +13,7 @@
 
 <body>
 	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
-
+<div id="wrapper">
 <div id="viewport">
   <!-- Sidebar -->
   <div id="sidebar">
@@ -79,6 +79,7 @@
       </p>
     </div>
   </div>
+</div>
 </div>
 
 	{include content}
