@@ -1,9 +1,3 @@
 tr:hover {
-    background: red;
-}
-
-td a {
-    display: block;
-    border: 1px solid black;
-    padding: 16px;
+    background: #E9ECEF;
 }
