@@ -50,7 +50,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		} 
 		else 
 		{
-			$this->template->rank_msg = "Neregistrovaný uživatel";
+			$this->template->rank_msg = "Neregistrovaný návštěvník";
 		}
 
 
