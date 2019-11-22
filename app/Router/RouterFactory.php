@@ -15,9 +15,23 @@ final class RouterFactory
 	public static function createRouter(): RouteList
 	{
 		$router = new RouteList;
-		$router->addRoute('login', 'Login:login');
-		$router->addRoute('logout', 'Login:logout');
-		$router->addRoute('<presenter>/<action>[/<id>]', 'Homepage:default');
+		
+		$pages = ['informace', 'kroky'];
+
+		$router[] = new Route('<page>', [
+		    'presenter' => 'Homepage',
+		    'action' => 'page',
+		    'page' => [
+		        Route::FILTER_IN => function ($page) use ($pages) {
+		            if (in_array($page, $pages)) {
+		                return $page;
+		            }
+
+		            return null;
+		        }
+		    ],
+		]);
+		$router[] = new Route('<presenter>/<action>[/<id>]', 'Homepage:default');
 		return $router;
 	}
 }
