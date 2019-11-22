@@ -5,3 +5,8 @@ database:
 	dsn: 'mysql:host=innodb.endora.cz:3306;dbname=vutfit;'
 	user: vutfit
 	password: VUTfit123
+
+services:
+nette.latteFactory:
+setup:
+ – setAutoRefresh(true)
