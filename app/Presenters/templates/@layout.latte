@@ -58,15 +58,15 @@
         </a>
       </li>
       {if $rank==0}
-      <li n:class="nav-item, $presenter->isLinkCurrent('Login:default') ? active">
-        <a class="nav-link" n:href="Login:">
+      <li class="nav-item">
+        <a class="nav-link" n:href="Login:default">
           <i class="fas fa-fw fa-sign-in-alt"></i>
           <span>Přihlášení</span>
         </a>
       </li>
       {elseif $rank>=1}
-      <li n:class="nav-item, $presenter->isLinkCurrent('Login:out') ? active">
-        <a class="nav-link" n:href="Login:">
+      <li class="nav-item">
+        <a class="nav-link" n:href="Login:out">
           <i class="fas fa-fw fa-sign-in-alt"></i>
           <span>Odhlásit se</span>
         </a>
