@@ -23,7 +23,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		if ($this->getUser()->isLoggedIn()) 
 		{
 			
-			$data = $this->database->table("users")
+			$data = $this->database->table("user")
 				->where("id=?", $this->user->identity->id)
 				->fetch();
 
@@ -66,7 +66,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	public function renderCourses(): void
 	{
 
-		$data = $this->database->table("courses")->fetchAll();
+		$data = $this->database->table("course")->fetchAll();
 		if($data)
 		{
 			$this->template->courses=$data;
@@ -76,7 +76,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	public function renderShow_course($id): void
 	{
 
-		$course = $this->database->table("courses")->where("id=?", $id)->fetch();
+		$course = $this->database->table("course")->where("id=?", $id)->fetch();
 		if($course)
 		{
 			$this->template->course=$course;

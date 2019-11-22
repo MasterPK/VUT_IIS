@@ -18,7 +18,7 @@ class Authenticator implements Nette\Security\IAuthenticator
     public function authenticate(array $credentials):Nette\Security\IIdentity
     {
         [$username, $password] = $credentials;
-        $row = $this->database->table('users')
+        $row = $this->database->table('user')
         ->where('email', $username)->fetch();
 
         if (!$row) {
