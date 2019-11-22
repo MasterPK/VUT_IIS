@@ -5,24 +5,28 @@ Podrobnosti kurzu
 <div class="row">
     <div class="col-sm-12">
         <div class="card bg-default ">
-            <div class="card-header">{$course->id}</div>
+            <div class="card-header">
+                {$course->id}
+            </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4 col-sm-12">
                         Typ:<br>
-                        {$type}
+                        <b>{$type}</b>
                     </div>
                     <div class="col-md-4 col-sm-12">
-                        Garant kurzu:<br>>
-                        {$guarantor}
+                        Garant kurzu:<br>
+                        <b>{$guarantor}</b>
                     </div>
                     <div class="col-md-4 col-sm-12">
-                        Cena:<br>>
-                        {$course->price}&nbsp;Kč
+                        Cena:<br>
+                        <b>{$course->price}&nbsp;Kč</b>
                     </div>
                 </div>
-                <div class="row">
-                    <p class="card-text">{$course->description}</p>
+                <div class="row ">
+                    <div class="col-sm-12">
+                        <p class="card-text">{$course->description}</p>
+                    </div>
                 </div>
             </div>
         </div>
