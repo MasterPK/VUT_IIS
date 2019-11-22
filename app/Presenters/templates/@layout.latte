@@ -77,19 +77,19 @@
 
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
-      <li class="nav-item" n:class="$presenter->isLinkCurrent('Homepage:default') ? active">
+      <li n:class="nav-item $presenter->isLinkCurrent('Homepage:default') ? active">
         <a class="nav-link" n:href="Homepage:">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Nástěnka</span>
         </a>
       </li>
-      <li class="nav-item" n:class="$presenter->isLinkCurrent('Login:default') ? active">
+      <li n:class="nav-item $presenter->isLinkCurrent('Login:default') ? active">
         <a class="nav-link" n:href="Login:">
           <i class="fas fa-fw fa-sign-in-alt"></i>
           <span>Přihlášení</span>
         </a>
       </li>
-      <li class="nav-item" n:class="$presenter->isLinkCurrent('Login:default') ? active">
+      <li n:class="nav-item $presenter->isLinkCurrent('Homepage:courses') ? active">
           <a class="nav-link" n:href="Homepage:courses">
             <i class="fas fa-fw fa-sign-in-alt"></i>
             <span>Kurzy</span>
