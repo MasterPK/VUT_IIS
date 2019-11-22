@@ -89,6 +89,12 @@
           <span>Přihlášení</span>
         </a>
       </li>
+      <li class="nav-item" n:class="$presenter->isLinkCurrent('Login:default') ? active">
+          <a class="nav-link" n:href="Homepage:courses">
+            <i class="fas fa-fw fa-sign-in-alt"></i>
+            <span>Kurzy</span>
+          </a>
+      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
@@ -115,7 +121,7 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="#">Dashboard</a>
+            <a href="#">{include header}</a>
           </li>
           <li class="breadcrumb-item active">Overview</li>
         </ol>
