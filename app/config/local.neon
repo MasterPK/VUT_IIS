@@ -9,4 +9,4 @@ database:
 services:
 	nette.latteFactory:
 		setup:
- 			– setAutoRefresh(true)
+			- setAutoRefresh(TRUE)
