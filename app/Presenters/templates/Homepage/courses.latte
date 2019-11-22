@@ -17,11 +17,9 @@ Seznam všech dostupných kurzů
 
                 {foreach $courses as $row}
                 <tr>
-                    <a n:href="Homepage:showcourse $row->id">
-                        <th scope="row">{$row->id}</th>
-                        <td>{$row->type}</td>
-                        <td>{$row->price}</td>
-                    </a>
+                    <th scope="row"><a n:href="Homepage:showcourse $row->id">{$row->id}</a></th>
+                    <td><a n:href="Homepage:showcourse $row->id">{$row->type}</a></td>
+                    <td><a n:href="Homepage:showcourse $row->id">{$row->price}</a></td>
                 </tr>
                 {/foreach}
 
