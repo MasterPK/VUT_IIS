@@ -17,16 +17,18 @@ Seznam všech dostupných kurzů
 
                 {foreach $courses as $row}
                 <tr>
-                    <th scope="row">{$row->id}</th>
-                    <td>{$row->type}</td>
-                    <td>{$row->price}</td>
+                    <a n:href="Homepage:courses $row->id">
+                        <th scope="row">{$row->id}</th>
+                        <td>{$row->type}</td>
+                        <td>{$row->price}</td>
+                    </a>
                 </tr>
                 {/foreach}
 
             </tbody>
         </table>
         {else}
-            <h3>Žádné kurzy nejsou k dispozici!</h3>
+        <h3>Žádné kurzy nejsou k dispozici!</h3>
         {/ifset}
     </div>
 </div>
