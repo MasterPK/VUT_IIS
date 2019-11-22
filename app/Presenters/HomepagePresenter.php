@@ -63,13 +63,27 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	public function renderDefault(): void
 	{ }
 
-	public function renderCourses($id): void
+	public function renderCourses(): void
 	{
 
 		$data = $this->database->table("courses")->fetchAll();
 		if($data)
 		{
 			$this->template->courses=$data;
+		}
+	}
+
+	public function renderShow_course($id): void
+	{
+
+		$course = $this->database->table("courses")->where("id=?", $id)->fetch();
+		if($course)
+		{
+			$this->template->course=$course;
+		}
+		else
+		{
+			$this->redirect('Homepage:courses');
 		}
 	}
 }
