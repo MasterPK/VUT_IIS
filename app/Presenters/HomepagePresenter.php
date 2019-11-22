@@ -37,7 +37,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 					$this->user->identity->$key = $item;
 				}
 			}
-
+			$this->template->rank=$data->rank;
 			switch($data->rank)
 			{
 				case 1: $this->template->rank_msg="Student";break;
@@ -49,6 +49,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		} 
 		else 
 		{
+			$this->template->rank=0;
 			$this->template->rank_msg = "Neregistrovaný návštěvník";
 		}
 	}

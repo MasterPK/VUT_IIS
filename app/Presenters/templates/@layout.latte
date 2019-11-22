@@ -59,17 +59,26 @@
           <span>Nástěnka</span>
         </a>
       </li>
+      {if $rank==0}
       <li n:class="nav-item, $presenter->isLinkCurrent('Login:default') ? active">
         <a class="nav-link" n:href="Login:">
           <i class="fas fa-fw fa-sign-in-alt"></i>
           <span>Přihlášení</span>
         </a>
       </li>
+      {elseif $rank>=1}
+      <li n:class="nav-item, $presenter->isLinkCurrent('Login:out') ? active">
+        <a class="nav-link" n:href="Login:">
+          <i class="fas fa-fw fa-sign-in-alt"></i>
+          <span>Odhlásit se</span>
+        </a>
+      </li>
+      {/if}
       <li n:class="nav-item, $presenter->isLinkCurrent('Homepage:courses') ? active">
-          <a class="nav-link" n:href="Homepage:courses">
-            <i class="fas fa-fw fa-graduation-cap"></i>
-            <span>Kurzy</span>
-          </a>
+        <a class="nav-link" n:href="Homepage:courses">
+          <i class="fas fa-fw fa-graduation-cap"></i>
+          <span>Kurzy</span>
+        </a>
       </li>
     </ul>
 
@@ -87,7 +96,7 @@
       </div>
     </div>
   </div>
-  
+
 
 
 </body>
