@@ -67,7 +67,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	{
 
 		$data = $this->database->table("courses")->fetchAll();
-		if(!$data)
+		if($data)
 		{
 			$this->template->courses=$data;
 		}
