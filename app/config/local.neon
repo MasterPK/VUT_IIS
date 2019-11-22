@@ -7,6 +7,6 @@ database:
 	password: VUTfit123
 
 services:
-nette.latteFactory:
-setup:
- – setAutoRefresh(true)
+	nette.latteFactory:
+		setup:
+ 			– setAutoRefresh(true)
