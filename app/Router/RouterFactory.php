@@ -15,7 +15,7 @@ final class RouterFactory
 
 	public static function createRouter(): RouteList
 	{
-		$pages = ['login', 'logout', 'courses'];
+		$pages = ['default', 'login', 'logout', 'courses'];
 
 		$router = new RouteList;
 		$router->addRoute('<page>', [
