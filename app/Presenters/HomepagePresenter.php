@@ -42,7 +42,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 
     public function renderDefault(): void
     {
-        $this->flashMessage('Test2FIT');
+        
 
         
     }
