@@ -11,7 +11,10 @@
   <link href="{$basePath}/css/sb-admin.css" rel="stylesheet">
   <link href="{$basePath}/css/all.css" rel="stylesheet">
   <link href="{$basePath}/css/fontawesome.css" rel="stylesheet">
-
+  <script src="{$basePath}/js/jquery.min.js"></script>
+  <script src="{$basePath}/js/jquery.easing.min.js"></script>
+  <script src="{$basePath}/js/bootstrap.bundle.min.js"></script>
+  <script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
 </head>
 
 <body>
@@ -24,18 +27,9 @@
       <i class="fas fa-bars"></i>
     </button>
 
-    <!-- Navbar Search -->
-    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search for..." aria-label="Search"
-          aria-describedby="basic-addon2">
-        <div class="input-group-append">
-          <button class="btn btn-primary" type="button">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
+    <div class="navbar-nav ml-auto ml-md-0">
+      {$rank}
+    </div>
 
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto ml-md-0">
@@ -88,7 +82,7 @@
       <li class="nav-item active">
         <a class="nav-link" href="index.html">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span>
+          <span>Nástěnka</span>
         </a>
       </li>
       <li class="nav-item dropdown">
@@ -134,17 +128,9 @@
       </div>
     </div>
   </div>
-      {include content}
+  {include content}
 
-      {block scripts}
-      <script src="{$basePath}/js/jquery.min.js"></script>
-      <script src="{$basePath}/js/jquery.easing.min.js"></script>
-      <script src="{$basePath}/js/bootstrap.bundle.min.js"></script>
-     
-      
-      <script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
-      
-      {/block}
+  
 </body>
 
 </html>
