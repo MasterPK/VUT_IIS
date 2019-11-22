@@ -82,8 +82,8 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 			$this->template->guarantor=$course_guarantor->first_name . " " . $course_guarantor->surname;
 			switch($course->type)
 			{
-				case P:$course->type="Povinný";break;
-				case V:$course->type="Volitelný";break;
+				case "P":$this->template->type="Povinný";break;
+				case "V":$this->template->type="Volitelný";break;
 			}
 			$this->template->course=$course;
 		}
