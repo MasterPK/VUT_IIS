@@ -1,5 +1,5 @@
 {block header}
-{$course->id}
+Podrobnosti kurzu
 {/block}
 {block content}
 <div class="row">
@@ -18,12 +18,27 @@
     </div>
 </div>
 <div class="row">
-    <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-        <div class="card-header">Header</div>
+    <div class="card text-white bg-default mb-3">
+        <div class="card-header">{$course->id}</div>
         <div class="card-body">
-            <h5 class="card-title">Primary card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+                    Typ:<br>
+                    {$type}
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    Garant kurzu:<br>>
+                    {$guarantor}
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    Cena:<br>>
+                    {$course->price}&nbsp;Kč
+                </div>
+            </div>
+            <div class="row">
+                <p class="card-text">{$course->description}</p>
+            </div>
+
         </div>
     </div>
 
