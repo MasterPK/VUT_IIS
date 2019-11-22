@@ -57,7 +57,7 @@
           <span>Nástěnka</span>
         </a>
       </li>
-      {if $rank==0}
+      {ifset $rank}{if $rank==0}{/ifset}
       <li class="nav-item">
         <a class="nav-link" n:href="Login:login">
           <i class="fas fa-fw fa-sign-in-alt"></i>
@@ -70,7 +70,7 @@
           <span>Kurzy</span>
         </a>
       </li>
-      {elseif $rank>=1}
+      {ifset $rank}{elseif $rank>=1}{/ifset}
       <li class="nav-item">
         <a class="nav-link" n:href="Login:logout">
           <i class="fas fa-fw fa-sign-in-alt"></i>
@@ -78,7 +78,7 @@
         </a>
       </li>
       {/if}
-      {if $rank==1}
+      {ifset $rank}{if $rank==1}{/ifset}
       <li class="nav-item dropdown {if $presenter->isLinkCurrent('Homepage:courses') || $presenter->isLinkCurrent('Student:courses')}show active{/if}">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="{if $presenter->isLinkCurrent('Homepage:courses') || $presenter->isLinkCurrent('Student:courses')}true{else}false{/if}">
