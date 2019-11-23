@@ -60,14 +60,25 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	public function renderDefault(): void
 	{ }
 
-	public function renderCourses($search): void
+	public function renderCourses($search, $filter): void
 	{
-	
-		$data = $this->database->table("course")->fetchAll();
-		if($data)
+		if($search)
 		{
-			$this->template->courses=$data;
-		}	
+			$data = $this->database->table("course")->where( $filter . " LIKE ?",  "%" . $search . "%")->fetchAll();		
+			
+			if($data)
+			{
+				$this->template->courses=$data;
+			}
+		}
+		else
+		{
+			$data = $this->database->table("course")->fetchAll();
+			if($data)
+			{
+				$this->template->courses=$data;
+			}	
+		}
 	}
 
 	public function renderShowcourse($id): void
@@ -120,16 +131,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	public function searchCourseForm(Nette\Application\UI\Form $form): void
     {
     	$values = $form->getValues();
-		$search = $values->search;
-		$filter = $values->filter;
-
-		$data = $this->database->table("course")->where( $filter . " LIKE ?",  "%" . $search . "%")->fetchAll();		
-			
-		if($data)
-		{
-			$this->template->courses=$data;
-		}
-		$this->redrawControl('searchtable');
+    	$this->redirect("Homepage:courses", $values->search, $values->filter);
 	}
 	
 	
