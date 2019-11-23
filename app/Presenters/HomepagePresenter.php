@@ -110,6 +110,14 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 				$this->template->register=false;
 			}
 
+			$course_students = $this->database->query("SELECT id_user FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_user = ?",  $this->user->identity->id);
+
+			//a ani uz registrovani studenti
+			if($course_students->getRowCount() > 0)
+			{
+				$this->template->register=false;
+			}
+
 			switch($course->type)
 			{
 				case "P":$this->template->type="Povinný";break;
