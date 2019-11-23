@@ -60,10 +60,10 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	public function renderDefault(): void
 	{ }
 
-	public function renderCourses($id): void
+	public function renderCourses($search, $filter): void
 	{
 
-		if(empty($id->search))
+		if(empty($search))
 		{
 			$data = $this->database->table("course")->fetchAll();
 			if($data)
@@ -73,73 +73,25 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		}
 		else
 		{
-			$course = NULL;
+			$data = NULL;
 
-			$filter = $id->filter;
 			switch ($filter) {
 				case 'name':
 					
 					break;
 				case 'id':
-					$course = $this->database->table("course")->where("id=?", $id->search)->fetch();
+					$data = $this->database->table("course")->where("id=?", $id->search)->fetch();
 					break;
 				default:
-					$this->redirect('Homepage:courses');
+					$data = $this->database->table("course")->fetchAll();
 					break;
 			}
 			
-			if($course)
+			if($data)
 			{
-				
 				$this->template->courses=$course;
 			}
-			else
-			{
-				$this->redirect('Homepage:courses');
-			}
 		}
-		
-	}
-
-	public function renderShowcourse($id): void
-	{
-
-		if(empty($id->search))
-		{
-			$this->redirect('Homepage:courses');
-		}
-
-		$course = NULL;
-
-		$filter = $id->filter;
-		switch ($filter) {
-			case 'name':
-				
-				break;
-			case 'id':
-				$course = $this->database->table("course")->where("id=?", $id->search)->fetch();
-				break;
-			default:
-				$this->redirect('Homepage:courses');
-				break;
-		}
-		
-		if($course)
-		{
-			$course_guarantor = $this->database->table("user")->where("id=?", $course->id_guarantor)->fetch();
-			$this->template->guarantor=$course_guarantor->first_name . " " . $course_guarantor->surname;
-			switch($course->type)
-			{
-				case "P":$this->template->type="Povinný";break;
-				case "V":$this->template->type="Volitelný";break;
-			}
-			$this->template->course=$course;
-		}
-		else
-		{
-			$this->redirect('Homepage:courses');
-		}
-
 		
 	}
 
@@ -169,7 +121,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	public function searchCourseForm(Nette\Application\UI\Form $form): void
     {
     	$data = $form->getValues();
-		$this->redirect("Homepage:courses", $data);
+		$this->redirect("Homepage:courses", $data->search, $data->filter);
 	}
 	
 	public function renderSearchcourses($id)
