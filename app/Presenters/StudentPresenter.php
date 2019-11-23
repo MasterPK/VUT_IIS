@@ -89,15 +89,18 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 
         $form->addText('id_course', 'Zkratka kurzu')
         ->setHtmlAttribute('class', 'form-control')
-        ->setRequired("Zkratka kurzu");
+        ->setRequired()
+        ->addRule(Form::MAX_LENGTH, 'Maximální dĺžka zkratky je 5 znaků!', 5);
 
         $form->addText('name', 'Název kurzu')
         ->setHtmlAttribute('class', 'form-control')
-        ->setRequired();
+        ->setRequired()
+        ->addRule(Form::MAX_LENGTH, 'Zadali jste příliš dlouhé jméno!', 30);
 
         $form->addText('description', 'Popis')
         ->setHtmlAttribute('class', 'form-control')
-        ->setRequired();
+        ->setRequired()
+        ->addRule(Form::MAX_LENGTH, 'Icte s tym do piče!', 500);
 
         $form->addSelect('type', 'Typ', [
 		    'P' => 'Povinný',
@@ -108,7 +111,8 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 
 		$form->addText('price', 'Cena')
         ->setHtmlAttribute('class', 'form-control')
-        ->setRequired();
+        ->setRequired()
+        ->addRule(Form::MAX, 'nebud nenazrany!');
 
         $form->addSubmit('create', 'Vytvořit kurz')
         ->setHtmlAttribute('class', 'btn btn-block btn-primary');
@@ -120,6 +124,7 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 	public function createCourseForm(Nette\Application\UI\Form $form): void
     {
     	$values = $form->getValues();
+
     	$data = $this->database->query("INSERT INTO course (id_course, name, description, type, price, id_guarantor) VALUES ('', ?, ?, ?, ?, ?)", $values->id_course, $values->name, $values->description, $values->type, $values->price,  $this->user->identity->id);
 	}
 }
