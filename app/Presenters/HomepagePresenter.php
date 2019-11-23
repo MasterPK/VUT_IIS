@@ -116,7 +116,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		$this->redirect("Homepage:searchcourses $values->search");
 	}
 	
-	public function renderSearchCourses($id)
+	public function renderSearchcourses($id)
 	{
 
 	}
