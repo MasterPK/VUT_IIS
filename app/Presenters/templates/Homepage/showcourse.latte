@@ -5,14 +5,14 @@ Podrobnosti kurzu
 <div class="row">
     <div class="col-sm-12">
         <div class="card bg-default ">
-
+            {snippet error_notif_snippet}
             {ifset $error_notif}
-            <div class="alert alert-danger">
+            <div class="alert alert-danger animated bounce">
                 <strong>Žádost byla zamítnuta!</strong> 
                 Již jste o registraci požádali!
             </div>
             {/ifset}
-
+            {/snippet}
 
             <div class="card-header">
                 {$course->id_course}
