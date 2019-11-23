@@ -26,7 +26,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		{
 			
 			$data = $this->database->table("user")
-				->where("id=?", $this->user->identity->id)
+				->where("id_user=?", $this->user->identity->id)
 				->fetch();
 
 			$userData=new Nette\Security\Identity ($this->user->identity->id,$this->user->identity->rank,$data);
@@ -76,11 +76,11 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		{
 			$this->redirect('Homepage:courses');
 		}
-		$course = $this->database->table("course")->where("id=?", $id)->fetch();
+		$course = $this->database->table("course")->where("id_course=?", $id)->fetch();
 		
 		if($course)
 		{
-			$course_guarantor = $this->database->table("user")->where("id=?", $course->id_guarantor)->fetch();
+			$course_guarantor = $this->database->table("user")->where("id_user=?", $course->id_user)->fetch();
 			$this->template->guarantor=$course_guarantor->first_name . " " . $course_guarantor->surname;
 			switch($course->type)
 			{
@@ -101,7 +101,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 
         $form->addSelect('filter', 'Filter', [
 		    'name' => 'Název',
-		    'id' => 'Zkratka',
+		    'id_course' => 'Zkratka',
 		    'type' => 'Typ',
 		    'price' => 'Cena',
 		]);

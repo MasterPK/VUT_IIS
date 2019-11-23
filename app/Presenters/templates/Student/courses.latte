@@ -18,7 +18,7 @@ Moje kurzy
 
                     {foreach $courses as $row}
                     <tr>
-                        <th scope="row"><a n:href="Homepage:showcourse $row->id">{$row->id}</a></th>
+                        <th scope="row"><a n:href="Homepage:showcourse $row->id_course">{$row->id_course}</a></th>
                         <td>{$row->name}</td>
                         <td>{$row->type}</td>
                         <td>{$row->price}</td>

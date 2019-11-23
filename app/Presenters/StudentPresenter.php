@@ -24,7 +24,7 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 		{
 			
 			$data = $this->database->table("user")
-				->where("id=?", $this->user->identity->id)
+				->where("id_user=?", $this->user->identity->id)
 				->fetch();
 
 			if($data->rank<1)
@@ -65,7 +65,7 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 
 	public function renderCourses(): void
 	{
-		$data = $this->database->query("SELECT * FROM user JOIN course_has_student ON user.id=course_has_student.id_student JOIN course ON course.id=course_has_student.id_course WHERE id_student = ?",  $this->user->identity->id);
+		$data = $this->database->query("SELECT id_course, name, type, price FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_user = ?",  $this->user->identity->id);
 
 		if($data)
 		{
