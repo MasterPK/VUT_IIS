@@ -73,19 +73,8 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		}
 		else
 		{
-			$data = NULL;
-
-			switch ($filter) {
-				case 'name':
-					$data = $this->database->table("course")->where("name LIKE ?",  "%" . $search . "%")->fetchAll();
-					break;
-				case 'id':
-					$data = $this->database->table("course")->where("id LIKE ?", "%" . $search . "%")->fetchAll();
-					break;
-				default:
-					$data = $this->database->table("course")->fetchAll();
-					break;
-			}
+			
+			$data = $this->database->table("course")->where( $filter . " LIKE ?",  "%" . $search . "%")->fetchAll();		
 			
 			if($data)
 			{
