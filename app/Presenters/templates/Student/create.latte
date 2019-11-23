@@ -1,0 +1,38 @@
+{block header}
+Vytvoření nového kurzu
+{/block}
+<div class="h-100 row align-items-center">
+    <div class="col-md-4 col-sm-1" />
+    <div class="col-md-4 col-sm-10 mlr-2 align-items-center">
+      
+        {ifset message} {include message} {/ifset} {ifset $error_login}
+        <div class="alert alert-danger">
+            <strong>Vytvoření kurzu bylo neúspěšné!</strong> Zadané údaje nejsou správné!
+        </div>
+        {/ifset}
+
+        <form n:name="createCourseForm">
+            <div class="form-group">
+                <label>Zkratka kurzu</label> {input id_course}
+            </div>
+            <div class="form-group">
+                <label>Název kurzu</label> {input name}
+            </div>
+            <div class="form-group">
+                <label>Popis</label> {input description}
+            </div>
+            <div class="form-group">
+                <label>Typ</label> {input type}
+            </div>
+            <div class="form-group">
+                <label>Cena</label> {input price}
+            </div>
+            <div class="form-group text-center ">
+                {input create}
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4 col-sm-1" />
+</div>
+{block content}
+{/block}

@@ -82,4 +82,42 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 			$this->template->courses=$data;
 		}
 	}
+
+	protected function createComponentCreateCourseForm(): Nette\Application\UI\Form
+    {
+        $form = new Nette\Application\UI\Form;
+
+        $form->addText('id_course', 'Zkratka kurzu')
+        ->setHtmlAttribute('class', 'form-control')
+        ->setRequired();
+
+        $form->addText('name', 'Název kurzu')
+        ->setHtmlAttribute('class', 'form-control')
+        ->setRequired();
+
+        $form->addText('description', 'Popis')
+        ->setHtmlAttribute('class', 'form-control')
+        ->setRequired();
+
+        $form->addSelect('type', 'Typ', [
+		    'P' => 'Povinný',
+		    'V' => 'Volitelný',
+		]);
+
+		$form->addText('price', 'Cena')
+        ->setHtmlAttribute('class', 'form-control')
+        ->setRequired();
+
+        $form->addSubmit('create', 'Vytvořit kurz')
+        ->setHtmlAttribute('class', 'btn btn-block btn-primary');
+        
+        $form->onSuccess[] = [$this, 'createCourseForm'];
+        return $form;
+	}
+
+	public function createCourseForm(Nette\Application\UI\Form $form): void
+    {
+    	$values = $form->getValues();
+    	$data = $this->database->query("INSERT INTO course (id_course, name, description, type, price, id_guarantor) VALUES ('', ?, ?, ?, ?, ?)", $values->id_course, $values->name, $values->description, $values->type, $values->price,  $this->user->identity->id);
+	}
 }
