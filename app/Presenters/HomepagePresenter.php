@@ -77,10 +77,10 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 
 			switch ($filter) {
 				case 'name':
-					$data = $this->database->table("course")->where("name=?", $search)->fetchAll();
+					$data = $this->database->table("course")->where("name like ?", $search)->fetchAll();
 					break;
 				case 'id':
-					$data = $this->database->table("course")->where("id=?", $search)->fetchAll();
+					$data = $this->database->table("course")->where("id like ?", $search)->fetchAll();
 					break;
 				default:
 					$data = $this->database->table("course")->fetchAll();
