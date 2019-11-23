@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Presenters;
 
 use Nette;
+use Nette\Application\UI\Form;
 
 
 final class StudentPresenter extends Nette\Application\UI\Presenter 
@@ -83,9 +84,9 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 		}
 	}
 
-	protected function createComponentCreateCourseForm(): Nette\Application\UI\Form
+	protected function createComponentCreateCourseForm(): Form
     {
-        $form = new Nette\Application\UI\Form;
+        $form = new Form;
 
         $form->addText('id_course', 'Zkratka kurzu')
         ->setHtmlAttribute('class', 'form-control')
