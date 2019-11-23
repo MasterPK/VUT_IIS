@@ -119,7 +119,6 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		    'type' => 'Typ',
 		    'price' => 'Cena',
 		]);
-		$form['filter']->setDefaultValue('name');
 
         $form->addText('search', 'Hledat:')
         ->setHtmlAttribute('class', 'form-control')
