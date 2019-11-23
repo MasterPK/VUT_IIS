@@ -167,7 +167,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		$form = new UI\Form;
 		$form->getElementPrototype()->class('ajax');
 		$form->addHidden('id_course');
-
+		dump($id);
 		$form->setDefaults([
             'id_course' => $id,
 
