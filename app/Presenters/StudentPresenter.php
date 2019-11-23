@@ -75,7 +75,7 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 
 	public function renderLector(): void
 	{
-		$data = $this->database->query("SELECT id_course, name, type, price FROM user NATURAL JOIN course_has_lector NATURAL JOIN course WHERE id_user = ?",  $this->user->identity->id);
+		$data = $this->database->query("SELECT id_course, name, type, price FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ?",  $this->user->identity->id);
 
 		if($data->getRowCount() > 0)
 		{
