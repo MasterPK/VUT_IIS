@@ -159,7 +159,6 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
     	$this->redirect("Homepage:courses", $values->search, $values->filter);
 	}
 	
-	
 
 	protected function createComponentRegisterForm(): UI\Form
     {
@@ -168,6 +167,22 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
         $form->addSubmit('register', 'Registrovat kurz')
 		->setHtmlAttribute('class', 'btn btn-block btn-primary');
 		
+		$form->onSuccess[] = [$this, 'addNotification'];
         return $form;
     }
+
+    public function addNotification(Nette\Application\UI\Form $form): void
+    {
+    	$get = $this->database->query("SELECT id_notification FROM notification WHERE id_course = ? AND id_user = ?", $this->template->course->id_course, $this->user->identity->id);
+
+    	if($get->getRowCount() == 0)
+    	{
+    		$data = $this->database->query("INSERT INTO notification ( id_notification, id_course, id_user) VALUES ('', ?, ?)", $this->template->course->id_course, $this->user->identity->id);
+    	}
+    	else
+    	{
+    		$this->template->error_notif = true;
+    	}
+    	
+	}
 }
