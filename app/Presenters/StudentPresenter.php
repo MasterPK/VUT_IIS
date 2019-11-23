@@ -65,17 +65,11 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 
 	public function renderCourses(): void
 	{
-		$courses = $this->database->table("course_has_student")
-		->where("id_student=?", $this->user->identity->id)
-		->fetchAll();
+		$data = $this->database->query("SELECT * FROM user JOIN course_has_student ON user.id=course_has_student.id_student JOIN course ON course.id=course_has_student.id_course WHERE id_student = ?",  $this->user->identity->id);
 
-		if($courses)
+		if($data)
 		{
-			$data = $this->database->table("course")
-			->where("id=?",$courses->id_course)
-			->fetchAll();
-
-			if($data) $this->template->courses=$data;
+			$this->template->courses=$data;
 		}	
 	}
 }
