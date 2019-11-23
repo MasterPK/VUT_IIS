@@ -55,7 +55,10 @@
             <span>Přihlásit se</span>
           </a>
           {elseif $rank >= 1}
-          <a class="dropdown-item" href="#">Nastavení profilu</a>
+          <a class="dropdown-item" n:href="Login:settings">
+            <i class="fas fa-user-cog"></i>
+            <span>Nastavení profilu</span>
+          </a>
           <a class="dropdown-item" n:href="Login:logout">
             <i class="fas fa-sign-out-alt"></i>
             <span>Odhlásit se</span>
