@@ -129,6 +129,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		{
 			$this->template->courses=$data;
 		}
+		$this->redrawControl('table');
 	}
 	
 	
