@@ -80,7 +80,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 					$data = $this->database->table("course")->where("name=?", $search)->fetchAll();
 					break;
 				case 'id':
-					$data = $this->database->table("course")->where("id=?", $search)->fetch();
+					$data = $this->database->table("course")->where("id=?", $search)->fetchAll();
 					break;
 				default:
 					$data = $this->database->table("course")->fetchAll();
