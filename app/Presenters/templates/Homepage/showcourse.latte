@@ -41,11 +41,13 @@ Podrobnosti kurzu
     <div class ="col-auto mr-auto"></div>
     <div class = "col-auto">
         {if $rank > 0}
-            <form n:name="registerForm">
-                <div class="form-group text-center ">
-                    {input register}
-                </div>
-            </form>
+            {if $id_user != $course_guarantor->id_user}
+                <form n:name="registerForm">
+                    <div class="form-group text-center ">
+                        {input register}
+                    </div>
+                </form>
+            {/if}
         {/if}
     </div>
 </div>

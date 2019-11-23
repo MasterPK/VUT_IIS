@@ -39,6 +39,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 					$this->user->identity->$key = $item;
 				}
 			}
+			$this->template->id_user=$data->id_user;
 			$this->template->rank=$data->rank;
 			switch($data->rank)
 			{
