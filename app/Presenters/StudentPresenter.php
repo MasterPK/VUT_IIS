@@ -63,5 +63,4 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 	public function renderDefault(): void
 	{ }
 
-
 }

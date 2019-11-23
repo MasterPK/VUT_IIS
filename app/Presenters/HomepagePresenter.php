@@ -6,6 +6,8 @@ namespace App\Presenters;
 
 use Nette;
 
+use Nette\Application\UI;
+
 
 final class HomepagePresenter extends Nette\Application\UI\Presenter
 {
@@ -93,4 +95,41 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 			$this->redirect('Homepage:courses');
 		}
 	}
+
+	protected function createComponentSearchCourseForm(): Nette\Application\UI\Form
+    {
+        $form = new Nette\Application\UI\Form;
+        $form->addText('search', 'Hledat:')
+        ->setHtmlAttribute('class', 'form-control')
+        ->setRequired();
+
+        $form->addSubmit('send', 'Hledat')
+        ->setHtmlAttribute('class', 'btn btn-block btn-primary');
+        
+        $form->onSuccess[] = [$this, 'searchCourseForm'];
+        return $form;
+	}
+	
+	public function searchCourseForm(Nette\Application\UI\Form $form): void
+    {
+        $values = $form->getValues();
+		$this->redirect("Homepage:searchcourses $values->search");
+	}
+	
+	public function renderSearchcourses($id)
+	{
+
+	}
+
+	
+
+	protected function createComponentRegisterForm(): UI\Form
+    {
+        $form = new UI\Form;
+
+        $form->addSubmit('register', 'Registrovat kurz')
+		->setHtmlAttribute('class', 'btn btn-block btn-primary');
+		
+        return $form;
+    }
 }
