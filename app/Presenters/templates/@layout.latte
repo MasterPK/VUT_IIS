@@ -84,7 +84,7 @@
           aria-haspopup="true" aria-expanded="{if $presenter->isLinkCurrent('Homepage:courses') || $presenter->isLinkCurrent('Student:courses') || $presenter->isLinkCurrent('Student:lector')}true{else}false{/if}">
           <i class="fas fa-fw fa-folder"></i>
           <span>Kurzy</span>
-          <div class="dropdown-menu {if $presenter->isLinkCurrent('Homepage:courses') || $presenter->isLinkCurrent('Student:courses')
+          <div class="dropdown-menu {if $presenter->isLinkCurrent('Homepage:courses') || $presenter->isLinkCurrent('Student:courses') ||
           $presenter->isLinkCurrent('Student:lector')}show{/if}" aria-labelledby="pagesDropdown">
           <a class="dropdown-item {if $presenter->isLinkCurrent('Homepage:courses')}active{/if}" n:href="Homepage:courses">Všechny kurzy</a>
           <a class="dropdown-item {if $presenter->isLinkCurrent('Student:courses')}active{/if}" n:href="Student:courses">Moje kurzy</a>
