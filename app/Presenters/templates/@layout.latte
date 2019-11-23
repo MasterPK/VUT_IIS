@@ -80,7 +80,7 @@
       </li>
       {ifset $rank}
       {if $rank==0}
-        <li n:class="nav-item, $presenter->isLinkCurrent('Homepage:courses') ? active">
+        <li n:class="nav-item, $presenter->isLinkCurrent('Homepage:courses') || $presenter->isLinkCurrent('Login:login') ? active">
           <a class="nav-link" n:href="Homepage:courses">
             <i class="fas fa-fw fa-sign-out-alt"></i>
             <span>Kurzy</span>
