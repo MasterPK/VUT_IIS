@@ -128,6 +128,14 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
     {
     	$values = $form->getValues();
 
-    	$data = $this->database->query("INSERT INTO course (id_course, name, description, type, price, id_guarantor) VALUES (?, ?, ?, ?, ?, ?)", $values->id_course, $values->name, $values->description, $values->type, $values->price,  $this->user->identity->id);
+    	try
+    	{
+    		$data = $this->database->query("INSERT INTO course (id_course, name, description, type, price, id_guarantor) VALUES (?, ?, ?, ?, ?, ?)", $values->id_course, $values->name, $values->description, $values->type, $values->price,  $this->user->identity->id);
+    	}
+    	catch(Nette\Database\UniqueConstraintViolationException $e)
+    	{
+    		$this->template->error_insert=true;
+    		$this->template->error_course=$values->id_course;
+    	}
 	}
 }
