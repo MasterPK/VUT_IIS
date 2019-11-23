@@ -87,10 +87,10 @@
         <div class="dropdown-menu {if $presenter->isLinkCurrent('Homepage:courses') || $presenter->isLinkCurrent('Student:courses') || $presenter->isLinkCurrent('Student:lector') || $presenter->isLinkCurrent('Student:create')}show{/if}" aria-labelledby="pagesDropdown">
           <a class="dropdown-item {if $presenter->isLinkCurrent('Homepage:courses')}active{/if}" n:href="Homepage:courses">Všechny kurzy</a>
           <a class="dropdown-item {if $presenter->isLinkCurrent('Student:courses')}active{/if}" n:href="Student:courses">Moje kurzy</a>
-          {if $rank==2}
+          {if $rank>=2}
           <a class="dropdown-item {if $presenter->isLinkCurrent('Student:lector')}active{/if}" n:href="Student:lector">Správa kurzů</a>
           {/if}
-          {if $rank==3}
+          {if $rank>=3}
           <a class="dropdown-item {if $presenter->isLinkCurrent('Student:create')}active{/if}" n:href="Student:create">Vytvoření nového kurzu</a>
           {/if}
         </div>
