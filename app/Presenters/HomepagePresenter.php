@@ -77,7 +77,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		{
 			$this->redirect('Homepage:courses');
 		}
-		$course = $this->database->table("course")->where("id=?", $id->search)->fetch();
+		$course = $this->database->table("course")->where("id=?", $id)->fetch();
 		
 		if($course)
 		{
@@ -113,7 +113,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	public function searchCourseForm(Nette\Application\UI\Form $form): void
     {
         $values = $form->getValues();
-		$this->redirect("Homepage:showcourse, $values");
+		$this->redirect("Homepage:showcourse", $values->search());
 	}
 	
 	public function renderSearchcourses($id)
