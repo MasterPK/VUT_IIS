@@ -89,7 +89,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 			
 			if($data)
 			{
-				$this->template->courses=$course;
+				$this->template->courses=$data;
 			}
 		}
 		
