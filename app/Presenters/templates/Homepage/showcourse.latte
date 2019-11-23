@@ -40,7 +40,7 @@ Podrobnosti kurzu
 <div class = "row">
     <div class ="col-auto mr-auto"></div>
     <div class = "col-auto">
-        {if $rank > 0 && $id_user != $id_guarantor}
+        {if $rank > 0 && $register == true}
             <form n:name="registerForm">
                 <div class="form-group text-center ">
                     {input register}

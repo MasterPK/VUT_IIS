@@ -39,7 +39,6 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 					$this->user->identity->$key = $item;
 				}
 			}
-			$this->template->id_user=$data->id_user;
 			$this->template->rank=$data->rank;
 			switch($data->rank)
 			{
@@ -92,9 +91,25 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		
 		if($course)
 		{
-			$course_guarantor = $this->database->table("user")->where("id_user=?", $course->id_guarantor)->fetch();
+			$course_guarantor = $this->database->table("user")
+				->where("id_user=?", $course->id_guarantor)
+				->fetch();
+
 			$this->template->guarantor=$course_guarantor->first_name . " " . $course_guarantor->surname;
-			$this->template->id_guarantor=$course_guarantor->id_user;
+			
+			$this->template->register=true;
+			//garant sa nemoze registrovat na svoj kurz
+			if($this->user->identity->id == $course->id_guarantor)
+			{
+				$this->template->register=false;
+			}
+			$course_lectors = $this->database->query("SELECT id_user FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ?",  $this->user->identity->id);
+			//ani lektori sa nemozu registrovat na kurzy, ktore ucia
+			if($course_lectors->getRowCount() > 0)
+			{
+				$this->template->register=false;
+			}
+
 			switch($course->type)
 			{
 				case "P":$this->template->type="Povinný";break;
