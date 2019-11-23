@@ -34,12 +34,18 @@ Podrobnosti kurzu
         </div>
     </div>
 </div>
-{if $rank > 0}
-    <form n:name="registerForm">
-         <div class="form-group text-center ">
-            {input register}
-        </div>
-    </form>
-{/if}
 
+<div class = "row">
+    <div class ="col-md-4">
+        <div class = "col-md-8">
+            {if $rank > 0}
+                <form n:name="registerForm">
+                    <div class="form-group text-center ">
+                        {input register}
+                    </div>
+                </form>
+            {/if}
+        </div>
+    </div>
+</div>
 {/block}
