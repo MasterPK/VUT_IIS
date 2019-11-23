@@ -90,19 +90,16 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 
         $form->addText('id_course', 'Zkratka kurzu')
         ->setHtmlAttribute('class', 'form-control')
-        ->setRequired()
         ->addRule(Form::MIN_LENGTH, 'Dĺžka zkratky musí být 3 až 5 znaků!', 3)
         ->addRule(Form::MAX_LENGTH, 'Dĺžka zkratky musí být 3 až 5 znaků!', 5);
 
         $form->addText('name', 'Název kurzu')
         ->setHtmlAttribute('class', 'form-control')
-        ->setRequired()
         ->addRule(Form::MIN_LENGTH, 'Dĺžka jména musí být 5 až 30 znaků!', 5)
         ->addRule(Form::MAX_LENGTH, 'Dĺžka jména musí být 5 až 30 znaků!', 30);
 
         $form->addText('description', 'Popis')
         ->setHtmlAttribute('class', 'form-control')
-        ->setRequired()
         ->addRule(Form::MIN_LENGTH, 'Dĺžka popisu musí být 5 až 500 znaků!', 5)
         ->addRule(Form::MAX_LENGTH, 'Dĺžka popisu musí být 5 až 500 znaků!', 500);
 
@@ -115,9 +112,7 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 
 		$form->addText('price', 'Cena')
         ->setHtmlAttribute('class', 'form-control')
-        ->setRequired()
-        ->addRule(Form::INTEGER)
-        ->addRule(Form::MAX, 'nebud nenazrany!');
+        ->addRule(Form::PATTERN, 'Zadejte číslo v rozmezí 0 - 1000 000 000!', '([0-9]\s*){1,10}');
 
         $form->addSubmit('create', 'Vytvořit kurz')
         ->setHtmlAttribute('class', 'btn btn-block btn-primary');
