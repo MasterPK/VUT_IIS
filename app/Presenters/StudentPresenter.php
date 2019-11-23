@@ -67,7 +67,7 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 	{
 		$data = $this->database->query("SELECT id_course, name, type, price FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_user = ?",  $this->user->identity->id);
 
-		if(count($data) != 0)
+		if($data->getRowCount() > 0)
 		{
 			$this->template->courses=$data;
 		}
