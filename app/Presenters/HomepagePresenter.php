@@ -168,7 +168,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	
 	public function searchCourseForm(Nette\Application\UI\Form $form): void
     {
-		$this->redirect("Homepage:course", $form->getValues());
+		$this->redirect("Homepage:courses", $form->getValues());
 	}
 	
 	public function renderSearchcourses($id)
