@@ -57,8 +57,11 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	}
 
 
-	public function renderDefault(): void
-	{ }
+	public function renderDefault($id): void
+	{ 
+
+		addNotification($id);
+	}
 
 	public function renderCourses($search, $filter): void
 	{
@@ -171,13 +174,13 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
         return $form;
     }
 
-    public function addNotification(UI\Form $form): void
+    public function addNotification($id_course): void
     {
-    	$get = $this->database->query("SELECT id_notification FROM notification WHERE id_course = ? AND id_user = ?", $this->template->course->id_course, $this->user->identity->id);
+    	$get = $this->database->query("SELECT id_notification FROM notification WHERE id_course = ? AND id_user = ?", $id_course, $this->user->identity->id);
 
     	if($get->getRowCount() == 0)
     	{
-    		$data = $this->database->query("INSERT INTO notification ( id_notification, id_course, id_user) VALUES ('', ?, ?)", $this->template->course->id_course, $this->user->identity->id);
+    		$data = $this->database->query("INSERT INTO notification ( id_notification, id_course, id_user) VALUES ('', ?, ?)", $id_course, $this->user->identity->id);
     	}
     	else
     	{
