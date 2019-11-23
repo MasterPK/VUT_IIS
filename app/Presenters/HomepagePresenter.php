@@ -60,24 +60,69 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	public function renderDefault(): void
 	{ }
 
-	public function renderCourses(): void
+	public function renderCourses($id): void
 	{
 
-		$data = $this->database->table("course")->fetchAll();
-		if($data)
+		if(empty($id->search))
 		{
-			$this->template->courses=$data;
+			$data = $this->database->table("course")->fetchAll();
+			if($data)
+			{
+				$this->template->courses=$data;
+			}
 		}
+		else
+		{
+			$course = NULL;
+
+			$filter = $id->filter;
+			switch ($filter) {
+				case 'name':
+					
+					break;
+				case 'id':
+					$course = $this->database->table("course")->where("id=?", $id->search)->fetch();
+					break;
+				default:
+					$this->redirect('Homepage:courses');
+					break;
+			}
+			
+			if($course)
+			{
+				
+				$this->template->courses=$course;
+			}
+			else
+			{
+				$this->redirect('Homepage:courses');
+			}
+		}
+		
 	}
 
 	public function renderShowcourse($id): void
 	{
 
-		if(empty($id))
+		if(empty($id->search))
 		{
 			$this->redirect('Homepage:courses');
 		}
-		$course = $this->database->table("course")->where("id=?", $id)->fetch();
+
+		$course = NULL;
+
+		$filter = $id->filter;
+		switch ($filter) {
+			case 'name':
+				
+				break;
+			case 'id':
+				$course = $this->database->table("course")->where("id=?", $id->search)->fetch();
+				break;
+			default:
+				$this->redirect('Homepage:courses');
+				break;
+		}
 		
 		if($course)
 		{
@@ -94,6 +139,8 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		{
 			$this->redirect('Homepage:courses');
 		}
+
+		
 	}
 
 	protected function createComponentSearchCourseForm(): Nette\Application\UI\Form
@@ -121,8 +168,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	
 	public function searchCourseForm(Nette\Application\UI\Form $form): void
     {
-        $values = $form->getValues();
-		$this->redirect("Homepage:showcourse", $values->search);
+		$this->redirect("Homepage:course", $form->getValues());
 	}
 	
 	public function renderSearchcourses($id)
