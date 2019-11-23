@@ -6,10 +6,17 @@ Podrobnosti kurzu
     <div class="col-sm-12">
         {snippet error_notif_snippet}
         {ifset $error_notif}
+        {if $error_notif==1}
         <div class="alert alert-danger animated bounce">
             <strong>Žádost byla zamítnuta!</strong>
             Již jste o registraci požádali!
         </div>
+        {elseif $error_notif==2}
+        <div class="alert alert-success animated bounce">
+                <strong>Žádost byla přijata!</strong>
+                Vaše žádost byla přijata bude v co nejkratší době zpracována garantem kurzu!
+        </div>
+        {/if}
         {/ifset}
         {/snippet}
     </div>

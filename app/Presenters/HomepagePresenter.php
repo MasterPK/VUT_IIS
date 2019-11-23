@@ -191,11 +191,12 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 
     	if($get->getRowCount() == 0)
     	{
-    		$data = $this->database->query("INSERT INTO notification ( id_notification, id_course, id_user) VALUES ('', ?, ?)", $values->id_course, $this->user->identity->id);
+			$data = $this->database->query("INSERT INTO notification ( id_notification, id_course, id_user) VALUES ('', ?, ?)", $values->id_course, $this->user->identity->id);
+			$this->template->error_notif = 2;
     	}
     	else
     	{
-    		$this->template->error_notif = true;
+    		$this->template->error_notif = 1;
 		}
 		
 		if ($this->isAjax())
