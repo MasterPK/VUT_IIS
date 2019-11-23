@@ -70,6 +70,10 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 		if($data)
 		{
 			$this->template->courses=$data;
-		}	
+		}
+		else
+		{
+			$this->template->courses=NULL;
+		}
 	}
 }
