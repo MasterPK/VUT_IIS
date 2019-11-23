@@ -11,6 +11,11 @@ use Nette\Application\UI;
 
 final class LoginPresenter extends Nette\Application\UI\Presenter
 {
+    private $database;
+    public function __construct(Nette\Database\Context $database)
+    {
+        $this->database = $database;
+    }
 
     public function startUp()
     {
@@ -50,7 +55,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         }
     }
 
-    
+
     public function renderDefault()
     {
         $this->getUser()->isLoggedIn() ? $this->redirect("Homepage:"):"";
