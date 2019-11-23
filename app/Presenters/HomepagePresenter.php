@@ -185,6 +185,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 
     public function addNotification($form): void
     {
+		
 		$values = $form->getValues();
     	$get = $this->database->query("SELECT id_notification FROM notification WHERE id_course = ? AND id_user = ?", $values->id_course, $this->user->identity->id);
 
@@ -195,7 +196,12 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
     	else
     	{
     		$this->template->error_notif = true;
-    	}
+		}
+		
+		if ($this->isAjax())
+		{
+            $this->redrawControl('error_notif_snippet');
+        }
     	
 	}
 }
