@@ -78,7 +78,7 @@
           <span>Odhlásit se</span>
         </a>
       </li>
-      <li class="nav-item dropdown {if $presenter->isLinkCurrent('Homepage:courses') || $presenter->isLinkCurrent('Student:courses') || $presenter->isLinkCurrent('Student:lector') || $presenter->isLinkCurrent('Student:create')}show active{/if}">
+      <li class="nav-item dropdown {if $presenter->isLinkCurrent('Homepage:courses') || $presenter->isLinkCurrent('Student:courses') || $presenter->isLinkCurrent('Student:lector') || $presenter->isLinkCurrent('Student:create') || $presenter->isLinkCurrent('Homepage:showcourse')}show active{/if}">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="{if $presenter->isLinkCurrent('Homepage:courses') || $presenter->isLinkCurrent('Student:courses') || $presenter->isLinkCurrent('Student:lector') || $presenter->isLinkCurrent('Student:create') }true{else}false{/if}">
           <i class="fas fa-fw fa-folder"></i>
