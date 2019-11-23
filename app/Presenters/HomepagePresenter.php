@@ -94,6 +94,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		{
 			$course_guarantor = $this->database->table("user")->where("id_user=?", $course->id_guarantor)->fetch();
 			$this->template->guarantor=$course_guarantor->first_name . " " . $course_guarantor->surname;
+			$this->template->id_guarantor=$course_guarantor->id_user;
 			switch($course->type)
 			{
 				case "P":$this->template->type="Povinný";break;
