@@ -29,10 +29,12 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         $form->addText('email', 'Email:')
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired('Zadejte, prosím, email')
+        ->setHtmlAttribute('placeholder', 'Emailová adresa');
 
         $form->addPassword('password', 'Heslo:')
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired('Zadejte, prosím, heslo')
+        ->setHtmlAttribute('placeholder', 'Heslo');
 
         $form->addSubmit('login', 'Přihlásit se')
         ->setHtmlAttribute('class', 'btn btn-block btn-primary');
