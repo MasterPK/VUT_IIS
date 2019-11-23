@@ -124,6 +124,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 				case "V":$this->template->type="Volitelný";break;
 			}
 			$this->template->course=$course;
+			$this->course = $course;
 		}
 		else
 		{
@@ -160,24 +161,24 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	}
 	
 
-	protected function createComponentRegisterForm($id_course): UI\Form
+	protected function createComponentRegisterForm(): UI\Form
     {
         $form = new UI\Form;
 
         $form->addSubmit('register', 'Registrovat kurz')
 		->setHtmlAttribute('class', 'btn btn-block btn-primary');
 		
-		$form->onSuccess[] = [$id_course, 'addNotification'];
+		$form->onSuccess[] = [$this, 'addNotification'];
         return $form;
     }
 
-    public function addNotification($id_course): void
+    public function addNotification(UI\Form $form): void
     {
-    	$get = $this->database->query("SELECT id_notification FROM notification WHERE id_course = ? AND id_user = ?", $id_course, $this->user->identity->id);
+    	$get = $this->database->query("SELECT id_notification FROM notification WHERE id_course = ? AND id_user = ?", $this->course->id_course, $this->user->identity->id);
 
     	if($get->getRowCount() == 0)
     	{
-    		$data = $this->database->query("INSERT INTO notification ( id_notification, id_course, id_user) VALUES ('', ?, ?)", $id_course, $this->user->identity->id);
+    		$data = $this->database->query("INSERT INTO notification ( id_notification, id_course, id_user) VALUES ('', ?, ?)", $this->course->id_course, $this->user->identity->id);
     	}
     	else
     	{
