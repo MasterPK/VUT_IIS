@@ -72,11 +72,7 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 		if($courses)
 		{
 			$data = $this->database->table("course")
-			->where("id=?", 
-				foreach($courses as $course)
-				{
-					$course->id_course;
-				}
+			->where("id=?",$courses->id_course)
 			->fetchAll();
 
 			if($data) $this->template->courses=$data;
