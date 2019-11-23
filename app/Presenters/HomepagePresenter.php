@@ -17,6 +17,8 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		$this->database = $database;
 	}
 
+	private $current_course_id;
+
 
 	public function startUp()
 	{
@@ -90,6 +92,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 			$this->redirect('Homepage:courses');
 		}
 		$course = $this->database->table("course")->where("id_course=?", $id)->fetch();
+		$this->current_course_id=$id;
 		
 		if($course)
 		{
@@ -162,14 +165,14 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	}
 	
 
-	protected function createComponentRegisterForm($id): UI\Form
+	protected function createComponentRegisterForm(): UI\Form
     {
 		$form = new UI\Form;
 		$form->getElementPrototype()->class('ajax');
 		$form->addHidden('id_course');
 		dump($id);
 		$form->setDefaults([
-            'id_course' => $id,
+            'id_course' => $this->current_course_id,
 
         ]);
 
