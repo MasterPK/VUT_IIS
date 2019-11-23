@@ -15,8 +15,14 @@
   <script src="{$basePath}/js/jquery.min.js"></script>
   <script src="{$basePath}/js/jquery.easing.min.js"></script>
   <script src="{$basePath}/js/bootstrap.bundle.min.js"></script>
-  <script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
+  <!--<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>-->
+  <script src="{$basePath}/js/nette.ajax.js"></script>
   <script src="{$basePath}/js/sb-admin.min.js"></script>
+  <script>
+  $(function () {
+    $.nette.init();
+  });
+</script>
 </head>
 
 <body>
