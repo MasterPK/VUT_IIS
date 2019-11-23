@@ -95,6 +95,31 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		
 	}
 
+	public function renderShowcourse($id): void
+	{
+		if(empty($id))
+		{
+			$this->redirect('Homepage:courses');
+		}
+		$course = $this->database->table("course")->where("id=?", $id)->fetch();
+		
+		if($course)
+		{
+			$course_guarantor = $this->database->table("user")->where("id=?", $course->id_guarantor)->fetch();
+			$this->template->guarantor=$course_guarantor->first_name . " " . $course_guarantor->surname;
+			switch($course->type)
+			{
+				case "P":$this->template->type="Povinný";break;
+				case "V":$this->template->type="Volitelný";break;
+			}
+			$this->template->course=$course;
+		}
+		else
+		{
+			$this->redirect('Homepage:courses');
+		}
+	}
+
 	protected function createComponentSearchCourseForm(): Nette\Application\UI\Form
     {
         $form = new Nette\Application\UI\Form;
