@@ -57,10 +57,9 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	}
 
 
-	public function renderDefault($id): void
+	public function renderDefault(): void
 	{ 
 
-		addNotification($id);
 	}
 
 	public function renderCourses($search, $filter): void
