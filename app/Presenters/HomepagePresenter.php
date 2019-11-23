@@ -165,7 +165,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
         $form = new UI\Form;
 
         $form->addSubmit('register', 'Registrovat kurz')
-		->setHtmlAttribute('class', 'btn btn-block btn-primary');
+		->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
 		
 		$form->onSuccess[] = [$this, 'addNotification'];
         return $form;
