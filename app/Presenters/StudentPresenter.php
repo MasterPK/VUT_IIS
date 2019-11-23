@@ -102,8 +102,10 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
         $form->addSelect('type', 'Typ', [
 		    'P' => 'Povinný',
 		    'V' => 'Volitelný',
-		]);
-
+		])
+        ->setHtmlAttribute('class', 'form-control')
+        ->setRequired();
+        
 		$form->addText('price', 'Cena')
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired();
