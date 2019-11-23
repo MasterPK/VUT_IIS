@@ -93,4 +93,32 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 			$this->redirect('Homepage:courses');
 		}
 	}
+
+	protected function createComponentSearchCourseForm(): Nette\Application\UI\Form
+    {
+        $form = new Nette\Application\UI\Form;
+        $form->addText('search', 'Hledat:')
+        ->setHtmlAttribute('class', 'form-control')
+        ->setRequired();
+
+        $form->addSubmit('send', 'Hledat')
+        ->setHtmlAttribute('class', 'btn btn-block btn-primary');
+        
+        $form->onSuccess[] = [$this, 'searchCourseForm'];
+        return $form;
+	}
+	
+	public function searchCourseForm(Nette\Application\UI\Form $form): void
+    {
+        $values = $form->getValues();
+
+        try
+        {
+
+        }
+        catch (Nette\Security\AuthenticationException $e) 
+        {
+            
+        }
+    }
 }

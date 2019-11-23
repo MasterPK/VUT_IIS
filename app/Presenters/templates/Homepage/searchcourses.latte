@@ -1,20 +1,7 @@
 {block header}
-Seznam všech dostupných kurzů
+Výsledek vyhledávání kurzů
 {/block}
 {block content}
-<div class="row">
-    <form n:name="searchCourseForm" class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-        <div class="input-group">
-            {input text}
-            <div class="input-group-append">
-                {input send}
-                <button class="btn btn-primary" type="button">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-        </div>
-    </form>
-</div>
 <div class="row">
     <div class="col-sm-12">
         {ifset $courses}
