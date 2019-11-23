@@ -64,6 +64,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
     public function renderLogout()
     {
         $this->getUser()->logout();
+        //dodělat snippet na obnovu celé stránky
         $this->redirect("Homepage:");
     }
 
