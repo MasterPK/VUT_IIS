@@ -89,7 +89,7 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 
         $form->addText('id_course', 'Zkratka kurzu')
         ->setHtmlAttribute('class', 'form-control')
-        ->setRequired();
+        ->setRequired("Zkratka kurzu");
 
         $form->addText('name', 'Název kurzu')
         ->setHtmlAttribute('class', 'form-control')
@@ -105,7 +105,7 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 		])
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired();
-        
+
 		$form->addText('price', 'Cena')
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired();
