@@ -77,7 +77,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		{
 			$this->redirect('Homepage:courses');
 		}
-		$course = $this->database->table("course")->where("id=?", $id)->fetch();
+		$course = $this->database->table("course")->where("id=?", $id->search->fetch();
 		
 		if($course)
 		{
