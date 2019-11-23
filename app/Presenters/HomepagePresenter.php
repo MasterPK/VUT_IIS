@@ -164,7 +164,8 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 
 	protected function createComponentRegisterForm(): UI\Form
     {
-        $form = new UI\Form;
+		$form = new UI\Form;
+		$form->getElementPrototype()->class('ajax');
 
         $form->addSubmit('register', 'Registrovat kurz')
 		->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
