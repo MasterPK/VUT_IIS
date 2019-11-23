@@ -29,6 +29,6 @@ class Authenticator implements Nette\Security\IAuthenticator
             throw new NS\AuthenticationException('Neplatné heslo!');
         }
 
-        return new NS\Identity($row->id,$row->rank, $row);
+        return new NS\Identity($row->id_user,$row->rank, $row);
     }
 }
