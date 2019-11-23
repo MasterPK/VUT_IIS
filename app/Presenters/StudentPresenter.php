@@ -63,5 +63,14 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 	public function renderDefault(): void
 	{ }
 
+	protected function createComponentRegisterForm(): UI\Form
+    {
+        $form = new UI\Form;
+
+        $form->addSubmit('register', 'Registrovat kurz')
+		->setHtmlAttribute('class', 'btn btn-block btn-primary');
+		
+        return $form;
+    }
 
 }
