@@ -90,8 +90,7 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 
         $form->addText('id_course', 'Zkratka kurzu')
         ->setHtmlAttribute('class', 'form-control')
-        ->addRule(Form::MIN_LENGTH, 'Dĺžka zkratky musí být 3 až 5 znaků!', 3)
-        ->addRule(Form::MAX_LENGTH, 'Dĺžka zkratky musí být 3 až 5 znaků!', 5);
+        ->addRule(Form::PATTERN, 'Zadejte 3 až 5 velkých písmen!', '([A-Z]\s*){3,5}');
 
         $form->addText('name', 'Název kurzu')
         ->setHtmlAttribute('class', 'form-control')
@@ -125,6 +124,6 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
     {
     	$values = $form->getValues();
 
-    	$data = $this->database->query("INSERT INTO course (id_course, name, description, type, price, id_guarantor) VALUES ('', ?, ?, ?, ?, ?)", $values->id_course, $values->name, $values->description, $values->type, $values->price,  $this->user->identity->id);
+    	$data = $this->database->query("INSERT INTO course (id_course, name, description, type, price, id_guarantor) VALUES (?, ?, ?, ?, ?, ?)", $values->id_course, $values->name, $values->description, $values->type, $values->price,  $this->user->identity->id);
 	}
 }
