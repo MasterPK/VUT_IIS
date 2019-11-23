@@ -80,7 +80,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		
 		if($course)
 		{
-			$course_guarantor = $this->database->table("user")->where("id_user=?", $course->id_user)->fetch();
+			$course_guarantor = $this->database->table("user")->where("id_guarantor=?", $course->id_user)->fetch();
 			$this->template->guarantor=$course_guarantor->first_name . " " . $course_guarantor->surname;
 			switch($course->type)
 			{
