@@ -103,14 +103,14 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 			{
 				$this->template->register=false;
 			}
-			$course_lectors = $this->database->query("SELECT id_user FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ?",  $this->user->identity->id);
+			$course_lectors = $this->database->query("SELECT id_user FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ? AND id_course = ?",  $this->user->identity->id, $course->id_course);
 			//ani lektori sa nemozu registrovat na kurzy, ktore ucia
 			if($course_lectors->getRowCount() > 0)
 			{
 				$this->template->register=false;
 			}
 
-			$course_students = $this->database->query("SELECT id_user FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_user = ?",  $this->user->identity->id);
+			$course_students = $this->database->query("SELECT id_user FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_user = ? AND id_course = ?", $this->user->identity->id, $course->id_course);
 
 			//a ani uz registrovani studenti
 			if($course_students->getRowCount() > 0)
