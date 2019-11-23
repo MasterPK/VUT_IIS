@@ -162,10 +162,16 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	}
 	
 
-	protected function createComponentRegisterForm(): UI\Form
+	protected function createComponentRegisterForm($id): UI\Form
     {
 		$form = new UI\Form;
 		$form->getElementPrototype()->class('ajax');
+		$form->addHidden('id_course');
+
+		$form->setDefaults([
+            'id_course' => $id,
+
+        ]);
 
         $form->addSubmit('register', 'Registrovat kurz')
 		->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
@@ -174,13 +180,14 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
         return $form;
     }
 
-    public function addNotification($id_course): void
+    public function addNotification($form): void
     {
-    	$get = $this->database->query("SELECT id_notification FROM notification WHERE id_course = ? AND id_user = ?", $id_course, $this->user->identity->id);
+		$values = $form->getValues();
+    	$get = $this->database->query("SELECT id_notification FROM notification WHERE id_course = ? AND id_user = ?", $values->id_course, $this->user->identity->id);
 
     	if($get->getRowCount() == 0)
     	{
-    		$data = $this->database->query("INSERT INTO notification ( id_notification, id_course, id_user) VALUES ('', ?, ?)", $id_course, $this->user->identity->id);
+    		$data = $this->database->query("INSERT INTO notification ( id_notification, id_course, id_user) VALUES ('', ?, ?)", $values->id_course, $this->user->identity->id);
     	}
     	else
     	{
