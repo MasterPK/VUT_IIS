@@ -41,7 +41,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	{
 		if($search)
 		{
-			$data = $this->database->table("course")->where( $filter . " LIKE ?",  "%" . $search . "%")->fetchAll();		
+			$data = $this->database->table("course")->where( $filter . " LIKE ?",  "%" . $search . "% AND course_status = ?",1)->fetchAll();		
 			
 			if($data)
 			{
@@ -50,7 +50,9 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		}
 		else
 		{
-			$data = $this->database->table("course")->fetchAll();
+			$data = $this->database->table("course")
+			->where("course_status = ?", 1)
+			->fetchAll();
 			if($data)
 			{
 				$this->template->courses=$data;
