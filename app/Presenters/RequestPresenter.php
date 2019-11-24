@@ -81,12 +81,13 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 			$this->template->requests = $requests;
 		}
 		$form = new Form;
+		$form->getElementPrototype()->class('ajax');
 		foreach($requests as $row)
 		{
 			$form->addCheckbox("id_".strval($row->id_user),"");
 		}
         $form->addSubmit('submit', 'Zaregistrovat označené')
-        ->setHtmlAttribute('class', 'btn btn-primary');
+        ->setHtmlAttribute('class', 'btn btn-primary ajax');
 		
 		$form->onSuccess[] = [$this, 'registerStudent'];
         return $form;
@@ -94,7 +95,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 
     public function registerStudent($form): void
     {
-		
+		$values = $form->getValues();
 		
     	
 	}
