@@ -8,6 +8,8 @@ use Nette;
 
 use Nette\Application\UI\Form;
 
+use Nette\Diagnostics\Debugger;
+
 
 final class RequestPresenter extends Nette\Application\UI\Presenter
 {
