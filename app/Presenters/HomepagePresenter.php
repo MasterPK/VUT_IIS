@@ -99,7 +99,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		if($course)
 		{
 
-			$request = $this->database->table("request")->where("id_course=? AND id_user=?", $id, )->fetch();
+			$request = $this->database->table("request")->where("id_course=? AND id_user=?", $id, $this->user->identity->id )->fetch();
 
 			if($request)
 			{
