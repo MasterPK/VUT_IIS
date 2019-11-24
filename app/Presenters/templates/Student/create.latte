@@ -19,34 +19,27 @@ Vytvoření nového kurzu
         </div>
         {/ifset}
         
-        <form n:name="createCourseForm">
-            <div class="form-group">
-                <label>Zkratka kurzu</label> {input id_course}
-            </div>
-            <div class="form-group">
-                <label>Název kurzu</label> {input name}
-            </div>
-            <div class="form-group">
-                <label>Popis</label> {input description}
-            </div>
-            <div class="form-group">
-                <label>Typ</label> {input type}
-            </div>
-            <div class="form-group">
-                <label>Cena</label> {input price}
-            </div>
-            <div class="form-group text-center collapse-in">
-                {input create}
-            </div>
-        </form>
-
-        <a href="#Foo" class="btn btn-default" data-toggle="collapse">Toggle Foo</a>
-        <button href="#Bar" class="btn btn-default" data-toggle="collapse">Toggle Bar</button>
-        <div id="Foo" class="collapse">
-            This div (Foo) is hidden by default
-        </div>
-        <div id="Bar" class="collapse in">
-            This div (Bar) is shown by default and can toggle
+        <div id="Bar">
+            <form n:name="createCourseForm">
+                <div class="form-group">
+                    <label>Zkratka kurzu</label> {input id_course}
+                </div>
+                <div class="form-group">
+                    <label>Název kurzu</label> {input name}
+                </div>
+                <div class="form-group">
+                    <label>Popis</label> {input description}
+                </div>
+                <div class="form-group">
+                    <label>Typ</label> {input type}
+                </div>
+                <div class="form-group">
+                    <label>Cena</label> {input price}
+                </div>
+                <div href="#Bar" class="form-group text-center" data-toggle="collapse">
+                    {input create}
+                </div>
+            </form>
         </div>
         
     </div>
