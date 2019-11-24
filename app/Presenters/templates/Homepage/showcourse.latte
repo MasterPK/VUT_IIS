@@ -29,21 +29,25 @@ Podrobnosti kurzu
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-3 col-sm-12">
+                    <div class="col-md-2 col-sm-12">
                         Typ:<br>
                         <b>{$type}</b>
                     </div>
-                    <div class="col-md-3 col-sm-12">
+                    <div class="col-md-2 col-sm-12">
                         Garant kurzu:<br>
                         <b>{$guarantor}</b>
                     </div>
-                    <div class="col-md-3 col-sm-12">
+                    <div class="col-md-2 col-sm-12">
                         Cena:<br>
                         <b>{$course->price}&nbsp;Kč</b>
                     </div>
                     <div class="col-md-3 col-sm-12">
                         Stav registrací:<br>
                         <b>{if $course->open_registration}Otevřeno{else}Zavřeno{/if}</b>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        Stav registrace studenta:<br>
+                        <b>{ifset $request}{if $request}Registrován{else}Čeká se na vyřízení žádosti{/if}{else}Žádost o registraci neexistuje{/ifset}</b>
                     </div>
                 </div>
                 <br>
@@ -73,5 +77,5 @@ Podrobnosti kurzu
         {/if}
     </div>
 </div>
-{/ifset}
+{/if}
 {/block}

@@ -94,8 +94,18 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		$course = $this->database->table("course")->where("id_course=?", $id)->fetch();
 		$this->current_course_id=$id;
 		
+		
+
 		if($course)
 		{
+
+			$request = $this->database->table("request")->where("id_course=? AND id_user=?", $id, )->fetch();
+
+			if($request)
+			{
+				$this->template->request=$request->state;
+			}
+
 			$course_guarantor = $this->database->table("user")
 				->where("id_user=?", $course->id_guarantor)
 				->fetch();
