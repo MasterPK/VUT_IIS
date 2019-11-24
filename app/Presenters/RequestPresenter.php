@@ -81,6 +81,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 			$this->template->requests = $requests;
 		}
 		$form = new Form;
+		$form->getElementPrototype()->class('ajax');
 		foreach($requests as $row)
 		{
 			$form->addCheckbox("id_".strval($row->id_user),"");
@@ -94,7 +95,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 
     public function registerStudent($form): void
     {
-		
+		$values = $form->getValues();
 		
     	
 	}
