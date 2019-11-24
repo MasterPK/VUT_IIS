@@ -13,6 +13,12 @@ Vytvoření nového kurzu
         </div>
         {/ifset}
 
+        {ifset $success_insert}
+        <div class="alert alert-success animated bounce">
+                <strong>Kurz byl úspěšně vytvořen</strong> a bude spracován vedoucím.
+        </div>
+        {/ifset}
+
         <form n:name="createCourseForm">
             <div class="form-group">
                 <label>Zkratka kurzu</label> {input id_course}
