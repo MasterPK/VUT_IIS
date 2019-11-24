@@ -23,17 +23,15 @@ Seznam žádostí
 
         </tbody>
     </table>
-    <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="regbutton" onclick="checkAll([{foreach $requests as $row}{$row->id_user},{/foreach})]" href="#">Registrovat všechny</button>
+    <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="regbutton" onclick="checkAll()" href="#">Registrovat všechny</button>
 {/ifset}
 <script>
-function checkAll(requests) 
+function checkAll() 
 {
-    console.log(requests);
-    for(var i = 0; i < requests.length; i++) 
+    console.log("checkAll()");
+    for(var i = 0; i < {$requests_count}; i++) 
     {
-        var checkBox = document.getElementById(requests[i][0]);
-        $( "#" ).prop( "checked", true );
-        alert("Checked box %d", requests[i][0]);
+        $( "#"+i ).prop( "checked", true );
     }
 }
 </script>
