@@ -3,6 +3,7 @@ Seznam žádostí
 {/block}
 {block content}
 {ifset $requests}
+<form n:name="registerCheckBox">
     <table class="table">
         <thead>
             <tr>
@@ -12,18 +13,23 @@ Seznam žádostí
             </tr>
         </thead>
         <tbody>
-            {foreach $requests as $row}
+        
+            {foreach $form->getComponents() as $key => $component}
+            {if $component instanceof Nette\Forms\Controls\CheckBox}
             <tr>
                 <td>{$row->email}</td>
                 <td>{$row->first_name} {$row->surname}</td>
                 <td>
-                <input type="checkbox" id="{$row->id_user}" onclick="myFunction({$row->id_user})"></td>
+                {input $key}
             </tr>
+            {/if}
             {/foreach}
-
+        
         </tbody>
     </table>
     <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="regbutton" onclick="checkAll()" >Označit všechny</button>
+    {input submit}
+</form>
 {/ifset}
 <script>
 var checked_status=false;
@@ -49,5 +55,6 @@ function checkAll()
         $( "#regbutton" ).html( "Označit všechny" );
     }
 }
+
 </script>
 {/block}
