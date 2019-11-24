@@ -80,7 +80,7 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 		switch($this->template->rank)
 		{
 			case 3:
-				$data = $this->database->query("SELECT id_course, name, type, price FROM course WHERE id_guarantor = ?",  $this->user->identity->id);
+				$data = $this->database->query("SELECT id_course, course_name, course_type, course_price FROM course WHERE id_guarantor = ?",  $this->user->identity->id);
 				if($data->getRowCount() > 0)
 				{
 					foreach($data as $course)
@@ -89,7 +89,7 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 					}
 				}
 			case 2:
-				$data = $this->database->query("SELECT id_course, name, type, price FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ?",  $this->user->identity->id);
+				$data = $this->database->query("SELECT id_course, course_name, course_type, course_price FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ?",  $this->user->identity->id);
 				if($data->getRowCount() > 0)
 				{
 					foreach($data as $course)
@@ -154,7 +154,7 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 
     	try
     	{
-    		$data = $this->database->query("INSERT INTO course (id_course, name, description, type, price, id_guarantor) VALUES (?, ?, ?, ?, ?, ?)", $values->id_course, $values->name, $values->description, $values->type, $values->price,  $this->user->identity->id);
+    		$data = $this->database->query("INSERT INTO course (id_course, course_name, course_description, course_type, course_price, id_guarantor) VALUES (?, ?, ?, ?, ?, ?)", $values->id_course, $values->name, $values->description, $values->type, $values->price,  $this->user->identity->id);
     	}
     	catch(Nette\Database\UniqueConstraintViolationException $e)
     	{

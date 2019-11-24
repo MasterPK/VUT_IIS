@@ -123,7 +123,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 				$this->template->register=false;
 			}
 
-			switch($course->type)
+			switch($course->course_type)
 			{
 				case "P":$this->template->type="Povinný";break;
 				case "V":$this->template->type="Volitelný";break;
@@ -147,10 +147,10 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
         $form = new Nette\Application\UI\Form;
 
         $form->addSelect('filter', 'Filter', [
-		    'name' => 'Název',
+		    'course_name' => 'Název',
 		    'id_course' => 'Zkratka',
-		    'type' => 'Typ',
-		    'price' => 'Cena',
+		    'course_type' => 'Typ',
+		    'course_price' => 'Cena',
 		]);
 
         $form->addText('search', 'Hledat:')
@@ -193,11 +193,11 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
     {
 		
 		$values = $form->getValues();
-    	$get = $this->database->query("SELECT id_notification FROM notification WHERE id_course = ? AND id_user = ?", $values->id_course, $this->user->identity->id);
+    	$get = $this->database->query("SELECT id_request FROM request WHERE id_course = ? AND id_user = ?", $values->id_course, $this->user->identity->id);
 
     	if($get->getRowCount() == 0)
     	{
-			$data = $this->database->query("INSERT INTO notification ( id_notification, id_course, id_user) VALUES ('', ?, ?)", $values->id_course, $this->user->identity->id);
+			$data = $this->database->query("INSERT INTO request ( id_request, id_course, id_user) VALUES ('', ?, ?)", $values->id_course, $this->user->identity->id);
 			$this->template->error_notif = 2;
     	}
     	else

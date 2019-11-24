@@ -39,14 +39,14 @@ Podrobnosti kurzu
                     </div>
                     <div class="col-md-4 col-sm-12">
                         Cena:<br>
-                        <b>{$course->price}&nbsp;Kč</b>
+                        <b>{$course->course_price}&nbsp;Kč</b>
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col-sm-12">
                         Popis:<br>
-                        <p class="card-text">{$course->description}</p>
+                        <p class="card-text">{$course->course_description}</p>
                     </div>
                 </div>
             </div>
@@ -65,7 +65,7 @@ Podrobnosti kurzu
                     {foreach $requests as $row}
                     <tr>
                         <td>{$row->email}</td>
-                        <td>{$row->name} {$row->surname}</td>
+                        <td>{$row->first_name} {$row->surname}</td>
                         <td>...</td>
                     </tr>
                     {/foreach}
