@@ -18,8 +18,8 @@ Seznam žádostí
                 {foreach $requests as $row}
                 <tr>
                     <th scope="row"><a n:href="Homepage:showcourse $row->id_course">{$row->id_course}</a></th>
-                    <td>{$row->name}</td>
-                    <td>{$row->type}</td>
+                    <td>{$row->course_name}</td>
+                    <td>{$row->course_type}</td>
                 </tr>
                 {/foreach}
 
