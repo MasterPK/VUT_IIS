@@ -18,7 +18,7 @@ class StartUp
         if ($presenter->getUser()->isLoggedIn()) 
 		{
 			
-			$data = $presenter->database->table("user")
+			$data = $this->database->table("user")
 				->where("id_user=?", $presenter->user->identity->id)
 				->fetch();
 
