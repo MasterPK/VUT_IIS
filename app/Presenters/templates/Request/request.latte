@@ -21,7 +21,7 @@ Seznam žádostí
     </div>
 </div>
     {ifset $course}
-    <table class="table2">
+    <table class="table">
         <thead>
             <tr>
                 <th scope="col">Zkratka kurzu</th>
@@ -40,7 +40,7 @@ Seznam žádostí
             <td>{$course->course_description}</td>
             <td>{$course->course_type}</td>
             <td>{$course->course_price}</td>
-            <td>{$course->id_guarantor}</td>
+            <td>{$guarantor}</td>
             </tr>
 
         </tbody>
