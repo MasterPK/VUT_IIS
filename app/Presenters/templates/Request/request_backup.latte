@@ -3,23 +3,9 @@ Seznam žádostí
 {/block}
 {block content}
 {ifset $requests}
-<div class="row">
-    <div class="col-sm-12">
-        {snippet error_notif_snippet}
-        {ifset $error_notif}
-        {if $error_notif==1}
-        <div class="alert alert-danger animated bounce">
-            <strong>Student byl odregistrován!</strong>
-        </div>
-        {elseif $error_notif==2}
-        <div class="alert alert-success animated bounce">
-                <strong>Student byl zaregistrován!</strong>
-        </div>
-        {/if}
-        {/ifset}
-        {/snippet}
-    </div>
-</div>
+<form n:name="registerCheckBox">
+
+    
     <table class="table">
         <thead>
             <tr>
@@ -35,7 +21,8 @@ Seznam žádostí
             <td>{$row->email}</td>
             <td>{$row->first_name} {$row->surname}</td>
             <td>
-                <input type="checkbox" id="{$row->id_user}" n:href="register! $row->id_user"/>
+                {input id_$row->id_user}
+                
             </td>
             </tr>
 
@@ -43,6 +30,10 @@ Seznam žádostí
 
         </tbody>
     </table>
+    
+        
+    {input submit}
+</form>
 <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="regbutton" onclick="checkAll()">Označit všechny</button>
 
 
@@ -52,14 +43,14 @@ Seznam žádostí
         var array = [{foreach $requests as $row}{$row->id_user},{/foreach}];
         if (checked_status == false) {
             for (var i = 0; i < array.length; i++) {
-                $("#" + array[i]).prop("checked", true);
+                $("#id_" + array[i]).prop("checked", true);
             }
             checked_status = true;
             $("#regbutton").html("Odznačit všechny");
         }
         else {
             for (var i = 0; i < array.length; i++) {
-                $("#" + array[i]).prop("checked", false);
+                $("#id_" + array[i]).prop("checked", false);
             }
             checked_status = false;
             $("#regbutton").html("Označit všechny");

@@ -99,4 +99,15 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		
     	
 	}
+
+
+	public function handleRegister($id): void
+    {
+		if ($this->isAjax())
+		{
+            $this->redrawControl('error_notif_snippet');
+        }
+		
+    	
+	}
 }
