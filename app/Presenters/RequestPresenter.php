@@ -55,9 +55,9 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 
 					$course->id_guarantor = $guarantor->first_name . " " . $guarantor->surname;
 				}
-				$this->template->courses=$data;
+				$this->template->courses=$data2;
 			}
-			
+
 			//zobraz predmety, kde su ziadosti studentov
 			$data = $this->database->query("SELECT DISTINCT(id_course), course_name, course_type, id_guarantor FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE student_status = 0")->fetchAll();	
 		}
