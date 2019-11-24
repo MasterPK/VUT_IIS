@@ -8,7 +8,7 @@ use Nette;
 
 use Nette\Application\UI\Form;
 
-use Nette\Diagnostics\Debugger;
+use Tracy\Debugger;
 
 
 final class RequestPresenter extends Nette\Application\UI\Presenter
