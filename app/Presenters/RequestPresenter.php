@@ -47,7 +47,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 	public function renderRequest($id): void
 	{ 
 		$requests = $this->database->query("SELECT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_guarantor = ? AND id_course = ? AND status = 0", $this->user->identity->id, $id)->fetchAll();
-		$this->$id_course=$id;
+		$this->id_course=$id;
 		if($requests)
 		{
 			$this->template->requests = $requests;
@@ -58,7 +58,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 
 	protected function createComponentRegisterCheckBox(): Form
     {
-		$requests = $this->database->query("SELECT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_guarantor = ? AND id_course = ? AND status = 1", $this->user->identity->id, $this->$id_course)->fetchAll();
+		$requests = $this->database->query("SELECT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_guarantor = ? AND id_course = ? AND status = 1", $this->user->identity->id, $this->id_course)->fetchAll();
 
 		$form = new Form;
 		foreach($requests as $row)
