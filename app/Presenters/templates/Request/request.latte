@@ -18,7 +18,7 @@ Seznam žádostí
 
             
             {foreach $form->getComponents() as $key => $component}
-            {if $component instanceof Nette\Forms\Controls\CheckBox}
+            
             <tr>
                 <!--<td>{$row->email}</td>
                 <td>{$row->first_name} {$row->surname}</td>
@@ -26,7 +26,7 @@ Seznam žádostí
                 {$key}
                 {input $key}
             </tr>
-            {/if}
+           
             {/foreach}
 
         </tbody>
