@@ -87,7 +87,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 			$form->addCheckbox("id_".strval($row->id_user),"");
 		}
         $form->addSubmit('submit', 'Zaregistrovat označené')
-        ->setHtmlAttribute('class', 'btn btn-primary');
+        ->setHtmlAttribute('class', 'btn btn-primary ajax');
 		
 		$form->onSuccess[] = [$this, 'registerStudent'];
         return $form;
