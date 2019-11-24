@@ -47,7 +47,8 @@ Vytvoření nového kurzu
 </div>
 {ifset $success_insert}
 <script>
-$("#divForm").toggleClass('d-none');
+$("#divForm").removeClass('d-block');
+$("#divForm").addClass('d-none');
 </script>
 {/ifset}
 {/block}
