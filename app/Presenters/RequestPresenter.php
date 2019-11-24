@@ -42,7 +42,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 			array_push($data, $this->database->query("SELECT id_course, course_name, course_type FROM course WHERE course_status = 0")->fetchAll());
 		}
 		
-		if($data->getRowCount() > 0)
+		if(count($data) > 0)
 		{
 			$this->template->requests=$data;
 		}
