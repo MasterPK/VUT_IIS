@@ -13,7 +13,7 @@ class StartUp
         $this->database = $database;
     }
 
-    public function mainStartUp($presenter)
+    public function mainStartUp($presenter,$permission)
     {
         if ($presenter->getUser()->isLoggedIn()) 
 		{

@@ -24,7 +24,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
     {
         parent::startup();
 
-        $this->startup->mainStartUp($this);
+        $this->startup->mainStartUp($this,0);
     }
 
 
@@ -65,7 +65,6 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
 
         try
         {
-        $this->getUser()->setExpiration('10 seconds');
         $this->getUser()->login($values->email,$values->password);
         
         $this->redirect('Homepage:');
