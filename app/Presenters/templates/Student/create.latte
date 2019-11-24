@@ -19,7 +19,7 @@ Vytvoření nového kurzu
         </div>
         {/ifset}
         
-        <div id="Bar">
+        <div aria-hidden="true">
             <form n:name="createCourseForm">
                 <div class="form-group">
                     <label>Zkratka kurzu</label> {input id_course}
@@ -36,7 +36,7 @@ Vytvoření nového kurzu
                 <div class="form-group">
                     <label>Cena</label> {input price}
                 </div>
-                <div href="#Bar" class="form-group text-center" data-toggle="hide">
+                <div class="form-group text-center">
                     {input create}
                 </div>
             </form>
