@@ -16,7 +16,7 @@ Seznam žádostí
             </thead>
             <tbody>
 
-                {foreach $requests as $row}
+                {foreach $courses as $row}
                 <tr>
                     <th scope="row"><a n:href="Request:request $row->id_course">{$row->id_course}</a></th>
                     <td>{$row->course_name}</td>
