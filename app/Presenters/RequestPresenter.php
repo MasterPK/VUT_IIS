@@ -62,7 +62,26 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 	private $id_course;
 	public function renderRequest($id): void
 	{ 
-		$requests = $this->database->query("SELECT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_guarantor = ? AND id_course = ? AND student_status = 0", $this->user->identity->id, $id)->fetchAll();
+		$course = $this->database->query("SELECT * FROM course WHERE id_course = ?", $id)->fetch();
+
+		//ak kurz nebol schvaleny, vypis ho
+		if($this->template->rank > 3 && $course->course_status == 0)
+		{
+			$guarantor = $this->database->query("SELECT first_name, surname FROM user WHERE id_user = ?", $course->id_guarantor)->fetch();
+
+			$course->id_guarantor = $guarantor->first_name . " " . $guarantor->surname;
+			$this->template->course = $course;
+
+		}
+		else
+		{
+			//ak bol schvaleny, vypis ziadosti
+			if($this->template->rank > 3)
+			{
+				$requests = $this->database->query("SELECT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE  id_course = ? AND student_status = 0", $id)->fetchAll();
+			}
+		}
+		
 		$this->id_course=$id;
 		if($requests)
 		{
