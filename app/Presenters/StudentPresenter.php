@@ -27,7 +27,10 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 
 		
 		$this->startup->mainStartUp($this);
-		$this->startup->roleCheck($this->getUser(),1);
+		if(!$this->startup->roleCheck($this,1))
+		{
+			dump("no access");
+		}
 
 	}
 

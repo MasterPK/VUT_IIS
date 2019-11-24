@@ -52,12 +52,8 @@ class StartUp
         }
     }
 
-    public function roleCheck($user,$role)
+    public function roleCheck($presenter,$rank)
     {
-        dump("CheckRole:");
-        if ($user->isInRole(1)) {
-            dump("Student"); 
-        }
-
+        return ($presenter->user->identity->data["rank"]>=$rank);
     }
 }
