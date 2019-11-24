@@ -19,28 +19,21 @@ Seznam žádostí
                 <td>{$row->first_name} {$row->surname}</td>
                 <td>
                 <input type="checkbox" id="{$row->id_user}" onclick="myFunction({$row->id_user})"></td>
-                <p id="text{$row->id_user}" style="display:none">Checkbox {$row->id_user} is CHECKED!</p>
             </tr>
             {/foreach}
 
         </tbody>
     </table>
-    <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">Click me</button>
-    <button onclick="myFunction()">Click me</button>
+    <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="sidebarToggle" onclick="checkAll({$requests})" href="#">Registrovat všechny</button>
 {/ifset}
 <script>
-function myFunction(id) {
-  // Get the checkbox
-  var checkBox = document.getElementById(id);
-  // Get the output text
-  var text = document.getElementById("text" + id);
-
-  // If the checkbox is checked, display the output text
-  if (checkBox.checked == true){
-    text.style.display = "block";
-  } else {
-    text.style.display = "none";
-  }
+function checkAll(requests) 
+{
+    for(var i = 0; i < requests.length; i++) 
+    {
+        var checkBox = document.getElementById(requests[i]->id_user);
+        checkBox.checked = true;
+    }
 }
 </script>
 {/block}
