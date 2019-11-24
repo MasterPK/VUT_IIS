@@ -59,7 +59,12 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 
 	public function renderDefault(): void
 	{ 
+		$data = $this->database->query("SELECT id_course, name, type, price FROM user NATURAL JOIN request NATURAL JOIN course WHERE id_guarantor = ?",  $this->user->identity->id);
 
+		if($data->getRowCount() > 0)
+		{
+			$this->template->requests=$data;
+		}
 	}
 
 
