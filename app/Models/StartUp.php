@@ -18,7 +18,7 @@ class StartUp
         if ($presenter->getUser()->isLoggedIn()) 
 		{
             if (!$presenter->getUser()->isInRole($permission)) {
-                $presenter->redirect("Homepage:");
+                return false;
             }
 			
 			$data = $this->database->table("user")
@@ -44,16 +44,18 @@ class StartUp
 				case 3: $presenter->template->rank_msg="Garant";break;
 				case 4: $presenter->template->rank_msg="Vedoucí";break;
 				case 5: $presenter->template->rank_msg="Administrátor";break;
-			}
+            }
+            return true;
 		} 
 		else if($permission==0)
 		{
 			$presenter->template->rank=0;
-			$presenter->template->rank_msg = "Neregistrovaný návštěvník";
+            $presenter->template->rank_msg = "Neregistrovaný návštěvník";
+            return true;
         }
         else
         {
-            $presenter->redirect("Homepage:");
+            return false;
         }
     }
 }
