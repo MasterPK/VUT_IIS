@@ -65,6 +65,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
 
         try
         {
+        $this->getUser()->setExpiration('10 seconds');
         $this->getUser()->login($values->email,$values->password);
         
         $this->redirect('Homepage:');
