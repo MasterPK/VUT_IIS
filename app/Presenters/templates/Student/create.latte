@@ -18,45 +18,38 @@ Vytvoření nového kurzu
                 <strong>Kurz byl úspěšně vytvořen</strong> a bude spracován vedoucím.
         </div>
         {/ifset}
+        
+        <form n:name="createCourseForm">
+            <div class="form-group">
+                <label>Zkratka kurzu</label> {input id_course}
+            </div>
+            <div class="form-group">
+                <label>Název kurzu</label> {input name}
+            </div>
+            <div class="form-group">
+                <label>Popis</label> {input description}
+            </div>
+            <div class="form-group">
+                <label>Typ</label> {input type}
+            </div>
+            <div class="form-group">
+                <label>Cena</label> {input price}
+            </div>
+            <div class="form-group text-center collapse-in">
+                {input create}
+            </div>
+        </form>
 
-        <div id="formDiv">
-            <form n:name="createCourseForm">
-                <div class="form-group">
-                    <label>Zkratka kurzu</label> {input id_course}
-                </div>
-                <div class="form-group">
-                    <label>Název kurzu</label> {input name}
-                </div>
-                <div class="form-group">
-                    <label>Popis</label> {input description}
-                </div>
-                <div class="form-group">
-                    <label>Typ</label> {input type}
-                </div>
-                <div class="form-group">
-                    <label>Cena</label> {input price}
-                </div>
-                <div class="form-group text-center ">
-                    <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" onclick="hideForm()"></button>
-                    {input create}
-                </div>
-            </form>
+        <a href="#Foo" class="btn btn-default" data-toggle="collapse">Toggle Foo</a>
+        <button href="#Bar" class="btn btn-default" data-toggle="collapse">Toggle Bar</button>
+        <div id="Foo" class="collapse">
+            This div (Foo) is hidden by default
         </div>
+        <div id="Bar" class="collapse in">
+            This div (Bar) is shown by default and can toggle
+        </div>
+        
     </div>
     <div class="col-md-4 col-sm-1" />
 </div>
-<script>
-function hideForm() 
-{
-    var x = document.getElementById("formDiv");
-    if (x.style.display === "none") 
-    {
-        x.style.display = "block";
-    } 
-    else 
-    {
-        x.style.display = "none";
-    }
-}
-</script>
 {/block}
