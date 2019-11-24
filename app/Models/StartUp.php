@@ -54,6 +54,21 @@ class StartUp
 
     public function roleCheck($presenter,$rank)
     {
-        return ($presenter->user->identity->data["rank"]>=$rank);
+        if ($presenter->getUser()->isLoggedIn()) 
+        {
+            return ($presenter->user->identity->data["rank"]>=$rank);
+        }
+        else
+        {
+            if($rank==0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
     }
 }
