@@ -19,7 +19,7 @@ Vytvoření nového kurzu
         </div>
         {/ifset}
         
-        <div class="invisible">
+        <div id="divForm" class="d-block">
             <form n:name="createCourseForm">
                 <div class="form-group">
                     <label>Zkratka kurzu</label> {input id_course}
@@ -45,4 +45,9 @@ Vytvoření nového kurzu
     </div>
     <div class="col-md-4 col-sm-1" />
 </div>
+{ifset $success_insert}
+<script>
+$("#divForm").addClass('d-none');
+</script>
+{/ifset}
 {/block}
