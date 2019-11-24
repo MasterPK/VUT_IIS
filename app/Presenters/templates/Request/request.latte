@@ -29,8 +29,8 @@ Seznam žádostí
 function checkAll() 
 {
     console.log("checkAll()");
-    
-    for(var i = 0; i < {$requests_count}; i++) 
+    var array =[{foreach $requests as $row}{$row->id_user},{/foreach}];
+    for(var i = 0; i < 5; i++) 
     {
         $( "#"+i ).prop( "checked", true );
     }
