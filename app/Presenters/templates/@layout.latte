@@ -134,7 +134,8 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            {include header}
+            <div n:snippet="header" n:inner-block="header">
+            </div>
           </li>
         </ol>
         {include content}

@@ -1,7 +1,7 @@
-{snippet header}
+{block header}
 Seznam všech dostupných kurzů
-{/snippet}
-{snippet content}
+{/block}
+{block content}
 <div class="row">
     <form n:name="searchCourseForm" class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
         <div class="input-group">
@@ -13,7 +13,7 @@ Seznam všech dostupných kurzů
         </div>
     </form>
 </div>
-{snippet searchtable}
+
     <div class="row">
         <div class="col-sm-12">
             {ifset $courses}
@@ -44,5 +44,7 @@ Seznam všech dostupných kurzů
             {/ifset}
         </div>
     </div>
-{/snippet}
+
+{/block}
+{snippet searchtable}
 {/snippet}
