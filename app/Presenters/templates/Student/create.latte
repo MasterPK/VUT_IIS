@@ -17,28 +17,31 @@ Vytvoření nového kurzu
         <div class="alert alert-success animated bounce">
                 <strong>Kurz byl úspěšně vytvořen</strong> a bude spracován vedoucím.
         </div>
+        <div class="invisible">
+        {else}
+        <div class="visible">
         {/ifset}
-
-        <form n:name="createCourseForm">
-            <div class="form-group">
-                <label>Zkratka kurzu</label> {input id_course}
-            </div>
-            <div class="form-group">
-                <label>Název kurzu</label> {input name}
-            </div>
-            <div class="form-group">
-                <label>Popis</label> {input description}
-            </div>
-            <div class="form-group">
-                <label>Typ</label> {input type}
-            </div>
-            <div class="form-group">
-                <label>Cena</label> {input price}
-            </div>
-            <div class="form-group text-center ">
-                {input create}
-            </div>
-        </form>
+            <form n:name="createCourseForm">
+                <div class="form-group">
+                    <label>Zkratka kurzu</label> {input id_course}
+                </div>
+                <div class="form-group">
+                    <label>Název kurzu</label> {input name}
+                </div>
+                <div class="form-group">
+                    <label>Popis</label> {input description}
+                </div>
+                <div class="form-group">
+                    <label>Typ</label> {input type}
+                </div>
+                <div class="form-group">
+                    <label>Cena</label> {input price}
+                </div>
+                <div class="form-group text-center ">
+                    {input create}
+                </div>
+            </form>
+        </div>
     </div>
     <div class="col-md-4 col-sm-1" />
 </div>
