@@ -145,7 +145,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 			$this->redirect('Homepage:courses');
 		}
 
-		$requests = $this->database->query("SELECT email, name, surname FROM user NATURAL JOIN request NATURAL JOIN course WHERE id_guarantor = ?", $this->user->identity->id);
+		$requests = $this->database->query("SELECT email, first_name, surname FROM user NATURAL JOIN request NATURAL JOIN course WHERE id_guarantor = ?", $this->user->identity->id);
 		if($requests->getRowCount() > 0)
 		{
 			$this->template->requests = $requests;
