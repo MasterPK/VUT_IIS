@@ -25,13 +25,14 @@ Seznam žádostí
 
         </tbody>
     </table>
+    <button onclick="myFunction()">Click me</button>
 {/ifset}
 <script>
 function myFunction(id) {
   // Get the checkbox
   var checkBox = document.getElementById(id);
   // Get the output text
-  var text = document.getElementById("text{id}}");
+  var text = document.getElementById("text" + id);
 
   // If the checkbox is checked, display the output text
   if (checkBox.checked == true){
