@@ -29,7 +29,7 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 		$this->startup->mainStartUp($this);
 		if(!$this->startup->roleCheck($this,1))
 		{
-			dump("no access");
+			$this->redirect("Homepage:default");
 		}
 
 	}
