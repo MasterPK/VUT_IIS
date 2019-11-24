@@ -32,6 +32,11 @@ Seznam žádostí
     <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="regbutton" onclick="checkAll()" >Označit všechny</button>
     {input submit}
 </form>
+{formContainer registerCheckBox}
+    {foreach $_form->getComponents() as $i}
+        {label $i /}<br>{input $i}
+    {/foreach}
+{/formContainer}
 
 <script>
 var checked_status=false;
