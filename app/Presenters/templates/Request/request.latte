@@ -2,7 +2,6 @@
 Seznam žádostí
 {/block}
 {block content}
-{ifset $requests}
 <div class="row">
     <div class="col-sm-12">
         {snippet error_notif_snippet}
@@ -73,8 +72,9 @@ Seznam žádostí
 
         </tbody>
     </table>
-    {/ifset}
+    
 <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="regbutton" onclick="checkAll()">Potvrdit vše</button>
+{/ifset}
 
 
 <script>
@@ -98,5 +98,4 @@ Seznam žádostí
     }
 
 </script>
-{/ifset}
 {/block}
