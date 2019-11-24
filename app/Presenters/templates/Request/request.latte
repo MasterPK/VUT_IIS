@@ -30,9 +30,9 @@ function checkAll()
 {
     console.log("checkAll()");
     var array =[{foreach $requests as $row}{$row->id_user},{/foreach}];
-    for(var i = 0; i < 5; i++) 
+    for(var i = 0; i < array.length; i++) 
     {
-        $( "#"+i ).prop( "checked", true );
+        $( "#"+array[i] ).prop( "checked", true );
     }
 }
 </script>
