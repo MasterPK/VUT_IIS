@@ -11,6 +11,9 @@ use Nette\Application\UI;
 
 final class HomepagePresenter extends Nette\Application\UI\Presenter
 {
+	/** @var \App\Model\StartUp @inject */
+    public $myService;
+
 	private $database;
 	public function __construct(Nette\Database\Context $database)
 	{
