@@ -4,6 +4,11 @@ Seznam žádostí
 {block content}
 {ifset $requests}
 <form n:name="registerCheckBox">
+{formContainer checkboxes}
+            {foreach $_form->getComponents() as $i}
+            {label $i /}<br>{input $i}
+            {/foreach}
+            {/formContainer}
     <table class="table">
         <thead>
             <tr>
@@ -14,11 +19,7 @@ Seznam žádostí
         </thead>
         <tbody>
 
-            {formContainer checkboxes}
-            {foreach $_form->getComponents() as $i}
-            {label $i /}<br>{input $i}
-            {/foreach}
-            {/formContainer}
+            
             <!--{foreach $form->getComponents() as $key => $component}
             {if $component instanceof Nette\Forms\Controls\CheckBox}
             <tr>
