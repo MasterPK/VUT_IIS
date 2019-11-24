@@ -51,6 +51,28 @@ Podrobnosti kurzu
                 </div>
             </div>
         </div>
+        {ifset $requests}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Email studenta</th>
+                        <th scope="col">Jméno</th>
+                        <th scope="col">Registrovat</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {foreach $requests as $row}
+                    <tr>
+                        <td>{$row->email}</td>
+                        <td>{$row->name} {$row->surname}</td>
+                        <input n:name="checkbox_register" checked>
+                    </tr>
+                    {/foreach}
+
+                </tbody>
+            </table>
+        {/ifset}
     </div>
 </div>
 
