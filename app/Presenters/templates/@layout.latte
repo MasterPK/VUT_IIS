@@ -18,15 +18,14 @@
   <script src="{$basePath}/js/jquery.min.js"></script>
   <script src="{$basePath}/js/jquery.easing.min.js"></script>
   <script src="{$basePath}/js/bootstrap.bundle.min.js"></script>
-  <!--<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
-  <script src="{$basePath}/js/nette.ajax.js"></script>-->
+  <script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
+  <script src="{$basePath}/js/nette.ajax.js"></script>
   <script src="{$basePath}/js/sb-admin.min.js"></script>
-  <script type="application/javascript" src="{$basePath}/js/nittro.min.js" async defer></script>
-  <!--<script>
+  <script>
     $(function () {
             $.nette.init();
         });
-</script>-->
+</script>
 </head>
 
 <body>
@@ -134,11 +133,10 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <div n:snippet="header" n:inner-block="header">
-            </div>
+            {include header}
           </li>
         </ol>
-        <article n:snippet="content" n:inner-block="content" class="nittro-transition-auto nittro-transition-fade"></article>
+        {include content}
       </div>
     </div>
   </div>
