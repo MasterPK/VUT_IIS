@@ -65,7 +65,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		{
 			$form->addCheckbox($row->id_user, '');
 		}
-        $form->addSubmit('login', 'Přihlásit se')
+        $form->addSubmit('submit', 'Přihlásit se')
         ->setHtmlAttribute('class', 'btn btn-block btn-primary');
 		
 		$form->onSuccess[] = [$this, 'registerStudent'];
