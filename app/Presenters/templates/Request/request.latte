@@ -4,6 +4,10 @@ Seznam žádostí
 {block content}
 {ifset $requests}
 <form n:name="registerCheckBox">
+
+    {foreach $form[main]->getControls() as $sid => $cntrl}
+        {label $cntrl /}{input $cntrl}
+    {/foreach}
     <table class="table">
         <thead>
             <tr>
@@ -13,48 +17,48 @@ Seznam žádostí
             </tr>
         </thead>
         <tbody>
-        
-            {foreach $form->getComponents() as $key => $component}
-            <!--{if $component instanceof Nette\Forms\Controls\CheckBox}-->
+
+            
+            <!--{foreach $form->getComponents() as $key => $component}
+            {if $component instanceof Nette\Forms\Controls\CheckBox}
             <tr>
-                <!--<td>{$row->email}</td>
+                <td>{$row->email}</td>
                 <td>{$row->first_name} {$row->surname}</td>
-                <td>-->
+                <td>
+                TEST
+                {$key}
                 {input $key}
             </tr>
-            <!--{/if}-->
-            {/foreach}
-        
+            {/if}
+            {/foreach}-->
+
         </tbody>
     </table>
-    <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="regbutton" onclick="checkAll()" >Označit všechny</button>
+    <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="regbutton" onclick="checkAll()">Označit
+        všechny</button>
     {input submit}
 </form>
 
+
 <script>
-var checked_status=false;
-function checkAll() 
-{
-    var array =[{foreach $requests as $row}{$row->id_user},{/foreach}];
-    if(checked_status==false)
-    {
-        for(var i = 0; i < array.length; i++) 
-        {
-            $( "#"+array[i] ).prop( "checked", true );
+    var checked_status = false;
+    function checkAll() {
+        var array = [{foreach $requests as $row}{$row->id_user},{/foreach}];
+        if (checked_status == false) {
+            for (var i = 0; i < array.length; i++) {
+                $("#" + array[i]).prop("checked", true);
+            }
+            checked_status = true;
+            $("#regbutton").html("Odznačit všechny");
         }
-        checked_status=true;
-        $( "#regbutton" ).html("Odznačit všechny" );
-    }
-    else
-    {
-        for(var i = 0; i < array.length; i++) 
-        {
-            $( "#"+array[i] ).prop( "checked", false );
+        else {
+            for (var i = 0; i < array.length; i++) {
+                $("#" + array[i]).prop("checked", false);
+            }
+            checked_status = false;
+            $("#regbutton").html("Označit všechny");
         }
-        checked_status=false;
-        $( "#regbutton" ).html( "Označit všechny" );
     }
-}
 
 </script>
 {/ifset}
