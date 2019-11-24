@@ -62,6 +62,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 	private $id_course;
 	public function renderRequest($id): void
 	{ 
+		$requests = NULL;
 		$course = $this->database->query("SELECT * FROM course WHERE id_course = ?", $id)->fetch();
 
 		//ak kurz nebol schvaleny, vypis ho
