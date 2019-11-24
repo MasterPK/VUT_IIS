@@ -6,7 +6,7 @@ namespace App\Presenters;
 
 use Nette;
 
-use Nette\Application\UI;
+use Nette\Application\UI\Form;
 
 
 final class RequestPresenter extends Nette\Application\UI\Presenter
@@ -74,5 +74,23 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		{
 			$this->template->requests = $requests;
 		}
+	}
+
+	protected function createComponentRegisterForm(): Form
+    {
+		$form = new Form;
+
+        $form->addCheckbox('register', 'Registrovat')
+    		->setDefaultValue(false);
+		
+		$form->onSuccess[] = [$this, 'registerStudent'];
+        return $form;
+    }
+
+    public function registerStudent($form): void
+    {
+		
+		
+    	
 	}
 }

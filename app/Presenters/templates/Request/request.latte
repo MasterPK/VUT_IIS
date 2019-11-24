@@ -17,7 +17,12 @@ Seznam žádostí
             <tr>
                 <td>{$row->email}</td>
                 <td>{$row->first_name} {$row->surname}</td>
-                <td>...</td>
+                <td>
+                <form n:name="registerForm">
+                    <div class="form-group text-center ">
+                        {input register}
+                    </div>
+                </form></td>
             </tr>
             {/foreach}
 
