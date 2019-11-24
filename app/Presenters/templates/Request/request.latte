@@ -5,10 +5,9 @@ Seznam žádostí
 {ifset $requests}
 <form n:name="registerCheckBox">
 {formContainer checkboxes}
-            {foreach $_form->getComponents() as $i}
-            {label $i /}<br>{input $i}
-            {/foreach}
-            {/formContainer}
+            {foreach $form[main]->getControls() as $sid => $cntrl}
+        {label $cntrl /}{input $cntrl}
+    {/foreach}
     <table class="table">
         <thead>
             <tr>
