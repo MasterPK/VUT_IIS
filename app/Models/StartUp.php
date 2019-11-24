@@ -58,6 +58,7 @@ class StartUp
 
     public function roleCheck($user,$role)
     {
+        dump("CheckRole:");
         if ($user->isInRole(1)) {
             dump("Student"); 
         }
