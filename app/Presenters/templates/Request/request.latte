@@ -37,7 +37,7 @@ function checkAll()
             $( "#"+array[i] ).prop( "checked", true );
         }
         checked_status=true;
-        $( "#regbutton" ).prop( "value", "Odznačit všechny" );
+        $( "#regbutton" ).html("Odznačit všechny" );
     }
     else
     {
@@ -46,7 +46,7 @@ function checkAll()
             $( "#"+array[i] ).prop( "checked", false );
         }
         checked_status=false;
-        $( "#regbutton" ).prop( "value", "Označit všechny" );
+        $( "#regbutton" ).html( "Označit všechny" );
     }
 }
 </script>
