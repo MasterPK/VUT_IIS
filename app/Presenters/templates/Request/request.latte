@@ -18,13 +18,25 @@ Seznam žádostí
                 <td>{$row->email}</td>
                 <td>{$row->first_name} {$row->surname}</td>
                 <td>
-                <form n:name="registerForm">
-                    {input register}
-                </form></td>
+                <input type="checkbox" id="myCheck" onclick="myFunction()"></td>
+                <p id="text" style="display:none">Checkbox is CHECKED!</p>
             </tr>
             {/foreach}
 
         </tbody>
     </table>
 {/ifset}
+function myFunction() {
+  // Get the checkbox
+  var checkBox = document.getElementById("myCheck");
+  // Get the output text
+  var text = document.getElementById("text");
+
+  // If the checkbox is checked, display the output text
+  if (checkBox.checked == true){
+    text.style.display = "block";
+  } else {
+    text.style.display = "none";
+  }
+}
 {/block}
