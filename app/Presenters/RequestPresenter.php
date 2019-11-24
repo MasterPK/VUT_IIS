@@ -89,9 +89,6 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 			$course->id_guarantor = $guarantor->first_name . " " . $guarantor->surname;
 			
 			$this->template->course = $course;
-
-			dump($this->template->course);
-
 		}
 		else
 		{
