@@ -26,13 +26,25 @@ Seznam žádostí
     <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="regbutton" onclick="checkAll()" href="#">Registrovat všechny</button>
 {/ifset}
 <script>
+var checked_status=false;
 function checkAll() 
 {
-    console.log("checkAll()");
     var array =[{foreach $requests as $row}{$row->id_user},{/foreach}];
-    for(var i = 0; i < array.length; i++) 
+    if(checked_status==false)
     {
-        $( "#"+array[i] ).prop( "checked", true );
+        for(var i = 0; i < array.length; i++) 
+        {
+            $( "#"+array[i] ).prop( "checked", true );
+        }
+        checked_status=true;
+    }
+    else
+    {
+        for(var i = 0; i < array.length; i++) 
+        {
+            $( "#"+array[i] ).prop( "checked", false );
+        }
+        checked_status=false;
     }
 }
 </script>
