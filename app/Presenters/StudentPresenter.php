@@ -53,6 +53,8 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 		$courses = array();
 		switch($this->template->rank)
 		{
+			case 5:
+			case 4:
 			case 3:
 				$data = $this->database->query("SELECT id_course, course_name, course_type, course_status FROM course WHERE id_guarantor = ?",  $this->user->identity->id);
 				if($data->getRowCount() > 0)
