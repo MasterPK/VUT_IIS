@@ -23,7 +23,7 @@ class StartUp
 				->fetch();
 
 			$userData=new Nette\Security\Identity ($presenter->user->identity->id,$presenter->user->identity->rank,$data);
-
+            
 		
 			if($userData!=$presenter->user->identity)
 			{
@@ -41,12 +41,19 @@ class StartUp
 				case 3: $presenter->template->rank_msg="Garant";break;
 				case 4: $presenter->template->rank_msg="Vedoucí";break;
 				case 5: $presenter->template->rank_msg="Administrátor";break;
-			}
+            }
+    
 		} 
-		else 
+		else
 		{
 			$presenter->template->rank=0;
-			$presenter->template->rank_msg = "Neregistrovaný návštěvník";
-		}
+            $presenter->template->rank_msg = "Neregistrovaný návštěvník";
+     
+        }
+    }
+
+    public function roleCheck($presenter,$rank)
+    {
+        return ($presenter->user->identity->data["rank"]>=$rank);
     }
 }
