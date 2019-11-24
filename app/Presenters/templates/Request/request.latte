@@ -43,7 +43,7 @@ Seznam žádostí
 <script>
     var checked_status = false;
     function checkAll() {
-        var array = [{ foreach $requests as $row }{ $row-> id_user}, {/foreach}];
+        var array = [{foreach $requests as $row}{ $row->id_user},{/foreach}];
         if (checked_status == false) {
             for (var i = 0; i < array.length; i++) {
                 $("#" + array[i]).prop("checked", true);
