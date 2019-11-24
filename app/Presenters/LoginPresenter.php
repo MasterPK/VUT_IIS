@@ -11,6 +11,9 @@ use Nette\Application\UI;
 
 final class LoginPresenter extends Nette\Application\UI\Presenter
 {
+    /** @var \App\Model\StartUp @inject */
+    public $startup;
+
     private $database;
     public function __construct(Nette\Database\Context $database)
     {
