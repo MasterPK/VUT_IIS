@@ -33,7 +33,7 @@ class Authenticator implements Nette\Security\IAuthenticator
 
         for($i=$row->rank;$i>=0;$i--)
         {
-            $array[$i]=true;
+            $array[$i]=$i;
         }
 
         return new NS\Identity($row->id_user,$array, $row);
