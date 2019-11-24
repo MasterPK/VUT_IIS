@@ -81,7 +81,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 	{ 
 		$requests = NULL;
 		$course = $this->database->query("SELECT * FROM course WHERE id_course = ?", $id)->fetch();
-
+		dump($course->id_guarantor);
 		//ak kurz nebol schvaleny, vypis ho
 		if($this->template->rank > 3 && $course->course_status == 0)
 		{
