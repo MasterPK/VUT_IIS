@@ -35,8 +35,13 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 
 	public function renderDefault(): void
 	{ 
-		$data = $this->database->query("SELECT DISTINCT(id_course), course_name, course_type, course_price FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE (id_guarantor = ? AND student_status = 0) OR course_status=0",  $this->user->identity->id)->fetchAll();
+		$data = $this->database->query("SELECT DISTINCT(id_course), course_name, course_type FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_guarantor = ? AND student_status = 0",  $this->user->identity->id)->fetchAll();
 
+		if($this->template->rank > 3)
+		{
+			array_push($data, $this->database->query("SELECT id_course, course_name, course_type FROM course WHERE course_status = 0")->fetchAll());
+		}
+		
 		if($data->getRowCount() > 0)
 		{
 			$this->template->requests=$data;
