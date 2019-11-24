@@ -133,7 +133,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 				$this->template->register=false;
 			}
 
-			switch($course->type)
+			switch($course->course_type)
 			{
 				case "P":$this->template->type="Povinný";break;
 				case "V":$this->template->type="Volitelný";break;
