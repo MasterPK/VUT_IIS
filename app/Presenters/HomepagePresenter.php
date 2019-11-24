@@ -41,7 +41,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	{
 		if($search)
 		{
-			$data = $this->database->table("course")->where( $filter . " LIKE ?",  "%" . $search . "%")->fetchAll();		
+			$data = $this->database->table("course")->where( $filter . " LIKE ? AND course_status = ?",  "%" . $search . "%", 1)->fetchAll();		
 			
 			if($data)
 			{
@@ -50,7 +50,9 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		}
 		else
 		{
-			$data = $this->database->table("course")->fetchAll();
+			$data = $this->database->table("course")
+			->where("course_status = ?", 1)
+			->fetchAll();
 			if($data)
 			{
 				$this->template->courses=$data;
@@ -72,11 +74,11 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		if($course)
 		{
 
-			$request = $this->database->table("course_has_student")->where("id_course=? AND id_user=? AND status = 0", $id, $this->user->identity->id )->fetch();
+			$request = $this->database->table("course_has_student")->where("id_course=? AND id_user=? AND student_status = 0", $id, $this->user->identity->id )->fetch();
 
 			if($request)
 			{
-				$this->template->request=$request->state;
+				$this->template->request=$request->student_status;
 			}
 
 			$course_guarantor = $this->database->table("user")
@@ -98,7 +100,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 				$this->template->register=false;
 			}
 
-			$course_students = $this->database->query("SELECT id_user FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_user = ? AND id_course = ? and status = 1", $this->user->identity->id, $course->id_course);
+			$course_students = $this->database->query("SELECT id_user FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_user = ? AND id_course = ? and student_status = 1", $this->user->identity->id, $course->id_course);
 
 			//a ani uz registrovani studenti
 			if($course_students->getRowCount() > 0)
@@ -174,7 +176,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 
     	if($get->getRowCount() == 0)
     	{
-			$data = $this->database->query("INSERT INTO course_has_student ( id, id_course, id_user) VALUES ('', ?, ?)", $values->id_course, $this->user->identity->id);
+			$data = $this->database->query("INSERT INTO course_has_student ( id, id_course, id_user, student_status) VALUES ('', ?, ?, 0)", $values->id_course, $this->user->identity->id);
 			$this->template->error_notif = 2;
     	}
     	else
