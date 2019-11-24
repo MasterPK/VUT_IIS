@@ -13,7 +13,7 @@ class StartUp
         $this->database = $database;
     }
 
-    public function mainStartUp($presenter,$permission)
+    public function mainStartUp($presenter)
     {
         if ($presenter->getUser()->isLoggedIn()) 
 		{
@@ -54,5 +54,13 @@ class StartUp
         {
          
         }
+    }
+
+    public function roleCheck($user,$role)
+    {
+        if ($user->isInRole(1)) {
+            dump("Student"); 
+        }
+
     }
 }

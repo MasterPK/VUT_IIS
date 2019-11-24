@@ -26,7 +26,8 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 		parent::startup();
 
 		
-		$this->startup->mainStartUp($this,1);
+		$this->startup->mainStartUp($this);
+		$this->startup->roleCheck($this->getUser(),1);
 
 	}
 

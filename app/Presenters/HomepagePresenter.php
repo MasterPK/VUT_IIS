@@ -27,7 +27,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	{
 		parent::startup();
 
-		$this->startup->mainStartUp($this,0);
+		$this->startup->mainStartUp($this);
 		
 	}
 
