@@ -18,7 +18,7 @@ Seznam žádostí
                 <td>{$row->email}</td>
                 <td>{$row->first_name} {$row->surname}</td>
                 <td>
-                <input type="checkbox" id="{$row->id_user}" onclick="myFunction($row->id_user)"></td>
+                <input type="checkbox" id="{$row->id_user}" onclick="myFunction({$row->id_user})"></td>
                 <p id="text" style="display:none">Checkbox {$row->id_user} is CHECKED!</p>
             </tr>
             {/foreach}
