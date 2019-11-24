@@ -59,28 +59,6 @@ Podrobnosti kurzu
                 </div>
             </div>
         </div>
-        {ifset $requests}
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Email studenta</th>
-                        <th scope="col">Jméno</th>
-                        <th scope="col">Registrovat</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    {foreach $requests as $row}
-                    <tr>
-                        <td>{$row->email}</td>
-                        <td>{$row->first_name} {$row->surname}</td>
-                        <td>...</td>
-                    </tr>
-                    {/foreach}
-
-                </tbody>
-            </table>
-        {/ifset}
     </div>
 </div>
 
