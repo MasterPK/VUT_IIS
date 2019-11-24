@@ -21,7 +21,7 @@ Seznam žádostí
             <td>{$row->email}</td>
             <td>{$row->first_name} {$row->surname}</td>
             <td>
-            {dump $form->getComponents()}
+                {input id_$row->id_user}
                 
             </td>
             </tr>
@@ -30,10 +30,11 @@ Seznam žádostí
 
         </tbody>
     </table>
-    <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="regbutton" onclick="checkAll()">Označit
+    
         všechny</button>
     {input submit}
 </form>
+<button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="regbutton" onclick="checkAll()">Označit
 
 
 <script>
