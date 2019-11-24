@@ -80,7 +80,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
     {
 		$form = new Form;
 
-        $form->addCheckbox('register', 'Registrovat')
+        $form->addCheckbox('register', '')
     		->setDefaultValue(false);
 		
 		$form->onSuccess[] = [$this, 'registerStudent'];
