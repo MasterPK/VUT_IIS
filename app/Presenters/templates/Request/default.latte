@@ -1,13 +1,11 @@
 {block header}
 Seznam žádostí
 {/block}
-{block header}
-Seznam žádostí
-{/block}
 {block content}
 <div class="row">
     <div class="col-sm-12">
         {ifset $courses}
+        <h3>Seznam žádostí o schválení kurzů</h3>
         <table class="table">
             <thead>
                 <tr>
@@ -33,6 +31,7 @@ Seznam žádostí
         {/ifset}
 
         {ifset $requests}
+        <h3>Seznam žádostí studentů o kurz</h3>
         <table class="table">
             <thead>
                 <tr>
