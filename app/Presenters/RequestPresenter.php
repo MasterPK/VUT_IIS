@@ -76,6 +76,10 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
     {
 		$requests = $this->database->query("SELECT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_guarantor = ? AND id_course = ? AND student_status = 0", $this->user->identity->id, $this->id_course)->fetchAll();
 
+		if($requests)
+		{
+			$this->template->requests = $requests;
+		}
 		$form = new Form;
 		$main = $form->addContainer('main');
 		foreach($requests as $row)

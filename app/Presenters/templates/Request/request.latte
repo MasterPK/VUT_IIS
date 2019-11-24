@@ -16,17 +16,15 @@ Seznam žádostí
         </thead>
         <tbody>
 
-            
-            {foreach $form->getComponents() as $key => $component}
-            
+            {foreach $requests as $row}
             <tr>
-                <!--<td>{$row->email}</td>
-                <td>{$row->first_name} {$row->surname}</td>
-                <td>-->
-                {$key}
-                {input $key}
+            <td>{$row->email}</td>
+            <td>{$row->first_name} {$row->surname}</td>
+            <td>
+                {input $form->getComponents()[$row->id_user]}
+            </td>
             </tr>
-           
+
             {/foreach}
 
         </tbody>
