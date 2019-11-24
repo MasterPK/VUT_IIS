@@ -26,10 +26,8 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 		parent::startup();
 
 		
-		if(!$this->startup->mainStartUp($this,1))
-		{
-			$this-redirect("Homepage:");
-		}
+		$this->startup->mainStartUp($this,1)
+
 	}
 
 

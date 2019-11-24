@@ -17,9 +17,6 @@ class StartUp
     {
         if ($presenter->getUser()->isLoggedIn()) 
 		{
-            if (!$presenter->getUser()->isInRole($permission)) {
-                return false;
-            }
 			
 			$data = $this->database->table("user")
 				->where("id_user=?", $presenter->user->identity->id)
@@ -45,17 +42,17 @@ class StartUp
 				case 4: $presenter->template->rank_msg="Vedoucí";break;
 				case 5: $presenter->template->rank_msg="Administrátor";break;
             }
-            return true;
+    
 		} 
 		else if($permission==0)
 		{
 			$presenter->template->rank=0;
             $presenter->template->rank_msg = "Neregistrovaný návštěvník";
-            return true;
+     
         }
         else
         {
-            return false;
+         
         }
     }
 }
