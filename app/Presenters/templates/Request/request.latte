@@ -21,30 +21,28 @@ Seznam žádostí
     </div>
 </div>
     {ifset $course}
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Zkratka kurzu</th>
-                <th scope="col">Název</th>
-                <th scope="col">Popis</th>
-                <th scope="col">Typ</th>
-                <th scope="col">Cena</th>
-                <th scope="col">Garant</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            <tr>
-            <td>{$course->id_course}</td>
-            <td>{$course->course_name}</td>
-            <td>{$course->course_description}</td>
-            <td>{$course->course_type}</td>
-            <td>{$course->course_price}</td>
-            <td>{$course->id_guarantor}</td>
-            </tr>
-
-        </tbody>
-    </table>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Zkratka</th>
+                    <th scope="col">Název</th>
+                    <th scope="col">Popis</th>
+                    <th scope="col">Typ</th>
+                    <th scope="col">Cena</th>
+                    <th scope="col">Garant</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{$course->id_course}</td>
+                    <td>{$course->course_name}</td>
+                    <td>{$course->course_description}</td>
+                    <td>{$course->course_type}</td>
+                    <td>{$course->course_price}</td>
+                    <td>{$course->id_guarantor}</td>
+                </tr>
+            </tbody>
+        </table>
     {/ifset}
 
     {ifset $requests}
