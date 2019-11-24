@@ -83,7 +83,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		$form = new Form;
 		foreach($requests as $row)
 		{
-			$form->addCheckbox(strval($row->id_user),"");
+			$form->addCheckbox("id_".strval($row->id_user),"");
 		}
         $form->addSubmit('submit', 'Zaregistrovat označené')
         ->setHtmlAttribute('class', 'btn btn-primary');
