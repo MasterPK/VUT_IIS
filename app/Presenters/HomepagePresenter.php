@@ -98,7 +98,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 				$this->template->register=false;
 			}
 
-			$course_students = $this->database->query("SELECT id_user FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_user = ? AND id_course = ? and status = 2", $this->user->identity->id, $course->id_course);
+			$course_students = $this->database->query("SELECT id_user FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_user = ? AND id_course = ? and status = 1", $this->user->identity->id, $course->id_course);
 
 			//a ani uz registrovani studenti
 			if($course_students->getRowCount() > 0)
@@ -170,11 +170,11 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
     {
 		
 		$values = $form->getValues();
-    	$get = $this->database->query("SELECT id_request FROM request WHERE id_course = ? AND id_user = ?", $values->id_course, $this->user->identity->id);
+    	$get = $this->database->query("SELECT id FROM course_has_student WHERE id_course = ? AND id_user = ?", $values->id_course, $this->user->identity->id);
 
     	if($get->getRowCount() == 0)
     	{
-			$data = $this->database->query("INSERT INTO request ( id_request, id_course, id_user) VALUES ('', ?, ?)", $values->id_course, $this->user->identity->id);
+			$data = $this->database->query("INSERT INTO course_has_student ( id, id_course, id_user) VALUES ('', ?, ?)", $values->id_course, $this->user->identity->id);
 			$this->template->error_notif = 2;
     	}
     	else
