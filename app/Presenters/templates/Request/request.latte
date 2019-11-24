@@ -32,9 +32,8 @@ function checkAll(requests)
     alert("Clicked button");
     for(var i = 0; i < requests.length; i++) 
     {
-        var checkBox = document.getElementById(requests[i]->id_user);
+        var checkBox = document.getElementById(requests[i][0]);
         checkBox.checked = true;
-        alert("Checkbox %d checked", requests[i]->id_user);
     }
 }
 </script>
