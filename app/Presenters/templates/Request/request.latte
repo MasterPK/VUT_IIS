@@ -18,63 +18,64 @@ Seznam žádostí
         {/if}
         {/ifset}
         {/snippet}
+
+        {ifset $course}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Zkratka kurzu</th>
+                    <th scope="col">Název</th>
+                    <th scope="col">Popis</th>
+                    <th scope="col">Typ</th>
+                    <th scope="col">Cena</th>
+                    <th scope="col">Garant</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                <td>{$course->id_course}</td>
+                <td>{$course->course_name}</td>
+                <td>{$course->course_description}</td>
+                <td>{$course->course_type}</td>
+                <td>{$course->course_price}</td>
+                <td>{$course->id_guarantor}</td>
+                </tr>
+
+            </tbody>
+        </table>
+        {/ifset}
+
+        {ifset $requests}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Email studenta</th>
+                    <th scope="col">Jméno</th>
+                    <th scope="col">Registrovat</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {foreach $requests as $row}
+                <tr>
+                <td>{$row->email}</td>
+                <td>{$row->first_name} {$row->surname}</td>
+                <td>
+                <a class="ajax" n:href="register! $row->id_user">
+                    <button class="btn btn-primary" >Registrovat</button>
+                </a>
+                </td>
+                </tr>
+
+                {/foreach}
+
+            </tbody>
+        </table>
+        {/ifset}
+        <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="regbutton" onclick="checkAll()">Potvrdit vše</button>
     </div>
 </div>
-    {ifset $course}
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Zkratka kurzu</th>
-                <th scope="col">Název</th>
-                <th scope="col">Popis</th>
-                <th scope="col">Typ</th>
-                <th scope="col">Cena</th>
-                <th scope="col">Garant</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            <tr>
-            <td>{$course->id_course}</td>
-            <td>{$course->course_name}</td>
-            <td>{$course->course_description}</td>
-            <td>{$course->course_type}</td>
-            <td>{$course->course_price}</td>
-            <td>{$course->id_guarantor}</td>
-            </tr>
-
-        </tbody>
-    </table>
-    {/ifset}
-
-    {ifset $requests}
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Email studenta</th>
-                <th scope="col">Jméno</th>
-                <th scope="col">Registrovat</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            {foreach $requests as $row}
-            <tr>
-            <td>{$row->email}</td>
-            <td>{$row->first_name} {$row->surname}</td>
-            <td>
-            <a class="ajax" n:href="register! $row->id_user">
-                <button class="btn btn-primary" >Registrovat</button>
-            </a>
-            </td>
-            </tr>
-
-            {/foreach}
-
-        </tbody>
-    </table>
-    {/ifset}
-<button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="regbutton" onclick="checkAll()">Potvrdit vše</button>
 
 
 <script>
