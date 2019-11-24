@@ -18,8 +18,8 @@ Seznam žádostí
                 <td>{$row->email}</td>
                 <td>{$row->first_name} {$row->surname}</td>
                 <td>
-                <input type="checkbox" id="myCheck" onclick="myFunction()"></td>
-                <p id="text" style="display:none">Checkbox is CHECKED!</p>
+                <input type="checkbox" id="{$row->id_user}" onclick="myFunction($row->id_user)"></td>
+                <p id="text" style="display:none">Checkbox {$row->id_user} is CHECKED!</p>
             </tr>
             {/foreach}
 
@@ -27,9 +27,9 @@ Seznam žádostí
     </table>
 {/ifset}
 <script>
-function myFunction() {
+function myFunction(id) {
   // Get the checkbox
-  var checkBox = document.getElementById("myCheck");
+  var checkBox = document.getElementById(id);
   // Get the output text
   var text = document.getElementById("text");
 
