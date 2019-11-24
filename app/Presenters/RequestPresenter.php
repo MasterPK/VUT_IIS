@@ -39,7 +39,12 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 
 		if($this->template->rank > 3)
 		{
-			array_push($data, $this->database->query("SELECT id_course, course_name, course_type FROM course WHERE course_status = 0")->fetchAll());
+			$data2 = $this->database->query("SELECT id_course, course_name, course_type FROM course WHERE course_status = 0")->fetchAll());
+			
+			foreach($data2 as $course)
+			{
+				array_push($data, $course);
+			}
 		}
 		
 		if(count($data) > 0)
