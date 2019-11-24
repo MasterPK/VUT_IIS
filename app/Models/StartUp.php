@@ -44,15 +44,11 @@ class StartUp
             }
     
 		} 
-		else if($permission==0)
+		else
 		{
 			$presenter->template->rank=0;
             $presenter->template->rank_msg = "Neregistrovaný návštěvník";
      
-        }
-        else
-        {
-         
         }
     }
 
