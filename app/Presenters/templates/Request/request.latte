@@ -23,7 +23,7 @@ Seznam žádostí
 
         </tbody>
     </table>
-    <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="regbutton" onclick="checkAll()" href="#">Registrovat všechny</button>
+    <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="regbutton" onclick="checkAll()" value="Označit všechny"></button>
 {/ifset}
 <script>
 var checked_status=false;
@@ -37,6 +37,7 @@ function checkAll()
             $( "#"+array[i] ).prop( "checked", true );
         }
         checked_status=true;
+        $( "#regbutton" ).prop( "value", "Odznačit všechny" );
     }
     else
     {
@@ -45,6 +46,7 @@ function checkAll()
             $( "#"+array[i] ).prop( "checked", false );
         }
         checked_status=false;
+        $( "#regbutton" ).prop( "value", "Označit všechny" );
     }
 }
 </script>
