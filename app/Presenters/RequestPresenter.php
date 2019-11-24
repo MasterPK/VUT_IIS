@@ -76,11 +76,11 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		}
 	}
 
-	protected function createComponentRegisterForm(): Form
+	protected function createComponentRegisterCheckBox(): Form
     {
 		$form = new Form;
 
-        $form->addCheckbox('register', '')
+        $form->addCheckbox('registerBox', '')
     		->setDefaultValue(false);
 		
 		$form->onSuccess[] = [$this, 'registerStudent'];
