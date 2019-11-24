@@ -32,8 +32,7 @@ class StartUp
 					$presenter->user->identity->$key = $item;
 				}
             }
-            $presenter->template->username=$presenter->user->identity->data->first_name . " " . $presenter->user->identity->data->surname;
-            dump($presenter->template->username);
+            $presenter->template->username=$presenter->user->identity->data["first_name"] . " " . $presenter->user->identity->data["surname"]; 
 			$presenter->template->rank=$data->rank;
 			switch($data->rank)
 			{
