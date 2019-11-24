@@ -17,7 +17,7 @@ class StartUp
     {
         if ($presenter->getUser()->isLoggedIn()) 
 		{
-            if (!$user->isInRole($permission)) {
+            if (!$presenter->getUser()->isInRole($permission)) {
                 $presenter->redirect("Homepage:");
             }
 			
