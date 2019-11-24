@@ -17,13 +17,16 @@ class StartUp
     {
         if ($presenter->getUser()->isLoggedIn()) 
 		{
+            if (!$user->isInRole($permission)) {
+                $presenter->redirect("Homepage:");
+            }
 			
 			$data = $this->database->table("user")
 				->where("id_user=?", $presenter->user->identity->id)
 				->fetch();
 
 			$userData=new Nette\Security\Identity ($presenter->user->identity->id,$presenter->user->identity->rank,$data);
-
+            
 		
 			if($userData!=$presenter->user->identity)
 			{
@@ -43,10 +46,14 @@ class StartUp
 				case 5: $presenter->template->rank_msg="Administrátor";break;
 			}
 		} 
-		else 
+		else if($permission==0)
 		{
 			$presenter->template->rank=0;
 			$presenter->template->rank_msg = "Neregistrovaný návštěvník";
-		}
+        }
+        else
+        {
+            $presenter->redirect("Homepage:");
+        }
     }
 }

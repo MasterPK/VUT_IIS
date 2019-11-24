@@ -25,7 +25,7 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 	{
 		parent::startup();
 
-		$this->startup->mainStartUp($this);
+		$this->startup->mainStartUp($this,1);
 	}
 
 
