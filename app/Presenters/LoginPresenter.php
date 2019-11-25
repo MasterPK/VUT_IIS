@@ -28,7 +28,13 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
     }
 
 
-    public function renderDefault($option)
+    public function renderDefault()
+    {
+        $this->getUser()->isLoggedIn() ? $this->redirect("Homepage:"):"";
+        
+    }
+
+    public function renderLogin($option)
     {
         $this->getUser()->isLoggedIn() ? $this->redirect("Homepage:"):"";
         if($option==1)
