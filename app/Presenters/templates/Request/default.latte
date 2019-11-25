@@ -7,10 +7,9 @@ Seznam žádostí
         {snippet error_notif_snippet}
         {ifset $error_notif}
         {if $error_notif==3}
-        <div class="alert alert-success animated bounce">
-                <strong>Kurz byl povolen!</strong>
-        </div>
         <script>$.notify("Kurz byl povolen!", "success");</script>
+        {elseif $error_notif==4}
+        <script>$.notify("Došlo k chybě při povolování kurzu!", "error");</script>
         {/if}
         {/ifset}
         {/snippet}
