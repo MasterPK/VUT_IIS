@@ -112,7 +112,7 @@ Podrobnosti kurzu
 </div>
 {/ifset}
 
-
+{ifset buttons}
 {ifset $course_status}
 {if $course_status == 1 or $course_status == 3}
 <a id="openbuttona" n:href="open! $course->id_course"><button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="openbutton" >Otevřít registrace</button></a>
@@ -137,6 +137,7 @@ Podrobnosti kurzu
     $("#openbuttona").attr("href", {$link}."?do=open");
 </script>
 {/if}
+{/ifset}
 {/ifset}
 
 {/block}
