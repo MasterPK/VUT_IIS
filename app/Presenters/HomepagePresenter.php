@@ -224,7 +224,6 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		$values = $form->getValues();
     	$get = $this->database->query("UPDATE course SET course_status = 2 WHERE id_course = ?", $values->id_course);
 
-    	dump($get->getRowCount());
     	if($get->getRowCount() == 1)
     	{
     		$this->template->course_open_success = true;
