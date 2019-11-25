@@ -25,7 +25,9 @@
     $(function () {
             $.nette.init();
         });
+      </script>
     {ifset $username}
+    <script>
     var idleTime = 0;
     $(document).ready(function () {
         //Increment the idle time counter every minute.
@@ -43,8 +45,9 @@
             window.location.reload();
         }
     }
-    {/ifset}
+    
 </script>
+{/ifset}
 </head>
 
 <body>
