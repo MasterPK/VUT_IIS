@@ -14,6 +14,7 @@ Přihlášení
             <strong>Příhlášení bylo neúspěšné!</strong> Zadané údaje nejsou správné!
         </div>
         {/ifset}
+        {ifset $error}<br><div class="bg-danger p-xs b-r-sm"><b>{$error}</b></div>{/ifset}
 
         <form n:name="loginForm">
             <div class="form-group">
