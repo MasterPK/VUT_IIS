@@ -178,13 +178,18 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		->update([
 			'course_status' => '1'
 		]);*/
-
-		if ($this->isAjax() && $count==1)
+		try{
+			if ($this->isAjax() && $count==1)
 		{
 			$this->template->error_notif = 3;
 			$this->payload->message = 'Success';
             $this->redrawControl('content_snippet');
         }
+		}catch()
+		{
+			
+		}
+		
 		
     	
 	}
