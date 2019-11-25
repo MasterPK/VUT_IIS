@@ -74,8 +74,13 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 
 		if($course)
 		{
+			//kurz je schvaleny, ale registracie este neboli otvorene
+			if($course->course_status == 1)
+			{
+				$this->template->openButton = true;
+			}
 			//ak su otvorene registracie na kurz..
-			if($course->course_status == 2)
+			else if($course->course_status == 2)
 			{
 				$request = $this->database->table("course_has_student")->where("id_course=? AND id_user=? AND student_status = 0", $id, $this->user->identity->id )->fetch();
 
@@ -111,7 +116,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 					->fetch();
 
 			$this->template->guarantor=$course_guarantor->first_name . " " . $course_guarantor->surname;
-				
+
 			switch($course->course_type) 
 			{
 				case "P":$this->template->type="Povinný";break;
@@ -193,5 +198,30 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
             $this->redrawControl('error_notif_snippet');
         }
     	
+	}
+
+	protected function createComponentOpenRegistrationForm(): UI\Form
+    {
+		$form = new UI\Form;
+		$form->getElementPrototype()->class('ajax');
+		$form->addHidden('id_course');
+
+		$form->setDefaults([
+            'id_course' => $this->current_course_id,
+
+        ]);
+
+        $form->addSubmit('openreg', 'Otevřít kurz')
+		->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+		
+		$form->onSuccess[] = [$this, 'openCourse'];
+        return $form;
+    }
+
+    public function openCourse($form): void
+    {
+		
+		$values = $form->getValues();
+    	$get = $this->database->query("UPDATE course SET course_status = 2 WHERE id_course = ?", $values->id_course);    	
 	}
 }
