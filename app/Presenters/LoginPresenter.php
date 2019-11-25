@@ -44,7 +44,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         
     }
 
-    public function renderLogout($option)
+    public function renderLogout($option=0)
     {
         $this->getUser()->logout();
         
