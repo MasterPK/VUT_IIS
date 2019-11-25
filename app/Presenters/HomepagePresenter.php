@@ -200,29 +200,9 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
     	
 	}
 
-	protected function createComponentOpenRegistrationForm(): UI\Form
+	public function handleOpen()
     {
-		$form = new UI\Form;
-		$form->getElementPrototype()->class('ajax');
-		$form->addHidden('id_course');
-
-		$form->setDefaults([
-            'id_course' => $this->current_course_id,
-
-        ]);
-
-        $form->addSubmit('openreg', 'Otevřít kurz')
-		->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
-		
-		$form->onSuccess[] = [$this, 'openCourse'];
-        return $form;
-    }
-
-    public function openCourse($form): void
-    {
-		
-		$values = $form->getValues();
-    	$get = $this->database->query("UPDATE course SET course_status = 2 WHERE id_course = ?", $values->id_course);
+    	$get = $this->database->query("UPDATE course SET course_status = 2 WHERE id_course = ?", $this->template->current_course_id);
 
     	if($get->getRowCount() == 1)
     	{
@@ -237,5 +217,6 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		{
             $this->redrawControl('course_open_success_snippet');
         }
-	}
+    }
+
 }
