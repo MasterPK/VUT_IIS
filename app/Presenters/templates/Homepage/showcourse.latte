@@ -28,13 +28,10 @@ Podrobnosti kurzu
                 </div>
             {else}
                 <div class="alert alert-danger animated bounce">
-                <strong>Kurz se nepodarilo otevřít!</strong>
+                <strong>Kurz se nepodařilo otevřít!</strong>
                 </div>
             {/if}
         {/ifset}
-        <script>
-            $("#openbutton").html("Zavřít registrace");
-        </script>
         {/snippet}
         
     </div>
@@ -102,6 +99,13 @@ Podrobnosti kurzu
 {/ifset}
 
 
-<a id="openbutton" n:href="open!"><button class="btn btn-primary btn-sm text-white order-1 order-sm-0">Otevřít registrace</button></a>
+<a n:href="open!"><button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="openbutton" >Otevřít registrace</button></a>
+
+{ifset $course_open_success}
+<script>
+    $("#openbutton").html("Zavřít registrace");
+</script>
+{/ifset}
 
 {/block}
+
