@@ -40,7 +40,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         $this->getUser()->isLoggedIn() ? $this->redirect("Homepage:"):"";
         if($option==1)
         {
-            $this->template->error="Byli jste odhlášeni po 5 minutách neaktiviy!";
+            $this->template->error="Byli jste odhlášeni po 5 minutách neaktivity!";
         }
         
     }
