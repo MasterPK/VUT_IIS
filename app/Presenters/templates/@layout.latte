@@ -25,6 +25,7 @@
     <script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
     <script src="{$basePath}/js/nette.ajax.js"></script>
     <script src="{$basePath}/js/sb-admin.min.js"></script>
+    <script src="{$basePath}/js/notify.min.js"></script>
     <script>
       $(function() {
         $.nette.init();
@@ -53,7 +54,7 @@
     </script>
     {/ifset}
   </head>
-  {snippet page_snippet}
+  {snippet body_snippet}
   <body>
     <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">
       {$flash->message}
@@ -200,7 +201,7 @@
           n:class="nav-item, $presenter->isLinkCurrent('Request:default') ? active"
         >
           <a class="nav-link" n:href="Request:default">
-            <i class="fas fa-bell"></i>
+            <i class="fas fa-fw fa-bell"></i>
             <span>Žádosti</span>
           </a>
         </li>
@@ -215,7 +216,9 @@
               {include header}
             </li>
           </ol>
+          {snippet content_snippet}
            {include content} 
+           {/snippet}
         </div>
       </div>
     </div>

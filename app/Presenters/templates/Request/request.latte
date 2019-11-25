@@ -14,6 +14,11 @@ Seznam žádostí
         <div class="alert alert-success animated bounce">
                 <strong>Student byl zaregistrován!</strong>
         </div>
+        {elseif $error_notif==3}
+        <div class="alert alert-success animated bounce">
+                <strong>Kurz byl povolen!</strong>
+        </div>
+        <script>$.notify("Kurz byl povolen!", "success");</script>
         {/if}
         {/ifset}
         {/snippet}
@@ -29,6 +34,7 @@ Seznam žádostí
                     <th scope="col">Typ</th>
                     <th scope="col">Cena</th>
                     <th scope="col">Garant</th>
+                    <th scope="col">Potvrzení</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,6 +45,11 @@ Seznam žádostí
                     <td>{$course->course_type}</td>
                     <td>{$course->course_price}</td>
                     <td>{$course->id_guarantor}</td>
+                    <td>
+                        <a class="ajax" n:href="approveCourse! $course->id_course">
+                            <button class="btn btn-primary" >Potvrdit</button>
+                        </a>
+                    </td>
                 </tr>
             </tbody>
         </table>
