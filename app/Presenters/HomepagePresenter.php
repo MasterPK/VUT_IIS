@@ -233,6 +233,6 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
     		$this->template->course_open_success = false;
     	}	
 
-    	$this->redirect("Homepage:showcourse $values->id_course");
+    	$this->redirect("Homepage:showcourse/$values->id_course");
 	}
 }
