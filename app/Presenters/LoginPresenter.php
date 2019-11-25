@@ -42,7 +42,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
     {
         $this->getUser()->logout();
         
-        $this->redirect("Login: $option");
+        $this->redirect("Login:default $option");
     }
 
     protected function createComponentLoginForm(): UI\Form
