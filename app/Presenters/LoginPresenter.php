@@ -37,7 +37,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
     {
         $this->getUser()->logout();
         //dodělat snippet na obnovu celé stránky
-        $this->redirect("Homepage:");
+        $this->redirect("Login:");
     }
 
     protected function createComponentLoginForm(): UI\Form

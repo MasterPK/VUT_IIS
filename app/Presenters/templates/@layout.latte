@@ -1,173 +1,224 @@
+
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
+    <title>{ifset title}{include title|stripHtml} | {/ifset}IIS</title>
 
-  <title>{ifset title}{include title|stripHtml} | {/ifset}IIS</title>
+    <link href="{$basePath}/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="{$basePath}/css/sb-admin.css" rel="stylesheet" />
+    <link href="{$basePath}/css/all.css" rel="stylesheet" />
+    <link href="{$basePath}/css/fontawesome.css" rel="stylesheet" />
+    <link href="{$basePath}/css/select-row.css" rel="stylesheet" />
+    <link href="{$basePath}/css/animate.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{$basePath}/css/nittro.min.css"
+    />
 
-  <link href="{$basePath}/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="{$basePath}/css/sb-admin.css" rel="stylesheet">
-  <link href="{$basePath}/css/all.css" rel="stylesheet">
-  <link href="{$basePath}/css/fontawesome.css" rel="stylesheet">
-  <link href="{$basePath}/css/select-row.css" rel="stylesheet">
-  <link href="{$basePath}/css/animate.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="{$basePath}/css/nittro.min.css" />
-
-  <script src="{$basePath}/js/jquery.min.js"></script>
-  <script src="{$basePath}/js/jquery.easing.min.js"></script>
-  <script src="{$basePath}/js/bootstrap.bundle.min.js"></script>
-  <script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
-  <script src="{$basePath}/js/nette.ajax.js"></script>
-  <script src="{$basePath}/js/sb-admin.min.js"></script>
-  <script>
-    $(function () {
-            $.nette.init();
-        });
-      </script>
+    <script src="{$basePath}/js/jquery.min.js"></script>
+    <script src="{$basePath}/js/jquery.easing.min.js"></script>
+    <script src="{$basePath}/js/bootstrap.bundle.min.js"></script>
+    <script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
+    <script src="{$basePath}/js/nette.ajax.js"></script>
+    <script src="{$basePath}/js/sb-admin.min.js"></script>
+    <script>
+      $(function() {
+        $.nette.init();
+      });
+    </script>
     {ifset $username}
     <script>
-    var idleTime = 0;
-    $(document).ready(function () {
+      var idleTime = 0;
+      $(document).ready(function() {
         //Increment the idle time counter every minute.
-        var idleInterval = setInterval(timerIncrement, 1000); // 10 seconds
+        var idleInterval = setInterval(timerIncrement, 60000); // 1 min
 
         //Zero the idle timer on mouse movement.
-        $(this).mousemove(function (e) {
-            idleTime = 0;
+        $(this).mousemove(function(e) {
+          idleTime = 0;
         });
-    });
+      });
 
-    function timerIncrement() {
+      function timerIncrement() {
         idleTime = idleTime + 1;
-        if (idleTime > 4) { // 10 seconds
-            window.location.reload();
+        if (idleTime > 4) {
+          // 5 min
+          window.location.replace({link Login:logout});
         }
-    }
-    
-</script>
-{/ifset}
-</head>
+      }
+    </script>
+    {/ifset}
+  </head>
+  {snippet page_snippet}
+  <body>
+    <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">
+      {$flash->message}
+    </div>
+    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+      <a class="navbar-brand mr-1" n:href="Homepage:">Škola</a>
 
-<body>
-  <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
-  <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+      <button
+        class="btn btn-link btn-sm text-white order-1 order-sm-0"
+        id="sidebarToggle"
+        href="#"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
 
-    <a class="navbar-brand mr-1" n:href="Homepage:">Škola</a>
+      {ifset $rank_msg}
+      <div
+        class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0 text-light"
+      >
+        {$rank_msg}
+      </div>
+      {/ifset} {ifset $username}
+      <div
+        class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0 text-light"
+      >
+        {$username}
+      </div>
+      {/ifset}
 
-    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-      <i class="fas fa-bars"></i>
-    </button>
-
-    {ifset $rank_msg}<div class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0 text-light">{$rank_msg}</div>{/ifset}
-    {ifset $username}<div class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0 text-light">{$username}</div>{/ifset}
-
-    <!-- Navbar -->
-    <ul class="navbar-nav ml-auto ml-md-0">
-      <li class="nav-item dropdown no-arrow mx-1">
-      <li class="nav-item dropdown no-arrow">
-        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-user-circle fa-fw"></i>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-          {ifset $rank}
-          {if $rank == 0}
-          <a class="dropdown-item", n:href="Login:login">
-            <i class="fas fa-fw fa-sign-in-alt"></i>
-            <span>Přihlásit se</span>
+      <!-- Navbar -->
+      <ul class="navbar-nav ml-auto ml-md-0">
+        <li class="nav-item dropdown no-arrow mx-1"></li>
+        <li class="nav-item dropdown no-arrow">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="userDropdown"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="fas fa-user-circle fa-fw"></i>
           </a>
-          {elseif $rank >= 1}
-          <a class="dropdown-item" n:href="Login:settings">
-            <i class="fas fa-user-cog"></i>
-            <span>Nastavení profilu</span>
+          <div
+            class="dropdown-menu dropdown-menu-right"
+            aria-labelledby="userDropdown"
+          >
+            {ifset $rank} {if $rank == 0}
+            <a class="dropdown-item" , n:href="Login:login">
+              <i class="fas fa-fw fa-sign-in-alt"></i>
+              <span>Přihlásit se</span>
+            </a>
+            {elseif $rank >= 1}
+            <a class="dropdown-item" n:href="Login:settings">
+              <i class="fas fa-user-cog"></i>
+              <span>Nastavení profilu</span>
+            </a>
+            <a class="dropdown-item" n:href="Login:logout">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>Odhlásit se</span>
+            </a>
+            {/if} {/ifset}
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <ul class="sidebar navbar-nav">
+        <li
+          n:class="nav-item, $presenter->isLinkCurrent('Homepage:default') ? active"
+        >
+          <a class="nav-link" n:href="Homepage:">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Nástěnka</span>
           </a>
-          <a class="dropdown-item" n:href="Login:logout">
-            <i class="fas fa-sign-out-alt"></i>
-            <span>Odhlásit se</span>
-          </a>
-          {/if}
-          {/ifset}
-        </div>
-      </li>
-    </ul>
-
-  </nav>
-
-  <div id="wrapper">
-
-    <!-- Sidebar -->
-    <ul class="sidebar navbar-nav">
-      <li n:class="nav-item, $presenter->isLinkCurrent('Homepage:default') ? active">
-        <a class="nav-link" n:href="Homepage:">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Nástěnka</span>
-        </a>
-      </li>
-      {ifset $rank}
-      {if $rank==0}
-        <li n:class="nav-item, $presenter->isLinkCurrent('Homepage:courses') ? active">
+        </li>
+        {ifset $rank} {if $rank==0}
+        <li
+          n:class="nav-item, $presenter->isLinkCurrent('Homepage:courses') ? active"
+        >
           <a class="nav-link" n:href="Homepage:courses">
             <i class="fas fa-fw fa-sign-out-alt"></i>
             <span>Kurzy</span>
           </a>
         </li>
-      {elseif $rank>=1}
-      <li class="nav-item dropdown {if $presenter->isLinkCurrent('Homepage:courses') || $presenter->isLinkCurrent('Student:courses') || $presenter->isLinkCurrent('Student:lector') || $presenter->isLinkCurrent('Student:create') || $presenter->isLinkCurrent('Homepage:showcourse')}show active{/if}">
-        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="{if $presenter->isLinkCurrent('Homepage:courses') || $presenter->isLinkCurrent('Student:courses') || $presenter->isLinkCurrent('Student:lector') || $presenter->isLinkCurrent('Student:create') || $presenter->isLinkCurrent('Homepage:showcourse') }true{else}false{/if}">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Kurzy</span>
-        </a>
-        <div class="dropdown-menu {if $presenter->isLinkCurrent('Homepage:courses') || $presenter->isLinkCurrent('Student:courses') || $presenter->isLinkCurrent('Student:lector') || $presenter->isLinkCurrent('Student:create') || $presenter->isLinkCurrent('Homepage:showcourse')}show{/if}" aria-labelledby="pagesDropdown">
-          <a class="dropdown-item {if $presenter->isLinkCurrent('Homepage:courses')}active{/if}" n:href="Homepage:courses">Všechny kurzy</a>
-          <a class="dropdown-item {if $presenter->isLinkCurrent('Student:courses')}active{/if}" n:href="Student:courses">Moje kurzy</a>
-          {if $rank>=2}
-          <a class="dropdown-item {if $presenter->isLinkCurrent('Student:lector')}active{/if}" n:href="Student:lector">Správa kurzů</a>
-          {/if}
-          {if $rank>=3}
-          <a class="dropdown-item {if $presenter->isLinkCurrent('Student:create')}active{/if}" n:href="Student:create">Vytvořit kurz</a>
-          {/if}
+        {elseif $rank>=1}
+        <li
+          class="nav-item dropdown {if $presenter->isLinkCurrent('Homepage:courses') || $presenter->isLinkCurrent('Student:courses') || $presenter->isLinkCurrent('Student:lector') || $presenter->isLinkCurrent('Student:create') || $presenter->isLinkCurrent('Homepage:showcourse')}show active{/if}"
+        >
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="pagesDropdown"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="{if $presenter->isLinkCurrent('Homepage:courses') || $presenter->isLinkCurrent('Student:courses') || $presenter->isLinkCurrent('Student:lector') || $presenter->isLinkCurrent('Student:create') || $presenter->isLinkCurrent('Homepage:showcourse') }true{else}false{/if}"
+          >
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Kurzy</span>
+          </a>
+          <div
+            class="dropdown-menu {if $presenter->isLinkCurrent('Homepage:courses') || $presenter->isLinkCurrent('Student:courses') || $presenter->isLinkCurrent('Student:lector') || $presenter->isLinkCurrent('Student:create') || $presenter->isLinkCurrent('Homepage:showcourse')}show{/if}"
+            aria-labelledby="pagesDropdown"
+          >
+            <a
+              class="dropdown-item {if $presenter->isLinkCurrent('Homepage:courses')}active{/if}"
+              n:href="Homepage:courses"
+              >Všechny kurzy</a
+            >
+            <a
+              class="dropdown-item {if $presenter->isLinkCurrent('Student:courses')}active{/if}"
+              n:href="Student:courses"
+              >Moje kurzy</a
+            >
+            {if $rank>=2}
+            <a
+              class="dropdown-item {if $presenter->isLinkCurrent('Student:lector')}active{/if}"
+              n:href="Student:lector"
+              >Správa kurzů</a
+            >
+            {/if} {if $rank>=3}
+            <a
+              class="dropdown-item {if $presenter->isLinkCurrent('Student:create')}active{/if}"
+              n:href="Student:create"
+              >Vytvořit kurz</a
+            >
+            {/if}
+          </div>
+        </li>
+        <li
+          n:class="nav-item, $presenter->isLinkCurrent('Student:timetable') ? active"
+        >
+          <a class="nav-link" n:href="Student:timetable">
+            <i class="fas fa-fw fa-calendar-alt"></i>
+            <span>Rozvrh</span>
+          </a>
+        </li>
+        {/if} {if $rank >= 3}
+        <li
+          n:class="nav-item, $presenter->isLinkCurrent('Request:default') ? active"
+        >
+          <a class="nav-link" n:href="Request:default">
+            <i class="fas fa-bell"></i>
+            <span>Žádosti</span>
+          </a>
+        </li>
+        {/if} {/ifset}
+      </ul>
+
+      <div id="content-wrapper">
+        <div class="container-fluid">
+          <!-- Breadcrumbs-->
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              {include header}
+            </li>
+          </ol>
+           {include content} 
         </div>
-      </li>
-      <li n:class="nav-item, $presenter->isLinkCurrent('Student:timetable') ? active">
-        <a class="nav-link" n:href="Student:timetable">
-          <i class="fas fa-fw fa-calendar-alt"></i>
-          <span>Rozvrh</span>
-        </a>
-      </li>
-      {/if}
-      {if $rank >= 3}
-       <li n:class="nav-item, $presenter->isLinkCurrent('Request:default') ? active">
-        <a class="nav-link" n:href="Request:default">
-          <i class="fas fa-bell"></i>
-          <span>Žádosti</span>
-        </a>
-      </li>
-      {/if}
-      {/ifset}
-    </ul>
-
-    <div id="content-wrapper">
-
-      <div class="container-fluid">
-
-        <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            {include header}
-          </li>
-        </ol>
-        {snippet content_snippet}
-        {include content}
-        {/snippet}
       </div>
     </div>
-  </div>
-
-
-
-</body>
-
+  </body>
 </html>
+{/snippet}
