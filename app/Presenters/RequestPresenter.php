@@ -163,4 +163,28 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		
     	
 	}
+
+	public function handleApproveCourse($id_course): void
+    {
+
+		
+		if(empty($id_course))
+		{
+			return;
+		}
+
+		$count = $this->database->table('course')
+		->where('id_course', $id_course)
+		->update([
+			'course_status' => '1'
+		]);
+
+		if ($this->isAjax() && $count==1)
+		{
+			$this->template->error_notif = 2;
+            $this->redrawControl('content_snippet');
+        }
+		
+    	
+	}
 }

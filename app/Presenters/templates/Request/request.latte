@@ -29,6 +29,7 @@ Seznam žádostí
                     <th scope="col">Typ</th>
                     <th scope="col">Cena</th>
                     <th scope="col">Garant</th>
+                    <th scope="col">Potvrzení</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,6 +40,11 @@ Seznam žádostí
                     <td>{$course->course_type}</td>
                     <td>{$course->course_price}</td>
                     <td>{$course->id_guarantor}</td>
+                    <td>
+                        <a class="ajax" n:href="approveCourse! $course->id_course">
+                            <button class="btn btn-primary" >Potvrdit</button>
+                        </a>
+                    </td>
                 </tr>
             </tbody>
         </table>

@@ -53,7 +53,7 @@
     </script>
     {/ifset}
   </head>
-  {snippet page_snippet}
+  {snippet body_snippet}
   <body>
     <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">
       {$flash->message}
@@ -215,7 +215,9 @@
               {include header}
             </li>
           </ol>
+          {snippet content_snippet}
            {include content} 
+           {/snippet}
         </div>
       </div>
     </div>
