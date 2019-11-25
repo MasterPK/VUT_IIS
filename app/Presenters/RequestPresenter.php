@@ -147,7 +147,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 			return;
 		}
 
-		$count = $database->table('course_has_student')
+		$count = $this->database->table('course_has_student')
 		->where('id_course', $id_course)
 		->where('id_user', $id_user)
 		->where('student_status', 0)
