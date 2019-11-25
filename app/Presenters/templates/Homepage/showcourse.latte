@@ -64,7 +64,7 @@ Podrobnosti kurzu
 
 <br>
 
-{if $course->course_status == 2}
+{ifset $register}
 <div class="row">
     <div class="col-auto mr-auto"></div>
     <div class="col-auto">
@@ -77,5 +77,5 @@ Podrobnosti kurzu
         {/if}
     </div>
 </div>
-{/if}
+{/ifset}
 {/block}

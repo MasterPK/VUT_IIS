@@ -74,39 +74,42 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 
 		if($course)
 		{
-
-			$request = $this->database->table("course_has_student")->where("id_course=? AND id_user=? AND student_status = 0", $id, $this->user->identity->id )->fetch();
-
-			if($request)
+			//ak su otvorene registracie na kurz..
+			if($course->course_status == 2)
 			{
-				$this->template->request=$request->student_status;
-			}
+				$request = $this->database->table("course_has_student")->where("id_course=? AND id_user=? AND student_status = 0", $id, $this->user->identity->id )->fetch();
 
-			$course_guarantor = $this->database->table("user")
-				->where("id_user=?", $course->id_guarantor)
-				->fetch();
+				if($request)
+				{
+					$this->template->request=$request->student_status;
+				}
 
-			$this->template->guarantor=$course_guarantor->first_name . " " . $course_guarantor->surname;
-			
-			$this->template->register=true;
-			//garant sa nemoze registrovat na svoj kurz
-			if($this->user->identity->id == $course->id_guarantor)
-			{
-				$this->template->register=false;
-			}
-			$course_lectors = $this->database->query("SELECT id_user FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ? AND id_course = ?",  $this->user->identity->id, $course->id_course);
-			//ani lektori sa nemozu registrovat na kurzy, ktore ucia
-			if($course_lectors->getRowCount() > 0)
-			{
-				$this->template->register=false;
-			}
+				$course_guarantor = $this->database->table("user")
+					->where("id_user=?", $course->id_guarantor)
+					->fetch();
 
-			$course_students = $this->database->query("SELECT id_user FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_user = ? AND id_course = ? and student_status = 1", $this->user->identity->id, $course->id_course);
+				$this->template->guarantor=$course_guarantor->first_name . " " . $course_guarantor->surname;
+				
+				$this->template->register=true;
+				//garant sa nemoze registrovat na svoj kurz
+				if($this->user->identity->id == $course->id_guarantor)
+				{
+					$this->template->register=false;
+				}
+				$course_lectors = $this->database->query("SELECT id_user FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ? AND id_course = ?",  $this->user->identity->id, $course->id_course);
+				//ani lektori sa nemozu registrovat na kurzy, ktore ucia
+				if($course_lectors->getRowCount() > 0)
+				{
+					$this->template->register=false;
+				}
 
-			//a ani uz registrovani studenti
-			if($course_students->getRowCount() > 0)
-			{
-				$this->template->register=false;
+				$course_students = $this->database->query("SELECT id_user FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_user = ? AND id_course = ? and student_status = 1", $this->user->identity->id, $course->id_course);
+
+				//a ani uz registrovani studenti
+				if($course_students->getRowCount() > 0)
+				{
+					$this->template->register=false;
+				}
 			}
 
 			switch($course->course_type) 
