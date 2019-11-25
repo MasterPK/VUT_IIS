@@ -14,6 +14,11 @@ Seznam žádostí
         <div class="alert alert-success animated bounce">
                 <strong>Student byl zaregistrován!</strong>
         </div>
+        {elseif $error_notif==3}
+        <div class="alert alert-success animated bounce">
+                <strong>Kurz byl povolen!</strong>
+        </div>
+        <script>$.notify("Kurz byl povolen!", "success");</script>
         {/if}
         {/ifset}
         {/snippet}

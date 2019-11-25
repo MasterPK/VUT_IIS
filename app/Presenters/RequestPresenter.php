@@ -173,15 +173,16 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 			return;
 		}
 
-		$count = $this->database->table('course')
+		/*$count = $this->database->table('course')
 		->where('id_course', $id_course)
 		->update([
 			'course_status' => '1'
-		]);
+		]);*/
 
 		if ($this->isAjax() && $count==1)
 		{
-			$this->template->error_notif = 2;
+			$this->template->error_notif = 3;
+			$this->payload->message = 'Success';
             $this->redrawControl('content_snippet');
         }
 		
