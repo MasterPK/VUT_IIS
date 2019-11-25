@@ -200,10 +200,9 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
     	
 	}
 
-	public function handleOpen()
+	public function handleOpen($id)
     {
-    	$this->flashMessage($this->current_course_id);
-    	$get = $this->database->query("UPDATE course SET course_status = 2 WHERE id_course = ?", $this->current_course_id);
+    	$get = $this->database->query("UPDATE course SET course_status = 2 WHERE id_course = ?", $id);
 
     	if($get->getRowCount() == 1)
     	{
@@ -222,7 +221,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 
     public function handleClose()
     {
-    	$get = $this->database->query("UPDATE course SET course_status = 3 WHERE id_course = ?", $this->current_course_id);
+    	$get = $this->database->query("UPDATE course SET course_status = 3 WHERE id_course = ?", $id);
 
     	if($get->getRowCount() == 1)
     	{

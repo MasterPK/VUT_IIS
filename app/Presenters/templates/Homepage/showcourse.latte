@@ -115,9 +115,9 @@ Podrobnosti kurzu
 
 {ifset $course_status}
 {if $course_status == 1 or $course_status == 3}
-<a id="openbuttona" n:href="open!"><button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="openbutton" >Otevřít registrace</button></a>
+<a id="openbuttona" n:href="open! $course->id_course"><button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="openbutton" >Otevřít registrace</button></a>
 {elseif $course_status == 2}
-<a id="openbuttona" n:href="close!"><button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="openbutton" >Zavřít registrace</button></a>
+<a id="openbuttona" n:href="close! $course->id_course"><button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="openbutton" >Zavřít registrace</button></a>
 {/if}
 {/ifset}
 
