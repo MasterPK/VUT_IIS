@@ -35,26 +35,26 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         $this->redirect("Login:login");
     }
 
-    public function renderLogin($option)
+    public function renderLogin($id)
     {
         $this->getUser()->isLoggedIn() ? $this->redirect("Homepage:"):"";
-        if($option==1)
+        if($id==1)
         {
             $this->template->error="Byli jste odhlášeni po 5 minutách neaktivity!";
         }
         
     }
 
-    public function renderLogout($option)
+    public function renderLogout($id)
     {
         $this->getUser()->logout();
-        if(empty($option))
+        if(empty($id))
         {
             $this->redirect("Login:login");
         }
         else
         {
-            $this->redirect("Login:login",$option);
+            $this->redirect("Login:login",$id);
         }
         
     }
