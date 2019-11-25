@@ -99,12 +99,12 @@ Podrobnosti kurzu
 {/ifset}
 
 
-<a id="openbuttona" n:href="open!"><button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="openbutton" >Otevřít registrace</button></a>
+<a id="openbuttona" href="open!"><button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="openbutton" >Otevřít registrace</button></a>
 
 {ifset $course_open_success}
 <script>
     $("#openbutton").html("Zavřít registrace");
-    $("#openbuttona").prop("n:href", "close!")
+    $("#openbuttona").attr("href", "close!")
 </script>
 {/ifset}
 
