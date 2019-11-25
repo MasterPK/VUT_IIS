@@ -202,7 +202,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 
 	public function handleOpen($id)
     {
-    	$get = $this->database->query("UPDATE course SET course_status = 2 WHERE id_course = ?", $id);
+    	$get = $this->database->query("UPDATE course SET course_status = 2 WHERE id_course = ?", $this->current_course_id);
 
     	if($get->getRowCount() == 1)
     	{
