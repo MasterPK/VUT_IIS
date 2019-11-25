@@ -6,7 +6,7 @@ Seznam žádostí
     <div class="col-sm-12">
         {snippet error_notif_snippet}
         {ifset $error_notif}
-        {elseif $error_notif==3}
+        {if $error_notif==3}
         <div class="alert alert-success animated bounce">
                 <strong>Kurz byl povolen!</strong>
         </div>
