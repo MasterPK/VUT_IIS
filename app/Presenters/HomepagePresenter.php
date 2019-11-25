@@ -232,5 +232,10 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
     	{
     		$this->template->course_open_success = false;
     	}	
+
+    	if ($this->isAjax())
+		{
+            $this->redrawControl('course_open_success_snippet');
+        }
 	}
 }
