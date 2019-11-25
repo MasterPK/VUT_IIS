@@ -219,7 +219,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
         }
     }
 
-    public function handleClose()
+    public function handleClose($id)
     {
     	$get = $this->database->query("UPDATE course SET course_status = 3 WHERE id_course = ?", $id);
 
