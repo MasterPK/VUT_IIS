@@ -31,7 +31,8 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
     public function renderDefault()
     {
         $this->getUser()->isLoggedIn() ? $this->redirect("Homepage:"):"";
-        
+
+        $this->redirect("Login:login");
     }
 
     public function renderLogin($option)
@@ -44,11 +45,18 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         
     }
 
-    public function renderLogout($option=0)
+    public function renderLogout($option)
     {
         $this->getUser()->logout();
+        if(empty($option))
+        {
+            $this->redirect("Login:login");
+        }
+        else
+        {
+            $this->redirect("Login:login",$option);
+        }
         
-        $this->redirect("Login:login",$option);
     }
 
     protected function createComponentLoginForm(): UI\Form
