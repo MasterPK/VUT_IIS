@@ -19,6 +19,17 @@ Podrobnosti kurzu
         {/if}
         {/ifset}
         {/snippet}
+
+        {ifset $course_open_success}
+            {if $course_open_success = true}
+                <div class="alert alert-success animated bounce">
+                <strong>Kurz byl úspěšně otevřen!</strong>
+                </div>
+            {else}
+                <div class="alert alert-danger animated bounce">
+                <strong>Kurz se nepodarilo otevřít!</strong>
+                </div>
+        {/ifset}
     </div>
 </div>
 <div class="row">
@@ -45,10 +56,14 @@ Podrobnosti kurzu
                         Stav registrací:<br>
                         <b>{if $course->course_status == 2 }Otevřeno{else}Zavřeno{/if}</b>
                     </div>
+                    {ifset $register}
+                    {if $register == true}
                     <div class="col-md-3 col-sm-12">
                         Stav registrace studenta:<br>
                         <b>{ifset $request}{if $request}Registrován{else}Čeká se na vyřízení žádosti{/if}{else}Žádost o registraci neexistuje{/ifset}</b>
                     </div>
+                    {/if}
+                    {/ifset}
                 </div>
                 <br>
                 <div class="row">
