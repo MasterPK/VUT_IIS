@@ -50,8 +50,9 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		}
 		else
 		{
+			//zobraz vsetky schvalene kurzy
 			$data = $this->database->table("course")
-			->where("course_status = ?", 1)
+			->where("course_status IS NOT 0")
 			->fetchAll();
 			if($data)
 			{

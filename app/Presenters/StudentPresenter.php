@@ -40,7 +40,7 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 
 	public function renderCourses(): void
 	{
-		$data = $this->database->query("SELECT id_course, course_name, course_type, course_price FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_user = ? AND student_status = 1 AND course_status=1",  $this->user->identity->id);
+		$data = $this->database->query("SELECT id_course, course_name, course_type, course_price FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_user = ? AND student_status = 1 AND course_status IS NOT 0",  $this->user->identity->id);
 
 		if($data->getRowCount() > 0)
 		{
@@ -66,7 +66,7 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 					}
 				}
 			case 2:
-				$data = $this->database->query("SELECT id_course, course_name, course_type, course_status FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ? AND course_status = 1",  $this->user->identity->id);
+				$data = $this->database->query("SELECT id_course, course_name, course_type, course_status FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ? AND course_status IS NOT 0",  $this->user->identity->id);
 				if($data->getRowCount() > 0)
 				{
 					foreach($data as $course)
