@@ -80,6 +80,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 	public function renderRequest($id): void
 	{ 
 		$requests = NULL;
+		$this->template->id_course=$id;
 		$course = $this->database->query("SELECT * FROM course WHERE id_course = ?", $id)->fetch();
 		//ak kurz nebol schvaleny, vypis ho
 		if($this->template->rank > 3 && $course->course_status == 0)
@@ -137,12 +138,27 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 	}
 
 
-	public function handleRegister($id): void
+	public function handleRegister($id_user, $id_course): void
     {
-		$this->template->error_notif = 1;
-		if ($this->isAjax())
+
+		
+		if(empty($id_user) || empty($id_course))
 		{
-            $this->redrawControl('error_notif_snippet');
+			return;
+		}
+
+		$count = $database->table('course_has_student')
+		->where('id_course', $id_course)
+		->where('id_user', $id_user)
+		->where('student_status', 0)
+		->update([
+			'student_status' => '1'
+		]);
+
+		if ($this->isAjax() && $count==1)
+		{
+			$this->template->error_notif = 2;
+            $this->redrawControl('content_snippet');
         }
 		
     	
