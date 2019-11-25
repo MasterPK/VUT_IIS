@@ -18,10 +18,9 @@ final class RouterFactory
 		$router->addRoute('request/<id>', 'Request:request');
 		$router->addRoute('lector', 'Student:lector');
 		$router->addRoute('create', 'Student:create');
-		$router->addRoute('<presenter>/<action>[/<id>]', 'Homepage:default');
 		$router->addRoute('login', 'Login:login');
 		$router->addRoute('logout', 'Login:logout');
-		
+		$router->addRoute('<presenter>/<action>[/<id>]', 'Homepage:default');
 		return $router;
 	}
 }
