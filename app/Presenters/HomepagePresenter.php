@@ -69,7 +69,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		}
 		$course = $this->database->table("course")->where("id_course=?", $id)->fetch();
 		$this->current_course_id=$id;
-		
+		$this->template->link = "/homepage/showcourse/" . $id . "?do=close";
 		
 
 		if($course)
