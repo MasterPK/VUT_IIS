@@ -20,6 +20,7 @@ Podrobnosti kurzu
         {/ifset}
         {/snippet}
 
+        {snippet course_open_success_snippet}
         {ifset $course_open_success}
             {if $course_open_success = true}
                 <div class="alert alert-success animated bounce">
@@ -31,6 +32,10 @@ Podrobnosti kurzu
                 </div>
             {/if}
         {/ifset}
+        <script>
+            $("#divForm").addClass('d-none');
+        </script>
+        {/snippet}
         
     </div>
 </div>
@@ -102,7 +107,7 @@ Podrobnosti kurzu
     <div class="col-auto">
         {if $rank == 3}
         <form n:name="openRegistrationForm">
-            <div class="form-group text-center ">
+            <div id="divForm" class="form-group text-center ">
                 {input openreg}
             </div>
         </form>
