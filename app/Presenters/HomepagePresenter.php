@@ -78,6 +78,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 			//registracie este neboli otvorene
 			if($this->user->identity->id == $course->id_guarantor)
 			{
+				$this->flashMessage("guarantor");
 				$this->template->buttons = true;
 			}
 			//ak su otvorene registracie na kurz..
