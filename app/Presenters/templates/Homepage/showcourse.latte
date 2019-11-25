@@ -32,7 +32,11 @@ Podrobnosti kurzu
                 </div>
             {/if}
         {/ifset}
+        <script>
+            $("#divForm").addClass('d-none');
+        </script>
         {/snippet}
+        
     </div>
 </div>
 <div class="row">
@@ -103,7 +107,7 @@ Podrobnosti kurzu
     <div class="col-auto">
         {if $rank == 3}
         <form n:name="openRegistrationForm">
-            <div class="form-group text-center ">
+            <div id="divForm" class="form-group text-center ">
                 {input openreg}
             </div>
         </form>
