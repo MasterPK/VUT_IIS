@@ -4,6 +4,20 @@ Seznam žádostí
 {block content}
 <div class="row">
     <div class="col-sm-12">
+        {snippet error_notif_snippet}
+        {ifset $error_notif}
+        {if $error_notif==3}
+        <div class="alert alert-success animated bounce">
+                <strong>Kurz byl povolen!</strong>
+        </div>
+        <script>$.notify("Kurz byl povolen!", "success");</script>
+        {/if}
+        {/ifset}
+        {/snippet}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
         {ifset $courses}
         <h3>Seznam žádostí o schválení kurzů</h3>
         <table class="table">
@@ -25,7 +39,7 @@ Seznam žádostí
                     <td>{$row->course_type}</td>
                     <td>{$row->id_guarantor}</td>
                     <td>
-                        <a class="ajax" n:href="approveCourse! $course->id_course">
+                        <a class="ajax" n:href="approveCourse! $row->id_course">
                             <button class="btn btn-primary" >Potvrdit</button>
                         </a>
                     </td>
