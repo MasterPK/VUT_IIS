@@ -33,6 +33,20 @@ Podrobnosti kurzu
             {/if}
         {/ifset}
         {/snippet}
+
+        {snippet course_close_success_snippet}
+        {ifset $course_close_success}
+            {if $course_close_success == true}
+                <div class="alert alert-success animated bounce">
+                <strong>Kurz byl úspěšně uzavřen!</strong>
+                </div>
+            {else}
+                <div class="alert alert-danger animated bounce">
+                <strong>Kurz se nepodařilo uzavřít!</strong>
+                </div>
+            {/if}
+        {/ifset}
+        {/snippet}
         
     </div>
 </div>
@@ -102,10 +116,12 @@ Podrobnosti kurzu
 <a id="openbuttona" n:href="open!"><button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="openbutton" >Otevřít registrace</button></a>
 
 {ifset $course_open_success}
+{if $course_open_success == true}
 <script>
     $("#openbutton").html("Zavřít registrace");
     $("#openbuttona").attr("href", {$link});
 </script>
+{/if}
 {/ifset}
 
 {/block}

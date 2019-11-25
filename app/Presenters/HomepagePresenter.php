@@ -221,6 +221,20 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 
     public function handleClose()
     {
-    	$this->flashMessage("Close");
+    	$get = $this->database->query("UPDATE course SET course_status = 3 WHERE id_course = ?", $this->current_course_id);
+
+    	if($get->getRowCount() == 1)
+    	{
+    		$this->template->course_close_success = true;
+    	}
+    	else
+    	{
+    		$this->template->course_close_success = false;
+    	}	
+
+    	if ($this->isAjax())
+		{
+            $this->redrawControl('course_close_success_snippet');
+        }
     }
 }
