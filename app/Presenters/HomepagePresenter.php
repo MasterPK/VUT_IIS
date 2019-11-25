@@ -83,12 +83,6 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 				{
 					$this->template->request=$request->student_status;
 				}
-
-				$course_guarantor = $this->database->table("user")
-					->where("id_user=?", $course->id_guarantor)
-					->fetch();
-
-				$this->template->guarantor=$course_guarantor->first_name . " " . $course_guarantor->surname;
 				
 				$this->template->register=true;
 				//garant sa nemoze registrovat na svoj kurz
@@ -112,6 +106,12 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 				}
 			}
 
+			$course_guarantor = $this->database->table("user")
+					->where("id_user=?", $course->id_guarantor)
+					->fetch();
+
+			$this->template->guarantor=$course_guarantor->first_name . " " . $course_guarantor->surname;
+				
 			switch($course->course_type) 
 			{
 				case "P":$this->template->type="Povinný";break;
