@@ -28,16 +28,21 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
     }
 
 
-    public function renderDefault()
+    public function renderDefault($option=0)
     {
         $this->getUser()->isLoggedIn() ? $this->redirect("Homepage:"):"";
+        if($option==1)
+        {
+            $this->template->error="Byli jste odhlášeni po 5 minutách neaktiviy!";
+        }
+        
     }
 
-    public function renderLogout()
+    public function renderLogout($option=0)
     {
         $this->getUser()->logout();
-        //dodělat snippet na obnovu celé stránky
-        $this->redirect("Login:");
+        
+        $this->redirect("Login: $option");
     }
 
     protected function createComponentLoginForm(): UI\Form
