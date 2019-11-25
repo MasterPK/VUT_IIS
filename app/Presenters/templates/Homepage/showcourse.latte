@@ -113,7 +113,11 @@ Podrobnosti kurzu
 {/ifset}
 
 
+{ifset $course_status}
+{if $course_status == 1 or $course_status == 3}
 <a id="openbuttona" n:href="open!"><button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="openbutton" >Otevřít registrace</button></a>
+{/if}
+{/ifset}
 
 {ifset $course_open_success}
 {if $course_open_success == true}
