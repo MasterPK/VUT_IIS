@@ -69,12 +69,10 @@ Podrobnosti kurzu
                         <b>{if $course->course_status == 2 }Otevřeno{else}Zavřeno{/if}</b>
                     </div>
                     {ifset $register}
-                    {if $register == true}
                     <div class="col-md-3 col-sm-12">
                         Stav registrace studenta:<br>
                         <b>{ifset $request}{if $request}Registrován{else}Čeká se na vyřízení žádosti{/if}{else}Žádost o registraci neexistuje{/ifset}</b>
                     </div>
-                    {/if}
                     {/ifset}
                 </div>
                 <br>
