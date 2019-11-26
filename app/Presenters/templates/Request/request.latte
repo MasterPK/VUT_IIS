@@ -106,8 +106,7 @@ Seznam žádostí
 
     function check(id)
     {
-        var ckb = $("#id").is('checked');
-        if (ckb == true) 
+        if ($("#id").is(':checked')) 
         {
             console.log("Checked!");
             users.push(id);
