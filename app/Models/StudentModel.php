@@ -39,10 +39,94 @@ class StudentModel
         }
     }
 
+    /**
+     * Return true if course has open registration for students, otherwise false
+     * Return NULL when course doesnt exist
+     * @param [type] $course_id
+     * @return int
+     */
+    public function checkOpenRegistration($course_id)
+    {
+        $data=$this->database->table("course")->select("course_status")->where("id_course=?", $course_id)->fetch();
+        if($data)
+        {
+            if($data->course_status>=2)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return NULL;
+        }
+    }
+    /**
+     * Return status of user in course
+     * Return NULL when no record found
+     * @param [type] $courseId
+     * @param [type] $userId
+     * @return int
+     */
+    public function checkStudentCourseStatus($courseId, $userId)
+    {
+        $data = $this->database->table("course_has_student")->select("student_status")->where("id_course=? AND id_user=?", $courseId, $userId )->fetch();
+        if($data)
+        {
+            return $data->student_status;
+        }
+        else
+        {
+            return NULL;
+        }
+    }
+
+    private $currentCourseId;
+    /**
+     * Handle Showcourse
+     *
+     * @param [type] $presenter
+     * @param [type] $id
+     * @return void
+     */
     public function renderShowcourse($presenter,$id)
     {
         $this->visitorModel->renderShowcourse($presenter,$id);
 
+		$presenter->template->link = "/homepage/showcourse/" . $id;
+		$presenter->template->course_status = $presenter->template->course->course_status;
+    
+        if(checkOpenRegistration($id))
+        {
+            $presenter->template->openRegistration=true;
+        }
+
+        $presenter->template->userCourseStatus=checkStudentCourseStatus($id,$presenter->user->identity->id);
+
+        $this->currentCourseId=$id;
+    
+
+    }
+
+    public function createComponentRegisterForm($presenter): UI\Form
+    {
+		$form = new UI\Form;
+
+		$form->addHidden('id_course');
+
+		$form->setDefaults([
+            'id_course' => $this->currentCourseId,
+
+        ]);
+
+        $form->addSubmit('register', 'Registrovat kurz')
+		->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+		
+		$form->onSuccess[] = [$presenter, 'addNotification'];
+        return $form;
     }
 
 
