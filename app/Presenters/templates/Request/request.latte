@@ -71,9 +71,7 @@ Seznam žádostí
             <td>{$row->email}</td>
             <td>{$row->first_name} {$row->surname}</td>
             <td>
-            <a class="ajax" n:href="register! $row->id_user,$id_course">
-                <checkbox >Registrovat</checkbox>
-            </a>
+                <p><input type=checkbox name="sel[]"></p>
             </td>
             </tr>
 
