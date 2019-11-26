@@ -63,7 +63,7 @@ class VisitorModel
      */
     public function getAllCoursesByFilter(string $filter, string $search)
     {
-        $data = $this->database->table("course")->where("? LIKE ? AND course_status > 0", $filter, $search)->fetchAll();
+        $data = $this->database->table("course")->where("? LIKE %?% AND course_status > 0", $filter, $search)->fetchAll();
 
         if($data)
         {
