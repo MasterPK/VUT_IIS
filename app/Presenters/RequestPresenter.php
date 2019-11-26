@@ -131,16 +131,16 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
     	
 	}
 
-	public function handleRegister($users, $course): void
+	public function actionRegister($users, $course): void
     {
 
 		$this->flashMessage("register handle");
 		if(empty($users))
 		{
-			return;
+			//return;
 		}
 
-		foreach($users as $user)
+		/*foreach($users as $user)
 		{
 			$result = $this->database->table('course_has_student')
 			->where('id_course', $course)
@@ -154,7 +154,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 			{
 				return;
 			}
-		}
+		}*/
 		
 
 		if ($this->isAjax())
