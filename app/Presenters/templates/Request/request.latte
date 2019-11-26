@@ -133,7 +133,8 @@ Seznam žádostí
         {
             $("#checkAllButton").html("Označit všechny");
         }
-        else
+        
+        if($requests.length == users.length)
         {
             $("#checkAllButton").html("Odznačit všechny");
         }
