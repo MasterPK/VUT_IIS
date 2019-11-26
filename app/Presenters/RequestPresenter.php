@@ -52,6 +52,15 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 
 			if(count($data) > 0)
 			{
+				foreach($data as $course)
+				{
+					//ak je pocet ziadosti 0, nezobrazuj kurz
+					if($course->cnt == 0)
+					{
+						$key = array_search($course, $data);
+						unset($data[$key]);
+					}
+				}
 				$this->template->requests=$data;
 			}
 
