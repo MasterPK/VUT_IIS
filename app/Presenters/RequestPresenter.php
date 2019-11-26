@@ -131,7 +131,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
     	
 	}
 
-	public function actionRegister($users, $course): void
+	public function handleRegister($users, $course): void
     {
 
 		$this->flashMessage("register handle");
