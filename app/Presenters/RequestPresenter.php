@@ -20,6 +20,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
     public $visitorModel;
 
 	private $database;
+
 	public function __construct(Nette\Database\Context $database)
 	{
 		$this->database = $database;
@@ -130,23 +131,31 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
     	
 	}
 
-
-	public function handleRegister($id_user, $id_course): void
+	public function handleRegister($users, $course): void
     {
 
-		
-		if(empty($id_user) || empty($id_course))
+		$this->flashMessage("register handle");
+		if(empty($users))
 		{
 			return;
 		}
 
-		$count = $this->database->table('course_has_student')
-		->where('id_course', $id_course)
-		->where('id_user', $id_user)
-		->where('student_status', 0)
-		->update([
-			'student_status' => '1'
-		]);
+		foreach($users as $user)
+		{
+			$result = $this->database->table('course_has_student')
+			->where('id_course', $course)
+			->where('id_user', $user)
+			->where('student_status', 0)
+			->update([
+				'student_status' => '1'
+			]);
+
+			if($result->getRowCount() == 0)
+			{
+				return;
+			}
+		}
+		
 
 		if ($this->isAjax() && $count==1)
 		{

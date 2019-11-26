@@ -71,7 +71,7 @@ Seznam žádostí
             <td>{$row->email}</td>
             <td>{$row->first_name} {$row->surname}</td>
             <td>
-                <p><input type=checkbox name="sel[]"></p>
+                <p><input type=checkbox id="{$row->id_user}" onClick="check({$row->id_user})"></p>
             </td>
             </tr>
 
@@ -80,12 +80,13 @@ Seznam žádostí
         </tbody>
     </table>
     
-<button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="regbutton" onclick="checkAll()">Potvrdit vše</button>
+<button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="regbutton" n:href="register! users, $id_course">Potvrdit výběr</button>
 
 
 
 <script>
     var checked_status = false;
+    var users[];
     function checkAll() {
         var array = [{foreach $requests as $row}{$row->id_user},{/foreach}];
         if (checked_status == false) {
@@ -101,6 +102,23 @@ Seznam žádostí
             }
             checked_status = false;
             $("#regbutton").html("Označit všechny");
+        }
+    }
+
+    function check(id)
+    {
+        if (checked_status == false) 
+        {
+            users.push(id);
+            checked_status = true;
+        }
+        if (checked_status == true) 
+        {
+            var index = users.indexOf(id);
+            if (index > -1) {
+              users.splice(index, 1);
+            }
+            checked_status = false;
         }
     }
 
