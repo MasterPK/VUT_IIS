@@ -7,7 +7,7 @@ Podrobnosti kurzu
         {snippet error_notif_snippet}
         {ifset $error_notif}
         {if $error_notif==1}
-        <script>$.notify("Již jste požádali!", "warning");</script>
+        <script>$.notify("Již jste požádali!", "warn");</script>
         {elseif $error_notif==2}
         <script>$.notify("Registrace byla přijata ke zpracování!", "success");</script>
         {/if}
