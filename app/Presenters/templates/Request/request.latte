@@ -108,12 +108,10 @@ Seznam žádostí
     {
         if(document.getElementById(id).checked) 
         {
-            console.log("Checked!");
             users.push(id);
         }
         else
         {
-            console.log("Unchecked!");
             var index = users.indexOf(id);
             if (index > -1) 
             {
@@ -141,7 +139,7 @@ Seznam žádostí
             {
                 $.notify("Nebyl vybrán žádný student", "notify");
             }
-            
+            console.log($id_course);
         });
     }
 
