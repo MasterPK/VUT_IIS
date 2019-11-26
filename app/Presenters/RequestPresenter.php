@@ -16,6 +16,9 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 	/** @var \App\Model\StartUp @inject */
     public $startup;
 
+    /** @var \App\Model\VisitorModel @inject */
+    public $visitorModel;
+
 	private $database;
 	public function __construct(Nette\Database\Context $database)
 	{
