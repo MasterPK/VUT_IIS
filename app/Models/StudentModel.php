@@ -110,9 +110,9 @@ class StudentModel
 
     }
 
-    public function createComponentRegisterForm($presenter): UI\Form
+    public function createComponentRegisterForm($presenter)
     {
-		$form = new UI\Form;
+		$form = new Nette\Application\UI\Form;
 
 		$form->addHidden('id_course');
 
