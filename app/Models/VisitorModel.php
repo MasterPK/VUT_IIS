@@ -51,7 +51,7 @@ class VisitorModel
         }
         else
         {
-            throw new \Exception("Error in SQL query");
+            return NULL;
         }
     }
 
