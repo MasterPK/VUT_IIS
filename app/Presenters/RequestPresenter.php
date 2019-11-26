@@ -134,33 +134,41 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 
 	public function handleRegister($users): void
     {
-
-		
-		if(empty($users))
+    	//ak neni ziaden checkbox, tak sa odosle []
+    	$users = substr($users, 1, -1);
+    	//po substr ostane prazdny
+    	if(empty($users))
 		{
-			//return;
+			$this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'notify'] ) );
+			return;	
 		}
 
-		/*foreach($users as $user)
+		//inak tam je aspon jedno id
+		$users = preg_split("/[,]/", $users);
+		
+		//po preg_split sa z toho stava array
+		foreach($users as $user)
 		{
 			$result = $this->database->table('course_has_student')
-			->where('id_course', $course)
+			->where('id_course', $this->id_course)
 			->where('id_user', $user)
 			->where('student_status', 0)
 			->update([
 				'student_status' => '1'
 			]);
 
-			if($result->getRowCount() == 0)
+			//ak sa nejaky update nevykona, ukonci s chybou
+			if($result == 0)
 			{
+				$this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'error'] ) );
 				return;
 			}
-		}*/
+		}
 		
 
 		if ($this->isAjax())
 		{
-            $this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'success', "data" => $users] ) );
+            $this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'success'] ) );
         }
 		
     	

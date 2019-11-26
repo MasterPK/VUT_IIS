@@ -131,7 +131,15 @@ Seznam žádostí
         }).done(function( html ) {
             if(html.status=="success")
             {
-                $.notify("Kurz byl povolen!", "success");
+                $.notify("Vybraní studenti byli zaregistrováni!", "success");
+            }
+            else if(html.status=="error")
+            {
+                $.notify("Došlo k chybě při registraci studentů!", "error");
+            }
+            else
+            {
+                $.notify("Nebyl vybrán žádný student", "notify");
             }
             
         });
