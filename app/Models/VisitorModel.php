@@ -64,7 +64,7 @@ class VisitorModel
     public function getAllCoursesByFilter(string $filter, string $search)
     {
         $search = '%'.$search.'%';
-        $filter = '`'.$filter.'`';
+        $filter = '`'.$filter[0].'`';
         $data = $this->database->query("SELECT `id_course`, `course_name`, `course_type`, `course_price` FROM `course` WHERE (? LIKE ? AND `course_status` > 0)", $filter, $search)->fetchAll();
 
         if($data)
