@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card bg-default ">
+            <div class="card-header">
+                {$course->id_course}
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2 col-sm-12">
+                        Typ:<br>
+                        <b>{$type}</b>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        Garant kurzu:<br>
+                        <b>{$guarantor}</b>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        Cena:<br>
+                        <b>{$course->course_price}&nbsp;Kč</b>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        Stav registrací:<br>
+                        <b>{if $course->course_status == 2 }Otevřeno{else}Zavřeno{/if}</b>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-12">
+                        Popis:<br>
+                        <p class="card-text">{$course->course_description}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

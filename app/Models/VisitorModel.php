@@ -102,6 +102,13 @@ class VisitorModel
         }
     }
 
+    /**
+     * Handle Showcourse
+     *
+     * @param [type] $presenter
+     * @param [type] $id
+     * @return void
+     */
     public function renderShowcourse($presenter, $id)
     {
         if (empty($id)) {

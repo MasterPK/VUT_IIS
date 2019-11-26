@@ -35,7 +35,7 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 
 	public function renderShowcourse($id): void
 	{ 
-		$this->template->course= $this->visitorModel->getCourseDetails($id);
+		$this->studentModel->renderShowcourse($this,$id);
 	}
 
 	public function renderMycourses(): void
