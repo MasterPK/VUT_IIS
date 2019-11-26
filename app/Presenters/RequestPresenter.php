@@ -154,7 +154,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 			//ak sa nejaky update nevykona, ukonci s chybou
 			if($result->getRowCount() == 0)
 			{
-				handleFinish();
+				$this->handleFinish();
 				$this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'error'] ) );
 				return;
 			}
@@ -163,7 +163,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 
 		if ($this->isAjax())
 		{
-			handleFinish();
+			$this->handleFinish();
             $this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'success'] ) );
         }
 		
