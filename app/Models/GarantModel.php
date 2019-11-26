@@ -83,6 +83,8 @@ class GarantModel
     
     public function renderShowCourse($id)
     {
+        $presenter->template->link = "/homepage/showcourse/" . $id;
+		$presenter->template->course_status = $presenter->template->course->course_status;
         if($presenter->user->identity->id == $presenter->template->course->id_guarantor)
 			{
 				$presenter->template->buttons = true;

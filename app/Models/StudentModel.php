@@ -95,12 +95,11 @@ class StudentModel
     public function renderShowcourse($presenter,$id)
     {
         $this->visitorModel->renderShowcourse($presenter,$id);
-
-		$presenter->template->link = "/homepage/showcourse/" . $id;
-		$presenter->template->course_status = $presenter->template->course->course_status;
+        
     
         if($this->checkOpenRegistration($id))
         {
+            dump("a");
             $presenter->template->openRegistration=true;
         }
 
