@@ -139,6 +139,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
     	//po substr ostane prazdny
     	if(empty($users))
 		{
+			$this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'notify'] ) );
 			return;	
 		}
 
