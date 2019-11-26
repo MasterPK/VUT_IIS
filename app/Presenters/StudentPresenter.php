@@ -11,14 +11,13 @@ use Nette\Application\UI\Form;
 final class StudentPresenter extends Nette\Application\UI\Presenter 
 {
 	/** @var \App\Model\StartUp @inject */
-    public $startup;
+	public $startup;
+	
+	/** @var \App\Model\StudentModel @inject */
+    public $studentModel;
 
-
-	private $database;
-	public function __construct(Nette\Database\Context $database)
-	{
-		$this->database = $database;
-	}
+	/** @var Nette\Database\Context @inject */
+	public $database;
 
 
 	public function startUp()
@@ -40,12 +39,9 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 
 	public function renderCourses(): void
 	{
-		$data = $this->database->query("SELECT id_course, course_name, course_type, course_price FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_user = ? AND student_status = 1 AND course_status != 0",  $this->user->identity->id);
 
-		if($data->getRowCount() > 0)
-		{
-			$this->template->courses=$data;
-		}
+		$this->template->courses=$this->studentModel->getCoursesOfStudent($this->user->identity->id);
+		
 	}
 
 	public function renderLector(): void
