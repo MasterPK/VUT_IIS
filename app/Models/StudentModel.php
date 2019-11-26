@@ -9,11 +9,8 @@ use Nette\Application\UI\Form;
 class StudentModel
 {
 
-    private $database;
-    public function __construct(Nette\Database\Context $database)
-    {
-        $this->database = $database;
-    }
+    /** @var Nette\Database\Context @inject */
+	public $database;
 
     public function getCoursesOfStudent($id_student)
     {
