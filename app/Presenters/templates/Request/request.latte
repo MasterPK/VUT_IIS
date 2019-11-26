@@ -138,11 +138,13 @@ Seznam žádostí
         if(jQuery.isEmptyObject(users))
         {
             $("#checkAllButton").html("Označit všechny");
+            check_status = false;
         }
         
         if({$requests}.length == users.length)
         {
             $("#checkAllButton").html("Odznačit všechny");
+            check_status = true;
         }
 
         console.log(users);
