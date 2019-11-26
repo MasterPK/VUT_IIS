@@ -86,7 +86,7 @@ Seznam žádostí
 
 <script>
     var checked_status = false;
-    var users;
+    var users = [];
     function checkAll() {
         var array = [{foreach $requests as $row}{$row->id_user},{/foreach}];
         if (checked_status == false) {

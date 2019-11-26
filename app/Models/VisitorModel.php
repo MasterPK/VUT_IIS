@@ -121,9 +121,9 @@ class VisitorModel
     {
         if(empty($id))
 		{
-			$this->redirect('Homepage:courses');
+			$presenter->redirect('Homepage:courses');
 		}
-        $this->template->course= $this->visitorModel->getCourseDetails($id);
+        $presenter->template->course=getCourseDetails($id);
     }
 
 }
