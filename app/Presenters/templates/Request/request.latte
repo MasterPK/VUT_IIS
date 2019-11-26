@@ -127,7 +127,7 @@ Seznam žádostí
         $.ajax({
           method: "POST",
           url: {link register!},
-          data: { users: users }
+          data: JSON.stringify(users)
         }).done(function( html ) {
             if(html.status=="success")
             {
