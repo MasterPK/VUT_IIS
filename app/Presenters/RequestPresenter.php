@@ -48,19 +48,10 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		//zobraz svoje predmety, pre ktore existuju ziadosti, ak mas rank garant a vyssi
 		if($this->template->rank >= 3)
 		{
-			$data = $this->database->query("SELECT COUNT(*) AS cnt, id_course, course_name, course_type, id_guarantor FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_guarantor = ? AND student_status = 0",  $this->user->identity->id)->fetchAll();
+			$data = $this->database->query("SELECT COUNT(*) AS cnt, id_course, course_name, course_type, id_guarantor FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_guarantor = ? AND student_status = 0 HAVING cnt > 0",  $this->user->identity->id)->fetchAll();
 
 			if(count($data) > 0)
 			{
-				foreach($data as $course)
-				{
-					//ak je pocet ziadosti 0, nezobrazuj kurz
-					if($course->cnt == 0)
-					{
-						$key = array_search($course, $data);
-						unset($data[$key]);
-					}
-				}
 				$this->template->requests=$data;
 			}
 
