@@ -10,7 +10,7 @@ class StudentModel
 {
 
   
-    private $visitorModel;
+    public $visitorModel;
 
     private $database;
 	public function __construct(Nette\Database\Context $database, \App\Model\VisitorModel $visitorModel)
