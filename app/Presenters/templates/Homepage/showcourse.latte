@@ -88,12 +88,12 @@ Podrobnosti kurzu
 </div>
 
 <br>
-
-{ifset $request}
+{ifset $register}
+{ifset !$request}
 <div class="row">
     <div class="col-auto mr-auto"></div>
     <div class="col-auto">
-        {if $rank > 0}
+        {if $rank > 0 && $register == true}
         <form n:name="registerForm">
             <div class="form-group text-center ">
                 {input register}
