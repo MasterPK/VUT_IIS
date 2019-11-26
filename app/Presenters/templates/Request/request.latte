@@ -106,14 +106,15 @@ Seznam žádostí
 
     function check(id)
     {
-        console.log("Hello world!");
         var ckb = $("#id").is(':checked');
         if (ckb == true) 
         {
+            console.log("Checked!");
             users.push(id);
         }
         else
         {
+            console.log("Unchecked!");
             var index = users.indexOf(id);
             if (index > -1) 
             {
