@@ -22,6 +22,8 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 
 	private $database;
 
+	private $id_course;
+
 	public function __construct(Nette\Database\Context $database)
 	{
 		$this->database = $database;
