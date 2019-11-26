@@ -11,11 +11,11 @@ class VisitorModel
 {
 
     private $database;
-	public function __construct(Nette\Database\Context $database)
-	{
-		$this->database = $database;
-	}
-    
+    public function __construct(Nette\Database\Context $database)
+    {
+        $this->database = $database;
+    }
+
 
     /**
      * Return list of all courses in database
@@ -25,13 +25,10 @@ class VisitorModel
     public function getAllCourses()
     {
         $data = $this->database->table("course")->fetchAll();
-            
-        if($data)
-        {
+
+        if ($data) {
             return $data;
-        }
-        else
-        {
+        } else {
             return NULL;
         }
     }
@@ -44,13 +41,10 @@ class VisitorModel
     public function getAllApprovedCourses()
     {
         $data = $this->database->table("course")->where("course_status != 0")->fetchAll();
-            
-        if($data)
-        {
+
+        if ($data) {
             return $data;
-        }
-        else
-        {
+        } else {
             return NULL;
         }
     }
@@ -63,16 +57,13 @@ class VisitorModel
      */
     public function getAllCoursesByFilter(string $filter, string $search)
     {
-        $query = "SELECT id_course, course_name, course_type, course_price FROM course WHERE (".$filter." LIKE '%".$search."%' AND course_status > 0)";
-        
+        $query = "SELECT id_course, course_name, course_type, course_price FROM course WHERE (" . $filter . " LIKE '%" . $search . "%' AND course_status > 0)";
+
         $data = $this->database->query($query)->fetchAll();
 
-        if($data)
-        {
+        if ($data) {
             return $data;
-        }
-        else
-        {
+        } else {
             return NULL;
         }
     }
@@ -87,12 +78,9 @@ class VisitorModel
     {
         $data = $this->database->table("course")->where("id_course=?", $course_id)->fetch();
 
-        if($data)
-        {
+        if ($data) {
             return $data;
-        }
-        else
-        {
+        } else {
             throw new \Exception("Error in SQL query");
         }
     }
@@ -107,23 +95,28 @@ class VisitorModel
     {
         $data = $this->database->table("user")->where("id_user=?", $id_guarantor)->fetch();
 
-        if($data)
-        {
-            return $data->first_name." ".$data->surname;
-        }
-        else
-        {
+        if ($data) {
+            return $data->first_name . " " . $data->surname;
+        } else {
             throw new \Exception("Error in SQL query");
         }
     }
 
-    public function renderShowcourse($presenter,$id)
+    public function renderShowcourse($presenter, $id)
     {
-        if(empty($id))
-		{
-			$presenter->redirect('Homepage:courses');
-		}
-        $presenter->template->course=getCourseDetails($id);
-    }
+        if (empty($id)) {
+            $presenter->redirect('Homepage:courses');
+        }
+        $presenter->template->course = $this->getCourseDetails($id);
+        $presenter->template->guarantor = $this->getCourseGuarantorName($presenter->template->course->id_guarantor);
 
+        switch ($presenter->template->course->course_type) {
+            case "P":
+                $presenter->template->type = "Povinný";
+                break;
+            case "V":
+                $presenter->template->type = "Volitelný";
+                break;
+        }
+    }
 }
