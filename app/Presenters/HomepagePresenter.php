@@ -155,7 +155,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	protected function createComponentRegisterForm(): UI\Form
     {
 		$form = new UI\Form;
-		$form->getElementPrototype()->class('ajax');
+
 		$form->addHidden('id_course');
 
 		$form->setDefaults([
@@ -188,7 +188,8 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		
 		if ($this->isAjax())
 		{
-            $this->redrawControl('content_snippet');
+			$this->payload->message = true;
+            $this->redrawControl('error_notif_snippet');
         }
     	
 	}
