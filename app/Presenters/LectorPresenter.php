@@ -40,12 +40,19 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 	 */
 	public function renderCourses(): void
 	{
-
 		$this->template->courses=$this->lectorModel->getCoursesOfLector($this->user->identity->id);
-		
 	}
-	
-	public function renderLector(): void
+
+
+	public function renderLectorCourses()
+	{
+		$this->template->courses=$this->lectorModel->getLectorCourses($this->user->identity->id);
+	}
+
+
+
+
+	/*public function renderLector(): void
 	{
 		$courses = array();
 		switch($this->template->rank)
@@ -80,5 +87,5 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 		{
 			$this->template->courses=$courses;
 		}
-	}
+	}*/
 }
