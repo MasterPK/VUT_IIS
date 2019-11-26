@@ -8,7 +8,7 @@ use Nette;
 class StartUp
 {
     private $database;
-    public function __construct(Nette\Database\Context $database, Nette\Security\Passwords $passwords)
+    public function __construct(Nette\Database\Context $database)
     {
         $this->database = $database;
     }
