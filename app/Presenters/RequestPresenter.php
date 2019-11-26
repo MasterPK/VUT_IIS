@@ -22,6 +22,8 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 
 	private $database;
 
+	private $id_course;
+
 	public function __construct(Nette\Database\Context $database)
 	{
 		$this->database = $database;
@@ -71,7 +73,6 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		}
 	}
 
-	private $id_course;
 	public function renderRequest($id): void
 	{ 
 		$requests = NULL;
@@ -168,17 +169,17 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
     	
 	}
 
-	public function handleApproveCourse($id_course): void
+	public function handleApproveCourse($id): void
     {
 
 		
-		if(empty($id_course))
+		if(empty($id))
 		{
 			return;
 		}
 
 		$count = $this->database->table('course')
-		->where('id_course', $id_course)
+		->where('id_course', $id)
 		->update([
 			'course_status' => '1'
 		]);
