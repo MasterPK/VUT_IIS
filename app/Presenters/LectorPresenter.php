@@ -16,6 +16,8 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 	/** @var Nette\Database\Context @inject */
 	public $database;
 
+	/** @var \App\Model\StudentModel @inject */
+	public $studentModel;
 
 	public function startUp()
 	{
