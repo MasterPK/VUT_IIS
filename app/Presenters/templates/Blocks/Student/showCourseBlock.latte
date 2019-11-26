@@ -41,18 +41,7 @@
 {snippet studentRegistration}
 {ifset $openRegistration}
 {ifset $userCourseStatus}
-{if $userCourseStatus==0}
-<div class="row">
-    <div class="col-auto mr-auto"></div>
-    <div class="col-auto">
-        <form n:name="registerForm">
-            <div class="form-group text-center ">
-                {input register}
-            </div>
-        </form>
-    </div>
-</div>
-{elseif $userCourseStatus==1}
+{if $userCourseStatus==1}
 <div class="row">
     <div class="col-auto mr-auto"></div>
     <div class="col-auto">
@@ -64,6 +53,17 @@
     </div>
 </div>
 {/if}
+{else}
+<div class="row">
+    <div class="col-auto mr-auto"></div>
+    <div class="col-auto">
+        <form n:name="registerForm">
+            <div class="form-group text-center ">
+                {input register}
+            </div>
+        </form>
+    </div>
+</div>
 {/ifset}
 {/ifset}
 {/snippet}
