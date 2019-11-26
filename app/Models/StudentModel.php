@@ -20,6 +20,7 @@ class StudentModel
 
 		if($data->getRowCount() > 0)
 		{
+            throw new \Exception("Error in SQL query");
 			return $data;
         }
         else
