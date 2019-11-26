@@ -111,6 +111,10 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 				{
 					$this->template->register=false;
 				}
+				else
+				{
+					$this->template->register=true;
+				}
 			}
 
 			$course_guarantor = $this->database->table("user")
