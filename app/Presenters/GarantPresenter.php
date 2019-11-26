@@ -44,4 +44,13 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$this->template->courses=$this->garantModel->getCoursesOfGarant($this->user->identity->id);
 		
 	}
+	
+	public function createComponentCreateCourseForm(): Form
+	{
+		return $this->garantModel->createCourseF();
+	}
+	public function createCourseForm(Nette\Application\UI\Form $form): void
+	{
+		return $this->garantModel->createCourse($form);
+	}
 }
