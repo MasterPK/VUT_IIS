@@ -81,29 +81,35 @@ Seznam žádostí
     </table>
     
 <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="done()">Potvrdit výběr</button>
-<button class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="checkAll()">Vybrat všechny</button>
+<button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="checkAllButton" onClick="checkAll()">Označit všechny</button>
 
 
 <script>
     
     var users = [];
+    var check_status = false;
     function checkAll() 
     {
         var array = [{foreach $requests as $row}{$row->id_user},{/foreach}];
-       
-        foreach(array as id)
+        if(check_status == false)
         {
-            if(document.getElementById(id).checked)
-            {
-                $("#" + array[i]).prop("checked", false);
-                $("#regbutton").html("Označit všechny");
+            for(var i = 0; i < array.length; i++) 
+            {   
+                $("#" + array[i]).prop("checked", true);  
             }
-            else
-            {
-                $("#" + array[i]).prop("checked", true);
-                $("#regbutton").html("Odznačit všechny");
-            }
+            check_status = true;
+            $("#checkAllButton").html("Odznačit všechny");
         }
+        else
+        {
+            for(var i = 0; i < array.length; i++) 
+            {   
+                $("#" + array[i]).prop("checked", false);
+            }
+            check_status = false;
+            $("#checkAllButton").html("Označit všechny");
+        }
+        
     }
 
     function check(id)
