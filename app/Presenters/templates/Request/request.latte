@@ -101,8 +101,6 @@ Seznam žádostí
                     check(array[i]);
                 } 
             }
-            check_status = true;
-            $("#checkAllButton").html("Odznačit všechny");
         }
         else
         {
@@ -114,8 +112,6 @@ Seznam žádostí
                     check(array[i]);
                 }
             }
-            check_status = false;
-            $("#checkAllButton").html("Označit všechny");
         }
         
     }
@@ -138,11 +134,13 @@ Seznam žádostí
         if(jQuery.isEmptyObject(users))
         {
             $("#checkAllButton").html("Označit všechny");
+            check_status = false;
         }
         
         if({$requests}.length == users.length)
         {
             $("#checkAllButton").html("Odznačit všechny");
+            check_status = true;
         }
 
         console.log(users);
