@@ -80,28 +80,40 @@ Seznam žádostí
         </tbody>
     </table>
     
-<button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="regbutton" onClick="done()">Potvrdit výběr</button>
-
+<button class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="done()">Potvrdit výběr</button>
+<button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="checkAllButton" onClick="checkAll()">Označit všechny</button>
 
 
 <script>
+    
     var users = [];
-    function checkAll() {
+    var check_status = false;
+    function checkAll() 
+    {
         var array = [{foreach $requests as $row}{$row->id_user},{/foreach}];
-        if (checked_status == false) {
-            for (var i = 0; i < array.length; i++) {
-                $("#" + array[i]).prop("checked", true);
+        if(check_status == false)
+        {
+            for(var i = 0; i < array.length; i++) 
+            {   
+                if(!document.getElementById(array[i]).checked) 
+                {
+                    $("#" + array[i]).prop("checked", true);  
+                    check(array[i]);
+                } 
             }
-            checked_status = true;
-            $("#regbutton").html("Odznačit všechny");
         }
-        else {
-            for (var i = 0; i < array.length; i++) {
-                $("#" + array[i]).prop("checked", false);
+        else
+        {
+            for(var i = 0; i < array.length; i++) 
+            {   
+                if(document.getElementById(array[i]).checked) 
+                {
+                    $("#" + array[i]).prop("checked", false);  
+                    check(array[i]);
+                }
             }
-            checked_status = false;
-            $("#regbutton").html("Označit všechny");
         }
+        
     }
 
     function check(id)
@@ -118,6 +130,20 @@ Seznam žádostí
                 users.splice(index, 1);
             }
         }
+
+        if(jQuery.isEmptyObject(users))
+        {
+            $("#checkAllButton").html("Označit všechny");
+            check_status = false;
+        }
+        
+        if({$requests}.length == users.length)
+        {
+            $("#checkAllButton").html("Odznačit všechny");
+            check_status = true;
+        }
+
+        console.log(users);
     }
     
     function done()
@@ -125,7 +151,7 @@ Seznam žádostí
         $.ajax({
           method: "POST",
           url: {link register!},
-          data: { users: JSON.stringify(users) }
+          data: { users: JSON.stringify(users), id_course:{$id_course} }
         }).done(function( html ) {
             if(html.status=="success")
             {

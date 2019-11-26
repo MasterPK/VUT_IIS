@@ -10,7 +10,7 @@ class StudentModel
 {
 
   
-    private $visitorModel;
+    public $visitorModel;
 
     private $database;
 	public function __construct(Nette\Database\Context $database, \App\Model\VisitorModel $visitorModel)
@@ -95,25 +95,24 @@ class StudentModel
     public function renderShowcourse($presenter,$id)
     {
         $this->visitorModel->renderShowcourse($presenter,$id);
-
-		$presenter->template->link = "/homepage/showcourse/" . $id;
-		$presenter->template->course_status = $presenter->template->course->course_status;
+        
     
-        if(checkOpenRegistration($id))
+        if($this->checkOpenRegistration($id))
         {
+            
             $presenter->template->openRegistration=true;
         }
 
-        $presenter->template->userCourseStatus=checkStudentCourseStatus($id,$presenter->user->identity->id);
-
+        $presenter->template->userCourseStatus=$this->checkStudentCourseStatus($id,$presenter->user->identity->id);
+        
         $this->currentCourseId=$id;
     
 
     }
 
-    public function createComponentRegisterForm($presenter): UI\Form
+    public function createComponentRegisterForm($presenter)
     {
-		$form = new UI\Form;
+		$form = new Nette\Application\UI\Form;
 
 		$form->addHidden('id_course');
 
@@ -125,9 +124,11 @@ class StudentModel
         $form->addSubmit('register', 'Registrovat kurz')
 		->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
 		
-		$form->onSuccess[] = [$presenter, 'addNotification'];
+		$form->onSuccess[] = [$presenter, 'registerFormHandle'];
         return $form;
     }
+
+
 
 
 }
