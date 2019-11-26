@@ -128,10 +128,7 @@ class StudentModel
         return $form;
     }
 
-    public function registerFormHandle($presenter,$form)
-    {
-        
-    }
+
 
 
 }

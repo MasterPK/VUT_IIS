@@ -1,1 +1,56 @@
 {include '../Blocks/Student/showCourseBlock.latte'}
+{ifset $buttons}
+{ifset $course_status}
+{if $course_status == 1 or $course_status == 3}
+<a id="openbuttona" n:href="open! $course->id_course"><button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="openbutton" >Otevřít registrace</button></a>
+{elseif $course_status == 2}
+<a id="openbuttona" n:href="close! $course->id_course"><button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="openbutton" >Zavřít registrace</button></a>
+{/if}
+{/ifset}
+
+{ifset $course_open_success}
+{if $course_open_success == true}
+<script>
+    $("#openbutton").html("Zavřít registrace");
+    $("#openbuttona").attr("href", {$link}."?do=close");
+</script>
+{/if}
+{/ifset}
+
+{ifset $course_close_success}
+{if $course_close_success == true}
+<script>
+    $("#openbutton").html("Otevřít registrace");
+    $("#openbuttona").attr("href", {$link}."?do=open");
+</script>
+{/if}
+{/ifset}
+{/ifset}
+
+      {snippet course_open_success_snippet}
+        {ifset $course_open_success}
+            {if $course_open_success == true}
+                <div class="alert alert-success animated bounce">
+                <strong>Kurz byl úspěšně otevřen!</strong>
+                </div>
+            {else}
+                <div class="alert alert-danger animated bounce">
+                <strong>Kurz se nepodařilo otevřít!</strong>
+                </div>
+            {/if}
+        {/ifset}
+        {/snippet}
+
+        {snippet course_close_success_snippet}
+        {ifset $course_close_success}
+            {if $course_close_success == true}
+                <div class="alert alert-success animated bounce">
+                <strong>Kurz byl úspěšně uzavřen!</strong>
+                </div>
+            {else}
+                <div class="alert alert-danger animated bounce">
+                <strong>Kurz se nepodařilo uzavřít!</strong>
+                </div>
+            {/if}
+        {/ifset}
+        {/snippet}
