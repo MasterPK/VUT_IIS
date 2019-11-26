@@ -80,7 +80,7 @@ Seznam žádostí
         </tbody>
     </table>
     
-<button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="regbutton" n:href="register! uers, $id_course">Potvrdit výběr</button>
+<button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="regbutton" onClick="done()">Potvrdit výběr</button>
 
 
 
@@ -120,6 +120,15 @@ Seznam žádostí
             }
             checked_status = false;
         }
+    }
+
+    function done()
+    {
+        $.ajax({
+          method: "POST",
+          url: "request/"+{$id_course},
+          data: { users: users }
+        })
     }
 
 </script>

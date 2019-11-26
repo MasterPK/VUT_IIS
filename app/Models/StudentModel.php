@@ -9,6 +9,9 @@ use Nette\Application\UI\Form;
 class StudentModel
 {
 
+    /** @var \App\Model\VisitorModel @inject */
+    public $visitorModel;
+
     private $database;
 	public function __construct(Nette\Database\Context $database)
 	{
@@ -33,6 +36,11 @@ class StudentModel
         {
             return NULL;
         }
+    }
+
+    public function renderShowcourse($presenter,$id)
+    {
+
     }
 
 
