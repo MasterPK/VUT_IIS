@@ -4,6 +4,7 @@ namespace App\Model;
 
 
 use Nette;
+use Nette\Application\UI\Form;
 
 class StudentModel
 {
@@ -27,5 +28,6 @@ class StudentModel
             throw new \Exception("Error in SQL query");
         }
     }
+
 
 }
