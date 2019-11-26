@@ -104,7 +104,7 @@ class StudentModel
         }
 
         $presenter->template->userCourseStatus=$this->checkStudentCourseStatus($id,$presenter->user->identity->id);
-        dump($presenter->template->userCourseStatus);
+        
         $this->currentCourseId=$id;
     
 
