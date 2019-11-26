@@ -54,36 +54,35 @@ Seznam žádostí
             </tbody>
         </table>
     {/ifset}
-{snippet success_reg_snippet}
+    {snippet success_reg_snippet}
     {ifset $requests}
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Email studenta</th>
-                <th scope="col">Jméno</th>
-                <th scope="col">Registrovat</th>
-            </tr>
-        </thead>
-        <tbody>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Email studenta</th>
+                    <th scope="col">Jméno</th>
+                    <th scope="col">Registrovat</th>
+                </tr>
+            </thead>
+            <tbody>
 
-            {foreach $requests as $row}
-            <tr>
-            <td>{$row->email}</td>
-            <td>{$row->first_name} {$row->surname}</td>
-            <td>
-                <p><input type=checkbox id="{$row->id_user}" onClick="check({$row->id_user})"></p>
-            </td>
-            </tr>
+                {foreach $requests as $row}
+                <tr>
+                <td>{$row->email}</td>
+                <td>{$row->first_name} {$row->surname}</td>
+                <td>
+                    <p><input type=checkbox id="{$row->id_user}" onClick="check({$row->id_user})"></p>
+                </td>
+                </tr>
 
-            {/foreach}
+                {/foreach}
 
-        </tbody>
-    </table>
-    {/ifset}
+            </tbody>
+        </table>
   
-<button class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="done()">Potvrdit výběr</button>
-<button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="checkAllButton" onClick="checkAll()">Označit všechny</button>
-{/snippet}
+    <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="done()">Potvrdit výběr</button>
+    <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="checkAllButton" onClick="checkAll()">Označit všechny</button>
+    {/snippet}
 
 <script>
     
