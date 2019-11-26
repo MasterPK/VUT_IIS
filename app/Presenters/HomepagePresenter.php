@@ -14,7 +14,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	/** @var \App\Model\StartUp @inject */
 	public $startup;
 	
-	/** @var \App\Model\VisitorModule @inject */
+	/** @var \App\Model\VisitorModel @inject */
     public $visitorModel;
 
 	private $database;
