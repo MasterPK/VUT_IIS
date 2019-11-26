@@ -81,7 +81,7 @@ class VisitorModel
      * @param integer $course_id
      * @return void
      */
-    public function getCourseDetails(int $course_id)
+    public function getCourseDetails($course_id)
     {
         $data = $this->database->table("course")->where("id_course=?", $course_id)->fetch();
 
@@ -101,7 +101,7 @@ class VisitorModel
      * @param integer $id_guarantor
      * @return string
      */
-    public function getCourseGuarantorName(int $id_guarantor):string
+    public function getCourseGuarantorName($id_guarantor)
     {
         $data = $this->database->table("user")->where("id_user=?", $id_guarantor)->fetch();
 
