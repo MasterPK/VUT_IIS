@@ -44,7 +44,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		//zobraz svoje predmety, pre ktore existuju ziadosti, ak mas rank garant a vyssi
 		if($this->template->rank >= 3)
 		{
-			$data = $this->database->query("SELECT DISTINCT(id_course), course_name, course_type, id_guarantor FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_guarantor = ? AND student_status = 0",  $this->user->identity->id)->fetchAll();
+			$data = $this->database->query("SELECT COUNT(*) AS cnt, id_course, course_name, course_type, id_guarantor FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_guarantor = ? AND student_status = 0",  $this->user->identity->id)->fetchAll();
 
 			if(count($data) > 0)
 			{
