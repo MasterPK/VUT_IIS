@@ -161,7 +161,8 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		if ($this->isAjax())
 		{
 			$this->template->error_notif = 2;
-            $this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'error', 'message' => 'Problem'] ) );
+			$this->redrawControl('error_notif_snippet');
+            //$this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'error', 'message' => 'Problem'] ) );
         }
 		
     	
