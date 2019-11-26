@@ -44,7 +44,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	{
 		if($search)
 		{
-			$this->template->courses=$this->visitorModel->getAllCoursesByFilter($filter);
+			$this->template->courses=$this->visitorModel->getAllCoursesByFilter($filter, $search);
 		}
 		else
 		{
@@ -148,7 +148,6 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	public function searchCourseForm(Nette\Application\UI\Form $form): void
     {
     	$values = $form->getValues();
-    	$values->search = "%" . $values->search . "%";
     	$this->redirect("Homepage:courses", $values->search, $values->filter);
 	}
 	
@@ -175,7 +174,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
     {
 		
 		$values = $form->getValues();
-    	$get = $this->database->query("SELECT id FROM course_has_student WHERE id_course = ? AND id_user = ?", $values->id_course, $this->user->identity->id);
+    	$get = $this->database->query("SELECT `id` FROM `course_has_student` WHERE `id_course` = ? AND `id_user` = ?", $values->id_course, $this->user->identity->id);
 
     	if($get->getRowCount() == 0)
     	{

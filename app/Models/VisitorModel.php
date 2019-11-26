@@ -51,7 +51,7 @@ class VisitorModel
         }
         else
         {
-            throw new \Exception("Error in SQL query");
+            return NULL;
         }
     }
 
@@ -63,7 +63,9 @@ class VisitorModel
      */
     public function getAllCoursesByFilter(string $filter, string $search)
     {
-        $data = $this->database->table("course")->where( $filter . " LIKE ? AND course_status >= ?",  "%" . $search . "%", 1)->fetchAll();
+        $query = "SELECT id_course, course_name, course_type, course_price FROM course WHERE (".$filter." LIKE '%".$search."%' AND course_status > 0)";
+        
+        $data = $this->database->query($query)->fetchAll();
 
         if($data)
         {

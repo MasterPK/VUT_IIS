@@ -23,7 +23,7 @@ class GarantModel
         return $this->studentModel->getCoursesOfStudent($id_garant);
     }
 
-    public function createCourseF(): Form
+    public function createCourseF($meno): Form
     {
         $form = new Form;
 
@@ -59,25 +59,8 @@ class GarantModel
         $form->addSubmit('create', 'Vytvořit kurz')
         ->setHtmlAttribute('class', 'btn btn-block btn-primary');
         
-        $form->onSuccess[] = [$this, 'createCourseForm'];
+        $form->onSuccess[] = [$meno, 'createCourseForm'];
         return $form;
-	}
-
-	public function createCourse($form): void
-    {
-    	$values = $form->getValues();
-
-    	try
-    	{
-    		$data = $this->database->query("INSERT INTO course (id_course, course_name, course_description, course_type, course_price, id_guarantor, course_status) VALUES (?, ?, ?, ?, ?, ?, 0)", $values->id_course, $values->name, $values->description, $values->type, $values->price,  $this->user->identity->id);
-
-    		$this->template->success_insert = true;
-    	}
-    	catch(Nette\Database\UniqueConstraintViolationException $e)
-    	{
-    		$this->template->error_insert=true;
-    		$this->template->error_course=$values->id_course;
-    	}
 	}
 
 }

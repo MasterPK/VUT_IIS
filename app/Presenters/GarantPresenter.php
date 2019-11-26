@@ -47,7 +47,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	
 	public function createComponentCreateCourseForm(): Form
 	{
-		return $this->garantModel->createCourseF();
+		return $this->garantModel->createCourseF($this);
 	}
 
 	public function createCourseForm(Nette\Application\UI\Form $form): void
