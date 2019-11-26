@@ -41,7 +41,7 @@
 {snippet studentRegistration}
 {ifset $openRegistration}
 {ifset $userCourseStatus}
-{if $userCourseStatus==0}
+{if $userCourseStatus==1}
 <div class="row">
     <div class="col-auto mr-auto"></div>
     <div class="col-auto">
@@ -52,7 +52,7 @@
         </form>
     </div>
 </div>
-{elseif $userCourseStatus==1}
+{else}
 <div class="row">
     <div class="col-auto mr-auto"></div>
     <div class="col-auto">
