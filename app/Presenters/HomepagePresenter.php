@@ -12,7 +12,10 @@ use Nette\Application\UI;
 final class HomepagePresenter extends Nette\Application\UI\Presenter
 {
 	/** @var \App\Model\StartUp @inject */
-    public $startup;
+	public $startup;
+	
+	/** @var \App\Model\VisitorModule @inject */
+    public $visitorModel;
 
 	private $database;
 	public function __construct(Nette\Database\Context $database)
@@ -41,23 +44,12 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	{
 		if($search)
 		{
-			$data = $this->database->table("course")->where("? LIKE ? AND course_status = ?", $filter, $search, 1)->fetchAll();		
-			
-			if($data)
-			{
-				$this->template->courses=$data;
-			}
+			$this->template->courses=$this->visitorModel->getAllCoursesByFilter($filter);
 		}
 		else
 		{
 			//zobraz vsetky schvalene kurzy
-			$data = $this->database->table("course")
-			->where("course_status != 0")
-			->fetchAll();
-			if($data)
-			{
-				$this->template->courses=$data;
-			}	
+			$this->template->courses=$this->visitorModel->getAllApprovedCourses();
 		}
 	}
 
@@ -67,7 +59,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		{
 			$this->redirect('Homepage:courses');
 		}
-		$course = $this->database->table("course")->where("id_course=?", $id)->fetch();
+		$course = $this->visitorModel->getCourseDetails($id);
 		$this->current_course_id=$id;
 		$this->template->link = "/homepage/showcourse/" . $id;
 		$this->template->course_status = $course->course_status;
@@ -116,11 +108,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 				
 			}
 
-			$course_guarantor = $this->database->table("user")
-					->where("id_user=?", $course->id_guarantor)
-					->fetch();
-
-			$this->template->guarantor=$course_guarantor->first_name . " " . $course_guarantor->surname;
+			$this->template->guarantor=$this->visitorModel->getCourseGuarantorName($course->id_guarantor);
 
 			switch($course->course_type) 
 			{
@@ -160,6 +148,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	public function searchCourseForm(Nette\Application\UI\Form $form): void
     {
     	$values = $form->getValues();
+    	$values->search = "%" . $values->search . "%";
     	$this->redirect("Homepage:courses", $values->search, $values->filter);
 	}
 	
