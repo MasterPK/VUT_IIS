@@ -123,7 +123,7 @@ class VisitorModel
 		{
 			$presenter->redirect('Homepage:courses');
 		}
-        $presenter->template->course=getCourseDetails($id);
+        $presenter->template->course=$this->getCourseDetails($id);
     }
 
 }
