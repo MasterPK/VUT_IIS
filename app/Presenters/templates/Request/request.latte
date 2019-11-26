@@ -129,6 +129,7 @@ Seznam žádostí
           url: {link register!},
           data: { users: users }
         }).done(function( html ) {
+            console.log(html);
             var obj = jQuery.parseJSON( html );
             console.log(obj);
             $.notify("Kurz byl povolen!", "success");
