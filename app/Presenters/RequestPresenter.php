@@ -161,7 +161,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		if ($this->isAjax())
 		{
 			$this->template->error_notif = 2;
-            $this->sendResponse("ahoj");
+            $this->payload->msg="ahoj";
         }
 		
     	
