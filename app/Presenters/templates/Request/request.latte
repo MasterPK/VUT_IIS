@@ -106,13 +106,14 @@ Seznam žádostí
 
     function check(id)
     {
-        var ckb = $("#id").is(':checked');
-        if (ckb == true) 
+        if(document.getElementById(id).checked) 
         {
+            console.log("Checked!");
             users.push(id);
         }
         else
         {
+            console.log("Unchecked!");
             var index = users.indexOf(id);
             if (index > -1) 
             {
@@ -126,7 +127,7 @@ Seznam žádostí
         $.ajax({
           method: "POST",
           url: {link register!},
-          data: { users: users }
+          data: { users: JSON.stringify(users) }
         }).done(function( html ) {
             if(html.status=="success")
             {
