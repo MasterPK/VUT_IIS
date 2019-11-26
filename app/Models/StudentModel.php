@@ -125,8 +125,29 @@ class StudentModel
         $form->addSubmit('register', 'Registrovat kurz')
 		->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
 		
-		$form->onSuccess[] = [$presenter, 'addNotification'];
+		$form->onSuccess[] = [$presenter, 'registerFormHandle'];
         return $form;
+    }
+
+    public function registerFormHandle($presenter,$form)
+    {
+        $values = $form->getValues();
+    	$get = $this->database->query("SELECT `id` FROM `course_has_student` WHERE `id_course` = ? AND `id_user` = ?", $values->id_course, $presenter->user->identity->id);
+
+    	if($get->getRowCount() == 0)
+    	{
+			$data = $this->database->query("INSERT INTO course_has_student ( id, id_course, id_user, student_status) VALUES ('', ?, ?, 0)", $values->id_course, $presenter->user->identity->id);
+			$presenter->template->succes_notif = true;
+    	}
+    	else
+    	{
+    		$presenter->template->error_notif = true;
+		}
+		
+		if ($presenter->isAjax())
+		{
+            $presenter->redrawControl('studentRegistrationErrorSnippet');
+        }
     }
 
 

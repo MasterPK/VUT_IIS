@@ -88,31 +88,6 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	}
 	
 
-	
-
-    public function addNotification($form): void
-    {
-		
-		$values = $form->getValues();
-    	$get = $this->database->query("SELECT `id` FROM `course_has_student` WHERE `id_course` = ? AND `id_user` = ?", $values->id_course, $this->user->identity->id);
-
-    	if($get->getRowCount() == 0)
-    	{
-			$data = $this->database->query("INSERT INTO course_has_student ( id, id_course, id_user, student_status) VALUES ('', ?, ?, 0)", $values->id_course, $this->user->identity->id);
-			$this->template->error_notif = 2;
-    	}
-    	else
-    	{
-    		$this->template->error_notif = 1;
-		}
-		
-		if ($this->isAjax())
-		{
-			$this->payload->message = true;
-            $this->redrawControl('error_notif_snippet');
-        }
-    	
-	}
 
 	public function handleOpen($id)
     {

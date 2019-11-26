@@ -47,4 +47,9 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 	{
 		return $this->studentModel->createComponentRegisterForm($this);
 	}
+
+	public function registerFormHandle($form)
+	{
+		$this->studentModel->registerFormHandle($this,$form);
+	}
 }
