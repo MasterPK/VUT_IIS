@@ -149,16 +149,10 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		//po preg_split sa z toho stava array
 		foreach($users as $user)
 		{
-			$result = $this->database->table('course_has_student')
-			->where('id_course', $this->id_course)
-			->where('id_user', $user)
-			->where('student_status', 0)
-			->update([
-				'student_status' => '1'
-			]);
+			$result = $this->database->query("UPDATE `course_has_student` SET `student_status` = '1' WHERE `id_user` = ? AND id_course = ?", $user, $this->id_course);
 
 			//ak sa nejaky update nevykona, ukonci s chybou
-			if($result == 0)
+			if($result->getRowCount() == 0)
 			{
 				$this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'error'] ) );
 				return;
