@@ -16,8 +16,8 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 	/** @var Nette\Database\Context @inject */
 	public $database;
 
-	/** @var \App\Model\StudentModel @inject */
-	public $studentModel;
+	/** @var \App\Model\LectorModel @inject */
+	public $lectorModel;
 
 	public function startUp()
 	{
@@ -29,5 +29,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 		{
 			$this->redirect("Homepage:default");
 		}
-
 	}
+	public function renderDefault(): void
+	{ }
+}
