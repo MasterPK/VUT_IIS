@@ -25,6 +25,8 @@ Seznam žádostí
     </div>
 </div>
     {ifset $course}
+
+        <div id="div">
         <table class="table">
             <thead>
                 <tr>
@@ -53,6 +55,7 @@ Seznam žádostí
                 </tr>
             </tbody>
         </table>
+        </div>
     {/ifset}
 
     {ifset $requests}
@@ -156,6 +159,7 @@ Seznam žádostí
             if(html.status=="success")
             {
                 $.notify("Vybraní studenti byli zaregistrováni!", "success");
+                $("#div").hide().show(0);
             }
             else if(html.status=="error")
             {
