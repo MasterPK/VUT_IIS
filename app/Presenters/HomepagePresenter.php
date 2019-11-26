@@ -44,7 +44,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	{
 		if($search)
 		{
-			$this->template->courses=$this->visitorModel->getAllCoursesByFilter($filter);
+			$this->template->courses=$this->visitorModel->getAllCoursesByFilter($filter, $search);
 		}
 		else
 		{
