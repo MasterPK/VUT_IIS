@@ -8,11 +8,15 @@ use Nette\Application\UI\Form;
 
 class GarantModel
 {
-    /** @var Nette\Database\Context @inject */
-    public $database;
-
-	/** @var \App\Model\StudentModel @inject */
+    /** @var \App\Model\StudentModel @inject */
     public $studentModel;
+
+    private $database;
+	public function __construct(Nette\Database\Context $database)
+	{
+		$this->database = $database;
+	}
+	
 
     public function getCoursesOfGarant($id_garant)
     {
