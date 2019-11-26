@@ -55,11 +55,8 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 
 	public function renderShowcourse($id): void
 	{
-		if(empty($id))
-		{
-			$this->redirect('Homepage:courses');
-		}
-		$course = $this->visitorModel->getCourseDetails($id);
+		$this->visitorModel->renderShowcourse($this,$id);
+		return;
 		$this->current_course_id=$id;
 		$this->template->link = "/homepage/showcourse/" . $id;
 		$this->template->course_status = $course->course_status;

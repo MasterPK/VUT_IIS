@@ -117,4 +117,13 @@ class VisitorModel
         }
     }
 
+    public function renderShowcourse($presenter,$id)
+    {
+        if(empty($id))
+		{
+			$this->redirect('Homepage:courses');
+		}
+        $this->template->course= $this->visitorModel->getCourseDetails($id);
+    }
+
 }
