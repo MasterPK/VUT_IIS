@@ -9,6 +9,7 @@ database:
 services:
 	-	App\Model\StartUp
 	-	App\Model\StudentModel
+	-	App\Model\LectorModel
 	nette.latteFactory:
 		setup:
 			- setAutoRefresh(TRUE)
