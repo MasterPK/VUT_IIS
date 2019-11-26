@@ -70,7 +70,7 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 		
 		if ($this->isAjax())
 		{
-            $this->redrawControl('studentRegistrationErrorSnippet');
+            $this->redrawControl('content_snippet');
         }
 	}
 
