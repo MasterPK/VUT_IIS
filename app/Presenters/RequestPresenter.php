@@ -104,7 +104,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 
 
 
-	protected function createComponentRegisterCheckBox(): Form
+	/*protected function createComponentRegisterCheckBox(): Form
     {
 		$requests = $this->database->query("SELECT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_guarantor = ? AND id_course = ? AND student_status = 0", $this->user->identity->id, $this->id_course)->fetchAll();
 
@@ -130,7 +130,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		$values = $form->getValues();
 		
     	
-	}
+	}*/
 
 	public function handleRegister($users, $id_course): void
     {
@@ -149,7 +149,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		//po preg_split sa z toho stava array
 		foreach($users as $user)
 		{
-			$result = $this->database->query("UPDATE `course_has_student` SET `student_status` = '1' WHERE `id_user` = ? AND id_course = ?", $user, $id_course);
+			$result = $this->database->query("UPDATE course_has_student SET student_status = 1 WHERE id_user = ? AND id_course = ? AND student_status = 0", $user, $id_course);
 
 			//ak sa nejaky update nevykona, ukonci s chybou
 			if($result->getRowCount() == 0)
