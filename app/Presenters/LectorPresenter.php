@@ -8,7 +8,7 @@ use Nette;
 use Nette\Application\UI\Form;
 
 
-final class StudentPresenter extends Nette\Application\UI\Presenter 
+final class LectorPresenter extends Nette\Application\UI\Presenter 
 {
 	/** @var \App\Model\StartUp @inject */
     public $startup;
