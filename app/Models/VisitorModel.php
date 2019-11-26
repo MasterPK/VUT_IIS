@@ -13,6 +13,7 @@ class VisitorModel
     /** @var Nette\Database\Context @inject */
     public $database;
     
+    
     /**
      * Return list of all courses in database
      * Exception on error
