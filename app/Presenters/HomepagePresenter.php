@@ -188,7 +188,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		
 		if ($this->isAjax())
 		{
-            $this->redrawControl('error_notif_snippet');
+            //$this->redrawControl('error_notif_snippet');
         }
     	
 	}
