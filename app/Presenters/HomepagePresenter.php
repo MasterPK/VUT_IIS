@@ -56,62 +56,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	public function renderShowcourse($id): void
 	{
 		$this->visitorModel->renderShowcourse($this,$id);
-		return;
-		$this->current_course_id=$id;
-		$this->template->link = "/homepage/showcourse/" . $id;
-		$this->template->course_status = $course->course_status;
-
-
-		if($course)
-		{
-
-			//registracie este neboli otvorene
-			if($this->user->identity->id == $course->id_guarantor)
-			{
-				$this->template->buttons = true;
-			}
-			
-			$request = $this->database->table("course_has_student")->where("id_course=? AND id_user=?", $id, $this->user->identity->id )->fetch();
-
-			if($request)
-			{
-				$this->template->request=$request->student_status;
-			}
-			//ak su otvorene registracie na kurz..
-			if($course->course_status == 2)
-			{
-				
-				
-				$this->template->register=true;
-				//garant sa nemoze registrovat na svoj kurz
-				if($this->user->identity->id == $course->id_guarantor)
-				{
-					$this->template->register=false;
-				}
-				$course_lectors = $this->database->query("SELECT id_user FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ? AND id_course = ?",  $this->user->identity->id, $course->id_course);
-				//ani lektori sa nemozu registrovat na kurzy, ktore ucia
-				if($course_lectors->getRowCount() > 0)
-				{
-					$this->template->register=false;
-				}
-
-				$course_students = $this->database->query("SELECT id_user FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_user = ? AND id_course = ? and student_status = 1", $this->user->identity->id, $course->id_course);
-
-				//a ani uz registrovani studenti
-				if($course_students->getRowCount() > 0)
-				{
-					$this->template->register=false;
-				}
-				
-			}
-
-			
-			$this->template->course=$course;
-		}
-		else
-		{
-			$this->redirect('Homepage:courses');
-		}
+		
 	}
 
 	protected function createComponentSearchCourseForm(): Nette\Application\UI\Form
@@ -143,23 +88,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	}
 	
 
-	protected function createComponentRegisterForm(): UI\Form
-    {
-		$form = new UI\Form;
-
-		$form->addHidden('id_course');
-
-		$form->setDefaults([
-            'id_course' => $this->current_course_id,
-
-        ]);
-
-        $form->addSubmit('register', 'Registrovat kurz')
-		->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
-		
-		$form->onSuccess[] = [$this, 'addNotification'];
-        return $form;
-    }
+	
 
     public function addNotification($form): void
     {

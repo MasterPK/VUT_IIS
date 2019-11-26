@@ -1,12 +1,8 @@
 <div class="row">
     <div class="col-sm-12">
-        {snippet error_notif_snippet}
-        {ifset $error_notif}
-        {if $error_notif==1}
-        <script>$.notify("Již jste požádali!", "warn");</script>
-        {elseif $error_notif==2}
+        {snippet studentRegistrationErrorSnippet}
+        {ifset $succes_notif}
         <script>$.notify("Registrace byla přijata ke zpracování!", "success");</script>
-        {/if}
         {/ifset}
         {/snippet}
 
@@ -42,24 +38,35 @@
 </div>
 {include '../Blocks/homepageShowCourseBlock.latte'}
 <br>
-{ifset $register}
-{ifset $request}
-
-{else}
+{snippet studentRegistration}
+{ifset $openRegistration}
+{ifset $userCourseStatus}
+{if $userCourseStatus==0}
 <div class="row">
     <div class="col-auto mr-auto"></div>
     <div class="col-auto">
-        {if $rank > 0 && $register == true}
         <form n:name="registerForm">
             <div class="form-group text-center ">
                 {input register}
             </div>
         </form>
-        {/if}
     </div>
 </div>
+{else}
+<div class="row">
+    <div class="col-auto mr-auto"></div>
+    <div class="col-auto">
+        <form n:name="registerForm">
+            <div class="form-group text-center ">
+                {input register}
+            </div>
+        </form>
+    </div>
+</div>
+{/if}
 {/ifset}
 {/ifset}
+{/snippet}
 
 {ifset $buttons}
 {ifset $course_status}
