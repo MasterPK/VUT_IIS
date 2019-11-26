@@ -41,7 +41,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	{
 		if($search)
 		{
-			$data = $this->database->table("course")->where("? LIKE ? AND course_status > 0", $filter, $search)->fetchAll();		
+			$data = $this->database->query("SELECT id_course, course_name, course_type, course_price FROM course WHERE ? LIKE ? AND course_status > 0", $filter, $search)->fetchAll();
 			
 			if($data)
 			{
