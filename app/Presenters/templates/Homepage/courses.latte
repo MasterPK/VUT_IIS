@@ -2,49 +2,6 @@
 Seznam všech dostupných kurzů
 {/block}
 {block content}
-
-<div class="row">
-    <form n:name="searchCourseForm" class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-        <div class="input-group">
-            {input filter}
-            {input search}
-            <div class="input-group-append">
-                {input send}
-            </div>
-        </div>
-    </form>
-</div>
-{snippet searchtable}
-    <div class="row">
-        <div class="col-sm-12">
-            {ifset $courses}
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Zkratka</th>
-                        <th scope="col">Název</th>
-                        <th scope="col">Typ</th>
-                        <th scope="col">Cena</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    {foreach $courses as $row}
-                    <tr>
-                        <th scope="row"><a n:href="Homepage:showcourse $row->id_course">{$row->id_course}</a></th>
-                        <td>{$row->course_name}</td>
-                        <td>{$row->course_type}</td>
-                        <td>{$row->course_price}</td>
-                    </tr>
-                    {/foreach}
-
-                </tbody>
-            </table>
-            {else}
-            <h3>Žádné kurzy nejsou k dispozici!</h3>
-            {/ifset}
-        </div>
-    </div>
-{/snippet}
+{include '../Blocks/homepageCoursesBlock.latte'}
 {/block}
 
