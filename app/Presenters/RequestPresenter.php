@@ -154,7 +154,6 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 			//ak sa nejaky update nevykona, ukonci s chybou
 			if($result->getRowCount() == 0)
 			{
-				$this->redrawControl("success_reg_snippet");
 				$this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'error'] ) );
 				return;
 			}
@@ -163,11 +162,15 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 
 		if ($this->isAjax())
 		{
-			$this->redrawControl("success_reg_snippet");
             $this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'success'] ) );
         }
 		
     	
+	}
+
+	public function handleFinish(): void
+	{
+		$this->redrawControl("success_reg_snippet");
 	}
 
 	public function handleApproveCourse($id): void
