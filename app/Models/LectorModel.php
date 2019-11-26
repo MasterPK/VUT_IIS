@@ -16,6 +16,6 @@ class LectorModel
 
     public function getCoursesOfLector($id_lector)
     {
-        return $this->studentModel->getCoursesOfStudent($id_lector)
+        return $this->studentModel->getCoursesOfStudent($id_lector);
     }
 }
