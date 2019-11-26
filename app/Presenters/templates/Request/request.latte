@@ -95,8 +95,11 @@ Seznam žádostí
         {
             for(var i = 0; i < array.length; i++) 
             {   
-                $("#" + array[i]).prop("checked", true);  
-                check(array[i]);
+                if(!document.getElementById(array[i]).checked) 
+                {
+                    $("#" + array[i]).prop("checked", true);  
+                    check(array[i]);
+                } 
             }
             check_status = true;
             $("#checkAllButton").html("Odznačit všechny");
@@ -105,8 +108,11 @@ Seznam žádostí
         {
             for(var i = 0; i < array.length; i++) 
             {   
-                $("#" + array[i]).prop("checked", false);
-                check(array[i]);
+                if(document.getElementById(array[i]).checked) 
+                {
+                    $("#" + array[i]).prop("checked", false);  
+                    check(array[i]);
+                }
             }
             check_status = false;
             $("#checkAllButton").html("Označit všechny");
