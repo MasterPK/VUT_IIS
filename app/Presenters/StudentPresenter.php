@@ -55,7 +55,23 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 
 	public function registerFormHandle($form)
 	{
-		$this->studentModel->registerFormHandle($this,$form);
+		$values = $form->getValues();
+    	$get = $this->database->query("SELECT `id` FROM `course_has_student` WHERE `id_course` = ? AND `id_user` = ?", $values->id_course, $this->user->identity->id);
+
+    	if($get->getRowCount() == 0)
+    	{
+			$data = $this->database->query("INSERT INTO course_has_student ( id, id_course, id_user, student_status) VALUES ('', ?, ?, 0)", $values->id_course, $this->user->identity->id);
+			$this->template->succes_notif = true;
+    	}
+    	else
+    	{
+    		$this->template->error_notif = true;
+		}
+		
+		if ($this->isAjax())
+		{
+            $this->redrawControl('content_snippet');
+        }
 	}
 
 	protected function createComponentSearchCourseForm(): Nette\Application\UI\Form
