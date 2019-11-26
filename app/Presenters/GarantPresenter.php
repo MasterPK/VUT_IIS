@@ -8,7 +8,7 @@ use Nette;
 use Nette\Application\UI\Form;
 
 
-final class LectorPresenter extends Nette\Application\UI\Presenter 
+final class GarantPresenter extends Nette\Application\UI\Presenter 
 {
 	/** @var \App\Model\StartUp @inject */
     public $startup;
@@ -16,8 +16,8 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 	/** @var Nette\Database\Context @inject */
 	public $database;
 
-	/** @var \App\Model\LectorModel @inject */
-	public $lectorModel;
+	/** @var \App\Model\GarantModel @inject */
+	public $garantModel;
 
 	public function startUp()
 	{
@@ -25,7 +25,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 
 		
 		$this->startup->mainStartUp($this);
-		if(!$this->startup->roleCheck($this,2))
+		if(!$this->startup->roleCheck($this,3))
 		{
 			$this->redirect("Homepage:default");
 		}
@@ -41,8 +41,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 	public function renderCourses(): void
 	{
 
-		$this->template->courses=$this->lectorModel->getCoursesOfLector($this->user->identity->id);
+		$this->template->courses=$this->garantModel->getCoursesOfGarant($this->user->identity->id);
 		
 	}
-	
 }
