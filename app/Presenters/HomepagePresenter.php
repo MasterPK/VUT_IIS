@@ -55,11 +55,8 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 
 	public function renderShowcourse($id): void
 	{
-		if(empty($id))
-		{
-			$this->redirect('Homepage:courses');
-		}
-		$course = $this->visitorModel->getCourseDetails($id);
+		$this->visitorModel->renderShowcourse($this,$id);
+		return;
 		$this->current_course_id=$id;
 		$this->template->link = "/homepage/showcourse/" . $id;
 		$this->template->course_status = $course->course_status;
@@ -155,7 +152,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	protected function createComponentRegisterForm(): UI\Form
     {
 		$form = new UI\Form;
-		$form->getElementPrototype()->class('ajax');
+
 		$form->addHidden('id_course');
 
 		$form->setDefaults([
@@ -188,7 +185,8 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		
 		if ($this->isAjax())
 		{
-            $this->redrawControl('content_snippet');
+			$this->payload->message = true;
+            $this->redrawControl('error_notif_snippet');
         }
     	
 	}

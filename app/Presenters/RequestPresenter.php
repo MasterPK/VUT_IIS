@@ -16,7 +16,11 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 	/** @var \App\Model\StartUp @inject */
     public $startup;
 
+    /** @var \App\Model\VisitorModel @inject */
+    public $visitorModel;
+
 	private $database;
+
 	public function __construct(Nette\Database\Context $database)
 	{
 		$this->database = $database;
@@ -38,41 +42,31 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 	public function renderDefault(): void
 	{ 
 		$data = array();
-		//zobraz garantove predmety, pre ktore existuju ziadosti
-		if($this->template->rank == 3)
+		//zobraz svoje predmety, pre ktore existuju ziadosti, ak mas rank garant a vyssi
+		if($this->template->rank >= 3)
 		{
-			$data = $this->database->query("SELECT DISTINCT(id_course), course_name, course_type, id_guarantor FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_guarantor = ? AND student_status = 0",  $this->user->identity->id)->fetchAll();
-		}
-		//zobraz vsetky predmety, pre ktore existuju ziadosti, ak si veduci
-		else if($this->template->rank > 3)
-		{
-			//zobraz predmety, ktore cakaju na schvalenie
-			$data2 = $this->database->query("SELECT id_course, course_name, course_type, id_guarantor FROM course WHERE course_status = 0")->fetchAll();
+			$data = $this->database->query("SELECT COUNT(*) AS cnt, id_course, course_name, course_type, id_guarantor FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_guarantor = ? AND student_status = 0",  $this->user->identity->id)->fetchAll();
 
-			if($data2)
+			if(count($data) > 0)
 			{
-				foreach($data2 as $course)
+				$this->template->requests=$data;
+			}
+
+			//ak si veduci..
+			if($this->template->rank > 3)
+			{
+				//zobraz predmety, ktore cakaju na schvalenie
+				$data2 = $this->database->query("SELECT id_course, course_name, course_type, id_guarantor FROM course WHERE course_status = 0")->fetchAll();
+
+				if($data2)
 				{
-					$guarantor = $this->database->query("SELECT first_name, surname FROM user WHERE id_user = ?", $course->id_guarantor)->fetch();
-
-					$course->id_guarantor = $guarantor->first_name . " " . $guarantor->surname;
+					foreach($data2 as $course)
+					{
+						$course->id_guarantor = $this->visitorModel->getCourseGuarantorName($course->id_guarantor);
+					}
+					$this->template->courses=$data2;
 				}
-				$this->template->courses=$data2;
 			}
-
-			//zobraz predmety, kde su ziadosti studentov
-			$data = $this->database->query("SELECT DISTINCT(id_course), course_name, course_type, id_guarantor FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE student_status = 0")->fetchAll();	
-		}
-		
-		if(count($data) > 0)
-		{
-			foreach($data as $course)
-			{
-				$guarantor = $this->database->query("SELECT first_name, surname FROM user WHERE id_user = ?", $course->id_guarantor)->fetch();
-
-				$course->id_guarantor = $guarantor->first_name . " " . $guarantor->surname;
-			}
-			$this->template->requests=$data;
 		}
 	}
 
@@ -137,23 +131,31 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
     	
 	}
 
-
-	public function handleRegister($id_user, $id_course): void
+	public function handleRegister($users, $course): void
     {
 
-		
-		if(empty($id_user) || empty($id_course))
+		$this->flashMessage("register handle");
+		if(empty($users))
 		{
 			return;
 		}
 
-		$count = $this->database->table('course_has_student')
-		->where('id_course', $id_course)
-		->where('id_user', $id_user)
-		->where('student_status', 0)
-		->update([
-			'student_status' => '1'
-		]);
+		foreach($users as $user)
+		{
+			$result = $this->database->table('course_has_student')
+			->where('id_course', $course)
+			->where('id_user', $user)
+			->where('student_status', 0)
+			->update([
+				'student_status' => '1'
+			]);
+
+			if($result->getRowCount() == 0)
+			{
+				return;
+			}
+		}
+		
 
 		if ($this->isAjax() && $count==1)
 		{

@@ -57,7 +57,7 @@ Seznam žádostí
                     <th scope="col">Zkratka</th>
                     <th scope="col">Název</th>
                     <th scope="col">Typ</th>
-                    <th scope="col">Garant</th>
+                    <th scope="col">Počet Žádostí</th>
                 </tr>
             </thead>
             <tbody>
@@ -67,7 +67,7 @@ Seznam žádostí
                     <th scope="row"><a n:href="Request:request $row->id_course">{$row->id_course}</a></th>
                     <td>{$row->course_name}</td>
                     <td>{$row->course_type}</td>
-                    <td>{$row->id_guarantor}</td>
+                    <td>{$row->cnt}</td>
                 </tr>
                 {/foreach}
 

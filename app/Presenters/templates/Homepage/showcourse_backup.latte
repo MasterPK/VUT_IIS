@@ -1,0 +1,134 @@
+{block header}
+Podrobnosti kurzu
+{/block}
+{block content}
+<div class="row">
+    <div class="col-sm-12">
+        {snippet error_notif_snippet}
+        {ifset $error_notif}
+        {if $error_notif==1}
+        <script>$.notify("Již jste požádali!", "warn");</script>
+        {elseif $error_notif==2}
+        <script>$.notify("Registrace byla přijata ke zpracování!", "success");</script>
+        {/if}
+        {/ifset}
+        {/snippet}
+
+        {snippet course_open_success_snippet}
+        {ifset $course_open_success}
+            {if $course_open_success == true}
+                <div class="alert alert-success animated bounce">
+                <strong>Kurz byl úspěšně otevřen!</strong>
+                </div>
+            {else}
+                <div class="alert alert-danger animated bounce">
+                <strong>Kurz se nepodařilo otevřít!</strong>
+                </div>
+            {/if}
+        {/ifset}
+        {/snippet}
+
+        {snippet course_close_success_snippet}
+        {ifset $course_close_success}
+            {if $course_close_success == true}
+                <div class="alert alert-success animated bounce">
+                <strong>Kurz byl úspěšně uzavřen!</strong>
+                </div>
+            {else}
+                <div class="alert alert-danger animated bounce">
+                <strong>Kurz se nepodařilo uzavřít!</strong>
+                </div>
+            {/if}
+        {/ifset}
+        {/snippet}
+        
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card bg-default ">
+            <div class="card-header">
+                {$course->id_course}
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2 col-sm-12">
+                        Typ:<br>
+                        <b>{$type}</b>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        Garant kurzu:<br>
+                        <b>{$guarantor}</b>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        Cena:<br>
+                        <b>{$course->course_price}&nbsp;Kč</b>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        Stav registrací:<br>
+                        <b>{if $course->course_status == 2 }Otevřeno{else}Zavřeno{/if}</b>
+                    </div>
+                   
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-12">
+                        Popis:<br>
+                        <p class="card-text">{$course->course_description}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+{ifset $register}
+{ifset $request}
+
+{else}
+<div class="row">
+    <div class="col-auto mr-auto"></div>
+    <div class="col-auto">
+        {if $rank > 0 && $register == true}
+        <form n:name="registerForm">
+            <div class="form-group text-center ">
+                {input register}
+            </div>
+        </form>
+        {/if}
+    </div>
+</div>
+{/ifset}
+{/ifset}
+
+{ifset $buttons}
+{ifset $course_status}
+{if $course_status == 1 or $course_status == 3}
+<a id="openbuttona" n:href="open! $course->id_course"><button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="openbutton" >Otevřít registrace</button></a>
+{elseif $course_status == 2}
+<a id="openbuttona" n:href="close! $course->id_course"><button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="openbutton" >Zavřít registrace</button></a>
+{/if}
+{/ifset}
+
+{ifset $course_open_success}
+{if $course_open_success == true}
+<script>
+    $("#openbutton").html("Zavřít registrace");
+    $("#openbuttona").attr("href", {$link}."?do=close");
+</script>
+{/if}
+{/ifset}
+
+{ifset $course_close_success}
+{if $course_close_success == true}
+<script>
+    $("#openbutton").html("Otevřít registrace");
+    $("#openbuttona").attr("href", {$link}."?do=open");
+</script>
+{/if}
+{/ifset}
+{/ifset}
+
+{/block}
+

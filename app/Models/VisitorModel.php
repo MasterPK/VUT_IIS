@@ -32,7 +32,7 @@ class VisitorModel
         }
         else
         {
-            throw new \Exception("Error in SQL query");
+            return NULL;
         }
     }
 
@@ -115,6 +115,15 @@ class VisitorModel
         {
             throw new \Exception("Error in SQL query");
         }
+    }
+
+    public function renderShowcourse($presenter,$id)
+    {
+        if(empty($id))
+		{
+			$this->redirect('Homepage:courses');
+		}
+        $this->template->course= $this->visitorModel->getCourseDetails($id);
     }
 
 }
