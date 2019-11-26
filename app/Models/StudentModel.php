@@ -40,7 +40,8 @@ class StudentModel
 
     public function renderShowcourse($presenter,$id)
     {
-
+        $this->visitorModel->renderShowcourse($presenter,$id);
+        
     }
 
 
