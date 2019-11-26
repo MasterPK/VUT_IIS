@@ -16,12 +16,8 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 	/** @var \App\Model\StudentModel @inject */
     public $studentModel;
 
-
-	private $database;
-	public function __construct(Nette\Database\Context $database)
-	{
-		$this->database = $database;
-	}
+	/** @var Nette\Database\Context @inject */
+	public $database;
 
 
 	public function startUp()
@@ -44,7 +40,7 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 	public function renderCourses(): void
 	{
 
-		$this->template->courses=studentModel($this->user->identity->id);
+		$this->template->courses=$this->studentModel->getCoursesOfStudent($this->user->identity->id);
 		
 	}
 
