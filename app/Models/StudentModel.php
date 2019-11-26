@@ -14,7 +14,7 @@ class StudentModel
         $this->database = $database;
     }
 
-    protected function getCoursesOfStudent($id_student)
+    public function getCoursesOfStudent($id_student)
     {
         $data = $this->database->query("SELECT id_course, course_name, course_type, course_price FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_user = ? AND student_status = 1 AND course_status != 0",  $id_student);
 
