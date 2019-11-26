@@ -10,8 +10,11 @@ use Nette\Application\UI\Form;
 class VisitorModel
 {
 
-    /** @var \Nette\Database\Context @inject */
-	public $database;
+    private $database;
+    public function __construct(Nette\Database\Context $database)
+    {
+        $this->database = $database;
+    }
 
 
     /**
