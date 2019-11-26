@@ -11,10 +11,10 @@ use Nette\Application\UI\Form;
 final class StudentPresenter extends Nette\Application\UI\Presenter 
 {
 	/** @var \App\Model\StartUp @inject */
-	private $startup;
+	public $startup;
 	
 	/** @var \App\Model\StudentModel @inject */
-    private $studentModel;
+    public $studentModel;
 
 
 	private $database;
