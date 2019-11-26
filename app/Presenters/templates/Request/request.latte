@@ -129,10 +129,11 @@ Seznam žádostí
           url: {link register!},
           data: { users: users }
         }).done(function( html ) {
-            console.log(html);
-            var obj = JSON.parse(html);
-            console.log(obj);
-            $.notify("Kurz byl povolen!", "success");
+            if(html.status=="success")
+            {
+                $.notify("Kurz byl povolen!", "success");
+            }
+            
         });
     }
 
