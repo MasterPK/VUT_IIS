@@ -8,7 +8,10 @@ use Nette\Application\UI\Form;
 
 class AdminModel
 {
-    /** @var Nette\Database\Context @inject */
-	public $database;
+    private $database;
+	public function __construct(Nette\Database\Context $database)
+	{
+		$this->database = $database;
+	}
 
 }

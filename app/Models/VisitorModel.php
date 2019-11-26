@@ -10,10 +10,13 @@ use Nette\Application\UI\Form;
 class VisitorModel
 {
 
-    /** @var Nette\Database\Context @inject */
-    public $database;
+    private $database;
+	public function __construct(Nette\Database\Context $database)
+	{
+		$this->database = $database;
+	}
     
-    
+
     /**
      * Return list of all courses in database
      * Exception on error
@@ -40,8 +43,7 @@ class VisitorModel
      */
     public function getAllApprovedCourses()
     {
-        $data = $this->database->table("course")
-			->where("course_status != 0")->fetchAll();
+        $data = $this->database->table("course")->where("course_status != 0")->fetchAll();
             
         if($data)
         {
@@ -79,7 +81,7 @@ class VisitorModel
      * @param integer $course_id
      * @return void
      */
-    public function getCourseDetails(int $course_id)
+    public function getCourseDetails($course_id)
     {
         $data = $this->database->table("course")->where("id_course=?", $course_id)->fetch();
 
@@ -99,7 +101,7 @@ class VisitorModel
      * @param integer $id_guarantor
      * @return string
      */
-    public function getCourseGuarantorName(int $id_guarantor):string
+    public function getCourseGuarantorName($id_guarantor)
     {
         $data = $this->database->table("user")->where("id_user=?", $id_guarantor)->fetch();
 
