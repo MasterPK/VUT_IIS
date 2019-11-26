@@ -42,4 +42,9 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 	{
 		$this->template->courses=$this->studentModel->getCoursesOfStudent($this->user->identity->id);	
 	}
+
+	public function createComponentRegisterForm()
+	{
+		return $this->studentModel->createComponentRegisterForm($this);
+	}
 }
