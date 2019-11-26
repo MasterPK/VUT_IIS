@@ -141,7 +141,7 @@
         </li>
         {elseif $rank>=1}
         <li
-          class="nav-item dropdown {if $presenter->isLinkCurrent('Homepage:courses') || $presenter->isLinkCurrent('Student:mycourses') || $presenter->isLinkCurrent('Homepage:showcourse')}show active{/if}"
+          class="nav-item dropdown {if $presenter->isLinkCurrent('Student:courses') || $presenter->isLinkCurrent('Student:mycourses') || $presenter->isLinkCurrent('Homepage:showcourse')}show active{/if}"
         >
           <a
             class="nav-link dropdown-toggle"
@@ -150,18 +150,18 @@
             role="button"
             data-toggle="dropdown"
             aria-haspopup="true"
-            aria-expanded="{if $presenter->isLinkCurrent('Homepage:courses') || $presenter->isLinkCurrent('Student:mycourses') || $presenter->isLinkCurrent('Homepage:showcourse') }true{else}false{/if}"
+            aria-expanded="{if $presenter->isLinkCurrent('Student:courses') || $presenter->isLinkCurrent('Student:mycourses') || $presenter->isLinkCurrent('Homepage:showcourse') }true{else}false{/if}"
           >
             <i class="fas fa-fw fa-folder"></i>
             <span>Kurzy</span>
           </a>
           <div
-            class="dropdown-menu {if $presenter->isLinkCurrent('Homepage:courses') || $presenter->isLinkCurrent('Student:mycourses') || $presenter->isLinkCurrent('Homepage:showcourse')}show{/if}"
+            class="dropdown-menu {if $presenter->isLinkCurrent('Student:courses') || $presenter->isLinkCurrent('Student:mycourses') || $presenter->isLinkCurrent('Homepage:showcourse')}show{/if}"
             aria-labelledby="pagesDropdown"
           >
             <a
-              class="dropdown-item {if $presenter->isLinkCurrent('Homepage:courses')}active{/if}"
-              n:href="Homepage:courses"
+              class="dropdown-item {if $presenter->isLinkCurrent('Student:courses')}active{/if}"
+              n:href="Student:courses"
               >Všechny kurzy</a
             >
             <a
