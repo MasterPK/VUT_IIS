@@ -49,8 +49,20 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	{
 		return $this->garantModel->createCourseF();
 	}
-	public function createCourseForm(Nette\Application\UI\Form $form)
-	{
-		return $this->garantModel->createCourse($form);
+	public function createCourse(Nette\Application\UI\Form $form): void
+    {
+    	$values = $form->getValues();
+
+    	try
+    	{
+    		$data = $this->database->query("INSERT INTO course (id_course, course_name, course_description, course_type, course_price, id_guarantor, course_status) VALUES (?, ?, ?, ?, ?, ?, 0)", $values->id_course, $values->name, $values->description, $values->type, $values->price,  $this->user->identity->id);
+
+    		$this->template->success_insert = true;
+    	}
+    	catch(Nette\Database\UniqueConstraintViolationException $e)
+    	{
+    		$this->template->error_insert=true;
+    		$this->template->error_course=$values->id_course;
+    	}
 	}
 }
