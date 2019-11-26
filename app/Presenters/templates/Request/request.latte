@@ -85,7 +85,6 @@ Seznam žádostí
 
 
 <script>
-    var checked_status = false;
     var users = [];
     function checkAll() {
         var array = [{foreach $requests as $row}{$row->id_user},{/foreach}];
@@ -107,18 +106,18 @@ Seznam žádostí
 
     function check(id)
     {
-        if (checked_status == false) 
+        var ckb = $("#id").is(':checked');
+        if (ckb == true) 
         {
             users.push(id);
-            checked_status = true;
         }
-        if (checked_status == true) 
+        else
         {
             var index = users.indexOf(id);
-            if (index > -1) {
-              users.splice(index, 1);
+            if (index > -1) 
+            {
+                users.splice(index, 1);
             }
-            checked_status = false;
         }
     }
     
