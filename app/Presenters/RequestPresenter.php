@@ -132,10 +132,10 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
     	
 	}
 
-	public function handleRegister($users, $course): void
+	public function handleRegister($users): void
     {
 
-		$this->flashMessage("register handle");
+		
 		if(empty($users))
 		{
 			//return;
@@ -160,7 +160,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 
 		if ($this->isAjax())
 		{
-            $this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'success'] ) );
+            $this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'success', "data" => $users] ) );
         }
 		
     	

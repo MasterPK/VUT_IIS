@@ -9,13 +9,14 @@ use Nette\Application\UI\Form;
 class StudentModel
 {
 
-    /** @var \App\Model\VisitorModel @inject */
-    public $visitorModel;
+  
+    private $visitorModel;
 
     private $database;
-	public function __construct(Nette\Database\Context $database)
+	public function __construct(Nette\Database\Context $database, \App\Model\VisitorModel $visitorModel)
 	{
-		$this->database = $database;
+        $this->database = $database;
+        $this->visitorModel=$visitorModel;
 	}
 
     /**
@@ -41,7 +42,7 @@ class StudentModel
     public function renderShowcourse($presenter,$id)
     {
         $this->visitorModel->renderShowcourse($presenter,$id);
-        
+
     }
 
 
