@@ -130,7 +130,7 @@ Seznam žádostí
           data: { users: users }
         }).done(function( html ) {
             console.log(html);
-            var obj = jQuery.parseJSON( html );
+            var obj = JSON.parse(html);
             console.log(obj);
             $.notify("Kurz byl povolen!", "success");
         });
