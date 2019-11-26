@@ -20,6 +20,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
     public $visitorModel;
 
 	private $database;
+
 	public function __construct(Nette\Database\Context $database)
 	{
 		$this->database = $database;
@@ -129,7 +130,6 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		
     	
 	}
-
 
 	public function handleRegister($users, $course): void
     {
