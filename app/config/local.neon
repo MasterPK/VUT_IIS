@@ -10,6 +10,9 @@ services:
 	-	App\Model\StartUp
 	-	App\Model\StudentModel
 	-	App\Model\LectorModel
+	-	App\Model\GarantModel
+	-	App\Model\ChiefModel
+	-	App\Model\AdminModel
 	nette.latteFactory:
 		setup:
 			- setAutoRefresh(TRUE)
