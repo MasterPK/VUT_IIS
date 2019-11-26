@@ -71,7 +71,7 @@ Seznam žádostí
             <td>{$row->email}</td>
             <td>{$row->first_name} {$row->surname}</td>
             <td>
-                <p><input type=checkbox id="{$row->id_user}" checked="false" onClick="check({$row->id_user})"></p>
+                <p><input type=checkbox id="{$row->id_user}" onClick="check({$row->id_user})"></p>
             </td>
             </tr>
 
@@ -138,6 +138,8 @@ Seznam žádostí
         {
             $("#checkAllButton").html("Odznačit všechny");
         }
+
+        console.log(users);
     }
     
     function done()
