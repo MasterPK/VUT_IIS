@@ -174,7 +174,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
     {
 		
 		$values = $form->getValues();
-    	$get = $this->database->query("SELECT id FROM course_has_student WHERE id_course = ? AND id_user = ?", $values->id_course, $this->user->identity->id);
+    	$get = $this->database->query("SELECT `id` FROM `course_has_student` WHERE `id_course` = ? AND `id_user` = ?", $values->id_course, $this->user->identity->id);
 
     	if($get->getRowCount() == 0)
     	{
