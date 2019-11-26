@@ -52,4 +52,32 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 	{
 		$this->studentModel->registerFormHandle($this,$form);
 	}
+
+	protected function createComponentSearchCourseForm(): Nette\Application\UI\Form
+    {
+        $form = new Nette\Application\UI\Form;
+
+        $form->addSelect('filter', 'Filter', [
+		    'course_name' => 'Název',
+		    'id_course' => 'Zkratka',
+		    'course_type' => 'Typ',
+		    'course_price' => 'Cena',
+		]);
+
+        $form->addText('search', 'Hledat:')
+        ->setHtmlAttribute('class', 'form-control')
+        ->setRequired();
+
+        $form->addSubmit('send', 'Hledat')
+        ->setHtmlAttribute('class', 'btn btn-block btn-primary');
+        
+        $form->onSuccess[] = [$this, 'searchCourseForm'];
+        return $form;
+	}
+	
+	public function searchCourseForm(Nette\Application\UI\Form $form): void
+    {
+    	$values = $form->getValues();
+    	$this->redirect("Student:courses", $values->search, $values->filter);
+	}
 }
