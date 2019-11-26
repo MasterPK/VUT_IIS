@@ -75,21 +75,23 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 
 		if($course)
 		{
+
 			//registracie este neboli otvorene
 			if($this->user->identity->id == $course->id_guarantor)
 			{
 				$this->template->buttons = true;
 			}
-			//ak su otvorene registracie na kurz..
 			
+			$request = $this->database->table("course_has_student")->where("id_course=? AND id_user=?", $id, $this->user->identity->id )->fetch();
+
+			if($request)
+			{
+				$this->template->request=$request->student_status;
+			}
+			//ak su otvorene registracie na kurz..
 			if($course->course_status == 2)
 			{
-				$request = $this->database->table("course_has_student")->where("id_course=? AND id_user=? AND student_status = 0", $id, $this->user->identity->id )->fetch();
-
-				if($request)
-				{
-					$this->template->request=$request->student_status;
-				}
+				
 				
 				$this->template->register=true;
 				//garant sa nemoze registrovat na svoj kurz
