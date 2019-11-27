@@ -19,7 +19,7 @@ Info kurzu
                     {foreach $courses as $row}
                     <tr align="center">
                         <th>0</th>
-                        <td>{$row->task_date}</td>
+                        <td>{$row->task_date->date}</td>
                         <td>{$row->task_name}</td>
                         <td>{$row->task_points}</td>
                     </tr>
