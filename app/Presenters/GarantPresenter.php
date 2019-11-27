@@ -195,9 +195,15 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired();
 
-        $form->addText('time', 'Čas')
+        $form->addText('time1', 'Od')
         ->setType('time')
         ->setDefaultValue("12:00")
+        ->setHtmlAttribute('class', 'form-control')
+        ->setRequired();
+
+        $form->addText('time2', 'Do')
+        ->setType('time')
+        ->setDefaultValue("13:00")
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired();
 
