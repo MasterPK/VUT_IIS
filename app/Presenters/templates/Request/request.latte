@@ -82,7 +82,7 @@ Seznam žádostí
         </table>
   
     <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="done()">Potvrdit výběr</button>
-    <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="checkAllButton" onClick="checkAll()">Označit všechny</button>
+    <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="checkAll()">Označit všechny</button>
     {/snippet}
 
 <script>
@@ -166,6 +166,11 @@ Seznam žádostí
             {
                 $.notify("Nebyl vybrán žádný student", "notify");
             }
+        });
+
+        $.nette.ajax({
+            type: "POST",
+            url: {link finish!}
         });
     }
 
