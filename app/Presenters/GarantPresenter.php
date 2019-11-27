@@ -207,6 +207,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	public function handleCreateTask()
 	{
+		dump("oi");
 		$this->redirect("this:newtask");
 	}
 
