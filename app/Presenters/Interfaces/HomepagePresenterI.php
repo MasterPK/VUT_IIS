@@ -9,7 +9,7 @@ use Nette;
 use Nette\Application\UI;
 
 
-interface HomepagePresenterI
+interface HomepagePresenterI extends Nette\Application\IPresenter
 {
 	
 	public function __construct(Nette\Database\Context $database);
