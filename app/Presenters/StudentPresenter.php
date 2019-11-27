@@ -7,24 +7,19 @@ use Nette;
 use Nette\Application\UI\Form;
 
 
-class StudentPresenter extends Nette\Application\UI\Presenter
+class StudentPresenter extends BasePresenter
 {
-
-	private $studentModel;
-	private $database;
-	private $mainModel;
-	public function __construct(Nette\Database\Context $database, \App\Model\VisitorModel $studentModel, \App\Model\MainModel $mainModel)
+	public function startUp()
 	{
-        $this->database = $database;
-        $this->studentModel = $studentModel;
-        $this->mainModel = $mainModel;
-	}
+		parent::startup();
 
-	public function renderMycourses(): void
-	{
-		$this->template->courses=$this->mainModel->getCoursesOfStudent($this->user->identity->id);	
+		
+		$this->startup->mainStartUp($this);
+		if(!$this->startup->roleCheck($this,1))
+		{
+			$this->redirect("Homepage:default");
+		}
 	}
-
 	
 	public function renderMyCourseDetails($id_course): void
 	{
@@ -84,16 +79,5 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		{
             $this->redrawControl('content_snippet');
         }
-	}
-
-	public function createComponentSearchCourseForm(): Nette\Application\UI\Form
-    {
-        return $this->formsFactory->createComponentSearchCourseForm($this);
-	}
-	
-	public function searchCourseForm(Nette\Application\UI\Form $form): void
-    {
-    	$values = $form->getValues();
-    	$this->redirect("Homepage:courses", $values->search, $values->filter);
 	}
 }

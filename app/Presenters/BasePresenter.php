@@ -12,13 +12,28 @@ abstract class BasePresenter extends Presenter
 	/** @var \App\Model\StartUp @inject */
 	public $startup;
 	
-	/** @var \App\Model\VisitorModel @inject */
-	public $visitorModel;
-	
 	/** @var \App\Model\MainModel @inject */
 	public $mainModel;
 
-	private $database;
+	/** @var \App\Model\VisitorModel @inject */
+	public $visitorModel;
+
+	/** @var \App\Model\StudentModel @inject */
+	public $studentModel;
+
+	/** @var \App\Model\LectorModel @inject */
+	public $lectorModel;
+
+	/** @var \App\Model\GarantModel @inject */
+	public $garantModel;
+
+	/** @var \App\Model\ChiefModel @inject */
+	public $chiefModel;
+
+	/** @var \App\Model\AdminModel @inject */
+	public $adminModel;
+
+	public $database;
 	public function __construct(Nette\Database\Context $database)
 	{
 		$this->database = $database;
@@ -58,6 +73,11 @@ abstract class BasePresenter extends Presenter
 	{
 		$this->visitorModel->renderShowcourse($this,$id);
 		
+	}
+
+	public function renderMycourses(): void
+	{
+		$this->template->courses=$this->mainModel->getCoursesOfStudent($this->user->identity->id);	
 	}
 
 	public function createComponentSearchCourseForm(): Nette\Application\UI\Form
