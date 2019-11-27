@@ -37,12 +37,14 @@ Info kurzu
                     </tr>
                     {/foreach}
                 </tbody>
+                {ifset $body}
                  <tfoot class="thead-dark">
                     <tr>
                         <th class="text-left" colspan="4">Body celkom</th>
-                        <th class="text-center">Body</th>
+                        <th class="text-center">{$body}</th>
                     </tr>
                 </tfoot>
+                {/ifset}
             </table>
             {else}
             <h3>Žádné kurzy nejsou k dispozici!</h3>
