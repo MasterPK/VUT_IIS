@@ -9,7 +9,7 @@ use Nette;
 use Nette\Application\UI;
 
 
-class HomepagePresenter extends Nette\Application\UI\Presenter
+abstract class HomepagePresenter extends Nette\Application\UI\Presenter
 {
 	/** @var \App\Model\StartUp @inject */
 	public $startup;
