@@ -35,7 +35,7 @@ class LectorModel
         //ani lektori sa nemozu registrovat na kurzy, ktore ucia
         if($course_lectors->getRowCount() == 0)
         {
-            $presenter->template->userIsNotLectorInCourse=false;
+            $presenter->template->userIsNotLectorInCourse=true;
         }
             
         
