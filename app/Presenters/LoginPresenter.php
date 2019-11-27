@@ -154,7 +154,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         }
     }
 
-    public function editProfileSubmit(UI\Form $form): void
+    public function editProfileSubmit(UI\Form $form)
     {
         $values = $form->getValues();
 
@@ -166,16 +166,10 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
                 'phone' => $values->phone,
             ]);
 
-        if ($data == 1) {
-            $this->template->success_notify = true;
-            if ($this->isAjax()) {
-                $this->redrawControl("body_snippet");
-            }
-        } else {
-            $this->template->error_notify = true;
-            if ($this->isAjax()) {
-                $this->redrawControl("notify");
-            }
+        $this->template->success_notify = true;
+        if ($this->isAjax()) {
+            $this->startup->mainStartUp($this);
+            $this->redrawControl("body_snippet");
         }
     }
 

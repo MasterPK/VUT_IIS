@@ -161,6 +161,60 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     	$this->redirect("Homepage:courses", $values->search, $values->filter);
 	}
 
+	public function createComponentCreateTaskForm(): Nette\Application\UI\Form
+    {
+        $form = new Nette\Application\UI\Form;
+
+        $form->addText('task_name', 'Název termínu')
+        ->setHtmlAttribute('class', 'form-control')
+        ->setRequired();
+
+        $form->addSelect('task_type', 'Typ termínu', [
+		    'CV' => 'Cvičení',
+		    'PR' => 'Přednáška',
+		    'DU' => 'Domácí úkol',
+		    'PJ' => 'Projekt',
+		    'ZK' => 'Zkouška',
+		]);
+
+        $form->addText('task_description', 'Popis')
+        ->setHtmlAttribute('class', 'form-control')
+        ->setRequired();
+
+        $form->addText('task_points', 'Počet bodů')
+        ->setHtmlAttribute('class', 'form-control')
+        ->setRequired();
+
+        $form->addText('task_date', 'Datum')
+        ->setType('date')
+        ->setHtmlAttribute('class', 'form-control')
+        ->setRequired();
+
+        $form->addText('task_duration', 'Trvání')
+        ->setHtmlAttribute('class', 'form-control')
+        ->setRequired();
+
+        $form->addSubmit('create', 'Vytvořit termín')
+        ->setHtmlAttribute('class', 'btn btn-block btn-primary');
+        
+        $form->onSuccess[] = [$this, 'createTaskForm'];
+        return $form;
+	}
+	
+	public function createTaskForm(Nette\Application\UI\Form $form): void
+    {
+    	$values = $form->getValues();
+    	$result = $this->database->query("INSERT INTO task (id_task, task_name, task_type, task_description, task_points, task_date, task_duration) VALUES ('',?,?,?,?,?,?)", $values->task_name, $values->task_type, $values->task_description, $values->task_points, $values->task_date, $values->task_duration);
+    	if($result->getRowCount() > 0)
+    	{
+    		$this->template->create_task_success = 1;
+    	}
+    	else
+    	{
+    		$this->template->create_task_success = 0;
+    	}
+	}
+
 	public function registerFormHandle($form)
 	{
 		$values = $form->getValues();

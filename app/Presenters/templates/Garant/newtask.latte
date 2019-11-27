@@ -3,4 +3,41 @@ Vytvoření nového termínu
 {/block}
 {block content}
 
+<div class="h-100 row align-items-center">
+    <div class="col-md-4 col-sm-1" />
+        <div class="col-md-4 col-sm-10 mlr-2 align-items-center">
+            <form n:name="createTaskForm">
+                <div class="form-group">
+                    {input task_name}
+                </div>
+                <div class="form-group">
+                    {input task_type}
+                </div>
+                <div class="form-group">
+                    {input task_description}
+                </div>
+                <div class="form-group">
+                    {input task_points}
+                </div>
+                <div class="form-group">
+                    {input task_date}
+                </div>
+                <div class="form-group">
+                    {input task_duration}
+                </div>
+                <div class="form-group text-center">
+                    {input create}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{ifset $create_task_success}
+{if $create_task_success == 1}
+<script>$.notify("Termín byl úspěšně vytvořen!", "success");</script>
+{else}
+<script>$.notify("Nastala chyba při vytváření termínu!", "error");</script>
+{/if}
+{/ifset}
 {/block}
