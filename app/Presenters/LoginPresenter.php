@@ -140,7 +140,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
 
     public function editProfileSubmit(UI\Form $form): void
     {
-        if(!$this->startup->roleCheck($this,2))
+        if(!$this->startup->roleCheck($this,1))
 		{
 			$this->redirect("Login:login");
 		}
