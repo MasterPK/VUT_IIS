@@ -167,7 +167,8 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
         $form->addText('task_name', 'Název termínu')
         ->setHtmlAttribute('class', 'form-control')
-        ->setRequired();
+        ->setRequired()
+        ->addRule(Form::MAX_LENGTH, 'Dĺžka názvu je maximálně 50 znaků!', 50);
 
         $form->addSelect('task_type', 'Typ termínu', [
 		    'CV' => 'Cvičení',
@@ -181,11 +182,12 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
         $form->addText('task_description', 'Popis')
         ->setHtmlAttribute('class', 'form-control')
-        ->setRequired();
+        ->setRequired()
+        ->addRule(Form::MAX_LENGTH, 'Dĺžka popisu je maximálně 100 znaků!', 100);
 
         $form->addText('task_points', 'Počet bodů')
         ->setHtmlAttribute('class', 'form-control')
-        ->setRequired();
+        ->addRule(Form::RANGE, "Zadejte počet bodů v rozmezí 1 - 100!", [1,100]);
 
         $form->addText('date', 'Datum')
         ->setType('date')
