@@ -25,8 +25,6 @@ class LectorModel
         return $this->mainModel->getCoursesOfStudent($id_lector);
     }
 
- 
-
     public function renderShowCourse($presenter,$id)
     {
         $this->studentModel->renderShowcourse($presenter,$id);

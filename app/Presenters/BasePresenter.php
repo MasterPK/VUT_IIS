@@ -82,7 +82,7 @@ abstract class BasePresenter extends Presenter
 
 	public function renderLector()
 	{
-		$this->template->courses=$this->lectorModel->getLectorCourses($this->user->identity->id);
+		$this->template->courses=$this->mainModel->getLectorCourses($this->user->identity->id);
 	}
 
 	public function createComponentSearchCourseForm(): Nette\Application\UI\Form
