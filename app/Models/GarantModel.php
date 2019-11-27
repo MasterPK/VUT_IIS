@@ -72,7 +72,7 @@ class GarantModel
         $form->onSuccess[] = [$meno, 'createCourseForm'];
         return $form;
     }
-    
+    private $currentCourseId;
     public function renderShowCourse($presenter,$id)
     {
         $this->lectorModel->renderShowCourse($presenter,$id);
@@ -82,6 +82,8 @@ class GarantModel
             {
                 $presenter->template->userIsNotGuarantorInCourse=true;
             }
+            $this->currentCourseId=$presenter->template->course_id;
+
   
     }
 

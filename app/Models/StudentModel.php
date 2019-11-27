@@ -9,8 +9,8 @@ use Nette\Application\UI\Form;
 class StudentModel
 {
   
-    public $visitorModel, $mainModel;
-
+    private $visitorModel;
+    private $mainModel;
     private $database;
 	public function __construct(Nette\Database\Context $database, \App\Model\VisitorModel $visitorModel, \App\Model\MainModel $mainModel)
 	{
