@@ -2,7 +2,10 @@
     <div class="col-sm-12">
         {snippet studentRegistrationErrorSnippet}
         {ifset $succes_notif}
-        <script>$.notify("Registrace byla přijata ke zpracování!", "success");</script>
+        <script>$.notify("Operace byla provedena!", "success");</script>
+        {/ifset}
+        {ifset $error_notif}
+        <script>$.notify("Operace selhala!", "error");</script>
         {/ifset}
         {/snippet}
     </div>
@@ -16,7 +19,7 @@
 <div class="row">
     <div class="col-auto mr-auto"></div>
     <div class="col-auto">
-        <form n:name="registerForm">
+        <form n:name="unRegisterForm">
             <div class="form-group text-center ">
                 {input register}
             </div>
@@ -28,7 +31,7 @@
 <div class="row">
     <div class="col-auto mr-auto"></div>
     <div class="col-auto">
-        <form n:name="unRegisterForm">
+        <form n:name="registerForm">
             <div class="form-group text-center ">
                 {input register}
             </div>

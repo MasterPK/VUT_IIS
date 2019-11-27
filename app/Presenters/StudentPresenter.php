@@ -97,7 +97,7 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 
     	if($get->getRowCount() == 1)
     	{
-			$data = $this->database->query("INSERT INTO course_has_student ( id, id_course, id_user, student_status) VALUES ('', ?, ?, 0)", $values->id_course, $this->user->identity->id);
+			$this->database->table("course_has_student")->where("id_course",$values->id_course)->where("id_user",$this->user->identity->id)->delete();
 			$this->template->succes_notif = true;
     	}
     	else
