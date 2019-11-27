@@ -3,16 +3,15 @@
 declare(strict_types=1);
 
 namespace App\Presenters;
-
+use App\Presenters\HomepagePresenter as Presenter;
 use Nette;
 use Nette\Application\UI\Form;
 
 
-final class StudentPresenter extends Nette\Application\UI\Presenter
+class StudentPresenter extends Presenter
 {
 
 	private $studentModel;
-    private $mainModel;
     private $database;
 	public function __construct(Nette\Database\Context $database, \App\Model\VisitorModel $studentModel, \App\Model\MainModel $mainModel)
 	{

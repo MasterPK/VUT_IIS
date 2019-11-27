@@ -15,7 +15,6 @@ services:
 	-	App\Model\AdminModel
 	-	App\Model\VisitorModel
 	-	App\Model\MainModel
-	-   App\Presenters\Interfaces\HomepagePresenterI
 	nette.latteFactory:
 		setup:
 			- setAutoRefresh(TRUE)
