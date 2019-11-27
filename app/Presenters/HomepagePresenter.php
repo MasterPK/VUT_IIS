@@ -20,7 +20,7 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 	/** @var \App\Model\MainModel @inject */
 	public $mainModel;
 	
-	/** @var App\ComponentFactories\FormsFactory @inject */
+	/** @var \App\ComponentFactories\FormsFactory @inject */
     public $formsFactory;
 
 	private $database;
