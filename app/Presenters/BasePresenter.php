@@ -75,6 +75,11 @@ abstract class BasePresenter extends Presenter
 		
 	}
 
+	public function renderMycourses(): void
+	{
+		$this->template->courses=$this->mainModel->getCoursesOfStudent($this->user->identity->id);	
+	}
+
 	public function createComponentSearchCourseForm(): Nette\Application\UI\Form
     {
         return $this->mainModel->createComponentSearchCourseForm($this);

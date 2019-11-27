@@ -9,12 +9,17 @@ use Nette\Application\UI\Form;
 
 class StudentPresenter extends BasePresenter
 {
-	
-	public function renderMycourses(): void
+	public function startUp()
 	{
-		$this->template->courses=$this->mainModel->getCoursesOfStudent($this->user->identity->id);	
-	}
+		parent::startup();
 
+		
+		$this->startup->mainStartUp($this);
+		if(!$this->startup->roleCheck($this,1))
+		{
+			$this->redirect("Homepage:default");
+		}
+	}
 	
 	public function renderMyCourseDetails($id_course): void
 	{
