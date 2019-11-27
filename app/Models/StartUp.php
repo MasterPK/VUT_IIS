@@ -36,11 +36,26 @@ class StartUp
 			$presenter->template->rank=$data->rank;
 			switch($data->rank)
 			{
-				case 1: $presenter->template->rank_msg="Student";break;
-				case 2: $presenter->template->rank_msg="Lektor";break;
-				case 3: $presenter->template->rank_msg="Garant";break;
-				case 4: $presenter->template->rank_msg="Vedoucí";break;
-				case 5: $presenter->template->rank_msg="Administrátor";break;
+				case 1: 
+                    $presenter->template->rank_msg="Student";
+                    $presenter->template->rank_msg_eng="Student";
+                    break;
+                case 2: 
+                    $presenter->template->rank_msg="Lektor";
+                    $presenter->template->rank_msg_eng="Lector";
+                    break;    
+                case 3: 
+                    $presenter->template->rank_msg="Garant";
+                    $presenter->template->rank_msg_eng="Garant";
+                    break;
+                case 4: 
+                    $presenter->template->rank_msg="Vedoucí";
+                    $presenter->template->rank_msg_eng="Chief";
+                    break;
+                case 5: 
+                    $presenter->template->rank_msg="Administrátor";
+                    $presenter->template->rank_msg_eng="Admin";
+                    break;
             }
     
 		} 
@@ -48,6 +63,7 @@ class StartUp
 		{
 			$presenter->template->rank=0;
             $presenter->template->rank_msg = "Neregistrovaný návštěvník";
+            $presenter->template->rank_msg_eng = "Visitor";
      
         }
     }
