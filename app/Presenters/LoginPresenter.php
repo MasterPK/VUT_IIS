@@ -79,26 +79,27 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
 
     protected function createComponentEditProfile(): UI\Form
     {
+        $user=$this->getUser()->getIdentity();
         $form = new UI\Form;
         $form->addText('email', 'Email:')
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired()
-        ->setDefaultValue($this->user->identity->data->email);
+        ->setDefaultValue($user->data->email);
 
         $form->addText('first_name', 'Křestní jméno:')
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired()
-        ->setDefaultValue($this->user->identity->data->first_name);
+        ->setDefaultValue($user->data->first_name);
 
         $form->addText('surname', 'Příjmení:')
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired()
-        ->setDefaultValue($this->user->identity->data->surname);
+        ->setDefaultValue($user->data->surname);
 
         $form->addText('phone', 'Telefonní číslo:')
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired()
-        ->setDefaultValue($this->user->identity->data->phone);
+        ->setDefaultValue($user->data->phone);
 
         $form->addPassword('password', 'Heslo:')
         ->setHtmlAttribute('class', 'form-control')
