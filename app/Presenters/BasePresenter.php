@@ -12,11 +12,26 @@ abstract class BasePresenter extends Presenter
 	/** @var \App\Model\StartUp @inject */
 	public $startup;
 	
-	/** @var \App\Model\VisitorModel @inject */
-	public $visitorModel;
-	
 	/** @var \App\Model\MainModel @inject */
 	public $mainModel;
+
+	/** @var \App\Model\VisitorModel @inject */
+	public $visitorModel;
+
+	/** @var \App\Model\StudentModel @inject */
+	public $studentModel;
+
+	/** @var \App\Model\LectorModel @inject */
+	public $lectorModel;
+
+	/** @var \App\Model\GarantModel @inject */
+	public $garantModel;
+
+	/** @var \App\Model\ChiefModel @inject */
+	public $chiefModel;
+
+	/** @var \App\Model\AdminModel @inject */
+	public $adminModel;
 
 	private $database;
 	public function __construct(Nette\Database\Context $database)
@@ -38,7 +53,7 @@ abstract class BasePresenter extends Presenter
 
 	public function renderDefault(): void
 	{ 
-
+		
 	}
 
 	public function renderCourses($search, $filter): void
