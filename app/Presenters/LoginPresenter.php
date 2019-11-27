@@ -160,7 +160,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
 
         $data = $this->database->table("user")->where("id_user", $values->id_user)
             ->update([
-                'email' => $values->emal,
+                'email' => $values->email,
                 'first_name' => $values->first_name,
                 'surname' => $values->surname,
                 'phone' => $values->phone,
