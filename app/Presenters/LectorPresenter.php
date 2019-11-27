@@ -22,13 +22,6 @@ final class LectorPresenter extends BasePresenter
 		}
 	}
 
-	public function renderLectorCourses()
-	{
-		$this->template->courses=$this->lectorModel->getLectorCourses($this->user->identity->id);
-	}
-
-
-
 
 	/*public function renderLector(): void
 	{
