@@ -59,7 +59,7 @@
 </div>
 <br>
 {snippet studentRegistration}
-{ifset $noGarantInThisCourse}
+{ifset $userIsNotGuarantorInCourse}
 {ifset $openRegistration}
 {ifset $userCourseStatus}
 {if $userCourseStatus==1}
@@ -89,7 +89,7 @@
 {/ifset}
 {/ifset}
 
-{ifset $userIsNotGuarantorInCourse}
+{ifset $userIsGuarantorInCourse}
 {ifset $openRegistration}
 <div class="row">
     <div class="col-auto mr-auto"></div>
