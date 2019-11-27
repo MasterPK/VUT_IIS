@@ -25,6 +25,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	/** @var \App\Model\MainModel @inject */
 	public $mainModel;
 
+	/** @var App\ComponentFactories\FormsFactory @inject */
+    public $formsFactory;
+
 	public function startUp()
 	{
 		parent::startup();
@@ -141,5 +144,16 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		{
             $this->redrawControl('content_snippet');
         }
+	}
+
+	public function createComponentSearchCourseForm(): Nette\Application\UI\Form
+    {
+        return $this->formsFactory->createComponentSearchCourseForm($this);
+	}
+	
+	public function searchCourseForm(Nette\Application\UI\Form $form): void
+    {
+    	$values = $form->getValues();
+    	$this->redirect("Homepage:courses", $values->search, $values->filter);
 	}
 }
