@@ -55,8 +55,8 @@ Seznam žádostí
         </table>
     {/ifset}
 
-    {ifset $requests}
     {snippet success_reg_snippet}
+    {ifset $requests}
         <table class="table">
             <thead>
                 <tr>
@@ -83,7 +83,6 @@ Seznam žádostí
   
     <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="done()">Potvrdit výběr</button>
     <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="checkAll()">Označit všechny</button>
-    {/snippet}
 
 <script>
     
@@ -177,4 +176,5 @@ Seznam žádostí
 
 </script>
 {/ifset}
+{/snippet}
 {/block}
