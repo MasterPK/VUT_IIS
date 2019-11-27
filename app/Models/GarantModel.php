@@ -23,7 +23,7 @@ class GarantModel
 
     public function getCoursesOfGarant($id_garant)
     {
-        return $this->lectorModel->getCoursesOfStudent($id_garant);
+        return $this->mainModel->getCoursesOfStudent($id_garant);
     }
 
     public function getGarantCourses($id_garant)
