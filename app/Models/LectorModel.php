@@ -9,13 +9,14 @@ use Nette\Application\UI\Form;
 class LectorModel
 {
     
-    /** @var \App\Model\MainModel @inject */
-    public $mainModel;
+
+    private $mainModel;
     
     private $database;
-    public function __construct(Nette\Database\Context $database)
+    public function __construct(Nette\Database\Context $database, \App\Model\MainModel $mainModel)
     {
         $this->database = $database;
+        $this->mainModel=$mainModel;
     }
 
 	/** @var \App\Model\StudentModel @inject */
