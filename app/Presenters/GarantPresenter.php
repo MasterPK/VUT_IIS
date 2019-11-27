@@ -155,4 +155,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     	$values = $form->getValues();
     	$this->redirect("Homepage:courses", $values->search, $values->filter);
 	}
+
+	public function handleCreateTask()
+	{
+		$this->redirect("this:newtask");
+	}
 }
