@@ -51,6 +51,11 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$this->template->courses=$this->mainModel->getAllCourses();
 	}
 
+	public function renderRooms(): void
+	{
+		
+	}
+
 	public function renderGarantCourses()
 	{
 		$lectorCourses = $this->garantModel->getLectorCourses($this->user->identity->id);
