@@ -66,7 +66,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		$body;
 		foreach ($data as $tmp)
 		{
-			$body += $tmp->task_points
+			$body += $tmp->task_points;
 		}
 		$this->template->body = $body;
 	}
