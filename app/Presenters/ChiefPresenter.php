@@ -23,7 +23,7 @@ class ChiefPresenter extends BasePresenter
 
 	public function renderLector()
 	{
-		$lectorCourses = $this->garantModel->getLectorCourses($this->user->identity->id);
+		$lectorCourses = $this->lectorModel->getLectorCourses($this->user->identity->id);
 		$garantCourses = $this->garantModel->getGarantCourses($this->user->identity->id);
 		$this->template->courses = array_merge($lectorCourses,$garantCourses);
 	}
