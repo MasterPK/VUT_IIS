@@ -11,6 +11,9 @@ use Nette\Application\UI;
 
 class HomepagePresenter extends Nette\Application\UI\Presenter
 {
+	/** @var HomepagePresenterI */
+	private $homepagePresenterI;
+
 	/** @var \App\Model\StartUp @inject */
 	public $startup;
 	
