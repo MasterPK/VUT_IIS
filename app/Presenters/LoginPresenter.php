@@ -81,6 +81,11 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
     {
         $user=$this->getUser()->getIdentity();
         $form = new UI\Form;
+
+        $form->addHidden('id_user', '')
+        ->setRequired()
+        ->setDefaultValue($user->data["id_user"]);
+
         $form->addText('email', 'Email:')
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired()
@@ -109,7 +114,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired('Zadejte, prosím, heslo pro kontrolu');
 
-        $form->addSubmit('login', 'Potvrdit')
+        $form->addSubmit('submit', 'Potvrdit')
         ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
         
         $form->onSuccess[] = [$this, 'editProfileSubmit'];
@@ -135,7 +140,32 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
 
     public function editProfileSubmit(UI\Form $form): void
     {
+        if(!$this->startup->roleCheck($this,2))
+		{
+			$this->redirect("Login:login");
+		}
         $values = $form->getValues();
+
+        if($values->password != $values->passwordCheck)
+        {
+            $this->template->password_notify=true;
+            $this->redrawControl("notify");
+        }
+
+        $this->database->table("user")->where("id_user",$values->id_user)
+        ->update([
+            'email' => $values->email,
+            'first_name' => $values->first_name,
+            'surname' => $values->surname,
+            'phone' => $values->phone,
+            'password' => password_hash($values->password,PASSWORD_BCRYPT)
+        ]);
+
+        if($this->isAjax())
+		{
+            $this->template->success_notify=true;
+			$this->redrawControl("body_snippet");
+		}
 
     }
     
