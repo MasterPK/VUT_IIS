@@ -9,10 +9,8 @@ use Nette;
 use Nette\Application\UI;
 
 
-class HomepagePresenter implements Interfaces\HomepagePresenterI
+class HomepagePresenter extends Nette\Application\UI\Presenter
 {
-	public function run(Nette\Application\Request $request): Nette\Application\IResponse{return new Nette\Application\IResponse;}
-
 	/** @var \App\Model\StartUp @inject */
 	public $startup;
 	
