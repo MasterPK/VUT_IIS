@@ -12,7 +12,6 @@ class StudentPresenter extends HomepagePresenter
 {
 
 	private $studentModel;
-    private $mainModel;
     private $database;
 	public function __construct(Nette\Database\Context $database, \App\Model\VisitorModel $studentModel, \App\Model\MainModel $mainModel)
 	{
