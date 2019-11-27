@@ -59,7 +59,16 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 		$this->template->courses=$this->lectorModel->getLectorCourses($this->user->identity->id);
 	}
 
-
+	public function createComponentSearchCourseForm(): Nette\Application\UI\Form
+    {
+        return $this->mainModel->createComponentSearchCourseForm($this);
+	}
+	
+	public function searchCourseForm(Nette\Application\UI\Form $form): void
+    {
+    	$values = $form->getValues();
+    	$this->redirect("Homepage:courses", $values->search, $values->filter);
+	}
 
 
 	/*public function renderLector(): void
