@@ -152,7 +152,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
             $this->redrawControl("notify");
         }
 
-        $this->database->table("user")->where("id_user",$values->id_user)
+        $data = $this->database->table("user")->where("id_user",$values->id_user)
         ->update([
             'email' => $values->email,
             'first_name' => $values->first_name,
@@ -161,11 +161,16 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
             'password' => password_hash($values->password,PASSWORD_BCRYPT)
         ]);
 
-        if($this->isAjax())
+        if($this->isAjax() && data->rowCount()==1)
 		{
             $this->template->success_notify=true;
 			$this->redrawControl("body_snippet");
-		}
+        }
+        else
+        {
+            $this->template->error_notify=true;
+			$this->redrawControl("body_snippet");
+        }
 
     }
     
