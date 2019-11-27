@@ -85,4 +85,40 @@ class GarantModel
   
     }
 
+    public function createComponentOpenRegisterForm($presenter)
+	{
+		$form = new Nette\Application\UI\Form;
+
+		$form->addHidden('id_course');
+
+		$form->setDefaults([
+            'id_course' => $this->currentCourseId,
+
+        ]);
+
+        $form->addSubmit('register', 'Otevřít registrace do kurzu')
+		->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+		
+		$form->onSuccess[] = [$presenter, 'openRegisterFormHandle'];
+        return $form;
+	}
+
+	public function createComponentCloseRegisterForm($presenter)
+	{
+		$form = new Nette\Application\UI\Form;
+
+		$form->addHidden('id_course');
+
+		$form->setDefaults([
+            'id_course' => $this->currentCourseId,
+
+        ]);
+
+        $form->addSubmit('register', 'Otevřít registrace do kurzu')
+		->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+		
+		$form->onSuccess[] = [$presenter, 'closeRegisterFormHandle'];
+        return $form;
+	}
+
 }
