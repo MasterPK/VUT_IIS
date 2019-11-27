@@ -7,7 +7,7 @@ use Nette;
 use Nette\Application\UI\Form;
 
 
-class StudentPresenter extends BasePresenter
+class ChiefPresenter extends BasePresenter
 {
 	public function startUp()
 	{
