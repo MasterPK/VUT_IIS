@@ -205,10 +205,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         }
 	}
 
-	public function handleCreateTask(): void
+	public function handleCreateTask($link): void
 	{
-
-		$this->redirect("this"."/newtask");
+		$this->redirect($link."/newtask");
 	}
 
 }
