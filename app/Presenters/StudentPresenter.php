@@ -3,12 +3,11 @@
 declare(strict_types=1);
 
 namespace App\Presenters;
-use App\Presenters\HomepagePresenter as Presenter;
 use Nette;
 use Nette\Application\UI\Form;
 
 
-class StudentPresenter extends Presenter
+class StudentPresenter extends Nette\Application\UI\Presenter
 {
 
 	private $studentModel;
