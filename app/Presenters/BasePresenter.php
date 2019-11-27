@@ -33,7 +33,7 @@ abstract class BasePresenter extends Presenter
 	/** @var \App\Model\AdminModel @inject */
 	public $adminModel;
 
-	public $database;
+	private $database;
 	public function __construct(Nette\Database\Context $database)
 	{
 		$this->database = $database;
@@ -53,7 +53,7 @@ abstract class BasePresenter extends Presenter
 
 	public function renderDefault(): void
 	{ 
-
+		
 	}
 
 	public function renderCourses($search, $filter): void
