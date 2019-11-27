@@ -208,7 +208,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	public function handleCreateTask()
 	{
 		$this->flashMessage("oi");
-		$this->redirect("this:newtask");
+		$this->redirect("this"."/newtask");
 	}
 
 }
