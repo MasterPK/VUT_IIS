@@ -1,0 +1,119 @@
+{block header}
+
+{/block}
+{block content}
+<div class="row">
+    <div class="col-sm-12">
+        {snippet studentRegistrationErrorSnippet}
+        {ifset $succes_notif}
+        <script>$.notify("Operace byla provedena!", "success");</script>
+        {/ifset}
+        {ifset $error_notif}
+        <script>$.notify("Operace selhala!", "error");</script>
+        {/ifset}
+        {/snippet}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card bg-default ">
+            <div class="card-header">
+                {$course->id_course}
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2 col-sm-12">
+                        Typ:<br>
+                        <b>{$type}</b>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        Garant kurzu:<br>
+                        <b>{$guarantor}</b>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        Cena:<br>
+                        <b>{$course->course_price}&nbsp;Kč</b>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        Stav registrací:<br>
+                        <b>{if $course->course_status == 2 }Otevřeno{else}Zavřeno{/if}</b>
+                    </div>
+                    
+                    <div class="col-md-3 col-sm-12">
+                        Stav Vaší registrace:<br>
+                        <b>{ifset $userCourseStatus}{if $userCourseStatus == 0 }Čeká se na schválení{elseif $userCourseStatus == 1}Potvrzeno{elseif $userCourseStatus == 2}Zamítnuto{/if}{else}Žádná žádost neexistuje!{/ifset}</b>
+                    </div>
+                   
+                    
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-12">
+                        Popis:<br>
+                        <p class="card-text">{$course->course_description}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+{snippet studentRegistration}
+{ifset $noGarantInThisCourse}
+{ifset $openRegistration}
+{ifset $userCourseStatus}
+{if $userCourseStatus==1}
+<div class="row">
+    <div class="col-auto mr-auto"></div>
+    <div class="col-auto">
+        <form n:name="unRegisterForm">
+            <div class="form-group text-center ">
+                {input register}
+            </div>
+        </form>
+    </div>
+</div>
+{/if}
+{else}
+<div class="row">
+    <div class="col-auto mr-auto"></div>
+    <div class="col-auto">
+        <form n:name="registerForm">
+            <div class="form-group text-center ">
+                {input register}
+            </div>
+        </form>
+    </div>
+</div>
+{/ifset}
+{/ifset}
+{/ifset}
+
+{ifset $isUserGarantInCourse}
+{if $userCourseStatus==1}
+<div class="row">
+    <div class="col-auto mr-auto"></div>
+    <div class="col-auto">
+        <form n:name="openRegisterForm">
+            <div class="form-group text-center ">
+                {input register}
+            </div>
+        </form>
+    </div>
+</div>
+{/if}
+{else}
+<div class="row">
+    <div class="col-auto mr-auto"></div>
+    <div class="col-auto">
+        <form n:name="closeregisterForm">
+            <div class="form-group text-center ">
+                {input register}
+            </div>
+        </form>
+    </div>
+</div>
+{/ifset}
+
+{/snippet}
+{/block}
