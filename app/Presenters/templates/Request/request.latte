@@ -148,7 +148,7 @@ Seznam žádostí
     
     function done()
     {
-        $.nette.ajax({
+        $.ajax({
           method: "POST",
           url: {link register!},
           data: { users: JSON.stringify(users), id_course:{$id_course} }
