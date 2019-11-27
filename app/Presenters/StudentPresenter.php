@@ -10,31 +10,6 @@ use Nette\Application\UI\Form;
 
 final class StudentPresenter extends HomepagePresenter
 {
-	/** @var \App\Model\StartUp @inject */
-	public $startup;
-	
-	/** @var \App\Model\StudentModel @inject */
-	public $studentModel;
-	
-	/** @var \App\Model\MainModel @inject */
-    public $mainModel;
-
-	/** @var Nette\Database\Context @inject */
-	public $database;
-
-
-	public function startUp()
-	{
-		parent::startup();
-
-		$this->startup->mainStartUp($this);
-		if(!$this->startup->roleCheck($this,1))
-		{
-			$this->redirect("Homepage:default");
-		}
-
-	}
-
 
 	public function renderMycourses(): void
 	{
