@@ -145,7 +145,7 @@ class MainModel
         $data=$this->database->table("course")->select("course_status")->where("id_course=?", $course_id)->fetch();
         if($data)
         {
-            if($data->course_status>=2)
+            if($data->course_status==2)
             {
                 return true;
             }
