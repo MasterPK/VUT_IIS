@@ -23,7 +23,7 @@ interface HomepagePresenterI
 
 	public function renderShowcourse($id);
 
-	protected function createComponentSearchCourseForm();
+	public function createComponentSearchCourseForm();
 	
 	public function searchCourseForm(Nette\Application\UI\Form $form);
 	
