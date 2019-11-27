@@ -204,4 +204,10 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
             $this->redrawControl('content_snippet');
         }
 	}
+
+	public function handleCreateTask()
+	{
+		$this->redirect("this:newtask");
+	}
+
 }
