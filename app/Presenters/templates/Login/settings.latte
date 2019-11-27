@@ -1,4 +1,15 @@
 {block header} Nastavení profilu {/block} {block content}
+{snippet notify}
+{ifset $succes_notify}
+<script>$.notify("Operace byla provedena!", "success");</script>
+{/ifset}
+{ifset $error_notify}
+<script>$.notify("Operace selhala!", "error");</script>
+{/ifset}
+{ifset $password_notify}
+<script>$.notify("Hesla nejsou stejná!", "warning");</script>
+{/ifset}
+{/snippet}
 <div class="row">
   <div class="col-sm-12">
     <div class="card bg-default ">
