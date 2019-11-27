@@ -205,9 +205,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         }
 	}
 
-	public function handleCreateTask($id): void
+	public function handleCreateTask($url): void
 	{
-		$this->redirect("Garant:showcourse/$id/newtask");
+		$this->redirect($url);
 	}
 
 }
