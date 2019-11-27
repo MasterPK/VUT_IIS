@@ -140,7 +140,7 @@
         </li>
         {elseif $rank>=1}
         <li
-          class="nav-item dropdown {if $presenter->isLinkCurrent('{$rank_msg}:courses') || $presenter->isLinkCurrent('{$rank_msg}:mycourses')}show active{/if}"
+          class="nav-item dropdown {if $presenter->isLinkCurrent({$rank_msg}.':courses') || $presenter->isLinkCurrent({$rank_msg}.':mycourses')}show active{/if}"
         >
           <a
             class="nav-link dropdown-toggle"
