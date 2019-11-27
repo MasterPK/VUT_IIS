@@ -90,7 +90,7 @@
 {/ifset}
 
 {ifset $userIsNotGuarantorInCourse}
-{if $userCourseStatus==1}
+{ifset $openRegistration}
 <div class="row">
     <div class="col-auto mr-auto"></div>
     <div class="col-auto">
@@ -101,7 +101,6 @@
         </form>
     </div>
 </div>
-{/if}
 {else}
 <div class="row">
     <div class="col-auto mr-auto"></div>
@@ -114,6 +113,6 @@
     </div>
 </div>
 {/ifset}
-
+{/ifset}
 {/snippet}
 {/block}
