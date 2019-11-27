@@ -25,6 +25,22 @@ class ChiefPresenter extends BasePresenter
 	{
 		$lectorCourses = $this->lectorModel->getLectorCourses($this->user->identity->id);
 		$garantCourses = $this->garantModel->getGarantCourses($this->user->identity->id);
-		$this->template->courses = array_merge($lectorCourses,$garantCourses);
+
+		if($lectorCourses == NULL && $garantCourses == NULL)
+		{
+			$this->template->courses = NULL;
+		}
+		else if($garantCourses == NULL)
+		{
+			$this->template->courses = $lectorCourses;
+		}
+		else if($lectorCourses == NULL)
+		{
+			$this->template->courses = $garantCourses;
+		}
+		else
+		{
+			$this->template->courses = array_merge($lectorCourses,$garantCourses);
+		}
 	}
 }
