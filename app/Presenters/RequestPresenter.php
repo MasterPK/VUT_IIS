@@ -90,7 +90,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		else
 		{
 			//ak bol schvaleny, vypis ziadosti
-			if($this->template->rank > 3)
+			if($this->template->rank >= 3)
 			{
 				$requests = $this->database->query("SELECT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE  id_course = ? AND student_status = 0", $id)->fetchAll();
 			}
