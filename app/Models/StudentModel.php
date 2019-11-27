@@ -64,6 +64,24 @@ class StudentModel
         return $form;
     }
 
+    public function createComponentUnRegisterForm($presenter)
+    {
+		$form = new Nette\Application\UI\Form;
+
+		$form->addHidden('id_course');
+
+		$form->setDefaults([
+            'id_course' => $this->currentCourseId,
+
+        ]);
+
+        $form->addSubmit('register', 'Odregistrovat kurz')
+		->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+		
+		$form->onSuccess[] = [$presenter, 'unRegisterFormHandle'];
+        return $form;
+    }
+
 
 
 
