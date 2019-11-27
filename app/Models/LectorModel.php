@@ -25,6 +25,8 @@ class LectorModel
         return $this->mainModel->getCoursesOfStudent($id_lector);
     }
 
+ 
+
     public function renderShowCourse($presenter,$id)
     {
         $this->studentModel->renderShowcourse($presenter,$id);
@@ -33,19 +35,9 @@ class LectorModel
         //ani lektori sa nemozu registrovat na kurzy, ktore ucia
         if($course_lectors->getRowCount() == 0)
         {
-            $presenter->template->userIsNotLectorInCourse=true;
+            $presenter->template->userIsNotLectorInCourse=false;
         }
             
         
-    }
-
-    public function getLectorCourses($id_lector)
-    {
-        $data = $this->database->query("SELECT id_course, course_name, course_type, course_status FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ? AND course_status != 0",  $id_lector)->fetchAll();
-      
-        if(count($data) > 0)
-        {
-            return $data;
-        }
     }
 }

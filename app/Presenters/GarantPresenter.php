@@ -8,8 +8,26 @@ use Nette;
 use Nette\Application\UI\Form;
 
 
-final class GarantPresenter extends BasePresenter
+final class GarantPresenter extends Nette\Application\UI\Presenter 
 {
+	/** @var \App\Model\StartUp @inject */
+    public $startup;
+
+	/** @var Nette\Database\Context @inject */
+	public $database;
+
+	/** @var \App\Model\GarantModel @inject */
+	public $garantModel;
+
+	/** @var \App\Model\StudentModel @inject */
+	public $studentModel;
+
+	/** @var \App\Model\MainModel @inject */
+	public $mainModel;
+
+	/** @var \App\ComponentFactories\FormsFactory @inject */
+    public $formsFactory;
+
 	public function startUp()
 	{
 		parent::startup();
@@ -21,12 +39,29 @@ final class GarantPresenter extends BasePresenter
 			$this->redirect("Homepage:default");
 		}
 	}
+	public function renderDefault(): void
+	{ }
 
-	public function renderLector()
+	/**
+	 * Generuje aktuálne zapsané predmety lektora
+	 *
+	 * @return void
+	 */
+	public function renderCourses(): void
 	{
-		$lectorCourses = $this->lectorModel->getLectorCourses($this->user->identity->id);
+		$this->template->courses=$this->garantModel->getCoursesOfGarant($this->user->identity->id);
+	}
+
+	public function renderGarantCourses()
+	{
+		$lectorCourses = $this->garantModel->getLectorCourses($this->user->identity->id);
 		$garantCourses = $this->garantModel->getGarantCourses($this->user->identity->id);
 		$this->template->courses = array_merge($lectorCourses,$garantCourses);
+	}
+
+	public function rendershowCourse($id)
+	{
+		$this->garantModel->renderShowCourse($this,$id);
 	}
 	
 	public function createComponentCreateCourseForm(): Form
@@ -61,11 +96,15 @@ final class GarantPresenter extends BasePresenter
 		return $this->studentModel->createComponentUnRegisterForm($this);
 	}
 
-	public function renderShowcourse($id): void
+	public function createComponentOpenRegisterForm()
 	{
-		$this->garantModel->renderShowcourse($this,$id);
+		return $this->garantModel->createComponentOpenRegisterForm($this);
 	}
 
+	public function createComponentCloseRegisterForm()
+	{
+		return $this->garantModel->createComponentCloseRegisterForm($this);
+	}
 
 	public function openRegisterFormHandle($form)
 	{
@@ -109,7 +148,7 @@ final class GarantPresenter extends BasePresenter
 
 	public function createComponentSearchCourseForm(): Nette\Application\UI\Form
     {
-        return $this->mainModel->createComponentSearchCourseForm($this);
+        return $this->formsFactory->createComponentSearchCourseForm($this);
 	}
 	
 	public function searchCourseForm(Nette\Application\UI\Form $form): void

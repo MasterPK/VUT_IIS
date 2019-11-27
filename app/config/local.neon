@@ -15,6 +15,7 @@ services:
 	-	App\Model\AdminModel
 	-	App\Model\VisitorModel
 	-	App\Model\MainModel
+	-	App\ComponentFactories\FormsFactory
 	nette.latteFactory:
 		setup:
 			- setAutoRefresh(TRUE)

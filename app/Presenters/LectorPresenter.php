@@ -8,8 +8,23 @@ use Nette;
 use Nette\Application\UI\Form;
 
 
-final class LectorPresenter extends BasePresenter
+final class LectorPresenter extends Nette\Application\UI\Presenter 
 {
+	/** @var \App\Model\StartUp @inject */
+    public $startup;
+
+	/** @var Nette\Database\Context @inject */
+	public $database;
+
+	/** @var \App\Model\LectorModel @inject */
+	public $lectorModel;
+
+	/** @var \App\Model\StudentModel @inject */
+	public $studentModel;
+
+	/** @var \App\Model\MainModel @inject */
+	public $mainModel;
+
 	public function startUp()
 	{
 		parent::startup();
@@ -21,6 +36,30 @@ final class LectorPresenter extends BasePresenter
 			$this->redirect("Homepage:default");
 		}
 	}
+	public function renderDefault(): void
+	{ }
+
+	/**
+	 * Generuje aktuálne zapsané predmety lektora
+	 *
+	 * @return void
+	 */
+	public function renderMycourses(): void
+	{
+		$this->template->courses=$this->lectorModel->getCoursesOfLector($this->user->identity->id);
+	}
+
+	public function renderCourses(): void
+	{
+		$this->template->courses=$this->mainModel->getAllCourses();	
+	}
+
+	public function renderLectorCourses()
+	{
+		$this->template->courses=$this->lectorModel->getLectorCourses($this->user->identity->id);
+	}
+
+
 
 
 	/*public function renderLector(): void

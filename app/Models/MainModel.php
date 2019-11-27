@@ -179,26 +179,22 @@ class MainModel
         }
     }
 
-    public function createComponentSearchCourseForm($presenter): Nette\Application\UI\Form
+    public function getLectorCourses($id_lector)
     {
-        $form = new Nette\Application\UI\Form;
+        $courses = array();
+        $data = $this->database->query("SELECT id_course, course_name, course_type, course_status FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ? AND course_status != 0",  $id_lector);
+        if($data->getRowCount() > 0)
+        {
+            foreach($data as $course)
+            {
+                array_push($courses, $course);
+            }
+        }
 
-        $form->addSelect('filter', 'Filter', [
-		    'course_name' => 'Název',
-		    'id_course' => 'Zkratka',
-		    'course_type' => 'Typ',
-		    'course_price' => 'Cena',
-		]);
-
-        $form->addText('search', 'Hledat:')
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired();
-
-        $form->addSubmit('send', 'Hledat')
-        ->setHtmlAttribute('class', 'btn btn-block btn-primary');
-        
-        $form->onSuccess[] = [$presenter, 'searchCourseForm'];
-        return $form;
-	}
+        if(count($courses) > 0)
+		{
+			return $courses;
+		}
+    }
 
 }

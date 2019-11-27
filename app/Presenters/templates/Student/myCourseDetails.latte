@@ -20,6 +20,7 @@ Info kurzu
                     <tr align="center">
                         <th scope="col">#</th>
                         <th scope="col">Datum</th>
+                        <th scope="col">Trvání v hod</th>
                         <th scope="col">Popis</th>
                         <th scope="col">Body</th>
                     </tr>
@@ -30,17 +31,12 @@ Info kurzu
                     <tr align="center">
                         <th>{$i = $i+1}</th>
                         <td>{$row->task_date}</td>
+                        <td>{$row->task_duration}</td>
                         <td>{$row->task_name}</td>
                         <td>{$row->task_points}</td>
                     </tr>
                     {/foreach}
                 </tbody>
-                <tfoot class="thead-dark">
-                    <tr>
-                        <th align="left" colspan="4">Body celkom</th>
-                        <th align="center">Body</th>
-                    </tr>
-                </tfoot>
             </table>
             {else}
             <h3>Žádné kurzy nejsou k dispozici!</h3>

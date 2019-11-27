@@ -7,33 +7,33 @@ use Nette;
 use Nette\Application\UI\Form;
 
 
-class StudentPresenter extends BasePresenter
+class StudentPresenter extends Nette\Application\UI\Presenter
 {
+	/** @var HomepagePresenter @inject */
+	public $homepagePresenter;
 
+	/** @var \App\ComponentFactories\FormsFactory @inject */
+    public $formsFactory;
 
 	private $studentModel;
 	private $database;
 	private $mainModel;
 	public function __construct(Nette\Database\Context $database, \App\Model\VisitorModel $studentModel, \App\Model\MainModel $mainModel)
 	{
-		parent::startup();
-
-		
-		$this->startup->mainStartUp($this);
-		if(!$this->startup->roleCheck($this,1))
-		{
-			$this->redirect("Homepage:default");
-		}
+        $this->database = $database;
+        $this->studentModel = $studentModel;
+        $this->mainModel = $mainModel;
 	}
 
-	public function renderShowcourse($id): void
+	public function renderMycourses(): void
 	{
-		$this->studentModel->renderShowcourse($this,$id);
+		$this->template->courses=$this->mainModel->getCoursesOfStudent($this->user->identity->id);	
 	}
+
 	
 	public function renderMyCourseDetails($id_course): void
 	{
-		$data = BasePresenter->database->query("SELECT * FROM course_has_task NATURAL JOIN task WHERE id_course = ?",  $id_course)->fetchAll();
+		$data = $this->database->query("SELECT * FROM course_has_task NATURAL JOIN task WHERE id_course = ?",  $id_course)->fetchAll();
 		$this->template->courses = $data;
 	}
 
@@ -89,5 +89,16 @@ class StudentPresenter extends BasePresenter
 		{
             $this->redrawControl('content_snippet');
         }
+	}
+
+	public function createComponentSearchCourseForm(): Nette\Application\UI\Form
+    {
+        return $this->formsFactory->createComponentSearchCourseForm($this);
+	}
+	
+	public function searchCourseForm(Nette\Application\UI\Form $form): void
+    {
+    	$values = $form->getValues();
+    	$this->redirect("Homepage:courses", $values->search, $values->filter);
 	}
 }
