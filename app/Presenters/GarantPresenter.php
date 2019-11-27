@@ -175,7 +175,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		    'DU' => 'Domácí úkol',
 		    'PJ' => 'Projekt',
 		    'ZK' => 'Zkouška',
-		]);
+		])
+		->setHtmlAttribute('class', 'form-control')
+        ->setRequired();
 
         $form->addText('task_description', 'Popis')
         ->setHtmlAttribute('class', 'form-control')
