@@ -10,7 +10,7 @@ use Nette\Application\UI\Form;
 class StudentPresenter extends Nette\Application\UI\Presenter
 {
 
-	/** @var App\ComponentFactories\FormsFactory @inject */
+	/** @var \App\ComponentFactories\FormsFactory @inject */
     public $formsFactory;
 
 	private $studentModel;
