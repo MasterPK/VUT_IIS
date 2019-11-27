@@ -63,7 +63,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		$data = $this->database->query("SELECT * FROM course_has_task NATURAL JOIN task WHERE id_course = ?",  $id_course)->fetchAll();
 		$this->template->courses = $data;
 		
-		$body;
+		$body = 0;
 		foreach ($data as $tmp)
 		{
 			$body += $tmp->task_points;
