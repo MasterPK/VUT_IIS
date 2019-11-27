@@ -82,6 +82,7 @@ class GarantModel
             {
                 $presenter->template->userIsNotGuarantorInCourse=true;
             }
+            
             $this->currentCourseId=$id;
 
   
