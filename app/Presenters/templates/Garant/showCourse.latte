@@ -88,5 +88,32 @@
 {/ifset}
 {/ifset}
 {/ifset}
+
+{ifset $isUserGarantInCourse}
+{if $userCourseStatus==1}
+<div class="row">
+    <div class="col-auto mr-auto"></div>
+    <div class="col-auto">
+        <form n:name="openRegisterForm">
+            <div class="form-group text-center ">
+                {input register}
+            </div>
+        </form>
+    </div>
+</div>
+{/if}
+{else}
+<div class="row">
+    <div class="col-auto mr-auto"></div>
+    <div class="col-auto">
+        <form n:name="closeregisterForm">
+            <div class="form-group text-center ">
+                {input register}
+            </div>
+        </form>
+    </div>
+</div>
+{/ifset}
+
 {/snippet}
 {/block}

@@ -84,17 +84,11 @@ class GarantModel
         return $form;
     }
     
-    public function renderShowCourse($id)
+    public function renderShowCourse($presenter,$id)
     {
-        $presenter->template->link = "/homepage/showcourse/" . $id;
-		$presenter->template->course_status = $presenter->template->course->course_status;
-        if($presenter->user->identity->id == $presenter->template->course->id_guarantor)
-			{
-				$presenter->template->buttons = true;
-			}
+        $this->lectorModel->renderShowCourse($presenter,$id);
         if($request)
 			{
-				$this->template->request=$request->student_status;
 			}
 			//ak su otvorene registracie na kurz..
 			if($presenter->template->course->course_status == 2)
@@ -110,14 +104,6 @@ class GarantModel
 				$course_lectors = $this->database->query("SELECT id_user FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ? AND id_course = ?",  $this->user->identity->id, $course->id_course);
 				//ani lektori sa nemozu registrovat na kurzy, ktore ucia
 				if($course_lectors->getRowCount() > 0)
-				{
-					$this->template->register=false;
-				}
-
-				$course_students = $this->database->query("SELECT id_user FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_user = ? AND id_course = ? and student_status = 1", $this->user->identity->id, $course->id_course);
-
-				//a ani uz registrovani studenti
-				if($course_students->getRowCount() > 0)
 				{
 					$this->template->register=false;
 				}

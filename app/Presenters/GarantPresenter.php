@@ -19,6 +19,12 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	/** @var \App\Model\GarantModel @inject */
 	public $garantModel;
 
+	/** @var \App\Model\StudentModel @inject */
+	public $studentModel;
+
+	/** @var \App\Model\MainModel @inject */
+	public $mainModel;
+
 	public function startUp()
 	{
 		parent::startup();
@@ -47,6 +53,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	{
 		$this->template->courses=$this->garantModel->getLectorCourses($this->user->identity->id);
 	}
+
+	public function rendershowCourse($id)
+	{
+		$this->garantModel->renderShowCourse($this,$id);
+	}
 	
 	public function createComponentCreateCourseForm(): Form
 	{
@@ -68,5 +79,15 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     		$this->template->error_insert=true;
     		$this->template->error_course=$values->id_course;
     	}
+	}
+
+	public function createComponentRegisterForm()
+	{
+		return $this->studentModel->createComponentRegisterForm($this);
+	}
+
+	public function createComponentUnRegisterForm()
+	{
+		return $this->studentModel->createComponentUnRegisterForm($this);
 	}
 }

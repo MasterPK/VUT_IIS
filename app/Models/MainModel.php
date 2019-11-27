@@ -97,6 +97,24 @@ class MainModel
     }
 
     /**
+     * Check if user is Garant of course
+     *
+     * @param [int] $id_guarantor
+     * @param [int] $id_course
+     * @return boolean
+     */
+    public function isUserGuarantOfCourse($id_guarantor,$id_course)
+    {
+        $data = $this->database->table("course")->where("id_guarantor=?", $id_guarantor)->where("id_course",$id_course)->fetch();
+
+        if ($data) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Return list of courses, where is student registered
      * Exception on error
      * @param [type] $id_student
@@ -159,6 +177,24 @@ class MainModel
         {
             return NULL;
         }
+    }
+
+    public function getLectorCourses($id_lector)
+    {
+        $courses = array();
+        $data = $this->database->query("SELECT id_course, course_name, course_type, course_status FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ? AND course_status != 0",  $id_lector);
+        if($data->getRowCount() > 0)
+        {
+            foreach($data as $course)
+            {
+                array_push($courses, $course);
+            }
+        }
+
+        if(count($courses) > 0)
+		{
+			return $courses;
+		}
     }
 
 }
