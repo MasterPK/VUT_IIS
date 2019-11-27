@@ -159,7 +159,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
             $this->template->password_notify=true;
             if($this->isAjax())
             {
-                $this->redrawControl("body_snippet");
+                $this->redrawControl("notify");
             }  
         }
         else
@@ -186,7 +186,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
             $this->template->error_notify=true;
 			if($this->isAjax())
             {
-                $this->redrawControl("body_snippet");
+                $this->redrawControl("notify");
             }
         }
         }
