@@ -10,12 +10,6 @@ use Nette\Application\UI\Form;
 class StudentPresenter extends BasePresenter
 {
 	
-	public function __construct(Nette\Database\Context $database, \App\Model\VisitorModel $studentModel, \App\Model\MainModel $mainModel)
-	{
-        $this->studentModel = $studentModel;
-        $this->mainModel = $mainModel;
-	}
-
 	public function renderMycourses(): void
 	{
 		$this->template->courses=$this->mainModel->getCoursesOfStudent($this->user->identity->id);	
