@@ -117,7 +117,7 @@ class GarantModel
 
         ]);
 
-        $form->addSubmit('register', 'Otevřít registrace do kurzu')
+        $form->addSubmit('register', 'Zavřít registrace do kurzu')
 		->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
 		
 		$form->onSuccess[] = [$presenter, 'closeRegisterFormHandle'];
