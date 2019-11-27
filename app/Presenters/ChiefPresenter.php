@@ -53,7 +53,8 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 	public function renderRooms(): void
 	{
-		
+		$data = $this->database->table("room")->fetchAll();
+		dump($data);
 	}
 
 	public function renderGarantCourses()
