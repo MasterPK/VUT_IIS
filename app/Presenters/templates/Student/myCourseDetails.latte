@@ -4,6 +4,7 @@ Info kurzu
 {block content}
     <div class="row">
         <div class="col-sm-12">
+            {ifset $courses}
             <table class="table">
                 <thead>
                     <tr>
@@ -14,7 +15,7 @@ Info kurzu
                     </tr>
                 </thead>
                 <tbody>
-                    {ifset $courses}
+                    
                     {foreach $courses as $row}
                     <tr>
                         <th>0</th>
@@ -23,7 +24,6 @@ Info kurzu
                         <td>{$row->points}</td>
                     </tr>
                     {/foreach}
-                    {/ifset}
                 </tbody>
             </table>
             {else}
