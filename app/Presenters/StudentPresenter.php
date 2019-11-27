@@ -12,7 +12,8 @@ class StudentPresenter extends Presenter
 {
 
 	private $studentModel;
-    private $database;
+	private $database;
+	private $mainModel;
 	public function __construct(Nette\Database\Context $database, \App\Model\VisitorModel $studentModel, \App\Model\MainModel $mainModel)
 	{
         $this->database = $database;
