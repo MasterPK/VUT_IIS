@@ -90,4 +90,14 @@ abstract class BasePresenter extends Presenter
     	$values = $form->getValues();
     	$this->redirect("Homepage:courses", $values->search, $values->filter);
 	}
+
+	public function createComponentOpenRegisterForm()
+	{
+		return $this->garantModel->createComponentOpenRegisterForm($this);
+	}
+
+	public function createComponentCloseRegisterForm()
+	{
+		return $this->garantModel->createComponentCloseRegisterForm($this);
+	}
 }
