@@ -15,14 +15,15 @@ Info kurzu
                     </tr>
                 </thead>
                 <tbody>
-                    
+                    {var $i = 1}
                     {foreach $courses as $row}
                     <tr align="center">
-                        <th>0</th>
+                        <th>{$i}</th>
                         <td>{$row->task_date}</td>
                         <td>{$row->task_name}</td>
                         <td>{$row->task_points}</td>
                     </tr>
+                    {$i = $i+1}
                     {/foreach}
                 </tbody>
             </table>
