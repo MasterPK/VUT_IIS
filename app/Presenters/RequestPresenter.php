@@ -132,7 +132,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
     	
 	}*/
 
-	public function handleRegister($users, $id_course): void
+	public function handleRegister($users, $id_course, $accept): void
     {
     	//ak neni ziaden checkbox, tak sa odosle []
     	$users = substr($users, 1, -1);
@@ -149,7 +149,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		//po preg_split sa z toho stava array
 		foreach($users as $user)
 		{
-			$result = $this->database->query("UPDATE course_has_student SET student_status = 1 WHERE id_user = ? AND id_course = ? AND student_status = 0", $user, $id_course);
+			$result = $this->database->query("UPDATE course_has_student SET student_status = ? WHERE id_user = ? AND id_course = ? AND student_status = 0", $accept, $user, $id_course);
 
 			//ak sa nejaky update nevykona, ukonci s chybou
 			if($result->getRowCount() == 0)
@@ -172,7 +172,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 	{
 		if($this->isAjax())
 		{
-			$this->redrawControl("success_reg_snippet");
+			$this->redrawControl("reg_snippet");
 		}
 	}
 
