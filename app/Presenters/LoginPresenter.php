@@ -77,6 +77,44 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         return $form;
     }
 
+    protected function createComponentEditProfile(): UI\Form
+    {
+        $form = new UI\Form;
+        $form->addText('email', 'Email:')
+        ->setHtmlAttribute('class', 'form-control')
+        ->setRequired()
+        ->setDefaultValue($this->user->identity->data->email);
+
+        $form->addText('first_name', 'Křestní jméno:')
+        ->setHtmlAttribute('class', 'form-control')
+        ->setRequired()
+        ->setDefaultValue($this->user->identity->data->first_name);
+
+        $form->addText('surname', 'Příjmení:')
+        ->setHtmlAttribute('class', 'form-control')
+        ->setRequired()
+        ->setDefaultValue($this->user->identity->data->surname);
+
+        $form->addText('phone', 'Telefonní číslo:')
+        ->setHtmlAttribute('class', 'form-control')
+        ->setRequired()
+        ->setDefaultValue($this->user->identity->data->phone);
+
+        $form->addPassword('password', 'Heslo:')
+        ->setHtmlAttribute('class', 'form-control')
+        ->setRequired('Zadejte, prosím, heslo');
+
+        $form->addPassword('passwordCheck', 'Heslo znovu:')
+        ->setHtmlAttribute('class', 'form-control')
+        ->setRequired('Zadejte, prosím, heslo pro kontrolu');
+
+        $form->addSubmit('login', 'Potvrdit')
+        ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+        
+        $form->onSuccess[] = [$this, 'editProfileSubmit'];
+        return $form;
+    }
+
     // volá se po úspěšném odeslání formuláře
     public function loginFormSucceeded(UI\Form $form): void
     {
@@ -92,6 +130,12 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         {
             $this->template->error_login=true;
         }
+    }
+
+    public function editProfileSubmit(UI\Form $form): void
+    {
+        $values = $form->getValues();
+
     }
     
 }
