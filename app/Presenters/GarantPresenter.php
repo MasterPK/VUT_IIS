@@ -61,6 +61,12 @@ final class GarantPresenter extends BasePresenter
 		return $this->studentModel->createComponentUnRegisterForm($this);
 	}
 
+	public function renderShowcourse($id): void
+	{
+		$this->garantModel->renderShowcourse($this,$id);
+	}
+
+
 	public function openRegisterFormHandle($form)
 	{
 		$values = $form->getValues();

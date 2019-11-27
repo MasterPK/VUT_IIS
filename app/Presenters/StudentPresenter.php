@@ -20,6 +20,11 @@ class StudentPresenter extends BasePresenter
 			$this->redirect("Homepage:default");
 		}
 	}
+
+	public function renderShowcourse($id): void
+	{
+		$this->studentModel->renderShowcourse($this,$id);
+	}
 	
 	public function renderMyCourseDetails($id_course): void
 	{
