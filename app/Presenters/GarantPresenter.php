@@ -8,24 +8,8 @@ use Nette;
 use Nette\Application\UI\Form;
 
 
-final class GarantPresenter extends Nette\Application\UI\Presenter 
+final class GarantPresenter extends BasePresenter
 {
-	/** @var \App\Model\StartUp @inject */
-    public $startup;
-
-	/** @var Nette\Database\Context @inject */
-	public $database;
-
-	/** @var \App\Model\GarantModel @inject */
-	public $garantModel;
-
-	/** @var \App\Model\StudentModel @inject */
-	public $studentModel;
-
-	/** @var \App\Model\MainModel @inject */
-	public $mainModel;
-
-
 	public function startUp()
 	{
 		parent::startup();
@@ -37,29 +21,12 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			$this->redirect("Homepage:default");
 		}
 	}
-	public function renderDefault(): void
-	{ }
-
-	/**
-	 * Generuje aktuálne zapsané predmety lektora
-	 *
-	 * @return void
-	 */
-	public function renderCourses(): void
-	{
-		$this->template->courses=$this->garantModel->getCoursesOfGarant($this->user->identity->id);
-	}
 
 	public function renderGarantCourses()
 	{
 		$lectorCourses = $this->garantModel->getLectorCourses($this->user->identity->id);
 		$garantCourses = $this->garantModel->getGarantCourses($this->user->identity->id);
 		$this->template->courses = array_merge($lectorCourses,$garantCourses);
-	}
-
-	public function rendershowCourse($id)
-	{
-		$this->garantModel->renderShowCourse($this,$id);
 	}
 	
 	public function createComponentCreateCourseForm(): Form
