@@ -92,4 +92,14 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	{
 		return $this->studentModel->createComponentUnRegisterForm($this);
 	}
+
+	public function createComponentOpenRegisterForm()
+	{
+		return $this->garantModel->createComponentOpenRegisterForm($this);
+	}
+
+	public function createComponentCloseRegisterForm()
+	{
+		return $this->garantModel->createComponentCloseRegisterForm($this);
+	}
 }

@@ -76,31 +76,49 @@ class GarantModel
     public function renderShowCourse($presenter,$id)
     {
         $this->lectorModel->renderShowCourse($presenter,$id);
-        if($request)
-			{
-			}
-			//ak su otvorene registracie na kurz..
-			if($presenter->template->course->course_status == 2)
-			{
-				
-				
-				$this->template->register=true;
-				//garant sa nemoze registrovat na svoj kurz
-				if($this->user->identity->id == $course->id_guarantor)
-				{
-					$this->template->register=false;
-				}
-				$course_lectors = $this->database->query("SELECT id_user FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ? AND id_course = ?",  $this->user->identity->id, $course->id_course);
-				//ani lektori sa nemozu registrovat na kurzy, ktore ucia
-				if($course_lectors->getRowCount() > 0)
-				{
-					$this->template->register=false;
-				}
-				
-			}
-
-			
-			$this->template->course=$course;
+       
+            //garant sa nemoze registrovat na svoj kurz
+            if($presenter->user->identity->id != $presenter->template->course->id_guarantor)
+            {
+                $presenter->template->userIsNotGuarantorInCourse=true;
+            }
+  
     }
+
+    public function createComponentOpenRegisterForm($presenter)
+	{
+		$form = new Nette\Application\UI\Form;
+
+		$form->addHidden('id_course');
+
+		$form->setDefaults([
+            'id_course' => $this->currentCourseId,
+
+        ]);
+
+        $form->addSubmit('register', 'Otevřít registrace do kurzu')
+		->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+		
+		$form->onSuccess[] = [$presenter, 'openRegisterFormHandle'];
+        return $form;
+	}
+
+	public function createComponentCloseRegisterForm($presenter)
+	{
+		$form = new Nette\Application\UI\Form;
+
+		$form->addHidden('id_course');
+
+		$form->setDefaults([
+            'id_course' => $this->currentCourseId,
+
+        ]);
+
+        $form->addSubmit('register', 'Otevřít registrace do kurzu')
+		->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+		
+		$form->onSuccess[] = [$presenter, 'closeRegisterFormHandle'];
+        return $form;
+	}
 
 }
