@@ -9,7 +9,12 @@ use Nette\Application\UI\Form;
 
 class StudentPresenter extends BasePresenter
 {
-	public function startUp()
+
+
+	private $studentModel;
+	private $database;
+	private $mainModel;
+	public function __construct(Nette\Database\Context $database, \App\Model\VisitorModel $studentModel, \App\Model\MainModel $mainModel)
 	{
 		parent::startup();
 
