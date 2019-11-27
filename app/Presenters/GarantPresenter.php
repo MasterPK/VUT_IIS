@@ -58,6 +58,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$this->template->courses = array_merge($lectorCourses,$garantCourses);
 	}
 
+	public function renderMycourses(): void
+	{
+		$this->template->courses=$this->mainModel->getCoursesOfStudent($this->user->identity->id);	
+	}
+
 	public function rendershowCourse($id)
 	{
 		$this->garantModel->renderShowCourse($this,$id);
@@ -156,5 +161,53 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     	$this->redirect("Homepage:courses", $values->search, $values->filter);
 	}
 
-	
+	public function registerFormHandle($form)
+	{
+		$values = $form->getValues();
+		//Check if registration exists
+    	$get = $this->database->query("SELECT `id` FROM `course_has_student` WHERE `id_course` = ? AND `id_user` = ?", $values->id_course, $this->user->identity->id);
+
+    	if($get->getRowCount() == 0)
+    	{
+			$data = $this->database->query("INSERT INTO course_has_student ( id, id_course, id_user, student_status) VALUES ('', ?, ?, 0)", $values->id_course, $this->user->identity->id);
+			$this->template->succes_notif = true;
+    	}
+    	else
+    	{
+    		$this->template->error_notif = true;
+		}
+		
+		if ($this->isAjax())
+		{
+            $this->redrawControl('content_snippet');
+        }
+	}
+
+	public function unRegisterFormHandle($form)
+	{
+		$values = $form->getValues();
+		//Check if registration exists
+    	$get = $this->database->query("SELECT `id` FROM `course_has_student` WHERE `id_course` = ? AND `id_user` = ?", $values->id_course, $this->user->identity->id);
+
+    	if($get->getRowCount() == 1)
+    	{
+			$this->database->table("course_has_student")->where("id_course",$values->id_course)->where("id_user",$this->user->identity->id)->delete();
+			$this->template->succes_notif = true;
+    	}
+    	else
+    	{
+    		$this->template->error_notif = true;
+		}
+		
+		if ($this->isAjax())
+		{
+            $this->redrawControl('content_snippet');
+        }
+	}
+
+	public function handleCreateTask()
+	{
+		$this->redirect("this:newtask");
+	}
+
 }

@@ -1,5 +1,5 @@
 {block header}
-
+Detail kurzu
 {/block}
 {block content}
 <div class="row">
@@ -39,12 +39,12 @@
                         Stav registrací:<br>
                         <b>{if $course->course_status == 2 }Otevřeno{else}Zavřeno{/if}</b>
                     </div>
-                    
+                    {ifset $userIsNotGuarantorInCourse}
                     <div class="col-md-3 col-sm-12">
                         Stav Vaší registrace:<br>
                         <b>{ifset $userCourseStatus}{if $userCourseStatus == 0 }Čeká se na schválení{elseif $userCourseStatus == 1}Potvrzeno{elseif $userCourseStatus == 2}Zamítnuto{/if}{else}Žádná žádost neexistuje!{/ifset}</b>
                     </div>
-                   
+                   {/ifset}
                     
                 </div>
                 <br>
@@ -60,7 +60,7 @@
 </div>
 <br>
 {snippet studentRegistration}
-{ifset $noGarantInThisCourse}
+{ifset $userIsNotGuarantorInCourse}
 {ifset $openRegistration}
 {ifset $userCourseStatus}
 {if $userCourseStatus==1}
@@ -90,7 +90,7 @@
 {/ifset}
 {/ifset}
 
-{ifset $userIsNotGuarantorInCourse}
+{ifset $userIsGuarantorInCourse}
 {ifset $openRegistration}
 <div class="row">
     <div class="col-auto mr-auto"></div>

@@ -200,6 +200,15 @@
             <span>Žádosti</span>
           </a>
         </li>
+        {/if} {if $rank >= 4}
+        <li
+          n:class="nav-item, $presenter->isLinkCurrent('Request:default') ? active"
+        >
+          <a class="nav-link" n:href="Request:default">
+            <i class="fas fa-fw door-open"></i>
+            <span>Místnosti</span>
+          </a>
+        </li>
         {/if} {/ifset} {/ifset}
       </ul>
 
