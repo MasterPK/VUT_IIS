@@ -38,7 +38,6 @@ class LectorModel
             $presenter->template->userIsNotLectorInCourse=false;
         }
             
-        }
+        
     }
-
 }
