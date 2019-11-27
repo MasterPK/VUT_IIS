@@ -19,6 +19,9 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 	/** @var \App\Model\LectorModel @inject */
 	public $lectorModel;
 
+	/** @var \App\Model\StudentModel @inject */
+	public $studentModel;
+
 	/** @var \App\Model\MainModel @inject */
 	public $mainModel;
 
