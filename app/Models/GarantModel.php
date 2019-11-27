@@ -76,7 +76,7 @@ class GarantModel
     public function renderShowCourse($presenter,$id)
     {
         $this->lectorModel->renderShowCourse($presenter,$id);
-       
+            dump($presenter->template->openRegistration);
             //garant sa nemoze registrovat na svoj kurz
             if($presenter->user->identity->id != $presenter->template->course->id_guarantor)
             {
