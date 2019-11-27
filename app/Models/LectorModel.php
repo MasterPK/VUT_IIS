@@ -9,6 +9,9 @@ use Nette\Application\UI\Form;
 class LectorModel
 {
     
+    /** @var \App\Model\MainModel @inject */
+    public $mainModel;
+    
     private $database;
     public function __construct(Nette\Database\Context $database)
     {

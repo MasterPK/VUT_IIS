@@ -11,6 +11,9 @@ class GarantModel
     /** @var \App\Model\LectorModel @inject */
     public $lectorModel;
 
+    /** @var \App\Model\MainModel @inject */
+    public $mainModel;
+
     private $database;
 	public function __construct(Nette\Database\Context $database)
 	{
