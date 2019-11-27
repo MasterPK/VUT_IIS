@@ -25,19 +25,10 @@ class LectorModel
 
     public function getLectorCourses($id_lector)
     {
-        $courses = array();
-        $data = $this->database->query("SELECT id_course, course_name, course_type, course_status FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ? AND course_status != 0",  $id_lector);
-        if($data->getRowCount() > 0)
+        $data = $this->database->query("SELECT id_course, course_name, course_type, course_status FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ? AND course_status != 0",  $id_lector)->fetchAll();
+        if(count($data) > 0)
         {
-            foreach($data as $course)
-            {
-                array_push($courses, $course);
-            }
+            return $data;
         }
-
-        if(count($courses) > 0)
-		{
-			return $courses;
-		}
     }
 }

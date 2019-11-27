@@ -25,20 +25,11 @@ class GarantModel
 
     public function getGarantCourses($id_garant)
     {
-        $courses = array();
-        $data = $this->database->query("SELECT id_course, course_name, course_type, course_status FROM course WHERE id_guarantor = ?",  $this->user->identity->id);
-        if($data->getRowCount() > 0)
+        $data = $this->database->query("SELECT id_course, course_name, course_type, course_status FROM course WHERE id_guarantor = ?",  $id_garant);
+        if(count($data) > 0)
         {
-            foreach($data as $course)
-            {
-                array_push($courses, $course);
-            }
+            return $data;
         }
-
-        if(count($courses) > 0)
-		{
-			return $courses;
-		}
     }
 
     public function createCourseF($meno): Form
