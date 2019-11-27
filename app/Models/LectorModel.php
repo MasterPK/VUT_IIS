@@ -11,16 +11,14 @@ class LectorModel
     
 
     private $mainModel;
-    
+    private $studentModel;
     private $database;
-    public function __construct(Nette\Database\Context $database, \App\Model\MainModel $mainModel)
+    public function __construct(Nette\Database\Context $database, \App\Model\MainModel $mainModel , \App\Model\StudentModel $studentModel)
     {
         $this->database = $database;
         $this->mainModel=$mainModel;
+        $this->studentModel=$studentModel;
     }
-
-	/** @var \App\Model\StudentModel @inject */
-    public $studentModel;
 
     public function getCoursesOfLector($id_lector)
     {
