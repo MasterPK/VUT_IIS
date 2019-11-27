@@ -8,7 +8,7 @@ use Nette;
 use Nette\Application\UI\Form;
 
 
-class StudentPresenter extends Nette\Application\UI\Presenter
+final class StudentPresenter extends Nette\Application\UI\Presenter
 {
 
 	private $visitorModel;
