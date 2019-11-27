@@ -53,8 +53,9 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 
 	public function renderMyCourseDetails($id_course): void
 	{
-		$data = $this->database->table("course_has_task")->where("id_course=?", $id_course)->fetchAll();
+		$data = $this->database->query("SELECT * FROM course_has_task NATURAL JOIN task WHERE id_course = ?",  $id_course)->fetchAll();
 		$this->template->courses = $data;
+		dump($data);
 	}
 
 	public function createComponentRegisterForm()
