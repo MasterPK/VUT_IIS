@@ -31,7 +31,7 @@ class LectorModel
     {
         $this->studentModel->renderShowcourse($presenter,$id);
 
-        $course_lectors = $this->database->query("SELECT id_user FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ? AND id_course = ?",  $this->user->identity->id, $course->id_course);
+        $course_lectors = $this->database->query("SELECT id_user FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ? AND id_course = ?",  $presenter->user->identity->id, $id);
         //ani lektori sa nemozu registrovat na kurzy, ktore ucia
         if($course_lectors->getRowCount() == 0)
         {
