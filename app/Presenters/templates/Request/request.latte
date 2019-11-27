@@ -55,7 +55,7 @@ Seznam žádostí
         </table>
     {/ifset}
 
-    {snippet success_reg_snippet}
+    {snippet reg_snippet}
     {ifset $requests}
         <table class="table">
             <thead>
@@ -81,7 +81,8 @@ Seznam žádostí
             </tbody>
         </table>
   
-    <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="done()">Potvrdit výběr</button>
+    <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="done(1)">Schválit výběr</button>
+    <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="done(2)">Zamítnout výběr</button>
     <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="checkAllButton" onClick="checkAll()">Označit všechny</button>
 
 <script>
@@ -144,16 +145,24 @@ Seznam žádostí
         }
     }
     
-    function done()
+    function done(accept)
     {
         $.ajax({
           method: "POST",
           url: {link register!},
-          data: { users: JSON.stringify(users), id_course:{$id_course} }
+          data: { users: JSON.stringify(users), id_course:{$id_course}, accept:accept}
         }).done(function( html ) {
             if(html.status=="success")
             {
-                $.notify("Vybraní studenti byli zaregistrováni!", "success");
+                if(accept == 1)
+                {
+                    $.notify("Vybraní studenti byli schváleni!", "success");
+                }
+                else
+                {
+                    $.notify("Vybraní studenti byli zamítnuti!", "success");
+                }
+                
                 $.nette.ajax({
                     type: "POST",
                     url: {link finish!}
@@ -161,7 +170,7 @@ Seznam žádostí
             }
             else if(html.status=="error")
             {
-                $.notify("Došlo k chybě při registraci studentů!", "error");
+                $.notify("U některých studentů došlo k chybě!", "error");
                 $.nette.ajax({
                     type: "POST",
                     url: {link finish!}
