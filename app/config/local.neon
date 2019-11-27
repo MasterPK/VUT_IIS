@@ -14,6 +14,7 @@ services:
 	-	App\Model\ChiefModel
 	-	App\Model\AdminModel
 	-	App\Model\VisitorModel
+	-	App\Model\MainModel
 	nette.latteFactory:
 		setup:
 			- setAutoRefresh(TRUE)

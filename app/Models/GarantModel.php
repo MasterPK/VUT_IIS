@@ -8,8 +8,8 @@ use Nette\Application\UI\Form;
 
 class GarantModel
 {
-    /** @var \App\Model\StudentModel @inject */
-    public $studentModel;
+    /** @var \App\Model\LectorModel @inject */
+    public $lectorModel;
 
     private $database;
 	public function __construct(Nette\Database\Context $database)
@@ -20,7 +20,7 @@ class GarantModel
 
     public function getCoursesOfGarant($id_garant)
     {
-        return $this->studentModel->getCoursesOfStudent($id_garant);
+        return $this->lectorModel->getCoursesOfStudent($id_garant);
     }
 
     public function getGarantCourses($id_garant)
