@@ -12,7 +12,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 	/** @var HomepagePresenter @inject */
 	public $homepagePresenter;
 
-	/** @var App\ComponentFactories\FormsFactory @inject */
+	/** @var \App\ComponentFactories\FormsFactory @inject */
     public $formsFactory;
 
 	private $studentModel;
