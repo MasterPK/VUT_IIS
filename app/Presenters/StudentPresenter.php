@@ -20,6 +20,19 @@ class StudentPresenter extends Nette\Application\UI\Presenter
         $this->mainModel = $mainModel;
 	}
 
+	public function renderCourses($search, $filter): void
+	{
+		if($search)
+		{
+			$this->template->courses=$this->mainModel->getAllCoursesByFilter($filter, $search);
+		}
+		else
+		{
+			//zobraz vsetky schvalene kurzy
+			$this->template->courses=$this->mainModel->getAllApprovedCourses();
+		}
+	}
+	
 	public function renderMycourses(): void
 	{
 		$this->template->courses=$this->mainModel->getCoursesOfStudent($this->user->identity->id);	
