@@ -9,16 +9,17 @@ use Nette\Application\UI\Form;
 
 class StudentPresenter extends Nette\Application\UI\Presenter
 {
+	/** @var \App\Model\StartUp @inject */
+    public $startup;
 
-	private $studentModel;
-	private $database;
-	private $mainModel;
-	public function __construct(Nette\Database\Context $database, \App\Model\VisitorModel $studentModel, \App\Model\MainModel $mainModel)
-	{
-        $this->database = $database;
-        $this->studentModel = $studentModel;
-        $this->mainModel = $mainModel;
-	}
+	/** @var \App\Model\StudentModel @inject */
+	public $studentModel;
+
+	/** @var \App\Model\MainModel @inject */
+	public $mainModel;
+	
+	/** @var Nette\Database\Context @inject */
+	public $database;
 
 	public function startUp()
 	{
