@@ -48,7 +48,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	 */
 	public function renderCourses(): void
 	{
-		$this->template->courses=$this->garantModel->getCoursesOfGarant($this->user->identity->id);
+		$this->template->courses=$this->mainModel->getAllCourses();
 	}
 
 	public function renderGarantCourses()
