@@ -9,6 +9,9 @@ use Nette\Application\UI\Form;
 class LectorModel
 {
     
+    /** @var \App\Model\MainModel @inject */
+    public $mainModel;
+    
     private $database;
     public function __construct(Nette\Database\Context $database)
     {
@@ -20,15 +23,14 @@ class LectorModel
 
     public function getCoursesOfLector($id_lector)
     {
-        return $this->studentModel->getCoursesOfStudent($id_lector);
+        return $this->mainModel->getCoursesOfStudent($id_lector);
     }
 
-    public function getLectorCourses($id_lector)
+ 
+
+    public function renderShowCourse($presenter,$id)
     {
-        $data = $this->database->query("SELECT id_course, course_name, course_type, course_status FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ? AND course_status != 0",  $id_lector)->fetchAll();
-        if(count($data) > 0)
-        {
-            return $data;
-        }
+        $this->studentModel->renderShowcourse($presenter,$id);
     }
+
 }
