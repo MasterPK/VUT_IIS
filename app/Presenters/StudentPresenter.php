@@ -8,7 +8,7 @@ use Nette;
 use Nette\Application\UI\Form;
 
 
-abstract class StudentPresenter extends HomepagePresenter
+final class StudentPresenter extends Nette\Application\UI\Presenter
 {
 
 	public function renderMycourses(): void
