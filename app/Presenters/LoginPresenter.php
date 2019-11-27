@@ -80,6 +80,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
     protected function createComponentEditProfile(): UI\Form
     {
         $user=$this->getUser()->getIdentity();
+        dump($user);
         $form = new UI\Form;
         $form->addText('email', 'Email:')
         ->setHtmlAttribute('class', 'form-control')
