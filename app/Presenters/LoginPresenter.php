@@ -154,7 +154,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         }
     }
 
-    public function editProfileSubmit(UI\Form $form): void
+    public function editProfileSubmit(UI\Form $form)
     {
         $values = $form->getValues();
 
