@@ -30,94 +30,113 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
 
     public function renderDefault()
     {
-        $this->getUser()->isLoggedIn() ? $this->redirect("Homepage:"):"";
+        $this->getUser()->isLoggedIn() ? $this->redirect("Homepage:") : "";
 
         $this->redirect("Login:login");
     }
 
     public function renderLogin($id)
     {
-        $this->getUser()->isLoggedIn() ? $this->redirect("Homepage:"):"";
-        if($id==1)
-        {
-            $this->template->error="Byli jste odhlášeni po 5 minutách neaktivity!";
+        $this->getUser()->isLoggedIn() ? $this->redirect("Homepage:") : "";
+        if ($id == 1) {
+            $this->template->error = "Byli jste odhlášeni po 5 minutách neaktivity!";
         }
-        
     }
 
     public function renderLogout($id)
     {
         $this->getUser()->logout();
-        if(empty($id))
-        {
+        if (empty($id)) {
+            $this->redirect("Login:login");
+        } else {
+            $this->redirect("Login:login", $id);
+        }
+    }
+
+    public function renderSettings()
+    {
+        if (!$this->getUser()->isLoggedIn()) {
             $this->redirect("Login:login");
         }
-        else
-        {
-            $this->redirect("Login:login",$id);
-        }
-        
     }
+
+
 
     protected function createComponentLoginForm(): UI\Form
     {
         $form = new UI\Form;
         $form->addText('email', 'Email:')
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired('Zadejte, prosím, email');
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired('Zadejte, prosím, email');
 
         $form->addPassword('password', 'Heslo:')
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired('Zadejte, prosím, heslo');
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired('Zadejte, prosím, heslo');
 
         $form->addSubmit('login', 'Přihlásit se')
-        ->setHtmlAttribute('class', 'btn btn-block btn-primary');
-        
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary');
+
         $form->onSuccess[] = [$this, 'loginFormSucceeded'];
         return $form;
     }
 
     protected function createComponentEditProfile(): UI\Form
     {
-        $user=$this->getUser()->getIdentity();
+        $user = $this->getUser()->getIdentity();
         $form = new UI\Form;
 
         $form->addHidden('id_user', '')
-        ->setRequired()
-        ->setDefaultValue($user->data["id_user"]);
+            ->setRequired()
+            ->setDefaultValue($user->data["id_user"]);
 
         $form->addText('email', 'Email:')
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired()
-        ->setDefaultValue($user->data["email"]);
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired()
+            ->setDefaultValue($user->data["email"]);
 
         $form->addText('first_name', 'Křestní jméno:')
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired()
-        ->setDefaultValue($user->data["first_name"]);
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired()
+            ->setDefaultValue($user->data["first_name"]);
 
         $form->addText('surname', 'Příjmení:')
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired()
-        ->setDefaultValue($user->data["surname"]);
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired()
+            ->setDefaultValue($user->data["surname"]);
 
         $form->addText('phone', 'Telefonní číslo:')
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired()
-        ->setDefaultValue($user->data["phone"]);
-
-        $form->addPassword('password', 'Heslo:')
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired('Zadejte, prosím, heslo');
-
-        $form->addPassword('passwordCheck', 'Heslo znovu:')
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired('Zadejte, prosím, heslo pro kontrolu');
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired()
+            ->setDefaultValue($user->data["phone"]);
 
         $form->addSubmit('submit', 'Potvrdit')
-        ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
-        
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+
         $form->onSuccess[] = [$this, 'editProfileSubmit'];
+        return $form;
+    }
+
+    protected function createComponentEditPassword(): UI\Form
+    {
+        $user = $this->getUser()->getIdentity();
+        $form = new UI\Form;
+
+        $form->addHidden('id_user', '')
+            ->setRequired()
+            ->setDefaultValue($user->data["id_user"]);
+
+        $form->addPassword('password', 'Heslo:')
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired('Zadejte, prosím, heslo');
+
+        $form->addPassword('passwordCheck', 'Heslo znovu:')
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired('Zadejte, prosím, heslo pro kontrolu');
+
+        $form->addSubmit('submit', 'Potvrdit')
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+
+        $form->onSuccess[] = [$this, 'editPasswordSubmit'];
         return $form;
     }
 
@@ -126,66 +145,66 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
     {
         $values = $form->getValues();
 
-        try
-        {
-        $this->getUser()->login($values->email,$values->password);
-        
-        $this->redirect('Homepage:');
-        }
-        catch (Nette\Security\AuthenticationException $e) 
-        {
-            $this->template->error_login=true;
+        try {
+            $this->getUser()->login($values->email, $values->password);
+
+            $this->redirect('Homepage:');
+        } catch (Nette\Security\AuthenticationException $e) {
+            $this->template->error_login = true;
         }
     }
 
-    public function editProfileSubmit(UI\Form $form): void
+    public function editProfileSubmit(UI\Form $form)
     {
-        if(!$this->startup->roleCheck($this,1))
-		{
-			$this->redirect("Login:login");
-		}
         $values = $form->getValues();
 
-        if($values->password != $values->passwordCheck)
-        {
-            $this->template->password_notify=true;
-            if($this->isAjax())
-            {
-                $this->redrawControl("body_snippet");
-            }
-            
-        }
-        else
-        {
-            $data = $this->database->table("user")->where("id_user",$values->id_user)
+        $data = $this->database->table("user")->where("id_user", $values->id_user)
             ->update([
-                'email' => $values->email,
+                'email' => $values->emal,
                 'first_name' => $values->first_name,
                 'surname' => $values->surname,
                 'phone' => $values->phone,
-                'password' => password_hash($values->password,PASSWORD_BCRYPT)
+            ]);
+
+        if ($data == 1) {
+            $this->template->success_notify = true;
+            if ($this->isAjax()) {
+                $this->redrawControl("body_snippet");
+            }
+        } else {
+            $this->template->error_notify = true;
+            if ($this->isAjax()) {
+                $this->redrawControl("notify");
+            }
+        }
+    }
+
+    public function editPasswordSubmit(UI\Form $form): void
+    {
+        $values = $form->getValues();
+
+        if ($values->password != $values->passwordCheck) {
+            $this->template->password_notify = true;
+            if ($this->isAjax()) {
+                $this->redrawControl("notify");
+            }
+        } else {
+            $data = $this->database->table("user")->where("id_user", $values->id_user)
+                ->update([
+                    'password' => password_hash($values->password, PASSWORD_BCRYPT)
                 ]);
 
-        if($data==1)
-		{
-            $this->template->success_notify=true;
-			if($this->isAjax())
-            {
-                $this->redrawControl("body_snippet");
+            if ($data == 1) {
+                $this->template->success_notify = true;
+                if ($this->isAjax()) {
+                    $this->redrawControl("body_snippet");
+                }
+            } else {
+                $this->template->error_notify = true;
+                if ($this->isAjax()) {
+                    $this->redrawControl("notify");
+                }
             }
         }
-        else
-        {
-            $this->template->error_notify=true;
-			if($this->isAjax())
-            {
-                $this->redrawControl("body_snippet");
-            }
-        }
-        }
-
-        
-
     }
-    
 }
