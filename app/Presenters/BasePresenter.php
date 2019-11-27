@@ -17,9 +17,6 @@ abstract class BasePresenter extends Presenter
 	
 	/** @var \App\Model\MainModel @inject */
 	public $mainModel;
-	
-	/** @var \App\ComponentFactories\FormsFactory @inject */
-    public $formsFactory;
 
 	private $database;
 	public function __construct(Nette\Database\Context $database)
