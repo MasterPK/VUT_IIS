@@ -59,6 +59,18 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         
     }
 
+    public function renderSettings()
+    {
+        if(!$this->getUser()->isLoggedIn())
+        {
+            $this->redirect("Login:login");
+        }
+
+        
+    }
+
+    
+
     protected function createComponentLoginForm(): UI\Form
     {
         $form = new UI\Form;
@@ -140,10 +152,6 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
 
     public function editProfileSubmit(UI\Form $form): void
     {
-        if(!$this->startup->roleCheck($this,1))
-		{
-			$this->redirect("Login:login");
-		}
         $values = $form->getValues();
 
         if($values->password != $values->passwordCheck)
@@ -152,8 +160,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
             if($this->isAjax())
             {
                 $this->redrawControl("body_snippet");
-            }
-            
+            }  
         }
         else
         {
