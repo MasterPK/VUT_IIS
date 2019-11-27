@@ -9,6 +9,8 @@ use Nette\Application\UI\Form;
 
 class StudentPresenter extends Nette\Application\UI\Presenter
 {
+	/** @var HomepagePresenter @inject */
+	public $homepagePresenter;
 
 	private $studentModel;
     private $database;
