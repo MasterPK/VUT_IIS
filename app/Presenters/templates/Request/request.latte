@@ -154,10 +154,18 @@ Seznam žádostí
             if(html.status=="success")
             {
                 $.notify("Vybraní studenti byli zaregistrováni!", "success");
+                $.nette.ajax({
+                    type: "POST",
+                    url: {link finish!}
+                });
             }
             else if(html.status=="error")
             {
                 $.notify("Došlo k chybě při registraci studentů!", "error");
+                $.nette.ajax({
+                    type: "POST",
+                    url: {link finish!}
+                });
             }
             else
             {
@@ -165,10 +173,6 @@ Seznam žádostí
             }
         });
 
-        $.nette.ajax({
-            type: "POST",
-            url: {link finish!}
-        });
     }
 
 
