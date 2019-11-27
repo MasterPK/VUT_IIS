@@ -19,6 +19,9 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 	/** @var \App\Model\LectorModel @inject */
 	public $lectorModel;
 
+	/** @var \App\Model\MainModel @inject */
+	public $mainModel;
+
 	public function startUp()
 	{
 		parent::startup();
@@ -45,7 +48,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 
 	public function renderCourses(): void
 	{
-		$this->template->courses=$this->lectorModel->getAllCourses();	
+		$this->template->courses=$this->mainModel->getAllCourses();	
 	}
 
 	public function renderLectorCourses()
