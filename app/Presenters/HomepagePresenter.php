@@ -11,7 +11,7 @@ use Nette\Application\UI;
 
 class HomepagePresenter implements Interfaces\HomepagePresenterI
 {
-	public function run(Nette\Application\Request $request){}
+	public function run(Nette\Application\Request $request): Nette\Application\IResponse{}
 
 	/** @var \App\Model\StartUp @inject */
 	public $startup;
