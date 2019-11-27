@@ -129,7 +129,7 @@
             <span>Nástěnka</span>
           </a>
         </li>
-        {ifset $rank} {if $rank==0}
+        {ifset $rank} {ifset $rank_msg} {if $rank==0}
         <li
           n:class="nav-item, $presenter->isLinkCurrent('Homepage:courses') ? active"
         >
@@ -140,7 +140,7 @@
         </li>
         {elseif $rank>=1}
         <li
-          class="nav-item dropdown {if $presenter->isLinkCurrent('Student:courses') || $presenter->isLinkCurrent('Student:mycourses') || $presenter->isLinkCurrent('Homepage:showcourse')}show active{/if}"
+          class="nav-item dropdown {if $presenter->isLinkCurrent($rank_msg.':courses') || $presenter->isLinkCurrent($rank_msg.':mycourses')}show active{/if}"
         >
           <a
             class="nav-link dropdown-toggle"
@@ -149,44 +149,44 @@
             role="button"
             data-toggle="dropdown"
             aria-haspopup="true"
-            aria-expanded="{if $presenter->isLinkCurrent('Student:courses') || $presenter->isLinkCurrent('Student:mycourses') || $presenter->isLinkCurrent('Homepage:showcourse') }true{else}false{/if}"
+            aria-expanded="{if $presenter->isLinkCurrent($rank_msg.':courses') || $presenter->isLinkCurrent($rank_msg.':mycourses')}true{else}false{/if}"
           >
             <i class="fas fa-fw fa-folder"></i>
             <span>Kurzy</span>
           </a>
           <div
-            class="dropdown-menu {if $presenter->isLinkCurrent('Student:courses') || $presenter->isLinkCurrent('Student:mycourses') || $presenter->isLinkCurrent('Homepage:showcourse')}show{/if}"
+            class="dropdown-menu {if $presenter->isLinkCurrent($rank_msg.':courses') || $presenter->isLinkCurrent($rank_msg.':mycourses')}show{/if}"
             aria-labelledby="pagesDropdown"
           >
             <a
-              class="dropdown-item {if $presenter->isLinkCurrent('Student:courses')}active{/if}"
-              n:href="Student:courses"
+              class="dropdown-item {if $presenter->isLinkCurrent($rank_msg.':courses')}active{/if}"
+              n:href="{$rank_msg}:courses"
               >Všechny kurzy</a
             >
             <a
-              class="dropdown-item {if $presenter->isLinkCurrent('Student:mycourses')}active{/if}"
-              n:href="Student:mycourses"
+              class="dropdown-item {if $presenter->isLinkCurrent($rank_msg.':mycourses')}active{/if}"
+              n:href="{$rank_msg}:mycourses"
               >Moje kurzy</a
             >
             {if $rank>=2}
             <a
-              class="dropdown-item {if $presenter->isLinkCurrent('Lector:lector')}active{/if}"
-              n:href="Lector:lector"
+              class="dropdown-item {if $presenter->isLinkCurrent($rank_msg.':lector')}active{/if}"
+              n:href="{$rank_msg}:lector"
               >Správa kurzů</a
             >
             {/if} {if $rank>=3}
             <a
-              class="dropdown-item {if $presenter->isLinkCurrent('Garant:create')}active{/if}"
-              n:href="Garant:create"
+              class="dropdown-item {if $presenter->isLinkCurrent($rank_msg.':create')}active{/if}"
+              n:href="{$rank_msg}:create"
               >Vytvořit kurz</a
             >
             {/if}
           </div>
         </li>
         <li
-          n:class="nav-item, $presenter->isLinkCurrent('Student:timetable') ? active"
+          n:class="nav-item, $presenter->isLinkCurrent($rank_msg.':timetable') ? active"
         >
-          <a class="nav-link" n:href="Student:timetable">
+          <a class="nav-link" n:href="{$rank_msg}:timetable">
             <i class="fas fa-fw fa-calendar-alt"></i>
             <span>Rozvrh</span>
           </a>
@@ -200,7 +200,7 @@
             <span>Žádosti</span>
           </a>
         </li>
-        {/if} {/ifset}
+        {/if} {/ifset} {/ifset}
       </ul>
 
       <div id="content-wrapper">
