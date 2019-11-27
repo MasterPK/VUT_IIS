@@ -30,7 +30,7 @@ Seznam všech dostupných kurzů
 
                     {foreach $courses as $row}
                     <tr>
-                        <th scope="row"><a n:href="Student:showcourse $row->id_course">{$row->id_course}</a></th>
+                        <th scope="row"><a n:href="Garant:showcourse $row->id_course">{$row->id_course}</a></th>
                         <td>{$row->course_name}</td>
                         <td>{$row->course_type}</td>
                         <td>{$row->course_price}</td>
