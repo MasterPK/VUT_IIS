@@ -14,7 +14,10 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 	public $startup;
 	
 	/** @var \App\Model\StudentModel @inject */
-    public $studentModel;
+	public $studentModel;
+	
+	/** @var \App\Model\MainModel @inject */
+    public $mainModel;
 
 	/** @var Nette\Database\Context @inject */
 	public $database;
@@ -45,7 +48,12 @@ final class StudentPresenter extends Nette\Application\UI\Presenter
 
 	public function renderCourses(): void
 	{
-		$this->template->courses=$this->studentModel->visitorModel->getAllCourses();	
+		$this->template->courses=$this->mainModel->getAllCourses();	
+	}
+
+	public function renderMyCourseDetails($id_course): void
+	{
+		
 	}
 
 	public function createComponentRegisterForm()
