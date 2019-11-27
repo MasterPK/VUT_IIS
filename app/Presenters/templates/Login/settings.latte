@@ -1,5 +1,32 @@
-{block header}
-Nastavení
-{/block}
-{block content}
+{block header} Nastavení profilu {/block} {block content}
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card bg-default ">
+      <div class="card-body">
+        <div class="row">
+          <form n:name="editProfile">
+            <div class="form-group">
+              <label>Emailová adresa:</label> {input email}
+            </div>
+            <div class="form-group">
+              <label>Křestní jméno:</label> {input first_name}
+            </div>
+            <div class="form-group">
+              <label>Příjmení:</label> {input surname}
+            </div>
+            <div class="form-group">
+              <label>Heslo:</label> {input password}
+            </div>
+            <div class="form-group">
+              <label>Heslo znovu:</label> {input passwordCheck}
+            </div>
+            <div class="form-group">
+              {input submit}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {/block}
