@@ -20,6 +20,18 @@ class StudentPresenter extends Nette\Application\UI\Presenter
         $this->mainModel = $mainModel;
 	}
 
+	public function startUp()
+	{
+		parent::startup();
+
+		
+		$this->startup->mainStartUp($this);
+		if(!$this->startup->roleCheck($this,1))
+		{
+			$this->redirect("Homepage:default");
+		}
+	}
+
 	public function renderCourses($search, $filter): void
 	{
 		if($search)
