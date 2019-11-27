@@ -82,7 +82,7 @@ Seznam žádostí
         </table>
   
     <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="done()">Potvrdit výběr</button>
-    <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="checkAll()">Označit všechny</button>
+    <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="checkAllButton" onClick="checkAll()">Označit všechny</button>
 
 <script>
     
@@ -142,9 +142,6 @@ Seznam žádostí
             $("#checkAllButton").html("Odznačit všechny");
             check_status = true;
         }
-
-        console.log({$requests}.length, users.length);
-        console.log(users);
     }
     
     function done()
