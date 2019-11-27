@@ -140,7 +140,7 @@
         </li>
         {elseif $rank>=1}
         <li
-          class="nav-item dropdown {if $presenter->isLinkCurrent($rank_msg.':courses') || $presenter->isLinkCurrent($rank_msg.':mycourses')}show active{/if}"
+          class="nav-item dropdown {if $presenter->isLinkCurrent('$rank_msg:courses') || $presenter->isLinkCurrent('$rank_msg:mycourses')}show active{/if}"
         >
           <a
             class="nav-link dropdown-toggle"
@@ -149,7 +149,7 @@
             role="button"
             data-toggle="dropdown"
             aria-haspopup="true"
-            aria-expanded="{if $presenter->isLinkCurrent('{$rank_msg}:courses') || $presenter->isLinkCurrent('{$rank_msg}:mycourses')}true{else}false{/if}"
+            aria-expanded="{if $presenter->isLinkCurrent('$rank_msg:courses') || $presenter->isLinkCurrent('$rank_msg:mycourses')}true{else}false{/if}"
           >
             <i class="fas fa-fw fa-folder"></i>
             <span>Kurzy</span>
