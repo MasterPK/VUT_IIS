@@ -149,29 +149,42 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         if($values->password != $values->passwordCheck)
         {
             $this->template->password_notify=true;
-            $this->redrawControl("body_snippet");
-            $this->sendPayload();
+            if($this->isAjax())
+            {
+                $this->redrawControl("body_snippet");
+            }
+            
         }
+        else
+        {
+            $data = $this->database->table("user")->where("id_user",$values->id_user)
+            ->update([
+                'email' => $values->email,
+                'first_name' => $values->first_name,
+                'surname' => $values->surname,
+                'phone' => $values->phone,
+                'password' => password_hash($values->password,PASSWORD_BCRYPT)
+                ]);
 
-        $data = $this->database->table("user")->where("id_user",$values->id_user)
-        ->update([
-            'email' => $values->email,
-            'first_name' => $values->first_name,
-            'surname' => $values->surname,
-            'phone' => $values->phone,
-            'password' => password_hash($values->password,PASSWORD_BCRYPT)
-        ]);
-
-        if($this->isAjax() && $data==1)
+        if($data==1)
 		{
             $this->template->success_notify=true;
-			$this->redrawControl("body_snippet");
+			if($this->isAjax())
+            {
+                $this->redrawControl("body_snippet");
+            }
         }
         else
         {
             $this->template->error_notify=true;
-			$this->redrawControl("body_snippet");
+			if($this->isAjax())
+            {
+                $this->redrawControl("body_snippet");
+            }
         }
+        }
+
+        
 
     }
     
