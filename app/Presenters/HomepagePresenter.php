@@ -18,7 +18,10 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 	public $visitorModel;
 	
 	/** @var \App\Model\MainModel @inject */
-    public $mainModel;
+	public $mainModel;
+	
+	/** @var App\ComponentFactories\FormsFactory @inject */
+    public $formsFactory;
 
 	private $database;
 	public function __construct(Nette\Database\Context $database)
@@ -64,24 +67,7 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 
 	public function createComponentSearchCourseForm(): Nette\Application\UI\Form
     {
-        $form = new Nette\Application\UI\Form;
-
-        $form->addSelect('filter', 'Filter', [
-		    'course_name' => 'Název',
-		    'id_course' => 'Zkratka',
-		    'course_type' => 'Typ',
-		    'course_price' => 'Cena',
-		]);
-
-        $form->addText('search', 'Hledat:')
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired();
-
-        $form->addSubmit('send', 'Hledat')
-        ->setHtmlAttribute('class', 'btn btn-block btn-primary');
-        
-        $form->onSuccess[] = [$this, 'searchCourseForm'];
-        return $form;
+        return $this->formsFactory->createComponentSearchCourseForm($this);
 	}
 	
 	public function searchCourseForm(Nette\Application\UI\Form $form): void

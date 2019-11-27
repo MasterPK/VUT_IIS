@@ -10,6 +10,9 @@ use Nette\Application\UI\Form;
 class StudentPresenter extends Nette\Application\UI\Presenter
 {
 
+	/** @var App\ComponentFactories\FormsFactory @inject */
+    public $formsFactory;
+
 	private $studentModel;
 	private $database;
 	private $mainModel;
@@ -84,5 +87,16 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		{
             $this->redrawControl('content_snippet');
         }
+	}
+
+	public function createComponentSearchCourseForm(): Nette\Application\UI\Form
+    {
+        return $this->formsFactory->createComponentSearchCourseForm($this);
+	}
+	
+	public function searchCourseForm(Nette\Application\UI\Form $form): void
+    {
+    	$values = $form->getValues();
+    	$this->redirect("Homepage:courses", $values->search, $values->filter);
 	}
 }
