@@ -149,9 +149,8 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         if($values->password != $values->passwordCheck)
         {
             $this->template->password_notify=true;
-            $this->redrawControl("notify");
+            $this->redrawControl("body_snippet");
             $this->sendPayload();
-            return;
         }
 
         $data = $this->database->table("user")->where("id_user",$values->id_user)
