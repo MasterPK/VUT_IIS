@@ -8,21 +8,29 @@ Vytvoření nového termínu
         <div class="col-md-4 col-sm-10 mlr-2 align-items-center">
             <form n:name="createTaskForm">
                 <div class="form-group">
+                    <label>Název termínu</label>
                     {input task_name}
                 </div>
                 <div class="form-group">
+                    <label>Typ termínu</label>
                     {input task_type}
                 </div>
                 <div class="form-group">
+                    <label>Popis</label>
                     {input task_description}
                 </div>
                 <div class="form-group">
+                    <label>Počet bodů</label>
                     {input task_points}
                 </div>
                 <div class="form-group">
-                    {input date} {input time}
+                    <label>Datum</label>
+                    {input date}
+                    <label>Čas</label>
+                    {input time}
                 </div>
                 <div class="form-group">
+                    <label>Trvání</label>
                     {input task_duration}
                 </div>
                 <div class="form-group text-center">
