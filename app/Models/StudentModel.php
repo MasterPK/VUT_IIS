@@ -12,7 +12,7 @@ class StudentModel
     public $visitorModel, $mainModel;
 
     private $database;
-	public function __construct(Nette\Database\Context $database, \App\Model\VisitorModel $visitorModel, App\Model\MainModel $mainModel)
+	public function __construct(Nette\Database\Context $database, \App\Model\VisitorModel $visitorModel, \App\Model\MainModel $mainModel)
 	{
         $this->database = $database;
         $this->visitorModel = $visitorModel;
