@@ -62,7 +62,7 @@ class HomepagePresenter implements Interfaces\HomepagePresenterI
 		
 	}
 
-	protected function createComponentSearchCourseForm(): Nette\Application\UI\Form
+	public function createComponentSearchCourseForm(): Nette\Application\UI\Form
     {
         $form = new Nette\Application\UI\Form;
 
