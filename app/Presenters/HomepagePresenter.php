@@ -15,7 +15,10 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	public $startup;
 	
 	/** @var \App\Model\VisitorModel @inject */
-    public $visitorModel;
+	public $visitorModel;
+	
+	/** @var \App\Model\MainModel @inject */
+    public $mainModel;
 
 	private $database;
 	public function __construct(Nette\Database\Context $database)
@@ -44,12 +47,12 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	{
 		if($search)
 		{
-			$this->template->courses=$this->visitorModel->getAllCoursesByFilter($filter, $search);
+			$this->template->courses=$this->mainModel->getAllCoursesByFilter($filter, $search);
 		}
 		else
 		{
 			//zobraz vsetky schvalene kurzy
-			$this->template->courses=$this->visitorModel->getAllApprovedCourses();
+			$this->template->courses=$this->mainModel->getAllApprovedCourses();
 		}
 	}
 
