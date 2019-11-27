@@ -102,4 +102,44 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	{
 		return $this->garantModel->createComponentCloseRegisterForm($this);
 	}
+
+	public function openRegisterFormHandle($form)
+	{
+		$values = $form->getValues();
+		$get = $this->database->query("UPDATE course SET course_status = 2 WHERE id_course = ?", $values->id_course);
+
+    	if($get->getRowCount() == 1)
+    	{
+    		$this->template->succes_notif = true;
+    	}
+    	else
+    	{
+    		$this->template->error_notif = false;
+    	}	
+
+    	if ($this->isAjax())
+		{
+            $this->redrawControl('content_snippet');
+        }
+	}
+
+	public function closeRegisterFormHandle($form)
+	{
+		$values = $form->getValues();
+		$get = $this->database->query("UPDATE course SET course_status = 3 WHERE id_course = ?", $values->id_course);
+
+    	if($get->getRowCount() == 1)
+    	{
+    		$this->template->succes_notif = true;
+    	}
+    	else
+    	{
+    		$this->template->error_notif = false;
+    	}	
+
+    	if ($this->isAjax())
+		{
+            $this->redrawControl('content_snippet');
+        }
+	}
 }
