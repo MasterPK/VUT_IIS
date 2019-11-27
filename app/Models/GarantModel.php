@@ -25,7 +25,7 @@ class GarantModel
 
     public function getGarantCourses($id_garant)
     {
-        $data = $this->database->query("SELECT id_course, course_name, course_type, course_status FROM course WHERE id_guarantor = ?",  $id_garant);
+        $data = $this->database->query("SELECT id_course, course_name, course_type, course_status FROM course WHERE id_guarantor = ?",  $id_garant)->fetchAll();
         if(count($data) > 0)
         {
             return $data;
