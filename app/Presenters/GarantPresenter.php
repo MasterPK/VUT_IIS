@@ -207,7 +207,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         ->addRule(Form::MAX_LENGTH, 'Dĺžka popisu je maximálně 100 znaků!', 100);
 
         $form->addText('task_points', 'Počet bodů')
-        ->setDefaultValue(NULL);
+        ->setDefaultValue(NULL)
         ->setHtmlAttribute('class', 'form-control')
         ->addRule(Form::RANGE, "Zadejte počet bodů v rozmezí 1 - 100!", [1,100]);
 
