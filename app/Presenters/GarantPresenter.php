@@ -313,9 +313,12 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         $form->addHidden('id_user', '')
             ->setRequired()
 			->setDefaultValue($this->id_course);
+
+		$form->addCheckBox("really");
 			
 		$form->addSubmit('submit', 'Smazat?!')
-			->setHtmlAttribute('class', 'btn btn-primary btn-sm text-white order-1 order-sm-0 text-right');
+			->addConditionOn($form['really'], Form::EQUAL, true)
+			->setHtmlAttribute('class', 'btn btn-primary btn-sm text-white order-1 order-sm-0 text-right ajax');
 			
 		$form->onSuccess[] = [$this, 'deleteCourseFormHandle'];
 
@@ -326,9 +329,18 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	{
 		$values = $form->getValues();
 
-		$this->database->table("course")->where("id_course",$values["id_course"])->delete();
+		try
+		{
+			$this->database->table("course")->where("id_course",$values["id_course"])->delete();
+			$this->redirect("Garant:mycourses");
+		}
+		catch(\Throwable $e)
+		{
+			
+		}
+		
 
-		$this->redirect("Garant:mycourses");
+		
 
 	}
 	private $current_course;
