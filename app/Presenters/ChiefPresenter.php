@@ -333,8 +333,23 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
         $form->addSubmit('submit', 'Potvrdit změny')
             ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
 
-        $form->onSuccess[] = [$this, 'editCourseSubmit'];
+        $form->onSuccess[] = [$this, 'ChangeAdresSubmit'];
         return $form;
+	}
+
+	public function ChangeAdresSubmit()
+	{
+        $values = $form->getValues();
+
+        $data = $this->database->table("room_address")->where("id_room_address", $values->id_room_address)
+            ->update([
+                'room_address' => $values->room_address,
+            ]);
+
+        $this->template->success_notify = true;
+        if ($this->isAjax()) {
+            $this->redrawControl("notify");
+        }
 	}
 
 
