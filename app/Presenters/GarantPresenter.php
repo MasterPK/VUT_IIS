@@ -311,14 +311,14 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	{
 		$form = new Form;
 
-        $form->addHidden('id_user', '')
+        $form->addHidden('id_course', '')
             ->setRequired()
 			->setDefaultValue($this->id_course);
 
-		$form->addCheckBox("really");
+		$form->addCheckBox("really")
+		->addCondition(Form::EQUAL, true);
 			
 		$form->addSubmit('submit', 'Smazat?!')
-			->addCondition($form['really'], Form::EQUAL, true)
 			->setHtmlAttribute('class', 'btn btn-primary btn-sm text-white order-1 order-sm-0 text-right ajax');
 			
 		$form->onSuccess[] = [$this, 'deleteCourseFormHandle'];
