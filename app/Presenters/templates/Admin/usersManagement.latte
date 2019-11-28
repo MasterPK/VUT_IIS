@@ -24,7 +24,7 @@
                         <td>{$row->first_name}</td>
                         <td>{$row->surname}</td>
                         <td>{$row->phone}</td>
-                        <td>{if $row->rank==1}Student{elseif $user->rank==2}Lektor{elseif $user->rank==3}Garant{elseif $user->rank==4}Vedoucí{elseif $user->rank==5}Administrátor{/if}</td>
+                        <td>{if $row->rank==1}Student{elseif $row->rank==2}Lektor{elseif $row->rank==3}Garant{elseif $row->rank==4}Vedoucí{elseif $row->rank==5}Administrátor{/if}</td>
                     </tr>
                     {/foreach}
 
