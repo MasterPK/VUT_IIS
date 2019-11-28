@@ -98,7 +98,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             ->setRequired()
             ->setDefaultValue($this->userInfo["rank"]);
 
-        $form->addSelect('active1', '',$activeStatus)
+        $form->addSelect('active', '',$activeStatus)
             ->setHtmlAttribute('class', 'form-control')
             ->setRequired()
             ->setValue($this->userInfo["active"]);
