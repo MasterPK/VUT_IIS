@@ -161,4 +161,44 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
     	$values = $form->getValues();
     	$this->redirect("Homepage:courses", $values->search, $values->filter);
 	}
+
+	/*public function createComponentCreateRoom()
+    {
+        $form = new Form;
+
+        $form->addHidden('id_course', '')
+			->setDefaultValue($this->current_course["id_course"]);
+			
+		$form->addText('id_course_show', '')
+            ->setHtmlAttribute('class', 'form-control')
+            ->setDisabled()
+            ->setDefaultValue($this->current_course["id_course"]);
+
+        $form->addText('course_name', '')
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired()
+            ->setDefaultValue($this->current_course["course_name"]);
+
+        $form->addTextArea('course_description', '')
+            ->setHtmlAttribute('class', 'form-control')
+			->setRequired()
+			->addRule(Form::MAX_LENGTH, 'Popis je příliš dlouhý', 499)
+            ->setDefaultValue($this->current_course["course_description"]);
+
+        $form->addText('course_type', '')
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired()
+            ->setDefaultValue($this->current_course["course_type"]);
+
+        $form->addInteger('course_price', '')
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired()
+            ->setDefaultValue($this->current_course["course_price"]);
+
+        $form->addSubmit('submit', 'Potvrdit změny')
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+
+        $form->onSuccess[] = [$this, 'editCourseSubmit'];
+        return $form;
+    }*/
 }
