@@ -6,7 +6,7 @@ namespace App\Presenters;
 
 use Nette;
 use Nette\Application\UI\Form;
-
+use Tracy\Debugger;
 
 final class GarantPresenter extends Nette\Application\UI\Presenter 
 {
@@ -78,8 +78,8 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			if($this->task)
 			{
 				$this->task->task_date = $this->task->task_date->format("d.m.Y");
-	            $this->task->task_from = $this->task->task_from->format("H:i");
-	            $this->task->task_to = $this->task->task_to->format("H:i");
+	            $this->task->task_from = $this->task->task_from->format("%H:%I");
+	            $this->task->task_to = $this->task->task_to->format("%H:%I");
 			}
 		}
 	}
@@ -210,6 +210,16 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         ->setHtmlAttribute('class', 'form-control')
         ->addRule(Form::RANGE, "Zadejte počet bodů v rozmezí 1 - 100!", [1,100]);
 
+        $allrooms = $this->database->query("SELECT id_room FROM room")->fetchAll();
+		$rooms[NULL] = "Žádná";
+		foreach($allrooms as $room)
+		{
+			$rooms[$room->id_room] = $room->id_room;
+		}
+
+        $form->addSelect('id_room', 'Místnost', $rooms)
+		->setHtmlAttribute('class', 'form-control');
+
         $form->addText('task_date', 'Datum')
         ->setType('date')
         ->setDefaultValue((new \DateTime)->format('Y-m-d'))
@@ -238,6 +248,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	            'task_date' => $this->task->task_date,
 	            'task_from' => $this->task->task_from,
 	            'task_to' => $this->task->task_to,
+	            'id_room' => $this->task->id_room,
 	        ]);
         }
 
@@ -322,7 +333,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		->addCondition(Form::EQUAL, true);
 			
 		$form->addSubmit('submit', 'Smazat?!')
-			->setHtmlAttribute('class', 'btn btn-primary ajax');
+			->setHtmlAttribute('class', 'btn btn-primary');
 			
 		$form->onSuccess[] = [$this, 'deleteCourseFormHandle'];
 
@@ -331,16 +342,17 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	public function deleteCourseFormHandle(Form $form)
 	{
-		$values = $form->getValues();
 
+		$values = $form->getValues();
+		Debugger::barDump($values,"deleteCourse");
 		try
 		{
-			$this->database->table("course")->where("id_course",$values["id_course"])->delete();
+			$this->database->table("course")->where("id_course",$values->id_course)->delete();
 			$this->redirect("Garant:mycourses");
 		}
 		catch(\Throwable $e)
 		{
-
+			$this->template->error_notif = true;
 		}
 	}
 	private $current_course;

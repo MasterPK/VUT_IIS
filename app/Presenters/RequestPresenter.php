@@ -18,7 +18,10 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
     public $startup;
 
     /** @var \App\Model\VisitorModel @inject */
-    public $visitorModel;
+	public $visitorModel;
+	
+	/** @var \App\Model\MainModel @inject */
+	public $mainModel;
 
 	private $database;
 
@@ -65,7 +68,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 				{
 					foreach($data2 as $course)
 					{
-						$course->id_guarantor = $this->visitorModel->getCourseGuarantorName($course->id_guarantor);
+						$course->id_guarantor = $this->mainModel->getCourseGuarantorName($course->id_guarantor);
 					}
 					$this->template->courses=$data2;
 				}

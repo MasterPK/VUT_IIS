@@ -51,7 +51,7 @@ class GarantModel
         $form->addText('id_course', 'Zkratka kurzu')
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired()
-        ->addRule(Form::PATTERN, 'Zadejte 3 až 5 velkých písmen!', '([A-Z]\s*){3,5}');
+        ->addRule(Form::PATTERN, 'Zadejte 3 až 5 velkých písmen nebo čísel!', '([A-Z0-9]\s*){3,5}');
 
         $form->addText('name', 'Název kurzu')
         ->setHtmlAttribute('class', 'form-control')
