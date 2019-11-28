@@ -209,6 +209,16 @@
             <span>Místnosti</span>
           </a>
         </li>
+        {/if} 
+        {if $rank >= 5}
+        <li
+          n:class="nav-item, $presenter->isLinkCurrent('Admin:users') ? active"
+        >
+          <a class="nav-link" n:href="Admin:users">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Správa uživatelů</span>
+          </a>
+        </li>
         {/if} {/ifset} {/ifset}
       </ul>
 
