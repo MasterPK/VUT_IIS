@@ -389,11 +389,11 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
         $form = new Form;
 
         $form->addHidden('id_room_equipment', '')
-			->setDefaultValue($this->current_Adres);
+			->setDefaultValue($this->current_Equip);
 			
 		$form->addText('id_course_show', '')
             ->setHtmlAttribute('class', 'form-control')
-            ->setDefaultValue($this->current_Adres["room_equipment"]);
+            ->setDefaultValue($this->current_Equip["room_equipment"]);
 
         $form->addSubmit('submit', 'Potvrdit změny')
             ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
