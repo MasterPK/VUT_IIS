@@ -444,8 +444,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			array_push($tags,$value->tag);
 		}
 
-		
-
 		$allTags = array();
 		foreach ($this->database->table("tag")->select("tag")->fetchAll() as $value) {
 			array_push($allTags,$value->tag);

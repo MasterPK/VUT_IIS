@@ -288,7 +288,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	{
 		$form = new Form;
 
-        $form->addHidden('id_course', '')
+        $form->addHidden('id_room_address', '')
             ->setRequired()
 			->setDefaultValue($this->current_Adres);
 
