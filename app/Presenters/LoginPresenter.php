@@ -220,23 +220,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         }
     }
 
-    public function createComponentNewPwdForm()
-    {
-
-        $form = new Form;
-
-        $form->addText('email', '')
-            ->setHtmlAttribute('class', 'form-control')
-            ->setRequired('Zadejte, prosím, heslo pro kontrolu');
-
-        $form->addSubmit('submit', 'Odeslat')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
-
-        $form->onSuccess[] = [$this, 'newPwdFormHandle'];
-        return $form;
-    }
-
-    public function newPwdFormHandle(Form $form)
+    public function restoreFormSucceeded(Form $form)
     {
         $values = $form->getValues();
 
