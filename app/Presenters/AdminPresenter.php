@@ -55,7 +55,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
         $form->addText('id_user_show', '')
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired()
+            ->setDisabled()
             ->setDefaultValue($this->userInfo["id_user"]);
 
         $form->addText('email', 'Email:')
