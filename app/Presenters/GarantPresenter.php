@@ -343,12 +343,12 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         $form = new Form;
 
         $form->addHidden('id_course', '')
-			->setDefaultValue($this->current_course["id_user"]);
+			->setDefaultValue($this->current_course["id_course"]);
 			
 		$form->addText('id_course_show', '')
             ->setHtmlAttribute('class', 'form-control')
             ->setDisabled()
-            ->setDefaultValue($this->current_course["id_user"]);
+            ->setDefaultValue($this->current_course["id_course"]);
 
         $form->addText('course_name', '')
             ->setHtmlAttribute('class', 'form-control')
