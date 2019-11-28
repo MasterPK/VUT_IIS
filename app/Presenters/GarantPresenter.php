@@ -243,7 +243,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
         $form->addSubmit('create', 'Vytvořit termín')
         ->setHtmlAttribute('class', 'btn btn-block btn-primary');
-        
+     
         $form->onSuccess[] = [$this, 'createTaskForm'];
         return $form;
 	}
@@ -251,6 +251,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	public function createTaskForm(Nette\Application\UI\Form $form): void
     {
     	$values = $form->getValues();
+    	dump($values->task_points);
     	$result = $this->database->query("INSERT INTO task (id_task, task_name, task_type, task_description, task_points, task_date, task_from, task_to, id_course) VALUES ('',?,?,?,?,?,?,?,?)", $values->task_name, $values->task_type, $values->task_description, $values->task_points, $values->task_date, $values->task_from, $values->task_to, $values->id_course);
     	if($result->getRowCount() > 0)
     	{
