@@ -284,6 +284,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     	
     	if($values->id_room == '') $values->id_room = NULL;
     	if($values->task_points == '') $values->task_points = NULL;
+    	if($values->task_from > $values->task_to)
+    	{
+    		$this->flashMessage("kokot");
+    		return;
+    	}
 
     	//ak je id_task, tak upravujeme
     	if($values->id_task != NULL)
