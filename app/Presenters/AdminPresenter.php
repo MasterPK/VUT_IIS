@@ -17,6 +17,20 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     public $mainModel;
 
     private $database;
+
+    private $ranks = [
+        '1' => 'Student',
+        '2' => 'Lektor',
+        '3'  => 'Garant',
+        '4' => 'Vedoucí',
+        '5'  => 'Administrátor'
+    ];
+
+    private $activeStatus = [
+        '0' => 'Neaktivní',
+        '1' => 'Aktivní'
+    ];
+
     public function __construct(Nette\Database\Context $database)
     {
         $this->database = $database;
@@ -78,25 +92,12 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             ->setRequired()
             ->setDefaultValue($this->userInfo["phone"]);
 
-        $ranks = [
-            '1' => 'Student',
-            '2' => 'Lektor',
-            '3'  => 'Garant',
-            '4' => 'Vedoucí',
-            '5'  => 'Administrátor'
-        ];
-
-        $activeStatus = [
-            '0' => 'Neaktivní',
-            '1' => 'Aktivní'
-        ];
-        
-        $form->addSelect('rank', '', $ranks)
+        $form->addSelect('rank', '', $this->ranks)
             ->setHtmlAttribute('class', 'form-control')
             ->setRequired()
             ->setDefaultValue($this->userInfo["rank"]);
 
-        $form->addSelect('active', '',$activeStatus)
+        $form->addSelect('active', '', $this->activeStatus)
             ->setHtmlAttribute('class', 'form-control')
             ->setRequired()
             ->setValue($this->userInfo["active"]);
@@ -118,11 +119,12 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 'first_name' => $values->first_name,
                 'surname' => $values->surname,
                 'phone' => $values->phone,
+                'rank' => $values->rank,
+                'active' => $values->active,
             ]);
 
         $this->template->success_notify = true;
         if ($this->isAjax()) {
-            $this->startup->mainStartUp($this);
             $this->redrawControl("notify");
         }
     }
@@ -185,23 +187,27 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
         $form->addText('email', 'Email:')
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired()
-            ->setValue($this->userInfo["email"]);
+            ->setRequired();
 
         $form->addText('first_name', 'Křestní jméno:')
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired()
-            ->setValue($this->userInfo["first_name"]);
+            ->setRequired();
 
         $form->addText('surname', 'Příjmení:')
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired()
-            ->setValue($this->userInfo["surname"]);
+            ->setRequired();
 
         $form->addText('phone', 'Telefonní číslo:')
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired()
-            ->setValue($this->userInfo["phone"]);
+            ->setRequired();
+
+        $form->addSelect('rank', '', $this->ranks)
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired();
+
+        $form->addSelect('active', '', $this->activeStatus)
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired();
 
         $form->addPassword('password', 'Heslo:')
             ->setHtmlAttribute('class', 'form-control')
@@ -235,7 +241,8 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                     'first_name' => $values->first_name,
                     'surname' => $values->surname,
                     'phone' => $values->phone,
-                    'active' => 1,
+                    'active' => $values->active,
+                    'rank' => $values->rank,
                     'password' => password_hash($values->password, PASSWORD_BCRYPT)
                 ]);
 
