@@ -76,12 +76,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		if($id_task != NULL)
 		{
 			$this->task = $this->database->query("SELECT * FROM task WHERE id_task = ? AND id_course = ?", $id_task, $id_course)->fetch();
-			if($this->task)
-			{
-				$this->task->task_date = $this->task->task_date->format("d.m.Y");
-	            $this->task->task_from = $this->task->task_from->format("%H:%I");
-	            $this->task->task_to = $this->task->task_to->format("%H:%I");
-			}
 		}
 		$rooms = $this->database->query("SELECT id_room FROM room")->fetchAll();
 		$category[NULL] = "Žádná";
