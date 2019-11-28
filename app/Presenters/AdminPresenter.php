@@ -13,9 +13,6 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 {
 	/** @var \App\Model\StartUp @inject */
     public $startup;
-
-	/** @var Nette\Database\Context @inject */
-    public $database;
     
     /** @var \App\Model\ChiefModel @inject */
 	public $chiefModel;
@@ -27,7 +24,13 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 	public $studentModel;
 
 	/** @var \App\Model\MainModel @inject */
-	public $mainModel;
+    public $mainModel;
+    
+    private $database;
+    public function __construct(Nette\Database\Context $database)
+    {
+        $this->database = $database;
+    }
 
 
 	public function startUp()
