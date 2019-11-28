@@ -144,7 +144,13 @@ Detail kurzu
                     <div class="row">
                         <div class="col-md-2 col-sm-12">
                             Typ:<br>
-                            <b>{$task->task_type}</b>
+                            <b>{switch $task->task_type}
+                            {case "CV"} Cvičení
+                            {case "PR"} Přednáška
+                            {case "DU"} Domácí úkol
+                            {case "PJ"} Projekt
+                            {case "ZK"} Zkouška
+                            {/switch}</b>
                         </div>
                         {ifset $task->task_points}
                         <div class="col-md-2 col-sm-12">

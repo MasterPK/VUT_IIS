@@ -1,0 +1,24 @@
+<li n:class="nav-item, $presenter->isLinkCurrent('Lector:timetable') ? active">
+    <a class="nav-link" n:href="Lector:timetable">
+        <i class="fas fa-fw fa-calendar-alt"></i>
+        <span>Osobní rozvrh</span>
+    </a>
+</li>
+<li n:class="nav-item, $presenter->isLinkCurrent('Lector:courses') ? active">
+    <a class="nav-link" n:href="Lector:courses">
+        <i class="fas fa-fw fa-graduation-cap"></i>
+        <span>Seznam všech kurzů</span>
+    </a>
+</li>
+<li n:class="nav-item, $presenter->isLinkCurrent('Lector:mycourses') ? active">
+    <a class="nav-link" n:href="Lector:mycourses">
+        <i class="fas fa-fw fa-list-ol"></i>
+        <span>Seznam mých kurzů (student)</span>
+    </a>
+</li>
+<li n:class="nav-item, $presenter->isLinkCurrent('Lector:managecourses') ? active">
+    <a class="nav-link" n:href="Lector:managecourses">
+        <i class="fas fa-fw fa-tasks"></i>
+        <span>Správa mých kurzů (lektor)</span>
+    </a>
+</li>

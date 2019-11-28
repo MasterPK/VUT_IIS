@@ -1,0 +1,48 @@
+<li n:class="nav-item, $presenter->isLinkCurrent('Garant:timetable') ? active">
+    <a class="nav-link" n:href="Garant:timetable">
+        <i class="fas fa-fw fa-calendar-alt"></i>
+        <span>Osobní rozvrh</span>
+    </a>
+</li>
+<li n:class="nav-item, $presenter->isLinkCurrent('Chief:courses') ? active">
+    <a class="nav-link" n:href="Chief:courses">
+        <i class="fas fa-fw fa-graduation-cap"></i>
+        <span>Seznam všech kurzů</span>
+    </a>
+</li>
+<li n:class="nav-item, $presenter->isLinkCurrent('Chief:mycourses') ? active">
+    <a class="nav-link" n:href="Chief:mycourses">
+        <i class="fas fa-fw fa-list-ol"></i>
+        <span>Seznam mých kurzů (student)</span>
+    </a>
+</li>
+<li n:class="nav-item, $presenter->isLinkCurrent('Chief:create') ? active">
+    <a class="nav-link" n:href="Chief:create">
+        <i class="fas fa-fw fa-plus-circle"></i>
+        <span>Vytvořit nový kurz</span>
+    </a>
+</li>
+<li n:class="nav-item, $presenter->isLinkCurrent('Garant:managecourses') ? active">
+    <a class="nav-link" n:href="Garant:managecourses">
+        <i class="fas fa-fw fa-tasks"></i>
+        <span>Správa mých kurzů (lektor, garant)</span>
+    </a>
+</li>
+<li n:class="nav-item, $presenter->isLinkCurrent('Request:') ? active">
+    <a class="nav-link" n:href="Request:">
+        <i class="fas fa-fw fa-bell"></i>
+        <span>Žádosti studentů a garantů</span>
+    </a>
+</li>
+<li n:class="nav-item, $presenter->isLinkCurrent('Chief:rooms') ? active">
+    <a class="nav-link" n:href="Chief:rooms">
+        <i class="fas fa-fw fa-door-open"></i>
+        <span>Správa místností</span>
+    </a>
+</li>
+<li n:class="nav-item, $presenter->isLinkCurrent('Admin:usersManagement') ? active">
+    <a class="nav-link" n:href="Admin:usersManagement">
+        <i class="fas fa-fw fa-users"></i>
+        <span>Správa uživatelů</span>
+    </a>
+</li>
