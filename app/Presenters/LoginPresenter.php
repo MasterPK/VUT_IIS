@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Presenters;
 
 use Nette;
-use Tracy;
+use Tracy\Debugger;
 use Nette\Application\UI\Form;
 
 final class LoginPresenter extends Nette\Application\UI\Presenter
@@ -149,7 +149,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
 
             $this->redirect('Homepage:');
         } catch (Nette\Security\AuthenticationException $e) {
-            Tracy\Debugger::dump_bar($e,"vyjimka");
+            Debugger::dump_bar($e,"vyjimka");
             $this->template->error_login = $e->message;
         }
     }
