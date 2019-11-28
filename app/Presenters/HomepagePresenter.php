@@ -42,7 +42,8 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 	public function renderDefault(): void
 	{
 		$mail = new Message;
-		$mail->setFrom('Petr <p.p.krehlik@gmail.com>')
+		$mail->setFrom('Support support@xkrehl04.g6.cz')
+			->addTo('<p.p.krehlik@gmail.com>')
 			->setSubject('Potvrzení objednávky')
 			->setBody("Dobrý den,\nvaše objednávka byla přijata.");
 	}
