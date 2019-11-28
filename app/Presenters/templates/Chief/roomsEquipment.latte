@@ -1,0 +1,25 @@
+{block header}
+Správa místností
+{/block}
+{block content}
+    <div class="row">
+        <div class="col-sm-12">
+        {ifset $equip}
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr class="text-center">
+                        <th colspan = "5">Equipment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {foreach $equip as $row}
+                    <tr class="text-center">
+                        <td style="min-width:100px">{$row->room_equipment}</td>
+                    </tr>
+                    {/foreach}
+                </tbody>
+            </table>
+        {/ifset}
+        </div>
+    </div>
+{/block}
