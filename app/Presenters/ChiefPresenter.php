@@ -277,10 +277,15 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	
 
 	private $current_Adres;
+	private $current_Equip;
 	public function renderChangeAdres($id)
 	{
 		$this->current_Adres=$this->database->table("room_address")->where("id_room_address",$id)->fetch();
-		Debugger::barDump($this->current_Adres,"toto");
+	}
+
+	public function renderChangeEquipment($id)
+	{
+		$this->current_Equip=$this->database->table("room_address")->where("id_room_address",$id)->fetch();
 	}
 
 
