@@ -84,7 +84,7 @@ class GarantModel
             }
             else
             {
-                $presenter->template->userIsNotGuarantorInCourse = true;
+                $presenter->template->userIsGuarantorInCourse=false;
             }
             
             $this->currentCourseId=$id;

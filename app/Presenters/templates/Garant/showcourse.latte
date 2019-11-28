@@ -19,7 +19,7 @@ Detail kurzu
         <div class="card bg-default ">
             <div class="card-header">
                 {$course->id_course}
-                {if $userIsGuarantorInCourse}
+                {if $userIsGuarantorInCourse == true}
                 <a n:href="Garant:newtask"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Nový termín</button></a>
                 {/if}
             </div>
@@ -41,7 +41,7 @@ Detail kurzu
                         Stav registrací:<br>
                         <b>{if $course->course_status == 2 }Otevřeno{else}Zavřeno{/if}</b>
                     </div>
-                    {ifset $userIsNotGuarantorInCourse}
+                    {if $userIsGuarantorInCourse == false}
                     <div class="col-md-3 col-sm-12">
                         Stav Vaší registrace:<br>
                         <b>{ifset $userCourseStatus}{if $userCourseStatus == 0 }Čeká se na schválení{elseif $userCourseStatus == 1}Potvrzeno{elseif $userCourseStatus == 2}Zamítnuto{/if}{else}Žádná žádost neexistuje!{/ifset}</b>
@@ -62,7 +62,7 @@ Detail kurzu
 </div>
 <br>
 {snippet studentRegistration}
-{ifset $userIsNotGuarantorInCourse}
+{if $userIsGuarantorInCourse == false}
 {ifset $openRegistration}
 {ifset $userCourseStatus}
 {if $userCourseStatus==1}
@@ -92,7 +92,7 @@ Detail kurzu
 {/ifset}
 {/ifset}
 
-{ifset $userIsGuarantorInCourse}
+{if $userIsGuarantorInCourse == true}
 {ifset $openRegistration}
 <div class="row">
     <div class="col-auto mr-auto"></div>
