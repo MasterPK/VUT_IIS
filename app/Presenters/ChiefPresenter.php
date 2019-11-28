@@ -353,4 +353,69 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	}
 
 
+
+
+
+	public function createComponentDeleteEquipment()
+	{
+		$form = new Form;
+
+        $form->addHidden('id_room_equipment', '')
+            ->setRequired()
+			->setDefaultValue($this->current_Equip);
+
+		$form->addCheckBox("really")
+		->setRequired()
+		->addCondition(Form::EQUAL, true);
+			
+		$form->addSubmit('submit', 'Smazat?!')
+			->setHtmlAttribute('class', 'btn btn-primary');
+			
+		$form->onSuccess[] = [$this, 'deleteEquipmentSubmit'];
+
+		return $form;
+	}
+
+	public function deleteEquipmentSubmit(Form $form)
+    {
+		$values = $form->getValues();
+
+		$this->database->table("room_equipment")->where("id_room_equipment",$values->id_room_equipment)->delete();
+		$this->redirect("Chief:manageEquipment");
+	}
+
+	public function createComponentChangeEquipment()
+    {
+        $form = new Form;
+
+        $form->addHidden('id_room_equipment', '')
+			->setDefaultValue($this->current_Adres);
+			
+		$form->addText('id_course_show', '')
+            ->setHtmlAttribute('class', 'form-control')
+            ->setDefaultValue($this->current_Adres["room_equipment"]);
+
+        $form->addSubmit('submit', 'Potvrdit změny')
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+
+        $form->onSuccess[] = [$this, 'ChangeEquipmentSubmit'];
+        return $form;
+	}
+
+	public function ChangeEquipmentSubmit(Form $form)
+	{
+        $values = $form->getValues();
+
+        $data = $this->database->table("room_equipment")->where("id_room_equipment", $values->id_room_address)
+            ->update([
+                'room_equipment' => $values->id_course_show,
+            ]);
+
+        $this->template->success_notify = true;
+        if ($this->isAjax()) {
+            $this->redrawControl("notify");
+        }
+	}
+
+
 }
