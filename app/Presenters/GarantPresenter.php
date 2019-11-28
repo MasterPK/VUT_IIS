@@ -81,12 +81,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		if($id_task != NULL)
 		{
 			$this->task = $this->database->query("SELECT * FROM task WHERE id_task = ? AND id_course = ?", $id_task, $id_course)->fetch();
-			if($this->task)
-			{
-				$this->task->task_date = $this->task->task_date->format("d.m.Y");
-	            $this->task->task_from = $this->task->task_from->format("%H:%I");
-	            $this->task->task_to = $this->task->task_to->format("%H:%I");
-			}
 		}
 		$rooms = $this->database->query("SELECT id_room FROM room")->fetchAll();
 		$category[NULL] = "Žádná";
@@ -241,13 +235,13 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
         $form->addText('task_from', 'Od')
         ->setType('time')
-        ->setDefaultValue((new \DateTime("12:00"))->format('H:i'))
+        ->setDefaultValue((new \DateTime("12:00"))->format('%H:%I'))
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired();
 
         $form->addText('task_to', 'Do')
         ->setType('time')
-        ->setDefaultValue((new \DateTime("13:00"))->format('H:i'))
+        ->setDefaultValue((new \DateTime("13:00"))->format('%H:%I'))
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired();
 
@@ -258,9 +252,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	            'task_type' => $this->task->task_type,
 	            'task_description' => $this->task->task_description,
 	            'task_points' => $this->task->task_points,
-	            'task_date' => $this->task->task_date,
-	            'task_from' => $this->task->task_from,
-	            'task_to' => $this->task->task_to,
+	            'task_date' => $this->task->task_date->format('Y-m-d'),
+	            'task_from' => $this->task->task_from->format('%H:%I'),
+	            'task_to' => $this->task->task_to->format('%H:%I'),
 	            'id_room' => $this->task->id_room,
 	        ]);
         }
