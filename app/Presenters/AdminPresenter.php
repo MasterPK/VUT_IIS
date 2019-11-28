@@ -80,19 +80,19 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
         switch ($this->userInfo["rank"]) {
             case 1:
-                $this->userInfo["rank"] = "Student";
+                $rank = "Student";
                 break;
             case 2:
-                $this->userInfo["rank"] = "Lektor";
+                $rank = "Lektor";
                 break;
             case 3:
-                $this->userInfo["rank"] = "Garant";
+                $rank = "Garant";
                 break;
             case 4:
-                $this->userInfo["rank"] = "Vedoucí";
+                $rank = "Vedoucí";
                 break;
             case 5:
-                $this->userInfo["rank"] = "Administrátor";
+                $rank = "Administrátor";
                 break;
         }
 
@@ -107,7 +107,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         $form->addSelect('rank', '', $ranks)
             ->setHtmlAttribute('class', 'form-control')
             ->setRequired()
-            ->setDefaultValue($this->userInfo["rank"]);
+            ->setDefaultValue($rank);
 
         $form->addCheckbox('active', '')
             ->setHtmlAttribute('class', 'form-control')
