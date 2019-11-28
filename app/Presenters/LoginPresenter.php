@@ -62,7 +62,24 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         }
     }
 
+    public function renderRestore()
+    {
+    
+    }
 
+    protected function createComponentRestoreForm()
+    {
+        $form = new Form;
+        $form->addText('email', 'Email:')
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired('Zadejte, prosím, email');
+
+        $form->addSubmit('restore', 'Obnovit heslo')
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary');
+
+        $form->onSuccess[] = [$this, 'restoreFormSucceeded'];
+        return $form;
+    }
 
     protected function createComponentLoginForm()
     {

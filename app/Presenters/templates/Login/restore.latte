@@ -1,0 +1,32 @@
+{block header}
+Obnovení hesla
+{/block}
+{block content}
+<div class="h-100 row align-items-center">
+    <div class="col-md-4 col-sm-1" />
+    <div class="col-md-4 col-sm-10 mlr-2 align-items-center">
+        <div class = "text-center">
+            <h1>Obnovení hesla</h1>
+        </div>
+
+        {ifset message} {include message} {/ifset} {ifset $error_login}
+        <div class="alert alert-danger">
+            <strong>{$error_login}</strong>
+        </div>
+        {/ifset}
+        {ifset $error}<div class="alert alert-danger">
+            <strong>{$error}
+        </div>{/ifset}
+
+        <form n:name="restoreForm">
+            <div class="form-group">
+                <label>Emailová adresa</label> {input email}
+            </div>
+            <div class="form-group text-center ">
+                {input restore}
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4 col-sm-1" />
+</div>
+{/block}
