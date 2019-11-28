@@ -281,6 +281,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     {
     	$values = $form->getValues();
     	
+    	if($values->task_from == '') $values->task_from = NULL;
     	if($values->id_room == '') $values->id_room = NULL;
     	if($values->task_points == '') $values->task_points = NULL;
     	if($values->task_from >= $values->task_to)
