@@ -2,6 +2,15 @@
 Obnovení hesla
 {/block}
 {block content}
+{snippet notify}
+{ifset $succes_notify}
+<script>$.notify("Operace byla provedena!", "success");</script>
+{/ifset}
+{ifset $error_notify}
+<script>$.notify("Email neexistuje v systému!", "error");</script>
+{/ifset}
+{/snippet}
+
 <div class="h-100 row align-items-center">
     <div class="col-md-4 col-sm-1" />
     <div class="col-md-4 col-sm-10 mlr-2 align-items-center">
