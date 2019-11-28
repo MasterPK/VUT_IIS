@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace App\Presenters;
 
 use Nette;
-use Nette\Application\UI\Form;
-use Ublaboo\DataGrid\DataGrid;
-
 
 class AdminPresenter extends Nette\Application\UI\Presenter
 {
@@ -35,8 +32,9 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     public function renderUsersManagement()
     {
         $this->template->allUsers = $this->mainModel->getAllUsers();
-        dump($this->template->allUsers);
+    }
 
-        
+    public function renderEdituser($id)
+    {  
     }
 }
