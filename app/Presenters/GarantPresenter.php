@@ -317,7 +317,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$form->addCheckBox("really");
 			
 		$form->addSubmit('submit', 'Smazat?!')
-			->addConditionOn($form['really'], Form::EQUAL, true)
+			->addCondition($form['really'], Form::EQUAL, true)
 			->setHtmlAttribute('class', 'btn btn-primary btn-sm text-white order-1 order-sm-0 text-right ajax');
 			
 		$form->onSuccess[] = [$this, 'deleteCourseFormHandle'];
@@ -336,7 +336,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		}
 		catch(\Throwable $e)
 		{
-			
+
 		}
 		
 
