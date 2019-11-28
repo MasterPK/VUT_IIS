@@ -187,6 +187,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
         $form->addText('email', 'Email:')
             ->setHtmlAttribute('class', 'form-control')
+            ->setDefaultValue("")
             ->setRequired();
 
         $form->addText('first_name', 'Křestní jméno:')
@@ -219,7 +220,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
 
         $form->addSubmit('submit', 'Potvrdit')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary');
 
         $form->onSuccess[] = [$this, 'addUserSubmit'];
         return $form;
