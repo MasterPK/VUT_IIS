@@ -253,7 +253,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	            'task_type' => $this->task->task_type,
 	            'task_description' => $this->task->task_description,
 	            'task_points' => $this->task->task_points,
-	            'task_date' => $this->task->task_date,
+	            'task_date' => $this->task->task_date->format('Y-m-d'),
 	            'task_from' => $this->task->task_from,
 	            'task_to' => $this->task->task_to,
 	            'id_room' => $this->task->id_room,
