@@ -6,7 +6,7 @@ namespace App\Presenters;
 
 use Nette;
 use Nette\Application\UI\Form;
-
+use Tracy\Debugger;
 
 final class GarantPresenter extends Nette\Application\UI\Presenter 
 {
@@ -342,8 +342,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	public function deleteCourseFormHandle(Form $form)
 	{
-		$values = $form->getValues();
 
+		$values = $form->getValues();
+		Debugger::barDump($values,"deleteCourse");
 		try
 		{
 			$this->database->table("course")->where("id_course",$values->id_course)->delete();
