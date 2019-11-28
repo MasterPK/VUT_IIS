@@ -6,6 +6,7 @@ namespace App\Presenters;
 
 use Nette;
 use Nette\Application\UI\Form;
+use Tracy\Debugger;
 
 
 final class ChiefPresenter extends Nette\Application\UI\Presenter 
@@ -279,9 +280,9 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	public function renderModifyCourse($id)
 	{
 		$this->current_Adres=$this->database->table("room_address")->where("id_room_address",$id)->fetch();
-
+		Debugger::barDump($this->current_Adres,"toto");
 	}
-	dump($this->current_Adres);
+
 
 	public function createComponentDeleteAdres()
 	{
