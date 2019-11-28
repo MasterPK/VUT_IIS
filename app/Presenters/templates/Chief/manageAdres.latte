@@ -1,27 +1,33 @@
 {block header}
-Vytvoření nové místnosti
+Vytvoření nové Adresy
 {/block}
 {block content}
-    <div class="row">
-        <div class="col-sm-12">
-        {ifset $rooms}
-            <table class="table table-bordered">
-                <thead class="thead-dark">
-                    <tr class="text-right">
-                        <th colspan = "5"><a n:href="Chief:createAdres"><button class="btn btn-dark">Přidat Adresu</button></a></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {foreach $rooms as $row}
-                    <tr class="text-center">
-                        <td style="min-width:100px">{$row->room_address}</td>
-                        <td><button class="btn btn-dark">Upravit</button></td>
-                        <td><button class="btn btn-dark">Smazat</button></td>
-                    </tr>
-                    {/foreach}
-                </tbody>
-            </table>
-        {/ifset}
+{snippet notify}
+{ifset $success_notify}
+<script>$.notify("Operace byla provedena!", "success");</script>
+{/ifset}
+{ifset $error_notify}
+<script>$.notify("Operace selhala!", "error");</script>
+{/ifset}
+{/snippet}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card bg-default ">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <form n:name="createEquipment">
+                            <div class="form-group">
+                                <label>Název Adresy</label> {input adres_name}
+                            </div>
+                            <div class="form-group">
+                                {input submit}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+</div>
 {/block}
