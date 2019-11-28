@@ -25,7 +25,8 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	/** @var \App\Model\MainModel @inject */
 	public $mainModel;
 
-	private $items;
+	private $task;
+	private $id_course;
 
 	public function startUp()
 	{
@@ -66,9 +67,13 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$this->garantModel->renderShowCourse($this,$id);
 	}
 
-	public function renderNewtask($items)
+	public function renderNewtask($id_course, $id_task)
 	{
-		$this->items = $items;
+		$this->id_course = $id_course;
+		if($id_task != NULL)
+		{
+			$this->task = $this->database->query("SELECT * FROM task WHERE id_task = ? AND id_course = ?", $id_task, $id_course)->fetch();
+		}
 	}
 	
 	public function createComponentCreateCourseForm(): Form
@@ -170,7 +175,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
         $form->addHidden('id_course');
         $form->setDefaults([
-            'id_course' => $this->items->id_course,
+            'id_course' => $this->id_course,
         ]);
 
         $form->addText('task_name', 'Název termínu')
@@ -215,16 +220,16 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired();
 
-        if($this->items->id_task)
+        if($this->task)
         {
         	$form->setDefaults([
-	            'task_name' => $this->items->task_name,
-	            'task_type' => $this->items->task_type,
-	            'task_description' => $this->items->task_description,
-	            'task_points' => $this->items->task_points,
-	            'task_date' => $this->items->task_date,
-	            'task_from' => $this->items->task_from,
-	            'task_to' => $this->items->task_to,
+	            'task_name' => $this->task->task_name,
+	            'task_type' => $this->task->task_type,
+	            'task_description' => $this->task->task_description,
+	            'task_points' => $this->task->task_points,
+	            'task_date' => $this->task->task_date,
+	            'task_from' => $this->task->task_from,
+	            'task_to' => $this->task->task_to,
 	        ]);
         }
 

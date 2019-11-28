@@ -20,7 +20,7 @@ Detail kurzu
             <div class="card-header">
                 {$course->id_course}
                 {if $userIsGuarantorInCourse == true}
-                <a n:href="Garant:newtask [{id_course : $course->id_course}]"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Nový termín</button></a>
+                <a n:href="Garant:newtask $course->id_course, NULL"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Nový termín</button></a>
                 {/if}
             </div>
             <div class="card-body">
@@ -127,9 +127,7 @@ Detail kurzu
                 <div class="card-header">
                     {$task->task_name}
                     {if $userIsGuarantorInCourse == true || $userIsLectorInCourse == true}
-                    <a n:href="Garant:newtask [{task_name : $task->task_name},{task_type: $task->task_type},{task_description : $task->task_description},
-                    {task_points: $task->task_points},{task_date : $task->task_date},{task_from : $task->task_from},{task_to : $task->task_to},
-                    {id_course : $task->id_course}]">
+                    <a n:href="Garant:newtask $task->id_course, $task->id_task">
                     <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Upravit termín</button></a>
                     {/if}
                 </div>
