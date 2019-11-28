@@ -77,7 +77,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			$this->task = $this->database->query("SELECT * FROM task WHERE id_task = ? AND id_course = ?", $id_task, $id_course)->fetch();
 			if($this->task)
 			{
-				$this->task->task_date = $this->task->task_date->format("d.m.y");
+				$this->task->task_date = $this->task->task_date->format("d.m.Y");
 	            $this->task->task_from = $this->task->task_from->format("H:i");
 	            $this->task->task_to = $this->task->task_to->format("H:i");
 			}
@@ -212,19 +212,19 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
         $form->addText('task_date', 'Datum')
         ->setType('date')
-        ->setDefaultValue((new \DateTime)->format('dd.MM.yyyy'))
+        ->setDefaultValue((new \DateTime)->format('d.m.Y'))
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired();
 
         $form->addText('task_from', 'Od')
         ->setType('time')
-        ->setDefaultValue((new \DateTime)->format('HH:mm'))
+        ->setDefaultValue((new \DateTime)->format('H:i'))
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired();
 
         $form->addText('task_to', 'Do')
         ->setType('time')
-        ->setDefaultValue((new \DateTime)->format('HH.mm'))
+        ->setDefaultValue((new \DateTime)->format('H.i'))
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired();
 
