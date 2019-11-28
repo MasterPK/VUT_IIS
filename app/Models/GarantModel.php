@@ -79,6 +79,9 @@ class GarantModel
         ->addRule(Form::PATTERN, 'Zadejte číslo v rozmezí 0 - 999 999 999!', '([0-9]\s*){1,9}')
         ->addRule(Form::MAX_LENGTH, 'Zadejte číslo v rozmezí 0 - 999 999 999!', 9);
 
+        $form->addText('tags', 'tags',)
+        ->setHtmlAttribute('class', 'form-control');
+        
         $form->addSubmit('create', 'Vytvořit kurz')
         ->setHtmlAttribute('class', 'btn btn-block btn-primary');
         
