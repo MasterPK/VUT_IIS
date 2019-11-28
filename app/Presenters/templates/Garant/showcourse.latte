@@ -156,14 +156,21 @@ Detail kurzu
                             Datum:<br>
                             <b>{$task->task_date->format("d.m.Y")}</b>
                         </div>
+                        {ifset $task->task_from}
                         <div class="col-md-3 col-sm-12">
                             Od:<br>
-                            <b>{$task->task_from}.":00"</b>
+                            <b>{$task->task_from}:00</b>
                         </div>
                         <div class="col-md-3 col-sm-12">
                             Do:<br>
-                            <b>{$task->task_to}.":00"</b>
+                            <b>{$task->task_to}:00</b>
                         </div>
+                        {else}
+                        <div class="col-md-3 col-sm-12">
+                            Čas:<br>
+                            <b>{$task->task_to}:00</b>
+                        </div>
+                        {/ifset}
                         {ifset $task->id_room}
                             <div class="col-md-3 col-sm-12">
                             Místnost:<br>
