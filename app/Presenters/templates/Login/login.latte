@@ -11,7 +11,7 @@ Přihlášení
 
         {ifset message} {include message} {/ifset} {ifset $error_login}
         <div class="alert alert-danger">
-            <strong>Příhlášení bylo neúspěšné!</strong> Zadané údaje nejsou správné!
+            <strong>{error_login}</strong>
         </div>
         {/ifset}
         {ifset $error}<div class="alert alert-danger">
