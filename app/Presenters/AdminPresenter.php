@@ -49,7 +49,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
     public function createComponentUsersManagamentDataGrid()
     {
-        $grid = new DataGrid($this, "Seznam uživatelů");
+        $grid = new DataGrid($this, "usersManagament");
 
 		$grid->setDataSource($this->database->table("user"));
         $grid->addColumnText('id_user', 'ID');
