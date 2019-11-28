@@ -81,7 +81,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         return $form;
     }
 
-    public function editUserSubmit(UI\Form $form)
+    public function editUserSubmit(Form $form)
     {
         $values = $form->getValues();
 
@@ -100,7 +100,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         }
     }
 
-    protected function createComponentEditPassword(): UI\Form
+    protected function createComponentEditPassword()
     {
         $user = $this->getUser()->getIdentity();
         $form = new Form;
@@ -125,7 +125,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         return $form;
     }
 
-    public function editPasswordSubmit(UI\Form $form): void
+    public function editPasswordSubmit(Form $form)
     {
         $values = $form->getValues();
 

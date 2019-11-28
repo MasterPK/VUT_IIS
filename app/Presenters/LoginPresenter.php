@@ -142,7 +142,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
     }
 
     // volá se po úspěšném odeslání formuláře
-    public function loginFormSucceeded(UI\Form $form): void
+    public function loginFormSucceeded(Form $form): void
     {
         $values = $form->getValues();
 
@@ -155,7 +155,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         }
     }
 
-    public function editProfileSubmit(UI\Form $form)
+    public function editProfileSubmit(Form $form)
     {
         $values = $form->getValues();
 
@@ -174,7 +174,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         }
     }
 
-    public function editPasswordSubmit(UI\Form $form): void
+    public function editPasswordSubmit(Form $form): void
     {
         $values = $form->getValues();
 
