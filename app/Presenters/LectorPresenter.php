@@ -54,7 +54,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 		$this->template->courses=$this->mainModel->getAllCourses();	
 	}
 
-	public function renderLectorCourses()
+	public function renderManagecourses()
 	{
 		$this->template->courses=$this->lectorModel->getLectorCourses($this->user->identity->id);
 	}
