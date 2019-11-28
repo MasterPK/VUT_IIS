@@ -46,7 +46,7 @@ Detail kurzu
                         Stav Vaší registrace:<br>
                         <b>{ifset $userCourseStatus}{if $userCourseStatus == 0 }Čeká se na schválení{elseif $userCourseStatus == 1}Potvrzeno{elseif $userCourseStatus == 2}Zamítnuto{/if}{else}Žádná žádost neexistuje!{/ifset}</b>
                     </div>
-                   {/ifset}
+                   {/if}
                     
                 </div>
                 <br>
@@ -90,7 +90,7 @@ Detail kurzu
 </div>
 {/ifset}
 {/ifset}
-{/ifset}
+{/if}
 
 {if $userIsGuarantorInCourse == true}
 {ifset $openRegistration}
@@ -116,7 +116,7 @@ Detail kurzu
     </div>
 </div>
 {/ifset}
-{/ifset}
+{/if}
 {/snippet}
 
 
