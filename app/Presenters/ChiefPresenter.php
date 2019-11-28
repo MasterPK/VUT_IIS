@@ -240,7 +240,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
         $this->template->success_notify = true;
         if ($this->isAjax()) {
 			$form->setValues([], TRUE);
-            $this->redrawControl("notify");
+            $this->redrawControl("content_snippet");
         }
     }
 }
