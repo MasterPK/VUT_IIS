@@ -47,9 +47,9 @@ class LectorModel
     {
         $this->studentModel->renderShowcourse($presenter,$id);
 
-        $course_lectors = $this->database->query("SELECT id_user FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ? AND id_course = ?",  $presenter->user->identity->id, $id)->fetch();
-        //ani lektori sa nemozu registrovat na kurzy, ktore ucia
-        if(count($course_lectors) == 0)
+        $course_lector = $this->database->query("SELECT id_user FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ? AND id_course = ?",  $presenter->user->identity->id, $id)->fetch();
+        //ani lektor sa nemoze registrovat na kurz, ktory uci
+        if($course_lector == NULL)
         {
             $presenter->template->userIsLectorInCourse=false;
         }
