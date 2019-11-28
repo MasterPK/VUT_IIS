@@ -89,7 +89,6 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
         $form->addText('phone', 'Telefonní číslo:')
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired()
             ->setDefaultValue($this->userInfo["phone"]);
 
         $form->addSelect('rank', '', $this->ranks)
@@ -198,8 +197,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             ->setRequired();
 
         $form->addText('phone', 'Telefonní číslo:')
-            ->setHtmlAttribute('class', 'form-control')
-            ->setRequired();
+            ->setHtmlAttribute('class', 'form-control');
 
         $form->addSelect('rank', '', $this->ranks)
             ->setHtmlAttribute('class', 'form-control')

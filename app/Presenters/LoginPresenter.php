@@ -105,7 +105,6 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
 
         $form->addText('phone', 'Telefonní číslo:')
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired()
             ->setDefaultValue($user->data["phone"]);
 
         $form->addSubmit('submit', 'Potvrdit')
