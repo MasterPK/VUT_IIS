@@ -215,7 +215,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         $rooms = array();
         foreach($this->rooms as $room)
         {
-        	array_push($rooms, "$room => $room");
+        	array_push($rooms, "$room->id_room => $room->id_room");
         }
 
         $form->addSelect('id_room', 'Místnost', $rooms)
