@@ -41,6 +41,10 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         $this->userInfo=$this->mainModel->getUserDetail($id);
     }
 
+    public function renderAdduser($id)
+    {  
+    }
+
     public function createComponentEditUser()
     {
         $form = new Form;
