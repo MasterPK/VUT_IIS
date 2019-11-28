@@ -1,4 +1,43 @@
-{block header}
-Úprava kurzu
+{block header} Upravit kurz {/block} {block content}
+{snippet notify}
+{ifset $success_notify}
+<script>$.notify("Operace byla provedena!", "success");</script>
+{/ifset}
+{ifset $error_notify}
+<script>$.notify("Operace selhala!", "error");</script>
+{/ifset}
+{/snippet}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card bg-default ">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <form n:name="editCourse">
+                            {input id_course}
+                            <div class="form-group">
+                                <label>Unikátní identifikátor:</label> {input id_course_show}
+                            </div>
+                            <div class="form-group">
+                                <label>Název kurzu:</label> {input course_name}
+                            </div>
+                            <div class="form-group">
+                                <label>Popis:</label> {input course_description}
+                            </div>
+                            <div class="form-group">
+                                <label>Typ:</label> {input course_type}
+                            </div>
+                            <div class="form-group">
+                                <label>Cena:</label> {input course_price} Kč
+                            </div>
+                            <div class="form-group">
+                                {input submit}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {/block}
-{block content}
