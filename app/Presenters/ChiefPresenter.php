@@ -212,5 +212,34 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
         $form->onSuccess[] = [$this, 'editCourseSubmit'];
         return $form;
-    }*/
+	}*/
+	
+	public function createComponentCreateEquipment()
+    {
+		$form = new Form;
+		
+		$form->addText('equip_name', '')
+            ->setHtmlAttribute('class', 'form-control');
+
+        $form->addSubmit('submit', 'Potvrdit změny')
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+
+        $form->onSuccess[] = [$this, 'createEquipmenttSubmit'];
+        return $form;
+	}
+
+	public function createEquipmenttSubmit(Form $form)
+    {
+        $values = $form->getValues();
+
+        $data = $this->database->table("room_equipment")
+            ->insert([
+                'room_equipment' => $values->equip_name,
+            ]);
+
+        $this->template->success_notify = true;
+        if ($this->isAjax()) {
+            $this->redrawControl("notify");
+        }
+    }
 }
