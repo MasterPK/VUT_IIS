@@ -16,7 +16,13 @@ Vytvoření nové místnosti
                     <tr class="text-center">
                         <td style="min-width:100px">{$row->room_address}</td>
                         <td><button class="btn btn-dark">Upravit</button></td>
-                        <td><button class="btn btn-dark">Smazat</button></td>
+                        <td>
+                        <form n:name="deleteAdres">
+                            <div class="form-group">
+                                {input submit}
+                            </div>
+                        </form>
+                        </td>
                     </tr>
                     {/foreach}
                 </tbody>
