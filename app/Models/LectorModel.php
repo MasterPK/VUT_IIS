@@ -4,6 +4,7 @@ namespace App\Model;
 
 
 use Nette;
+use Nette\Utils\DateTime;
 use Nette\Application\UI\Form;
 
 class LectorModel
