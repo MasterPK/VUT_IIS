@@ -246,16 +246,10 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                     'password' => password_hash($values->password, PASSWORD_BCRYPT)
                 ]);
 
-            if ($data == 1) {
-                $this->template->success_notify = true;
-                if ($this->isAjax()) {
-                    $this->redrawControl("content_snippet");
-                }
-            } else {
-                $this->template->error_notify = true;
-                if ($this->isAjax()) {
-                    $this->redrawControl("notify");
-                }
+
+            $this->template->success_notify = true;
+            if ($this->isAjax()) {
+                $this->redrawControl("content_snippet");
             }
         }
     }
