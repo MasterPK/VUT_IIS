@@ -215,7 +215,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
         return $form;
 	}*/
 	
-	public function createComponentCreateEquip()
+	public function createComponentCreateEquipment()
     {
 		$form = new Form;
 		
@@ -245,7 +245,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
         }
 	}
 
-	
+
 	
 	public function createComponentCreateAdres()
     {
