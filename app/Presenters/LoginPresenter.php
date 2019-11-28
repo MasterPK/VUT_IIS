@@ -240,15 +240,18 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
 
 
             $mailer = new SendmailMailer;
-            if ($mailer->send($mail)) {
+            try {
+                $mailer->send($mail);
                 $this->database->table("user")->where("email", $values->email)->update([
                     'password' => password_hash($newPwd, PASSWORD_BCRYPT)
                 ]);
                 $this->template->success_notify = true;
+                $form->setValues([], TRUE);
                 if ($this->isAjax()) {
                     $this->redrawControl("body_snippet");
                 }
-            } else {
+            } catch (Nette\Mail\SendException $e){
+                $this->template->error_notify = true;
                 if ($this->isAjax()) {
                     $this->redrawControl("notify");
                 }
