@@ -34,24 +34,8 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
     public function renderUserManagement()
     {
-        $data = $this->mainModel->getAllUsers();
-        switch ($data->rank) {
-            case 1:
-                $data->rank = "Student";
-                break;
-            case 2:
-                $data->rank = "Lektor";
-                break;
-            case 3:
-                $data->rank = "Garant";
-                break;
-            case 4:
-                $data->rank = "Vedoucí";
-                break;
-            case 5:
-                $data->rank = "Administrátor";
-                break;
-        }
-        $this->template->allUsers = $data;
+        $this->template->allUsers = $this->mainModel->getAllUsers();
+
+        
     }
 }

@@ -12,6 +12,7 @@
                         <th>Příjmení</th>
                         <th>Telefonní číslo</th>
                         <th>Úroveň</th>
+                        <th>Správa</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,7 +24,7 @@
                         <td>{$user->first_name}</td>
                         <td>{$user->surname}</td>
                         <td>{$user->phone}</td>
-                        <td>{$user->rank}</td>
+                        <td>{if $user->rank==1}Student{elseif $user->rank==2}Lektor{elseif $user->rank==3}Garant{elseif $user->rank==4}Vedoucí{elseif $user->rank==5}Administrátor{/if}</td>
                     </tr>
                     {/foreach}
 
