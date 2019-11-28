@@ -29,6 +29,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	private $id_course;
 	private $rooms;
 
+	private $coursetype = [
+        'P' => 'Povinný',
+        'V' => 'Volitelný'
+    ];
+
 	public function startUp()
 	{
 		parent::startup();
@@ -76,12 +81,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		if($id_task != NULL)
 		{
 			$this->task = $this->database->query("SELECT * FROM task WHERE id_task = ? AND id_course = ?", $id_task, $id_course)->fetch();
-			if($this->task)
-			{
-				$this->task->task_date = $this->task->task_date->format("d.m.Y");
-	            $this->task->task_from = $this->task->task_from->format("%H:%I");
-	            $this->task->task_to = $this->task->task_to->format("%H:%I");
-			}
 		}
 		$rooms = $this->database->query("SELECT id_room FROM room")->fetchAll();
 		$category[NULL] = "Žádná";
@@ -236,13 +235,13 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
         $form->addText('task_from', 'Od')
         ->setType('time')
-        ->setDefaultValue((new \DateTime("12:00"))->format('H:i'))
+        ->setDefaultValue((new \DateTime("12:00"))->format('%H:%I'))
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired();
 
         $form->addText('task_to', 'Do')
         ->setType('time')
-        ->setDefaultValue((new \DateTime("13:00"))->format('H:i'))
+        ->setDefaultValue((new \DateTime("13:00"))->format('%H:%I'))
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired();
 
@@ -253,9 +252,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	            'task_type' => $this->task->task_type,
 	            'task_description' => $this->task->task_description,
 	            'task_points' => $this->task->task_points,
-	            'task_date' => $this->task->task_date,
-	            'task_from' => $this->task->task_from,
-	            'task_to' => $this->task->task_to,
+	            'task_date' => $this->task->task_date->format('Y-m-d'),
+	            'task_from' => $this->task->task_from->format('%H:%I'),
+	            'task_to' => $this->task->task_to->format('%H:%I'),
 	            'id_room' => $this->task->id_room,
 	        ]);
         }
@@ -274,7 +273,18 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     	if($values->id_room == '') $values->id_room = NULL;
     	if($values->task_points == '') $values->task_points = NULL;
 
-    	$result = $this->database->query("INSERT INTO task (id_task, task_name, task_type, task_description, task_points, task_date, task_from, task_to, id_room, id_course) VALUES ('',?,?,?,?,?,?,?,?,?)", $values->task_name, $values->task_type, $values->task_description, $values->task_points, $values->task_date, $values->task_from, $values->task_to, $values->id_room, $values->id_course);
+    	//ak je id_task, tak upravujeme
+    	if($this->task->id_task)
+    	{
+    		$result = $this->database->query("UPDATE task SET task_name = ?, task_type = ?, task_description = ?, task_points = ?, task_date = ?, task_from = ?, task_to = ?, id_room = ?, id_course = ? WHERE id_task = ?", $values->task_name, $values->task_type, $values->task_description, $values->task_points, $values->task_date, $values->task_from, $values->task_to, $values->id_room, $values->id_course, $this->task->id_task);
+    	}
+    	else
+    	{
+    		$result = $this->database->query("INSERT INTO task (id_task, task_name, task_type, task_description, task_points, task_date, task_from, task_to, id_room, id_course) VALUES ('',?,?,?,?,?,?,?,?,?)", $values->task_name, $values->task_type, $values->task_description, $values->task_points, $values->task_date, $values->task_from, $values->task_to, $values->id_room, $values->id_course);
+    	}
+
+
+    	
     	
     	if($result->getRowCount() > 0)
     	{
@@ -361,15 +371,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 		$values = $form->getValues();
 
-		try
-		{
-			$this->database->table("course")->where("id_course",$values->id_course)->delete();
-			$this->redirect("Garant:mycourses");
-		}
-		catch(\Throwable $e)
-		{
-			$this->template->error_notif = true;
-		}
+		$this->database->table("course")->where("id_course",$values->id_course)->delete();
+		$this->redirect("Garant:managecourses");
+
 	}
 
 
@@ -396,7 +400,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			->addRule(Form::MAX_LENGTH, 'Popis je příliš dlouhý', 499)
             ->setDefaultValue($this->current_course["course_description"]);
 
-        $form->addText('course_type', '')
+        $form->addSelect('course_type', '',$this->coursetype)
             ->setHtmlAttribute('class', 'form-control')
             ->setRequired()
             ->setDefaultValue($this->current_course["course_type"]);
