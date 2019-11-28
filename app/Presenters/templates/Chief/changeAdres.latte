@@ -1,6 +1,7 @@
 {block header}
 Vytvoření správa vybavení
 {/block}
+{block content}
 {snippet notify}
 {ifset $success_notify}
 <script>$.notify("Operace byla provedena!", "success");</script>
@@ -15,10 +16,13 @@ Vytvoření správa vybavení
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
-                        <form n:name="editCourse">
+                        <form n:name="changeAdres">
                             {input id_course}
                             <div class="form-group">
                                 <label>Jméno kurzu</label> {input id_course_show}
+                            </div>
+                            <div class="form-group">
+                                {input submit}
                             </div>
                         </form>
                     </div>
