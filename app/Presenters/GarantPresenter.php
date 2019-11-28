@@ -248,9 +248,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired();
 
-        $form->addSubmit('create', 'Vytvořit termín')
-        ->setHtmlAttribute('class', 'btn btn-block btn-primary');
-
         if($this->task)
         {
         	$form->setDefaults([
@@ -266,10 +263,17 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	        $form->setDefaults([
 	            'id_task' => $this->task->id_task,
-	            'create' => 'Aktualizovat termín',
 	        ]);
+
+	         $form->addSubmit('create', 'Aktualizovat termín')
+        	->setHtmlAttribute('class', 'btn btn-block btn-primary');
         }
-     
+        else
+        {
+        	 $form->addSubmit('create', 'Vytvořit termín')
+        	->setHtmlAttribute('class', 'btn btn-block btn-primary');
+        }
+     	dump($this->task->id_task);
         $form->onSuccess[] = [$this, 'createTaskForm'];
         return $form;
 	}
@@ -426,9 +430,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 		
 		$tags = array();
-		foreach ($this->database->query("SELECT * FROM course NATURAL JOIN course_has_tag NATURAL JOIN tag WHERE id_course=?;",$this->id_course)->fetchAll() as $value) {
+		foreach ($this->database->query("SELECT * FROM course NATURAL JOIN course_has_tag NATURAL JOIN tag WHERE id_course=?;",$this->current_course["id_course"])->fetchAll() as $value) {
 			array_push($tags,$value->tag);
 		}
+
+		Debugger::barDump($tags);
 
 		$form->addMultiSelect('tags', 'tags',$this->database->table("tag")->select("tag")->fetchAll() )
 		->setHtmlAttribute('class', 'form-control')
