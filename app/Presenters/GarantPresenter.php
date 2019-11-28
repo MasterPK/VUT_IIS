@@ -67,6 +67,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	{
 		$this->garantModel->renderShowCourse($this,$id);
 	}
+
+	public function renderNewtask($id)
+	{
+		$this->id_course = $id;
+	}
 	
 	public function createComponentCreateCourseForm(): Form
 	{
@@ -161,13 +166,13 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     	$this->redirect("Homepage:courses", $values->search, $values->filter);
 	}
 
-	public function createComponentCreateTaskForm($id_course): Nette\Application\UI\Form
+	public function createComponentCreateTaskForm(): Nette\Application\UI\Form
     {
         $form = new Nette\Application\UI\Form;
 
         $form->addHidden('id_course');
 		$form->setDefaults([
-            'id_course' => $id_course,
+            'id_course' => $this->id_course,
 
         ]);
 
