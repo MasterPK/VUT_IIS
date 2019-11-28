@@ -50,10 +50,13 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     {
         $form = new Form;
 
-        $form->addText('id_user', '')
+        $form->addHidden('id_user', '')
+            ->setRequired()
+            ->setDefaultValue($this->userInfo["id_user"]);
+
+        $form->addText('id_user_show', '')
             ->setHtmlAttribute('class', 'form-control')
             ->setRequired()
-            ->setDisabled(true)
             ->setDefaultValue($this->userInfo["id_user"]);
 
         $form->addText('email', 'Email:')
@@ -109,7 +112,6 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
         $form->addHidden('id_user', '')
             ->setRequired()
-            ->setDisabled(true)
             ->setDefaultValue($user->data["id_user"]);
 
         $form->addPassword('password', 'Heslo:')

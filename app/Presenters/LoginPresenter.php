@@ -86,7 +86,6 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
 
         $form->addHidden('id_user', '')
             ->setRequired()
-            ->setDisabled(true)
             ->setDefaultValue($user->data["id_user"]);
 
         $form->addText('email', 'Email:')
@@ -123,7 +122,6 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
 
         $form->addHidden('id_user', '')
             ->setRequired()
-            ->setDisabled(true)
             ->setDefaultValue($user->data["id_user"]);
 
         $form->addPassword('password', 'Heslo:')
