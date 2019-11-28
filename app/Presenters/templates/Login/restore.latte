@@ -3,10 +3,10 @@ Obnovení hesla
 {/block}
 {block content}
 {snippet notify}
-{ifset $succes_notif}
+{ifset $succes_notify}
 <script>$.notify("Operace byla provedena!", "success");</script>
 {/ifset}
-{ifset $error_notif}
+{ifset $error_notify}
 <script>$.notify("Email neexistuje v systému!", "error");</script>
 {/ifset}
 {/snippet}
