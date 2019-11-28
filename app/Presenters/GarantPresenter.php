@@ -320,4 +320,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		return $form;
 	}
 
+	public function renderModifyCourse($id)
+	{
+		
+	}
+
 }
