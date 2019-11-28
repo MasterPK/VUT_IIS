@@ -415,7 +415,12 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         $form->addInteger('course_price', '')
             ->setHtmlAttribute('class', 'form-control')
             ->setRequired()
-            ->setDefaultValue($this->current_course["course_price"]);
+			->setDefaultValue($this->current_course["course_price"]);
+		
+
+		$form->addMultiSelect('tags', 'tags', $this->database->table("tag")->fetchAll())
+		->setHtmlAttribute('class', 'form-control')
+        ->setDefaultValue($this->current_course["course_price"]);
 
         $form->addSubmit('submit', 'Potvrdit změny')
             ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
