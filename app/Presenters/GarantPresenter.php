@@ -219,6 +219,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         }
 
         $form->addSelect('id_room', 'Místnost', $rooms)
+        ->setDefaultValue(NULL)
 		->setHtmlAttribute('class', 'form-control')
         ->setRequired();
 
