@@ -51,6 +51,7 @@ Vytvoření nového termínu
     </div>
 </div>
 
+{snippet create_task_snippet}
 {ifset $create_task_success}
 {if $create_task_success == 1}
 <script>$.notify("Termín byl úspěšně vytvořen!", "success");</script>
@@ -58,7 +59,9 @@ Vytvoření nového termínu
 <script>$.notify("Nastala chyba při vytváření termínu!", "error");</script>
 {/if}
 {/ifset}
+{/snippet}
 
+{snippet update_task_snippet}
 {ifset $update_task_success}
 {if $update_task_success == 1}
 <script>$.notify("Termín byl úspěšně aktualizován!", "success");</script>
@@ -66,5 +69,6 @@ Vytvoření nového termínu
 <script>$.notify("Při aktualizaci nedošlo ke změně", "warn");</script>
 {/if}
 {/ifset}
+{/snippet}
 
 {/block}

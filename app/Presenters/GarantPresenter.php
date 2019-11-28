@@ -266,14 +266,13 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	        ]);
 
 	         $form->addSubmit('create', 'Aktualizovat termín')
-        	->setHtmlAttribute('class', 'btn btn-block btn-primary');
+        	->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
         }
         else
         {
         	 $form->addSubmit('create', 'Vytvořit termín')
-        	->setHtmlAttribute('class', 'btn btn-block btn-primary');
+        	->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
         }
-     	dump($this->task->id_task);
         $form->onSuccess[] = [$this, 'createTaskForm'];
         return $form;
 	}
@@ -298,6 +297,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	    	{
 	    		$this->template->update_task_success = 0;
 	    	}
+
+	    	if($this->isAjax())
+	    	{
+	    		$this->redrawControl('update_task_snippet');
+	    	}
     	}
     	else
     	{
@@ -310,6 +314,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	    	else
 	    	{
 	    		$this->template->create_task_success = 0;
+	    	}
+
+	    	if($this->isAjax())
+	    	{
+	    		$this->redrawControl('create_task_snippet');
 	    	}
     	}
 	}
@@ -434,9 +443,15 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			array_push($tags,$value->tag);
 		}
 
-		Debugger::barDump($tags);
+		$allTags = array();
+		foreach ($this->database->table("tag")->select("tag")->fetchAll() as $value) {
+			array_push($allTags,$value->tag);
+		}
 
-		$form->addMultiSelect('tags', 'tags',$this->database->table("tag")->select("tag")->fetchAll() )
+		Debugger::barDump($tags,"aktuální");
+		Debugger::barDump($allTags,"všechny");
+
+		$form->addMultiSelect('tags', 'tags', $allTags)
 		->setHtmlAttribute('class', 'form-control')
         ->setDefaultValue($tags);
 
