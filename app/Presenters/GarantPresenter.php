@@ -315,7 +315,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			->setDefaultValue($this->id_course);
 			
 		$form->addSubmit('submit', 'Smazat?!')
-			->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+			->setHtmlAttribute('class', 'btn btn-primary btn-sm text-white order-1 order-sm-0 text-right');
 			
 		$form->onSuccess[] = [$this, 'deleteCourseFormHandle'];
 
@@ -324,6 +324,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	public function deleteCourseFormHandle(Form $form)
 	{
+		$values = $form->getValues();
 
 	}
 
