@@ -35,6 +35,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     public function renderUserManagement()
     {
         $this->template->allUsers = $this->mainModel->getAllUsers();
+        dump($this->template->allUsers);
 
         
     }
