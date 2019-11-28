@@ -96,7 +96,15 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 break;
         }
 
-        $form->addSelect('rank', '')
+        $ranks = [
+            '1' => 'Student',
+            '2' => 'Lektor',
+            '3'  => 'Garant',
+            '4' => 'Vedoucí',
+            '5'  => 'Administrátor'
+        ];
+
+        $form->addSelect('rank', '', $ranks)
             ->setHtmlAttribute('class', 'form-control')
             ->setRequired()
             ->setDefaultValue($this->userInfo["rank"]);
