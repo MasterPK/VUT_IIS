@@ -84,7 +84,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			}
 		}
 		$rooms = $this->database->query("SELECT id_room FROM room")->fetchAll();
-		$category = [{NULL => "Žádná"}];
+		$category = [NULL => "Žádná"];
 		foreach($rooms as $room)
 		{
 			array_push($category, {$room->id_room => $room->id_room});
