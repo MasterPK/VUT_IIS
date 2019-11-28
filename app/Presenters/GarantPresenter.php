@@ -213,10 +213,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         ->addRule(Form::RANGE, "Zadejte počet bodů v rozmezí 1 - 100!", [1,100]);
 
         $form->addSelect('id_room', 'Místnost', [
-		    foreach($this->rooms as $room)
-		    {
-		    	$room => $room,
-		    }
+		    'CV' => 'Cvičení',
+		    'PR' => 'Přednáška',
+		    'DU' => 'Domácí úkol',
+		    'PJ' => 'Projekt',
+		    'ZK' => 'Zkouška',
 		])
 		->setHtmlAttribute('class', 'form-control')
         ->setRequired();
@@ -330,7 +331,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			->setDefaultValue($this->id_course);
 
 		$form->addCheckBox("really")
-		->setRequired("Musíte opravdu souhlasit!")
+		->setRequired()
 		->addCondition(Form::EQUAL, true);
 			
 		$form->addSubmit('submit', 'Smazat?!')
