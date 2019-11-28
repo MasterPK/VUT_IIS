@@ -304,18 +304,10 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 	public function deleteAdresSubmit(Form $form)
     {
-        $values = $form->getValues();
+		$values = $form->getValues();
 
-        $data = $this->database->table("room_address")
-            ->insert([
-                'room_address' => $values->adres_name,
-            ]);
-
-        $this->template->success_notify = true;
-        if ($this->isAjax()) {
-			$form->setValues([], TRUE);
-            $this->redrawControl("content_snippet");
-        }
+		$this->database->table("room_address")->where("id_room_address",$values->id_room_address)->delete();
+		$this->redirect("Chief:manageAdres");
 	}
 
 	public function createComponentChangeAdres()
