@@ -438,7 +438,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
             ->setRequired()
 			->setDefaultValue($this->current_course["course_price"]);
 
-
 		$form->addText('tags', 'tags',)
 		->setHtmlAttribute('class', 'form-control')
         ->setDefaultValue($this->current_course["tags"]);
