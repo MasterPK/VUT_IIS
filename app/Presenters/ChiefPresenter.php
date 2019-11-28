@@ -219,7 +219,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$form = new Form;
 		
 		$form->addText('equip_name', '')
-            ->setHtmlAttribute('class', 'form-control')
+            ->setHtmlAttribute('class', 'form-control');
 
         $form->addSubmit('submit', 'Potvrdit změny')
             ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
