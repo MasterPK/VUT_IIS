@@ -195,19 +195,15 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired();
 
-        $form->addText('time1', 'Od')
+        $form->addText('task_from', 'Od')
         ->setType('time')
         ->setDefaultValue("12:00")
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired();
 
-        $form->addText('time2', 'Do')
+        $form->addText('task_to', 'Do')
         ->setType('time')
         ->setDefaultValue("13:00")
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired();
-
-        $form->addText('task_duration', 'Trvání')
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired();
 
@@ -221,7 +217,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	public function createTaskForm(Nette\Application\UI\Form $form): void
     {
     	$values = $form->getValues();
-    	$result = $this->database->query("INSERT INTO task (id_task, task_name, task_type, task_description, task_points, task_date, task_duration) VALUES ('',?,?,?,?,?,?)", $values->task_name, $values->task_type, $values->task_description, $values->task_points, $values->task_date, $values->task_duration);
+    	$result = $this->database->query("INSERT INTO task (id_task, task_name, task_type, task_description, task_points, task_date, task_from, task_to) VALUES ('',?,?,?,?,?,?,?)", $values->task_name, $values->task_type, $values->task_description, $values->task_points, $values->task_date, $values->task_from, $values->task_to);
     	if($result->getRowCount() > 0)
     	{
     		$this->template->create_task_success = 1;
