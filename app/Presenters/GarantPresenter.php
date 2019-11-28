@@ -257,6 +257,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	            'task_to' => $this->task->task_to->format('%H:%I'),
 	            'id_room' => $this->task->id_room,
 	        ]);
+
+	        $form->addHidden('id_task');
+	        $form->setDefaults([
+	            'id_task' => $this->task->id_task,
+	        ]);
         }
 
         $form->addSubmit('create', 'Vytvořit termín')
@@ -274,9 +279,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     	if($values->task_points == '') $values->task_points = NULL;
 
     	//ak je id_task, tak upravujeme
-    	if($this->task->id_task)
+    	if($values->id_task)
     	{
-    		$result = $this->database->query("UPDATE task SET task_name = ?, task_type = ?, task_description = ?, task_points = ?, task_date = ?, task_from = ?, task_to = ?, id_room = ?, id_course = ? WHERE id_task = ?", $values->task_name, $values->task_type, $values->task_description, $values->task_points, $values->task_date, $values->task_from, $values->task_to, $values->id_room, $values->id_course, $this->task->id_task);
+    		$result = $this->database->query("UPDATE task SET task_name = ?, task_type = ?, task_description = ?, task_points = ?, task_date = ?, task_from = ?, task_to = ?, id_room = ?, id_course = ? WHERE id_task = ?", $values->task_name, $values->task_type, $values->task_description, $values->task_points, $values->task_date, $values->task_from, $values->task_to, $values->id_room, $values->id_course, $values->id_task);
     	}
     	else
     	{
