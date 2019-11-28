@@ -136,10 +136,12 @@ Detail kurzu
                             Typ:<br>
                             <b>{$task->task_type}</b>
                         </div>
+                        {ifset $task->task_points}
                         <div class="col-md-2 col-sm-12">
                             Počet bodů:<br>
                             <b>{$task->task_points}</b>
                         </div>
+                        {/ifset}
                         <div class="col-md-2 col-sm-12">
                             Datum:<br>
                             <b>{$task->task_date}&nbsp;Kč</b>

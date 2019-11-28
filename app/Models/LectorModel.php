@@ -63,8 +63,8 @@ class LectorModel
         foreach($tasks as $task)
         {
             $task->task_date = $task->task_date->format("Y-m-d");
-            $task->task_from = $task->task_from->format("H-i-s");
-            $task->task_to = $task->task_to->format("H-i-s");
+            $task->task_from = $task->task_from->format("H-m-s");
+            $task->task_to = $task->task_to->format("H-m-s");
         }
 
         $presenter->template->course_tasks = $tasks;
