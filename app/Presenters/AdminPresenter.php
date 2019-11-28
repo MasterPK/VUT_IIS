@@ -47,9 +47,9 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
     }
 
-    public function createComponentUsersManagamentDataGrid()
+    public function createComponentDataGrid()
     {
-        $grid = new DataGrid($this, "usersManagament_Grid");
+        $grid = new DataGrid($this, "datagrid");
 
 		$grid->setDataSource($this->database->table("user"));
         $grid->addColumnText('id_user', 'ID');
