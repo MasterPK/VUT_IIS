@@ -248,7 +248,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 ]);
                 $this->template->success_notify = true;
             }
-            catch(Exception $e)
+            catch(Nette\Database\UniqueConstraintViolationException $e)
             {
                 $this->template->duplicate_notify = true;
             }
