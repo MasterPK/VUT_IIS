@@ -58,4 +58,13 @@ Vytvoření nového termínu
 <script>$.notify("Nastala chyba při vytváření termínu!", "error");</script>
 {/if}
 {/ifset}
+
+{ifset $update_task_success}
+{if $update_task_success == 1}
+<script>$.notify("Termín byl úspěšně aktualizován!", "success");</script>
+{else}
+<script>$.notify("Při aktualizaci nedošlo ke změně", "warn");</script>
+{/if}
+{/ifset}
+
 {/block}
