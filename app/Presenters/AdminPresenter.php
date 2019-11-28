@@ -94,7 +94,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         $form->addCheckbox('active', '')
             ->setHtmlAttribute('class', 'form-control')
             ->setRequired()
-            ->setDefaultValue($this->userInfo["active"]);
+            ->setDefaultValue($this->userInfo["active"]=="1"?true:false);
 
         $form->addSubmit('submit', 'Potvrdit')
             ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
