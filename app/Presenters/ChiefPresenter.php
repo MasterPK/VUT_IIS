@@ -336,7 +336,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
         $data = $this->database->table("room_address")->where("id_room_address", $values->id_room_address)
             ->update([
-                'room_address' => $values->room_address,
+                'room_address' => $values->id_course_show,
             ]);
 
         $this->template->success_notify = true;
