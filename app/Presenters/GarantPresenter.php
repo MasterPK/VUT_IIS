@@ -64,6 +64,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	public function rendershowCourse($id)
 	{
 		$this->garantModel->renderShowCourse($this,$id);
+		dump($this->template->course->id_course);
 	}
 
 	public function renderNewtask($item)
