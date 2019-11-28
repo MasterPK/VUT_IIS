@@ -328,7 +328,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$form->addText('id_course_show', '')
             ->setHtmlAttribute('class', 'form-control')
             ->setDisabled()
-            ->setDefaultValue($this->current_Adres);
+            ->setDefaultValue($this->current_Adres["room_address"]);
 
         $form->addSubmit('submit', 'Potvrdit změny')
             ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
