@@ -27,7 +27,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	private $task;
 	private $id_course;
-	private $rooms;
 
 	public function startUp()
 	{
@@ -83,13 +82,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	            $this->task->task_to = $this->task->task_to->format("%H:%I");
 			}
 		}
-		$rooms = $this->database->query("SELECT id_room FROM room")->fetchAll();
-		$category[NULL] = "Žádná";
-		foreach($rooms as $room)
-		{
-			$category[$room->id_room] = $room->id_room;
-		}
-		$this->rooms = $category;
 	}
 	
 	public function createComponentCreateCourseForm(): Form
@@ -218,7 +210,14 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         ->setHtmlAttribute('class', 'form-control')
         ->addRule(Form::RANGE, "Zadejte počet bodů v rozmezí 1 - 100!", [1,100]);
 
-        $form->addSelect('id_room', 'Místnost', $this->rooms)
+        $allrooms = $this->database->query("SELECT id_room FROM room")->fetchAll();
+		$rooms[NULL] = "Žádná";
+		foreach($allrooms as $room)
+		{
+			$rooms[$room->id_room] = $room->id_room;
+		}
+
+        $form->addSelect('id_room', 'Místnost', $rooms)
 		->setHtmlAttribute('class', 'form-control');
 
         $form->addText('task_date', 'Datum')
