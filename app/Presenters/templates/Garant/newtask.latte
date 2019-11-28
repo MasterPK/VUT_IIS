@@ -71,12 +71,12 @@ Vytvoření nového termínu
 {/ifset}
 {/snippet}
 
+{snippet error_snippet}
 {ifset $error}
 {if $error == 1}
-{snippet error_snippet}
 <script>$.notify("Časový inteval termínu byl zadán nesprávně!", "error");</script>
-{/snippet}
 {/if}
 {/ifset}
+{/snippet}
 
 {/block}
