@@ -232,7 +232,6 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         if ($values->password != $values->passwordCheck) {
             $this->template->password_notify = true;
             if ($this->isAjax()) {
-                $form->setValues([], TRUE);
                 $this->redrawControl("notify");
             }
         } else {
@@ -248,16 +247,20 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                     'password' => password_hash($values->password, PASSWORD_BCRYPT)
                 ]);
                 $this->template->success_notify = true;
+                if ($this->isAjax()) {
+                    $form->setValues([], TRUE);
+                    $this->redrawControl("content_snippet");
+                }
             }
             catch(Nette\Database\UniqueConstraintViolationException $e)
             {
                 $this->template->duplicate_notify = true;
+                if ($this->isAjax()) {
+                    $this->redrawControl("content_snippet");
+                }
             }
            
-            if ($this->isAjax()) {
-                $form->setValues([], TRUE);
-                $this->redrawControl("content_snippet");
-            }
+            
         }
     }
 }
