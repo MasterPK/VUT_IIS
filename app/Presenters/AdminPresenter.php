@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace App\Presenters;
+
 use Tracy\Debugger;
 use Nette;
 use Nette\Application\UI\Form;
@@ -37,14 +38,12 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
     private $userInfo;
     public function renderEdituser($id)
-    {  
-        $this->userInfo=$this->mainModel->getUserDetail($id);
-  
+    {
+        $this->userInfo = $this->mainModel->getUserDetail($id);
     }
 
     public function renderAdduser($id)
-    {  
-    }
+    { }
 
     public function createComponentEditUser()
     {
@@ -107,12 +106,11 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
     protected function createComponentEditPassword()
     {
-        $user = $this->getUser()->getIdentity();
         $form = new Form;
 
         $form->addHidden('id_user', '')
             ->setRequired()
-            ->setDefaultValue($user->data["id_user"]);
+            ->setDefaultValue($this->userInfo["id_user"]);
 
         $form->addPassword('password', 'Heslo:')
             ->setHtmlAttribute('class', 'form-control')
@@ -158,5 +156,86 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         }
     }
 
+    public function createComponentAddUser()
+    {
+        $form = new Form;
 
+        $form->addHidden('id_user', '')
+            ->setRequired()
+            ->setValue($this->userInfo["id_user"]);
+
+        $form->addText('id_user_show', '')
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired()
+            ->setValue($this->userInfo["id_user"]);
+
+        $form->addText('email', 'Email:')
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired()
+            ->setValue($this->userInfo["email"]);
+
+        $form->addText('first_name', 'Křestní jméno:')
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired()
+            ->setValue($this->userInfo["first_name"]);
+
+        $form->addText('surname', 'Příjmení:')
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired()
+            ->setValue($this->userInfo["surname"]);
+
+        $form->addText('phone', 'Telefonní číslo:')
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired()
+            ->setValue($this->userInfo["phone"]);
+
+        $form->addPassword('password', 'Heslo:')
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired('Zadejte, prosím, heslo');
+
+        $form->addPassword('passwordCheck', 'Heslo znovu:')
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired('Zadejte, prosím, heslo pro kontrolu');
+
+
+        $form->addSubmit('submit', 'Potvrdit')
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+
+        $form->onSuccess[] = [$this, 'addUserSubmit'];
+        return $form;
+    }
+
+    public function addUserSubmit(Form $form)
+    {
+        $values = $form->getValues();
+
+        if ($values->password != $values->passwordCheck) {
+            $this->template->password_notify = true;
+            if ($this->isAjax()) {
+                $this->redrawControl("notify");
+            }
+        } else {
+            $data = $this->database->table("user")->where("id_user", $values->id_user)
+                ->update([
+                    'email' => $values->email,
+                    'first_name' => $values->first_name,
+                    'surname' => $values->surname,
+                    'phone' => $values->phone,
+                    'active' => 1,
+                    'password' => password_hash($values->password, PASSWORD_BCRYPT)
+                ]);
+
+            if ($data == 1) {
+                $this->template->success_notify = true;
+                if ($this->isAjax()) {
+                    $this->redrawControl("notify");
+                }
+            } else {
+                $this->template->error_notify = true;
+                if ($this->isAjax()) {
+                    $this->redrawControl("notify");
+                }
+            }
+        }
+    }
 }
