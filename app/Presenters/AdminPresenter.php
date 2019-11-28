@@ -98,7 +98,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         $this->template->success_notify = true;
         if ($this->isAjax()) {
             $this->startup->mainStartUp($this);
-            $this->redrawControl("body_snippet");
+            $this->redrawControl("notify");
         }
     }
 
@@ -145,7 +145,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             if ($data == 1) {
                 $this->template->success_notify = true;
                 if ($this->isAjax()) {
-                    $this->redrawControl("body_snippet");
+                    $this->redrawControl("notify");
                 }
             } else {
                 $this->template->error_notify = true;
