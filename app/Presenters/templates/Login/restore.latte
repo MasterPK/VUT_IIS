@@ -1,12 +1,21 @@
 {block header}
-Přihlášení
+Obnovení hesla
 {/block}
 {block content}
+{snippet notify}
+{ifset $succes_notify}
+<script>$.notify("Operace byla provedena!", "success");</script>
+{/ifset}
+{ifset $error_notify}
+<script>$.notify("Email neexistuje v systému!", "error");</script>
+{/ifset}
+{/snippet}
+
 <div class="h-100 row align-items-center">
     <div class="col-md-4 col-sm-1" />
     <div class="col-md-4 col-sm-10 mlr-2 align-items-center">
         <div class = "text-center">
-            <h1>Přihlášení</h1>
+            <h1>Obnovení hesla</h1>
         </div>
 
         {ifset message} {include message} {/ifset} {ifset $error_login}
@@ -18,21 +27,14 @@ Přihlášení
             <strong>{$error}
         </div>{/ifset}
 
-        <form n:name="loginForm">
+        <form n:name="restoreForm">
             <div class="form-group">
                 <label>Emailová adresa</label> {input email}
             </div>
-            <div class="form-group">
-                <label>Heslo</label> {input password}
-            </div>
             <div class="form-group text-center ">
-                {input login}
+                {input restore}
             </div>
         </form>
-
-        <a n:href="Login:restore">
-        <button style="float: center;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Zapomněl jsem heslo</button>
-        </a>
     </div>
     <div class="col-md-4 col-sm-1" />
 </div>

@@ -7,6 +7,9 @@ namespace App\Presenters;
 use Nette;
 use Tracy\Debugger;
 use Nette\Application\UI\Form;
+use Nette\Mail\Message;
+use Nette\Mail\SendmailMailer;
+use Nette\Utils\Random;
 
 final class LoginPresenter extends Nette\Application\UI\Presenter
 {
@@ -59,7 +62,22 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         }
     }
 
+    public function renderRestore()
+    { }
 
+    protected function createComponentRestoreForm()
+    {
+        $form = new Form;
+        $form->addText('email', 'Email:')
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired('Zadejte, prosím, email');
+
+        $form->addSubmit('restore', 'Obnovit heslo')
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary');
+
+        $form->onSuccess[] = [$this, 'restoreFormSucceeded'];
+        return $form;
+    }
 
     protected function createComponentLoginForm()
     {
@@ -192,6 +210,47 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
                     $this->redrawControl("body_snippet");
                 }
             } else {
+                $this->template->error_notify = true;
+                if ($this->isAjax()) {
+                    $this->redrawControl("notify");
+                }
+            }
+        }
+    }
+
+    public function restoreFormSucceeded(Form $form)
+    {
+        $values = $form->getValues();
+
+        $data = $this->database->table("user")->where("email", $values->email)->fetch();
+
+        if (!$data) {
+            $this->template->error_notify = true;
+            if ($this->isAjax()) {
+                $this->redrawControl("notify");
+            }
+        } else {
+            $newPwd = Random::generate(8);
+
+            $mail = new Message;
+            $mail->setFrom('Support <support@xkrehl04.g6.cz>')
+                ->addTo($values->email)
+                ->setSubject('Nové heslo v IS Škola')
+                ->setBody("Dobrý den,\njelikož byl zaznamenán požadavek na nové heslo u emailu $values->email, tak Vám zasíláme nové heslo:\n\n$newPwd\n\nS pozdravem");
+
+
+            $mailer = new SendmailMailer;
+            try {
+                $mailer->send($mail);
+                $this->database->table("user")->where("email", $values->email)->update([
+                    'password' => password_hash($newPwd, PASSWORD_BCRYPT)
+                ]);
+                $this->template->success_notify = true;
+                $form->setValues([], TRUE);
+                if ($this->isAjax()) {
+                    $this->redrawControl("body_snippet");
+                }
+            } catch (Nette\Mail\SendException $e){
                 $this->template->error_notify = true;
                 if ($this->isAjax()) {
                     $this->redrawControl("notify");
