@@ -219,7 +219,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
 
         $form->addSubmit('submit', 'Potvrdit')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary');
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
 
         $form->onSuccess[] = [$this, 'addUserSubmit'];
         return $form;
@@ -232,6 +232,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         if ($values->password != $values->passwordCheck) {
             $this->template->password_notify = true;
             if ($this->isAjax()) {
+                $form->setValues([], TRUE);
                 $this->redrawControl("notify");
             }
         } else {
@@ -254,6 +255,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             }
            
             if ($this->isAjax()) {
+                $form->setValues([], TRUE);
                 $this->redrawControl("content_snippet");
             }
         }
