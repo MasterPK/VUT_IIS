@@ -91,8 +91,6 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             '1' => 'Aktivní'
         ];
         
-        
-
         $form->addSelect('rank', '', $ranks)
             ->setHtmlAttribute('class', 'form-control')
             ->setRequired()
