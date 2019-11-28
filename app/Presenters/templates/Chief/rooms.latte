@@ -19,7 +19,7 @@ Správa místností
                     {foreach $rooms as $row}
                     <tr class="text-center">
                         <td>{$row->id_room}</td>
-                        <td><a n:href="Chief:roomsEquipment {$row->id_room}"><button class="btn btn-primary">Zobrazit</button></a></td>
+                        <td><a n:href="Chief:roomsEquipment $row->id_room"><button class="btn btn-primary">Zobrazit</button></a></td>
                         <td>Místnost...</td>
                         <td><button class="btn btn-primary">Upravit</button></td>
                         <td><button class="btn btn-primary">Smazat</button></td>
