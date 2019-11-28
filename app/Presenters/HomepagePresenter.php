@@ -6,6 +6,7 @@ namespace App\Presenters;
 
 use Nette;
 use Nette\Mail\Message;
+use Nette\Mail\SendmailMailer;
 use Nette\Application\UI;
 
 
@@ -46,6 +47,10 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 			->addTo('p.p.krehlik@gmail.com')
 			->setSubject('Potvrzení objednávky')
 			->setBody("Dobrý den,\nvaše objednávka byla přijata.");
+			
+
+		$mailer = new SendmailMailer;
+		$mailer->send($mail);
 	}
 
 	public function renderCourses($search, $filter): void
