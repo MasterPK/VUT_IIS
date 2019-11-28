@@ -217,8 +217,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			$rooms[$room->id_room] = $room->id_room;
 		}
 
-		dump($rooms);
-
         $form->addSelect('id_room', 'Místnost', $rooms)
 		->setHtmlAttribute('class', 'form-control');
 
