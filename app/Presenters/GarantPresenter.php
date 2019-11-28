@@ -102,7 +102,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
     	try
     	{
-    		$data = $this->database->query("INSERT INTO course (id_course, course_name, course_description, course_type, course_price, id_guarantor, course_status) VALUES (?, ?, ?, ?, ?, ?, 0)", $values->id_course, $values->name, $values->description, $values->type, $values->price,  $this->user->identity->id);
+    		$data = $this->database->query("INSERT INTO course (id_course, course_name, course_description, course_type, course_price, id_guarantor, course_status) VALUES (?, ?, ?, ?, ?, ?, 0,?)", $values->id_course, $values->name, $values->description, $values->type, $values->price, $values->tags,  $this->user->identity->id);
 
     		$this->template->success_insert = true;
     	}
@@ -388,7 +388,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			->setDefaultValue($this->current_course);
 
 		$form->addCheckBox("really")
-		->setRequired()
+		->setRequired("Opravdu?")
 		->addCondition(Form::EQUAL, true);
 			
 		$form->addSubmit('submit', 'Smazat?!')
@@ -443,21 +443,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
             ->setRequired()
 			->setDefaultValue($this->current_course["course_price"]);
 
-		
-		$tags = array();
-		foreach ($this->database->query("SELECT * FROM course NATURAL JOIN course_has_tag NATURAL JOIN tag WHERE id_course=?;",$this->current_course["id_course"])->fetchAll() as $value) {
-			$tags[$value->tag] = $value->tag;
-		}
-
-		$allTags = array();
-		foreach ($this->database->table("tag")->select("tag")->fetchAll() as $value) {
-			$allTags[$value->tag] = $value->tag;
-		}
-
-
-		$form->addMultiSelect('tags', 'tags', $allTags)
+		$form->addText('tags', 'tags',)
 		->setHtmlAttribute('class', 'form-control')
-        ->setDefaultValue($tags);
+        ->setDefaultValue($this->current_course["tags"]);
 
         $form->addSubmit('submit', 'Potvrdit změny')
             ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
