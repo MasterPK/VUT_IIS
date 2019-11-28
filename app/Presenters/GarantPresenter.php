@@ -329,11 +329,16 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         }
 	}
 
+	private $current_course;
+	public function renderModifyCourse($id)
+	{
+		$this->current_course=$this->database->table("course")->where("id_course",$id)->fetch();
+
+	}
+
 	public function createComponentDeleteCourse()
 	{
 		$form = new Form;
-
-		dump($this->id_course);
         $form->addHidden('id_course', '')
             ->setRequired()
 			->setDefaultValue($this->id_course);
@@ -365,12 +370,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			$this->template->error_notif = true;
 		}
 	}
-	private $current_course;
-	public function renderModifyCourse($id)
-	{
-		$this->current_course=$this->database->table("course")->where("id_course",$id)->fetch();
 
-	}
 
 	public function createComponentEditCourse()
     {
