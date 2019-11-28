@@ -44,6 +44,23 @@ class MainModel
     }
 
     /**
+     * Return user detail
+     *
+     * @param integer $id_user
+     * @return void
+     */
+    public function getUserDetail(int $id_user)
+    {
+        $data = $this->database->table("user")->select("id_user,first_name,surname,email,phone,rank,active")->where("id_user",$id_user)->fetchAll();
+
+        if ($data) {
+            return $data;
+        } else {
+            return NULL;
+        }
+    }
+
+    /**
      * Return list of all approved courses in database
      * Exception on error
      * @return void
