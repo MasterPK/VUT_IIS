@@ -187,7 +187,6 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
         $form->addText('email', 'Email:')
             ->setHtmlAttribute('class', 'form-control')
-            ->setDefaultValue("")
             ->setRequired();
 
         $form->addText('first_name', 'Křestní jméno:')
@@ -246,9 +245,16 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                     'rank' => $values->rank,
                     'password' => password_hash($values->password, PASSWORD_BCRYPT)
                 ]);
-
-
-            $this->template->success_notify = true;
+            if($data->getRowCount() ==1)
+            {
+                $this->template->success_notify = true;
+            }
+            else
+            {
+                $this->template->duplicate_notify = true;
+            }
+               
+           
             if ($this->isAjax()) {
                 $this->redrawControl("content_snippet");
             }
