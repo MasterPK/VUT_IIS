@@ -275,19 +275,31 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	}
 	
 
-	public function createComponentDeleteAdres()
-    {
+	private $current_Adres;
+	public function renderModifyCourse($id)
+	{
+		$this->current_Adres=$this->database->table("room_address")->where("id_room_address",$id)->fetch();
+
+	}
+
+	public function createComponentDeleteCourse()
+	{
 		$form = new Form;
 
-		$form->addHidden('id_Adres', '')
-			->setDefaultValue($this->current_course["id_course"]);
+        $form->addHidden('id_course', '')
+            ->setRequired()
+			->setDefaultValue($this->current_Adres);
 
+		$form->addCheckBox("really")
+		->setRequired()
+		->addCondition(Form::EQUAL, true);
+			
+		$form->addSubmit('submit', 'Smazat?!')
+			->setHtmlAttribute('class', 'btn btn-primary');
+			
+		$form->onSuccess[] = [$this, 'deleteAdresSubmit'];
 
-        $form->addSubmit('submit', 'Potvrdit změny')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
-
-        $form->onSuccess[] = [$this, 'deleteAdresSubmit'];
-        return $form;
+		return $form;
 	}
 
 	public function deleteAdresSubmit(Form $form)
@@ -305,4 +317,25 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
             $this->redrawControl("content_snippet");
         }
 	}
+
+	public function createComponentChangeAdres()
+    {
+        $form = new Form;
+
+        $form->addHidden('id_course', '')
+			->setDefaultValue($this->current_Adres);
+			
+		$form->addText('id_course_show', '')
+            ->setHtmlAttribute('class', 'form-control')
+            ->setDisabled()
+            ->setDefaultValue($this->current_Adres);
+
+        $form->addSubmit('submit', 'Potvrdit změny')
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+
+        $form->onSuccess[] = [$this, 'editCourseSubmit'];
+        return $form;
+	}
+
+
 }
