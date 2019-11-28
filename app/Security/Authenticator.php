@@ -21,10 +21,7 @@ class Authenticator implements Nette\Security\IAuthenticator
         $row = $this->database->table('user')
         ->where('email', $username)->fetch();
 
-        if($row->active=="0")
-        {
-            throw new NS\AuthenticationException('Deaktivovaný účet!');
-        }
+        
 
         if (!$row) {
             throw new NS\AuthenticationException('Uživatel nenalezen!');
@@ -34,6 +31,11 @@ class Authenticator implements Nette\Security\IAuthenticator
             throw new NS\AuthenticationException('Neplatné heslo!');
         }
 
+        if($row->active=="0")
+        {
+            throw new NS\AuthenticationException('Deaktivovaný účet!');
+        }
+        
         $array = array();
 
         for($i=$row->rank;$i>=0;$i--)
