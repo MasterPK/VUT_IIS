@@ -1,0 +1,33 @@
+{block header}
+Vytvoření nového vybavení
+{/block}
+{block content}
+{snippet notify}
+{ifset $success_notify}
+<script>$.notify("Operace byla provedena!", "success");</script>
+{/ifset}
+{ifset $error_notify}
+<script>$.notify("Operace selhala!", "error");</script>
+{/ifset}
+{/snippet}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card bg-default ">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <form n:name="createEquipment">
+                            <div class="form-group">
+                                <label>Název vybavení</label> {input equip_name}
+                            </div>
+                            <div class="form-group">
+                                {input submit}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
