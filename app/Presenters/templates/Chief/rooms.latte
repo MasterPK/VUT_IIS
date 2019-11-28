@@ -7,7 +7,7 @@ Správa místností
         {ifset $rooms}
             <table class="table table-bordered">
                 <thead class="thead-dark">
-                    <tr class="text-right">
+                    <tr class="text-center">
                         <th>Místnost</th>
                         <th>Vybavení</th>
                         <th>Adresa</th>
@@ -27,11 +27,13 @@ Správa místností
                     {/foreach}
                 </tbody>
                 <tfoot>
+                    <tr class = "text-center">
                         <th><a n:href="Chief:createRoom"><button class="btn btn-primary">Přidat místnost</button></a></th>
                         <th><a n:href="Chief:manageEquipment"><button class="btn btn-primary">Správa vybavení</button></a></th>
                         <th><a n:href="Chief:manageAdres"><button class="btn btn-primary">Správa adres</button></a></th>
                         <th/>
                         <th/>
+                    </tr>
                 </tfoot>
             </table>
         {/ifset}
