@@ -69,7 +69,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	public function renderNewtask($item)
 	{
 		//item moze byt bud course alebo task
-		$this->item = $item->id_course;
+		$this->item = $item;
 
 	}
 	
@@ -172,7 +172,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
         $form->addHidden('id_course');
         $form->setDefaults([
-            'id_course' => $this->item->id_course,
+            'id_course' => $this->item,
         ]);
 
         $form->addText('task_name', 'Název termínu')
