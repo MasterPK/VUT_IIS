@@ -35,7 +35,7 @@
                     <td>{if $row->rank==1}Student{elseif $row->rank==2}Lektor{elseif $row->rank==3}Garant{elseif
                         $row->rank==4}Vedoucí{elseif $row->rank==5}Administrátor{/if}</td>
                     <td>
-                        <a n:href="Admin:editUser $row->id_user"><button class="btn btn-primary">Upravit</button></a>
+                        <a n:href="Admin:edituser $row->id_user"><button class="btn btn-primary">Upravit</button></a>
                     </td>
                 </tr>
                 {/foreach}
