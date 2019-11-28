@@ -238,13 +238,14 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         ->setRequired();
 
         $form->addText('task_from', 'Od')
-        ->setType('time')
-        ->setHtmlAttribute('class', 'form-control');
+        ->setHtmlAttribute('class', 'form-control')
+        ->addRule(Form::RANGE, "Zadejte číslo v rozmezí 0 - 23!", [0,23])
+        ->addRule(Form::MAX_LENGTH, "Zadejte číslo v rozmezí 0 - 23!", 2);
 
         $form->addText('task_to', 'Do')
-        ->setType('time')
-        ->setDefaultValue(0)
         ->setHtmlAttribute('class', 'form-control')
+        ->addRule(Form::RANGE, "Zadejte číslo v rozmezí 0 - 23!", [0,23])
+        ->addRule(Form::MAX_LENGTH, "Zadejte číslo v rozmezí 0 - 23!", 2)
         ->setRequired();
 
         if($this->task)
@@ -255,8 +256,8 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	            'task_description' => $this->task->task_description,
 	            'task_points' => $this->task->task_points,
 	            'task_date' => $this->task->task_date->format('Y-m-d'),
-	            'task_from' => $this->task->task_from->format('%H'),
-	            'task_to' => $this->task->task_to->format('%H'),
+	            'task_from' => $this->task->task_from,
+	            'task_to' => $this->task->task_to,
 	            'id_room' => $this->task->id_room,
 	        ]);
 
