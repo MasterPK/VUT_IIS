@@ -63,7 +63,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
 
     protected function createComponentLoginForm(): UI\Form
     {
-        $form = new UI\Form;
+        $form = new Form;
         $form->addText('email', 'Email:')
             ->setHtmlAttribute('class', 'form-control')
             ->setRequired('Zadejte, prosím, email');
@@ -82,7 +82,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
     protected function createComponentEditProfile(): UI\Form
     {
         $user = $this->getUser()->getIdentity();
-        $form = new UI\Form;
+        $form = new Form;
 
         $form->addHidden('id_user', '')
             ->setRequired()
@@ -119,7 +119,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
     protected function createComponentEditPassword(): UI\Form
     {
         $user = $this->getUser()->getIdentity();
-        $form = new UI\Form;
+        $form = new Form;
 
         $form->addHidden('id_user', '')
             ->setRequired()
