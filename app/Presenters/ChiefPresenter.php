@@ -272,5 +272,37 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 			$form->setValues([], TRUE);
             $this->redrawControl("content_snippet");
         }
-    }
+	}
+	
+
+	public function createComponentDeleteAdres()
+    {
+		$form = new Form;
+
+		$form->addHidden('id_Adres', '')
+			->setDefaultValue($this->current_course["id_course"]);
+
+
+        $form->addSubmit('submit', 'Potvrdit změny')
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+
+        $form->onSuccess[] = [$this, 'deleteAdresSubmit'];
+        return $form;
+	}
+
+	public function deleteAdresSubmit(Form $form)
+    {
+        $values = $form->getValues();
+
+        $data = $this->database->table("room_address")
+            ->insert([
+                'room_address' => $values->adres_name,
+            ]);
+
+        $this->template->success_notify = true;
+        if ($this->isAjax()) {
+			$form->setValues([], TRUE);
+            $this->redrawControl("content_snippet");
+        }
+	}
 }
