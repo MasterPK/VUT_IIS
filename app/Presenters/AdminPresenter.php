@@ -78,6 +78,43 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             ->setRequired()
             ->setDefaultValue($this->userInfo["phone"]);
 
+        switch ($this->userInfo["rank"]) {
+            case 1:
+                $this->userInfo["rank"] = "Student";
+                break;
+            case 2:
+                $this->userInfo["rank"] = "Lektor";
+                break;
+            case 3:
+                $this->userInfo["rank"] = "Garant";
+                break;
+            case 4:
+                $this->userInfo["rank"] = "Vedoucí";
+                break;
+            case 5:
+                $this->userInfo["rank"] = "Administrátor";
+                break;
+        }
+
+        if($this->userInfo["active"]=="1")
+        {
+            $this->userInfo["active"]="Aktivní";
+        }
+        else
+        {
+            $this->userInfo["active"]="Deaktivován";
+        }
+
+        $form->addSelect('rank', '')
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired()
+            ->setDefaultValue($this->userInfo["rank"]);
+
+        $form->addCheckbox('active', '')
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired()
+            ->setDefaultValue($this->userInfo["active"]);
+
         $form->addSubmit('submit', 'Potvrdit')
             ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
 
@@ -206,8 +243,8 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 $this->redrawControl("notify");
             }
         } else {
-            $data = $this->database->table("user")->where("id_user", $values->id_user)
-                ->update([
+            $data = $this->database->table("user")
+                ->insert([
                     'email' => $values->email,
                     'first_name' => $values->first_name,
                     'surname' => $values->surname,
