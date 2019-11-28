@@ -418,7 +418,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			->setDefaultValue($this->current_course["course_price"]);
 		
 
-		$form->addMultiSelect('tags', '', $this->database->table("tag")->fetchAll())
+		$form->addMultiSelect('tags', 'tags', $this->database->table("tag")->fetchAll())
 		->setHtmlAttribute('class', 'form-control');
 
         $form->addSubmit('submit', 'Potvrdit změny')
