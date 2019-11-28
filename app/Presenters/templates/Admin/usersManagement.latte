@@ -1,6 +1,38 @@
 {block header} Správa uživatelů{/block} 
 {block content}
+    <div class="row">
+        <div class="col-sm-12">
+            {ifset $allUsers}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Křestní jméno</th>
+                        <th>Příjmení</th>
+                        <th>Telefonní číslo</th>
+                        <th>Úroveň</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-{control dataGrid}
+                    {foreach $allUsers as $user}
+                    <tr>
+                        <th><a n:href="Admin:editUser $user->id_user">{$user->id_user}</a></th>
+                        <td>{$user->email}</td>
+                        <td>{$user->first_name}</td>
+                        <td>{$user->surname}</td>
+                        <td>{$user->phone}</td>
+                        <td>{$user->rank}</td>
+                    </tr>
+                    {/foreach}
+
+                </tbody>
+            </table>
+            {else}
+            <h3>Žádní uživatelé nejsou k dispozici!</h3>
+            {/ifset}
+        </div>
+    </div>
 
 {/block}

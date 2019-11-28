@@ -9,11 +9,14 @@ use Nette\Application\UI\Form;
 use Ublaboo\DataGrid\DataGrid;
 
 
-class AdminPresenter extends Nette\Application\UI\Presenter 
+class AdminPresenter extends Nette\Application\UI\Presenter
 {
-	/** @var \App\Model\StartUp @inject */
+    /** @var \App\Model\StartUp @inject */
     public $startup;
-    
+
+    /** @var \App\Model\MainModel @inject */
+    public $mainModel;
+
     private $database;
     public function __construct(Nette\Database\Context $database)
     {
@@ -21,26 +24,34 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     }
 
 
-	public function beforeRender()
-	{
-		$this->startup->mainStartUp($this);
-		if(!$this->startup->roleCheck($this,5))
-		{
-			$this->redirect("Homepage:default");
-		}
+    public function beforeRender()
+    {
+        $this->startup->mainStartUp($this);
+        if (!$this->startup->roleCheck($this, 5)) {
+            $this->redirect("Homepage:default");
+        }
     }
 
     public function renderUserManagement()
     {
-
-    }
-
-    public function createComponentDataGrid()
-    {
-        $grid = new DataGrid($this, "datagrid");
-
-		$grid->setDataSource($this->database->table("user"));
-        $grid->addColumnText('id_user', 'ID');
-        return $grid;
+        $data = $this->mainModel->getAllUsers();
+        switch ($data->rank) {
+            case 1:
+                $data->rank = "Student";
+                break;
+            case 2:
+                $data->rank = "Lektor";
+                break;
+            case 3:
+                $data->rank = "Garant";
+                break;
+            case 4:
+                $data->rank = "Vedoucí";
+                break;
+            case 5:
+                $data->rank = "Administrátor";
+                break;
+        }
+        $this->template->allUsers = $data;
     }
 }

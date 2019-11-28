@@ -28,6 +28,22 @@ class MainModel
     }
 
     /**
+     * Return list of all users
+     *
+     * @return void
+     */
+    public function getAllUsers()
+    {
+        $data = $this->database->table("user")->fetchAll();
+
+        if ($data) {
+            return $data;
+        } else {
+            return NULL;
+        }
+    }
+
+    /**
      * Return list of all approved courses in database
      * Exception on error
      * @return void
