@@ -297,6 +297,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	    	{
 	    		$this->template->update_task_success = 0;
 	    	}
+
+	    	if($this->isAjax())
+	    	{
+	    		$this->redrawControl('update_task_snippet');
+	    	}
     	}
     	else
     	{
@@ -309,6 +314,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	    	else
 	    	{
 	    		$this->template->create_task_success = 0;
+	    	}
+
+	    	if($this->isAjax())
+	    	{
+	    		$this->redrawControl('create_task_snippet');
 	    	}
     	}
 	}
