@@ -383,7 +383,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			->setDefaultValue($this->current_course);
 
 		$form->addCheckBox("really")
-		->setRequired()
+		->setRequired("Opravdu?")
 		->addCondition(Form::EQUAL, true);
 			
 		$form->addSubmit('submit', 'Smazat?!')
@@ -438,23 +438,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
             ->setRequired()
 			->setDefaultValue($this->current_course["course_price"]);
 
-		
-		$tags = array();
-		foreach ($this->database->query("SELECT * FROM course NATURAL JOIN course_has_tag NATURAL JOIN tag WHERE id_course=?;",$this->current_course["id_course"])->fetchAll() as $value) {
-			array_push($tags,$value->tag);
-		}
-
-		$allTags = array();
-		foreach ($this->database->table("tag")->select("tag")->fetchAll() as $value) {
-			array_push($allTags,$value->tag);
-		}
-
-		Debugger::barDump($tags,"aktuální");
-		Debugger::barDump($allTags,"všechny");
-
-		$form->addMultiSelect('tags', 'tags', $allTags)
+		$form->addText('tags', 'tags',)
 		->setHtmlAttribute('class', 'form-control')
-        ->setDefaultValue($tags);
+        ->setDefaultValue($this->current_course["tags"]);
 
         $form->addSubmit('submit', 'Potvrdit změny')
             ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
