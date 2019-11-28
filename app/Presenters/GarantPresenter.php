@@ -73,6 +73,12 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		if($id_task != NULL)
 		{
 			$this->task = $this->database->query("SELECT * FROM task WHERE id_task = ? AND id_course = ?", $id_task, $id_course)->fetch();
+			if($this->task)
+			{
+				$this->task->task_date = $this->task->task_date->format("dd.MM.yyyy");
+	            $this->task->task_from = $this->task->task_from->format("HH:mm");
+	            $this->task->task_to = $this->task->task_to->format("HH:mm");
+			}
 		}
 	}
 	
