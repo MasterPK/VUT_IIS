@@ -39,6 +39,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     public function renderEdituser($id)
     {  
         $this->userInfo=$this->mainModel->getUserDetail($id);
+        dump($this->userInfo);
     }
 
     public function renderAdduser($id)
@@ -48,7 +49,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     public function createComponentEditUser()
     {
         $form = new Form;
-
+        dump($this->userInfo);
         $form->addText('id_user', '')
             ->setRequired()
             ->setDisabled(true)
