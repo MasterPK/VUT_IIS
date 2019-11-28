@@ -50,7 +50,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     {
         $form = new Form;
         dump($this->userInfo);
-        $form->addText('id_user', '')
+        /*$form->addText('id_user', '')
             ->setRequired()
             ->setDisabled(true)
             ->setDefaultValue($this->userInfo->id_user);
@@ -78,7 +78,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         $form->addSubmit('submit', 'Potvrdit')
             ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
 
-        $form->onSuccess[] = [$this, 'editUserSubmit'];
+        $form->onSuccess[] = [$this, 'editUserSubmit'];*/
         return $form;
     }
 
