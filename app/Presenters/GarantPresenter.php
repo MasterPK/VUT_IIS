@@ -359,7 +359,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	{
 
 		$values = $form->getValues();
-		Debugger::barDump($values,"deleteCourse");
+
 		try
 		{
 			$this->database->table("course")->where("id_course",$values->id_course)->delete();
