@@ -265,7 +265,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
     	if($values->task_points == '') $values->task_points = NULL;
 
-    	$result = $this->database->query("INSERT INTO task (id_task, task_name, task_type, task_description, task_points, task_date, task_from, task_to, id_course) VALUES ('',?,?,?,?,?,?,?,?)", $values->task_name, $values->task_type, $values->task_description, $values->task_points, $values->task_date, $values->task_from, $values->task_to, $values->id_course);
+    	$result = $this->database->query("INSERT INTO task (id_task, task_name, task_type, task_description, task_points, task_date, task_from, task_to, id_room, id_course) VALUES ('',?,?,?,?,?,?,?,?,?)", $values->task_name, $values->task_type, $values->task_description, $values->task_points, $values->task_date, $values->task_from, $values->task_to, $values->id_room, $values->id_course);
     	if($result->getRowCount() > 0)
     	{
     		$this->template->create_task_success = 1;
@@ -327,10 +327,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         $form->addHidden('id_course', '')
             ->setRequired()
 			->setDefaultValue($this->id_course);
-
-		$form->addCheckBox("really")
-		->setRequired()
-		->addCondition(Form::EQUAL, true);
 			
 		$form->addSubmit('submit', 'Smazat?!')
 			->setHtmlAttribute('class', 'btn btn-primary');
@@ -345,15 +341,15 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 		$values = $form->getValues();
 		Debugger::barDump($values,"deleteCourse");
-		try
-		{
+		/*try
+		{*/
 			$this->database->table("course")->where("id_course",$values->id_course)->delete();
 			$this->redirect("Garant:mycourses");
-		}
+		/*}
 		catch(\Throwable $e)
 		{
 			$this->template->error_notif = true;
-		}
+		}*/
 	}
 	private $current_course;
 	public function renderModifyCourse($id)
