@@ -27,6 +27,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	private $task;
 	private $id_course;
+	private $rooms;
 
 	public function startUp()
 	{
@@ -82,6 +83,13 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	            $this->task->task_to = $this->task->task_to->format("%H:%I");
 			}
 		}
+		$rooms = $this->database->query("SELECT id_room FROM room")->fetchAll();
+		$category[NULL] = "Žádná";
+		foreach($rooms as $room)
+		{
+			$category[$room->id_room] = $room->id_room;
+		}
+		$this->rooms = $category;
 	}
 	
 	public function createComponentCreateCourseForm(): Form
@@ -210,16 +218,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         ->setHtmlAttribute('class', 'form-control')
         ->addRule(Form::RANGE, "Zadejte počet bodů v rozmezí 1 - 100!", [1,100]);
 
-        $allrooms = $this->database->query("SELECT id_room FROM room")->fetchAll();
-		$rooms[NULL] = "Žádná";
-		foreach($allrooms as $room)
-		{
-			$rooms[$room->id_room] = $room->id_room;
-		}
-
-		dump($rooms);
-
-        $form->addSelect('id_room', 'Místnost', $rooms)
+        $form->addSelect('id_room', 'Místnost', $this->rooms)
 		->setHtmlAttribute('class', 'form-control');
 
         $form->addText('task_date', 'Datum')
@@ -326,9 +325,14 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	{
 		$form = new Form;
 
+		dump($this->id_course);
         $form->addHidden('id_course', '')
             ->setRequired()
 			->setDefaultValue($this->id_course);
+
+		$form->addCheckBox("really")
+		->setRequired()
+		->addCondition(Form::EQUAL, true);
 			
 		$form->addSubmit('submit', 'Smazat?!')
 			->setHtmlAttribute('class', 'btn btn-primary');
@@ -343,15 +347,15 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 		$values = $form->getValues();
 		Debugger::barDump($values,"deleteCourse");
-		/*try
-		{*/
+		try
+		{
 			$this->database->table("course")->where("id_course",$values->id_course)->delete();
 			$this->redirect("Garant:mycourses");
-		/*}
+		}
 		catch(\Throwable $e)
 		{
 			$this->template->error_notif = true;
-		}*/
+		}
 	}
 	private $current_course;
 	public function renderModifyCourse($id)
