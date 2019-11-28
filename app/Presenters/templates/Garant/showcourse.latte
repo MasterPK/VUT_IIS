@@ -119,5 +119,59 @@ Detail kurzu
 {/if}
 {/snippet}
 
+{ifset $course_tasks}
+<div class="row">
+    <div class="col-sm-12">
+        {foreach $course_tasks as $task}
+            <div class="card bg-default ">
+                <div class="card-header">
+                    {$task->task_name}
+                    {if $userIsGuarantorInCourse == true || $userIsLectorInCourse == true}
+                    <a n:href="Garant:edit $task->id_task"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Upravit termín</button></a>
+                    {/if}
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-2 col-sm-12">
+                            Typ:<br>
+                            <b>{$task->task_type}</b>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            Počet bodů:<br>
+                            <b>{$task->task_points}</b>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            Datum:<br>
+                            <b>{$task->task_date}&nbsp;Kč</b>
+                        </div>
+                        <div class="col-md-3 col-sm-12">
+                            Od:<br>
+                            <b>{$task->task_from}</b>
+                        </div>
+                        <div class="col-md-3 col-sm-12">
+                            Do:<br>
+                            <b>{$task->task_to}</b>
+                        </div>
+                        {ifset $task->id_room}
+                            <div class="col-md-3 col-sm-12">
+                            Místnost:<br>
+                            <b>{$task->id_room}</b>
+                        </div>
+                        {/ifset}
+                        
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            Popis:<br>
+                            <p class="card-text">{$task->task_description}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {/foreach}
+    </div>
+</div>
+{/ifset}
 
 {/block}
