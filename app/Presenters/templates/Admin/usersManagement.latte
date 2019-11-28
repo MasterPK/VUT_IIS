@@ -19,12 +19,16 @@
 
                     {foreach $allUsers as $row}
                     <tr>
-                        <th><a n:href="Admin:editUser $row->id_user">{$row->id_user}</a></th>
-                        <td>{$row->email}</td>
+                        <th>{$row->id_user}</th>
+                        <td><a n:href="Admin:editUser $row->id_user">{$row->email}</a></td>
                         <td>{$row->first_name}</td>
                         <td>{$row->surname}</td>
                         <td>{$row->phone}</td>
                         <td>{if $row->rank==1}Student{elseif $row->rank==2}Lektor{elseif $row->rank==3}Garant{elseif $row->rank==4}Vedoucí{elseif $row->rank==5}Administrátor{/if}</td>
+                        <td>
+                            <a n:href="Admin:editUser $row->id_user"><button class="btn btn-primary">Upravit</button></a>
+                            <a n:href="deleteuser! $row->id_user"><button class="btn btn-primary">Smazat</button></a>
+                        </td>
                     </tr>
                     {/foreach}
 
