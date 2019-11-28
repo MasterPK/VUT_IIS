@@ -326,11 +326,74 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	{
 		$values = $form->getValues();
 
-	}
+		$this->database->table("course")->where("id_course",$values["id_course"])->delete();
 
+		$this->redirect("Garant:mycourses");
+
+	}
+	private $current_course;
 	public function renderModifyCourse($id)
 	{
+		$this->current_course=$this->database->table("course")->where("id_course",$id)->fetch();
 
 	}
+
+	public function createComponentEditCourse()
+    {
+        $form = new Form;
+
+        $form->addHidden('id_course', '')
+			->setDefaultValue($this->current_course["id_course"]);
+			
+		$form->addText('id_course_show', '')
+            ->setHtmlAttribute('class', 'form-control')
+            ->setDisabled()
+            ->setDefaultValue($this->current_course["id_course"]);
+
+        $form->addText('course_name', '')
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired()
+            ->setDefaultValue($this->current_course["course_name"]);
+
+        $form->addTextArea('course_description', '')
+            ->setHtmlAttribute('class', 'form-control')
+			->setRequired()
+			->addRule(Form::MAX_LENGTH, 'Popis je příliš dlouhý', 499)
+            ->setDefaultValue($this->current_course["course_description"]);
+
+        $form->addText('course_type', '')
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired()
+            ->setDefaultValue($this->current_course["course_type"]);
+
+        $form->addText('course_price', '')
+            ->setHtmlAttribute('class', 'form-control')
+            ->setRequired()
+            ->setDefaultValue($this->current_course["course_price"]);
+
+        $form->addSubmit('submit', 'Potvrdit změny')
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+
+        $form->onSuccess[] = [$this, 'editCourseSubmit'];
+        return $form;
+    }
+
+    public function editCourseSubmit(Form $form)
+    {
+        $values = $form->getValues();
+
+        $data = $this->database->table("course")->where("id_course", $values->id_course)
+            ->update([
+                'course_name' => $values->course_name,
+                'course_description' => $values->course_description,
+                'course_type' => $values->course_type,
+                'course_price' => $values->course_price
+            ]);
+
+        $this->template->success_notify = true;
+        if ($this->isAjax()) {
+            $this->redrawControl("notify");
+        }
+    }
 
 }
