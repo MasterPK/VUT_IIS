@@ -27,6 +27,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	private $task;
 	private $id_course;
+	private $rooms;
 
 	public function startUp()
 	{
@@ -78,10 +79,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			if($this->task)
 			{
 				$this->task->task_date = $this->task->task_date->format("d.m.Y");
-	            $this->task->task_from = $this->task->task_from->format("H:i");
-	            $this->task->task_to = $this->task->task_to->format("H:i");
+	            $this->task->task_from = $this->task->task_from->format("%H:%I");
+	            $this->task->task_to = $this->task->task_to->format("%H:%I");
 			}
 		}
+		$this->rooms = $this->database->query("SELECT id_room FROM room")->fetchAll();
 	}
 	
 	public function createComponentCreateCourseForm(): Form
@@ -210,6 +212,12 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         ->setHtmlAttribute('class', 'form-control')
         ->addRule(Form::RANGE, "Zadejte počet bodů v rozmezí 1 - 100!", [1,100]);
 
+        $rooms = Category::lists($this->rooms);
+
+        $form->addSelect('id_room', 'Místnost', $rooms)
+		->setHtmlAttribute('class', 'form-control')
+        ->setRequired();
+
         $form->addText('task_date', 'Datum')
         ->setType('date')
         ->setDefaultValue((new \DateTime)->format('Y-m-d'))
@@ -238,6 +246,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	            'task_date' => $this->task->task_date,
 	            'task_from' => $this->task->task_from,
 	            'task_to' => $this->task->task_to,
+	            'id_room' => $this->task->id_room,
 	        ]);
         }
 
@@ -318,7 +327,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			->setDefaultValue($this->id_course);
 
 		$form->addCheckBox("really")
-		->setRequired("Musíte opravdu souhlasit!")
+		->setRequired()
 		->addCondition(Form::EQUAL, true);
 			
 		$form->addSubmit('submit', 'Smazat?!')
