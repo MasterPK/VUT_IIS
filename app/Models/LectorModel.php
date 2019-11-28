@@ -57,7 +57,14 @@ class LectorModel
         {
             $presenter->template->userIsLectorInCourse=true;
         }
+ 
+        $tasks = $this->database->query("SELECT * FROM task WHERE id_course = ?", $id)->fetchAll();
 
-        $presenter->template->course_tasks = $this->database->query("SELECT * FROM task WHERE id_course = ?", $id)->fetchAll();
+        foreach($tasks as $task)
+        {
+            $task->task_date = DateTime::from($task->task_date);
+        }
+
+        $presenter->template->course_tasks = $tasks;
     }
 }
