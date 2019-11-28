@@ -51,7 +51,7 @@ class MainModel
      */
     public function getUserDetail($id_user)
     {
-        $data = $this->database->table("user")->select("id_user,first_name,surname,email,phone,rank,active")->where("id_user",$id_user)->fetchAll();
+        $data = $this->database->table("user")->select("id_user,first_name,surname,email,phone,rank,active")->where("id_user",$id_user)->fetch();
 
         if ($data) {
             return $data;
