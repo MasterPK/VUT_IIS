@@ -62,9 +62,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$this->template->courses = $this->garantModel->getGarantCourses($this->user->identity->id);
 	}
 
+	
 	public function rendershowCourse($id)
 	{
 		$this->garantModel->renderShowCourse($this,$id);
+		$this->id_course=$id;
 	}
 
 	public function renderNewtask($id_course, $id_task)
@@ -310,7 +312,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
         $form->addHidden('id_user', '')
             ->setRequired()
-			->setDefaultValue($this->currentCourseId);
+			->setDefaultValue($this->id_course);
 			
 		$form->addSubmit('submit', 'Smazat?!')
 			->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
@@ -322,7 +324,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	public function deleteCourseFormHandle(Form $form)
 	{
-		
+
 	}
 
 	public function renderModifyCourse($id)
