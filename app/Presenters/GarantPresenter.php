@@ -430,9 +430,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 		
 		$tags = array();
-		foreach ($this->database->query("SELECT * FROM course NATURAL JOIN course_has_tag NATURAL JOIN tag WHERE id_course=?;",$this->id_course)->fetchAll() as $value) {
+		foreach ($this->database->query("SELECT * FROM course NATURAL JOIN course_has_tag NATURAL JOIN tag WHERE id_course=?;",$this->current_course["id_course"])->fetchAll() as $value) {
 			array_push($tags,$value->tag);
 		}
+
+		Debugger::barDump($tags);
 
 		$form->addMultiSelect('tags', 'tags',$this->database->table("tag")->select("tag")->fetchAll() )
 		->setHtmlAttribute('class', 'form-control')
