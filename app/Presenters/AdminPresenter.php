@@ -43,7 +43,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
     public function createComponentEditUser()
     {
-        $form = new UI\Form;
+        $form = new Form;
 
         $form->addText('id_user', '')
             ->setRequired()
@@ -99,7 +99,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     protected function createComponentEditPassword(): UI\Form
     {
         $user = $this->getUser()->getIdentity();
-        $form = new UI\Form;
+        $form = new Form;
 
         $form->addHidden('id_user', '')
             ->setRequired()
