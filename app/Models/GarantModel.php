@@ -88,17 +88,18 @@ class GarantModel
     {
         $this->lectorModel->renderShowCourse($presenter,$id);
             
-            //garant sa nemoze registrovat na svoj kurz
-            if($presenter->user->identity->id == $presenter->template->course->id_guarantor)
-            {
-                $presenter->template->userIsGuarantorInCourse=true;
-            }
-            else
-            {
-                $presenter->template->userIsGuarantorInCourse=false;
-            }
-            
-            $this->currentCourseId=$id;
+        //garant sa nemoze registrovat na svoj kurz
+        if($presenter->user->identity->id == $presenter->template->course->id_guarantor)
+        {
+            $presenter->template->userIsGuarantorInCourse=true;
+        }
+        else
+        {
+            $presenter->template->userIsGuarantorInCourse=false;
+        }
+        
+        
+        $this->currentCourseId=$id;
 
   
     }
