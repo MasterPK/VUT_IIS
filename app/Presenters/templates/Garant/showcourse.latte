@@ -150,11 +150,11 @@ Detail kurzu
                         </div>
                         <div class="col-md-3 col-sm-12">
                             Od:<br>
-                            <b>{$task->task_from->format("H:i")}</b>
+                            <b>{$task->task_from->format("%H:%I")}</b>
                         </div>
                         <div class="col-md-3 col-sm-12">
                             Do:<br>
-                            <b>{$task->task_to->format("H:i")}</b>
+                            <b>{$task->task_to->format("%H:%I")}</b>
                         </div>
                         {ifset $task->id_room}
                             <div class="col-md-3 col-sm-12">
