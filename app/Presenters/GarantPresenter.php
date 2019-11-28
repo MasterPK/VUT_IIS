@@ -361,7 +361,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$values = $form->getValues();
 
 		$this->database->table("course")->where("id_course",$values->id_course)->delete();
-		$this->redirect("Garant:mycourses");
+		$this->redirect("Garant:managecourses");
 
 	}
 
