@@ -238,13 +238,13 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
         $form->addText('task_from', 'Od')
         ->setType('time')
-        ->setDefaultValue((new \DateTime("12:00"))->format('%H:%I'))
+        ->setDefaultValue((new \DateTime("12:00")))
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired();
 
         $form->addText('task_to', 'Do')
         ->setType('time')
-        ->setDefaultValue((new \DateTime("13:00"))->format('%H:%I'))
+        ->setDefaultValue((new \DateTime("13:00")))
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired();
 
@@ -410,12 +410,16 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         $form->addSelect('course_type', '',$this->coursetype)
             ->setHtmlAttribute('class', 'form-control')
             ->setRequired()
-            ->setDefaultValue($this->current_course["course_type"]);
+			->setDefaultValue($this->current_course["course_type"]);
 
         $form->addInteger('course_price', '')
             ->setHtmlAttribute('class', 'form-control')
             ->setRequired()
-            ->setDefaultValue($this->current_course["course_price"]);
+			->setDefaultValue($this->current_course["course_price"]);
+		
+
+		$form->addMultiSelect('tags', '', $this->database->table("tag")->fetchAll())
+		->setHtmlAttribute('class', 'form-control');
 
         $form->addSubmit('submit', 'Potvrdit změny')
             ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
