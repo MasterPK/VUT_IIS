@@ -65,6 +65,7 @@ class LectorModel
             $task->task_date = $task->task_date->format("d.m.Y");
             $task->task_from = $task->task_from->format("H:i");
             $task->task_to = $task->task_to->format("H:i");
+            dump($task->task_from, $task->task_to);
         }
 
         $presenter->template->course_tasks = $tasks;
