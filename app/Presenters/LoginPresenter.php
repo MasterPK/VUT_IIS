@@ -63,9 +63,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
     }
 
     public function renderRestore()
-    {
-    
-    }
+    { }
 
     protected function createComponentRestoreForm()
     {
@@ -249,11 +247,8 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
             }
         } else {
             $newPwd = Random::generate(8);
-            $this->database->table("user")->where("email", $values->email)->update([
-                'password' => password_hash($newPwd, PASSWORD_BCRYPT)
-            ]);
-            $mail = new Message;
 
+            $mail = new Message;
             $mail->setFrom('Support <support@xkrehl04.g6.cz>')
                 ->addTo('p.p.krehlik@gmail.com')
                 ->setSubject('Nové heslo v IS Škola')
@@ -262,6 +257,9 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
 
             $mailer = new SendmailMailer;
             if ($mailer->send($mail)) {
+                $this->database->table("user")->where("email", $values->email)->update([
+                    'password' => password_hash($newPwd, PASSWORD_BCRYPT)
+                ]);
                 $this->template->success_notify = true;
                 if ($this->isAjax()) {
                     $this->redrawControl("body_snippet");
