@@ -250,7 +250,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
 
             $mail = new Message;
             $mail->setFrom('Support <support@xkrehl04.g6.cz>')
-                ->addTo('p.p.krehlik@gmail.com')
+                ->addTo($values->email)
                 ->setSubject('Nové heslo v IS Škola')
                 ->setBody("Dobrý den,\njelikož byl zaznamenán požadavek na nové heslo u emailu $values->email, tak Vám zasíláme nové heslo:\n\n$newPwd\n\nS pozdravem");
 
