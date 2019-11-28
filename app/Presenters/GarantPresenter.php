@@ -25,7 +25,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	/** @var \App\Model\MainModel @inject */
 	public $mainModel;
 
-
+	private $id_course;
 
 	public function startUp()
 	{
