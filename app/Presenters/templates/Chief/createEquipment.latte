@@ -2,7 +2,7 @@
 Vytvoření nové místnosti
 {/block}
 {block content}
-<!--{snippet notify}
+{snippet notify}
 {ifset $success_notify}
 <script>$.notify("Operace byla provedena!", "success");</script>
 {/ifset}
@@ -16,22 +16,9 @@ Vytvoření nové místnosti
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
-                        <form n:name="createRoom">
-                            {input id_course}
+                        <form n:name="createEquipment">
                             <div class="form-group">
-                                <label>Unikátní identifikátor:</label> {input id_course_show}
-                            </div>
-                            <div class="form-group">
-                                <label>Název kurzu:</label> {input course_name}
-                            </div>
-                            <div class="form-group">
-                                <label>Popis:</label> {input course_description}
-                            </div>
-                            <div class="form-group">
-                                <label>Typ:</label> {input course_type}
-                            </div>
-                            <div class="form-group">
-                                <label>Cena (Kč):</label> {input course_price} 
+                                <label>Název vybavení</label> {input equip_name}
                             </div>
                             <div class="form-group">
                                 {input submit}
@@ -42,5 +29,5 @@ Vytvoření nové místnosti
             </div>
         </div>
     </div>
-</div>-->
+</div>
 {/block}
