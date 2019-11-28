@@ -282,7 +282,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 	}
 
-	public function createComponentDeleteCourse()
+	public function createComponentDeleteAdres()
 	{
 		$form = new Form;
 
