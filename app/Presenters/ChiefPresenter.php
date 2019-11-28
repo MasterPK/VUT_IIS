@@ -330,7 +330,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
         return $form;
 	}
 
-	public function ChangeAdresSubmit()
+	public function ChangeAdresSubmit(Form $form)
 	{
         $values = $form->getValues();
 
