@@ -149,8 +149,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
 
             $this->redirect('Homepage:');
         } catch (Nette\Security\AuthenticationException $e) {
-            Debugger::barDump($e,"vyjimka");
-            $this->template->error_login = $e->message;
+            $this->template->error_login = $e->getMessage();
         }
     }
 
