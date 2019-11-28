@@ -87,7 +87,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$category[NULL] = "Žádná";
 		foreach($rooms as $room)
 		{
-			array_push($category[$room->id_room], $room->id_room);
+			$category[$room->id_room] = $room->id_room;
 		}
 		$this->rooms = $category;
 	}
