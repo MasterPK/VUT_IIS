@@ -266,14 +266,13 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	        ]);
 
 	         $form->addSubmit('create', 'Aktualizovat termín')
-        	->setHtmlAttribute('class', 'btn btn-block btn-primary');
+        	->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
         }
         else
         {
         	 $form->addSubmit('create', 'Vytvořit termín')
-        	->setHtmlAttribute('class', 'btn btn-block btn-primary');
+        	->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
         }
-     	dump($this->task->id_task);
         $form->onSuccess[] = [$this, 'createTaskForm'];
         return $form;
 	}
