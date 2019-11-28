@@ -4,7 +4,6 @@ namespace App\Model;
 
 
 use Nette;
-use Nette\Utils\DateTime;
 use Nette\Application\UI\Form;
 
 class LectorModel
@@ -63,7 +62,9 @@ class LectorModel
 
         foreach($tasks as $task)
         {
-            $task->task_date = DateTime::from($task->task_date);
+            $task->task_date = $task->task_date->format("Y-m-d");
+            $task->task_from = $task->task_from->format("H-i-s");
+            $task->task_to = $task->task_to->format("H-i-s");
         }
 
         $presenter->template->course_tasks = $tasks;
