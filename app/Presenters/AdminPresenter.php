@@ -85,6 +85,15 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             '4' => 'Vedoucí',
             '5'  => 'Administrátor'
         ];
+        
+        if($this->userInfo["active"]=="1")
+        {
+            $checkbox=true;
+        }
+        else
+        {
+            $checkbox=false;
+        }
 
         $form->addSelect('rank', '', $ranks)
             ->setHtmlAttribute('class', 'form-control')
@@ -94,7 +103,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         $form->addCheckbox('active', '')
             ->setHtmlAttribute('class', 'form-control')
             ->setRequired()
-            ->setDefaultValue($this->userInfo["active"]=="1"?true:false);
+            ->setValue($checkbox);
 
         $form->addSubmit('submit', 'Potvrdit')
             ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
