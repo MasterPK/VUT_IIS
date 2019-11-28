@@ -54,13 +54,13 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 	public function renderRooms(): void
 	{
-		$data = $this->database->table("room")->fetchAll();
+		$data = $this->database->->query("SELECT * FROM room NATURAL JOIN room_address")->fetchAll();
 		$this->template->rooms = $data;
 	}
 
 	public function renderRoomsEquipment($id)
 	{
-		$data = $this->database->query("SELECT * FROM room_equipment NATURAL JOIN room_has_equipment WHERE id_room = ?",  $id)->fetchAll();
+		$data = $this->database->->query("SELECT * FROM room_equipment NATURAL JOIN room_has_equipment WHERE id_room = ?",  $id)->fetchAll();
 
 		$this->template->equip = $data;
 	}
