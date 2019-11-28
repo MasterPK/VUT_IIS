@@ -287,7 +287,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 	public function renderChangeEquipment($id)
 	{
-		$this->current_Equip=$this->database->table("room_address")->where("id_room_address",$id)->fetch();
+		$this->current_Equip=$this->database->table("room_equipment")->where("id_room_equipment",$id)->fetch();
 	}
 
 
