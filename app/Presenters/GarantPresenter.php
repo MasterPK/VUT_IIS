@@ -319,6 +319,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			->setDefaultValue($this->id_course);
 
 		$form->addCheckBox("really")
+		->setRequired()
 		->addCondition(Form::EQUAL, true);
 			
 		$form->addSubmit('submit', 'Smazat?!')
@@ -342,10 +343,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		{
 
 		}
-		
-
-		
-
 	}
 	private $current_course;
 	public function renderModifyCourse($id)
