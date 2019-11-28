@@ -73,7 +73,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
             ->setRequired('Zadejte, prosím, email');
 
         $form->addSubmit('restore', 'Obnovit heslo')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary');
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
 
         $form->onSuccess[] = [$this, 'restoreFormSucceeded'];
         return $form;
