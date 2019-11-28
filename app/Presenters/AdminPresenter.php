@@ -96,15 +96,6 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 break;
         }
 
-        if($this->userInfo["active"]=="1")
-        {
-            $this->userInfo["active"]="Aktivní";
-        }
-        else
-        {
-            $this->userInfo["active"]="Deaktivován";
-        }
-
         $form->addSelect('rank', '')
             ->setHtmlAttribute('class', 'form-control')
             ->setRequired()
