@@ -8,15 +8,19 @@ Správa místností
             <table class="table table-bordered">
                 <thead class="thead-dark">
                     <tr class="text-right">
-                        <th><a n:href="Chief:createRoom"><button class="btn btn-dark">Přidat místnost</button></a></th>
-                        <th><a n:href="Chief:manageEquipment"><button class="btn btn-dark">Správa vybavení</button></a></th>
-                        <th><a n:href="Chief:manageAdres"><button class="btn btn-dark">Správa adres</button></a></th>
+                        <th>Místnost<a n:href="Chief:createRoom"><button class="btn btn-dark">Přidat místnost</button></a></th>
+                        <th>Vybavení<a n:href="Chief:manageEquipment"><button class="btn btn-dark">Správa vybavení</button></a></th>
+                        <th>Adresa<a n:href="Chief:manageAdres"><button class="btn btn-dark">Správa adres</button></a></th>
+                        <th/>
+                        <th/>
                     </tr>
                 </thead>
                 <tbody>
                     {foreach $rooms as $row}
                     <tr class="text-center">
                         <td style="min-width:100px">{$row->id_room}</td>
+                        <td style="min-width:100px"><button class="btn btn-dark">Zobrazit</button></td>
+                        <td style="min-width:100px">Místnost...</td>
                         <td><button class="btn btn-dark">Upravit</button></td>
                         <td><button class="btn btn-dark">Smazat</button></td>
                     </tr>
