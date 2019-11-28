@@ -235,7 +235,8 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 $this->redrawControl("notify");
             }
         } else {
-            $data = $this->database->table("user")
+            try{
+                $this->database->table("user")
                 ->insert([
                     'email' => $values->email,
                     'first_name' => $values->first_name,
@@ -245,15 +246,12 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                     'rank' => $values->rank,
                     'password' => password_hash($values->password, PASSWORD_BCRYPT)
                 ]);
-            if($data->getRowCount() ==1)
-            {
                 $this->template->success_notify = true;
             }
-            else
+            catch()
             {
                 $this->template->duplicate_notify = true;
             }
-               
            
             if ($this->isAjax()) {
                 $this->redrawControl("content_snippet");
