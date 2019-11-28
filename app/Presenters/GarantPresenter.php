@@ -239,13 +239,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
         $form->addText('task_from', 'Od')
         ->setType('time')
-        ->setDefaultValue((new \DateTime("12:00"))->format('H:i'))
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired();
+        ->setHtmlAttribute('class', 'form-control');
 
         $form->addText('task_to', 'Do')
         ->setType('time')
-        ->setDefaultValue((new \DateTime("13:00"))->format('H:i'))
+        ->setDefaultValue((new \DateTime("12:00"))->format('H'))
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired();
 
@@ -257,8 +255,8 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	            'task_description' => $this->task->task_description,
 	            'task_points' => $this->task->task_points,
 	            'task_date' => $this->task->task_date->format('Y-m-d'),
-	            'task_from' => $this->task->task_from->format('%H:%I'),
-	            'task_to' => $this->task->task_to->format('%H:%I'),
+	            'task_from' => $this->task->task_from->format('%H'),
+	            'task_to' => $this->task->task_to->format('%H'),
 	            'id_room' => $this->task->id_room,
 	        ]);
 
@@ -284,9 +282,13 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     	
     	if($values->id_room == '') $values->id_room = NULL;
     	if($values->task_points == '') $values->task_points = NULL;
-    	if($values->task_from > $values->task_to)
+    	if($values->task_from >= $values->task_to)
     	{
-    		$this->flashMessage("kokot");
+    		if($this->isAjax())
+	    	{
+	    		$this->template->error = 1;
+	    		$this->redrawControl('error_snippet');
+	    	}
     		return;
     	}
 
