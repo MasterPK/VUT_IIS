@@ -219,8 +219,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         ->addRule(Form::RANGE, "Zadejte počet bodů v rozmezí 1 - 100!", [1,100]);
 
         $form->addSelect('id_room', 'Místnost', $this->rooms)
-		->setHtmlAttribute('class', 'form-control')
-        ->setRequired();
+		->setHtmlAttribute('class', 'form-control');
 
         $form->addText('task_date', 'Datum')
         ->setType('date')
