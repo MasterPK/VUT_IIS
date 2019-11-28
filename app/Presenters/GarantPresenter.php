@@ -274,7 +274,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     	array_filter($values);
     	dump($values);
 
-    	$result = $this->database->query("INSERT INTO task (id_task, task_name, task_type, task_description, task_points, task_date, task_from, task_to, id_room, id_course) VALUES ('',?,?,?,?,?,?,?,?,?)", $values[0], $values[1], $values[2], $values[3], $values[4], $values[5], $values[6], $values[7], $values[8]);
+    	$result = $this->database->query("INSERT INTO task (id_task, task_name, task_type, task_description, task_points, task_date, task_from, task_to, id_room, id_course) VALUES ('',?,?,?,?,?,?,?,?,?)", $values['task_name'], $values['task_type'], $values['task_description'], $values['task_points'], $values['task_date'], $values['task_from'], $values['task_to'], $values['id_room'], $values['id_course']);
     	
     	if($result->getRowCount() > 0)
     	{
