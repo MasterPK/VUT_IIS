@@ -367,15 +367,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 		$values = $form->getValues();
 
-		try
-		{
-			$this->database->table("course")->where("id_course",$values->id_course)->delete();
-			$this->redirect("Garant:mycourses");
-		}
-		catch(\Throwable $e)
-		{
-			$this->template->error_notif = true;
-		}
+		$this->database->table("course")->where("id_course",$values->id_course)->delete();
+		$this->redirect("Garant:mycourses");
+
 	}
 
 
@@ -402,7 +396,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			->addRule(Form::MAX_LENGTH, 'Popis je příliš dlouhý', 499)
             ->setDefaultValue($this->current_course["course_description"]);
 
-        $form->addText('course_type', '')
+        $form->addSelect('course_type', '')
             ->setHtmlAttribute('class', 'form-control')
             ->setRequired()
             ->setDefaultValue($this->current_course["course_type"]);
