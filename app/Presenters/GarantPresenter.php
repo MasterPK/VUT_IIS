@@ -329,8 +329,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			->setDefaultValue($this->id_course);
 
 		$form->addCheckBox("really")
-		->setRequired()
-		->addCondition(Form::EQUAL, true);
+		->setRequired();
 			
 		$form->addSubmit('submit', 'Smazat?!')
 			->setHtmlAttribute('class', 'btn btn-primary');
