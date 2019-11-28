@@ -252,8 +252,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     {
     	$values = $form->getValues();
 
-    	array_filter($values->task_points);
-    	//if($values->task_points == 0) $values->task_points = NULL;
+    	if($values->task_points == '') $values->task_points = NULL;
 
     	$result = $this->database->query("INSERT INTO task (id_task, task_name, task_type, task_description, task_points, task_date, task_from, task_to, id_course) VALUES ('',?,?,?,?,?,?,?,?)", $values->task_name, $values->task_type, $values->task_description, $values->task_points, $values->task_date, $values->task_from, $values->task_to, $values->id_course);
     	if($result->getRowCount() > 0)
