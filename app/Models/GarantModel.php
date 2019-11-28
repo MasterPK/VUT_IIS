@@ -26,11 +26,22 @@ class GarantModel
 
     public function getGarantCourses($id_garant)
     {
-        $data = $this->database->query("SELECT id_course, course_name, course_type, course_status FROM course WHERE id_guarantor = ?",  $id_garant)->fetchAll();
-        if(count($data) > 0)
+        $lectorCourses = $this->lectorModel->getLectorCourses($id_garant);
+        $garantCourses = $this->database->query("SELECT id_course, course_name, course_type, course_status FROM course WHERE id_guarantor = ?",  $id_garant)->fetchAll();
+            
+        if($lectorCourses == NULL && $garantCourses == NULL)
         {
-            return $data;
+            return NULL;
         }
+        else if($lectorCourses != NULL && $garantCourses != NULL)
+        {
+            return array_merge($lectorCourses,$garantCourses);
+        }
+        else if($garantCourses != NULL)
+        {
+            return $garantCourses;
+        }
+        else return $lectorCourses;
     }
 
     public function createCourseF($meno): Form
