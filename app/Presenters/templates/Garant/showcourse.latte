@@ -21,6 +21,8 @@ Detail kurzu
                 {$course->id_course}
                 {if $userIsGuarantorInCourse == true}
                 <a n:href="Garant:newtask $course->id_course, NULL"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Nový termín</button></a>
+                <a n:href="Garant:modifyCourse $course->id_course"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Upravit kurz</button></a>
+                <a n:href="deleteCourse! $course->id_course"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Smazat kurz</button></a>
                 {/if}
             </div>
             <div class="card-body">
