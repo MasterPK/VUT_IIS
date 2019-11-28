@@ -161,11 +161,16 @@ Detail kurzu
                             Od:<br>
                             <b>{$task->task_from}:00</b>
                         </div>
-                        {/ifset}
                         <div class="col-md-3 col-sm-12">
                             Do:<br>
                             <b>{$task->task_to}:00</b>
                         </div>
+                        {else}
+                        <div class="col-md-3 col-sm-12">
+                            Čas:<br>
+                            <b>{$task->task_to}:00</b>
+                        </div>
+                        {/ifset}
                         {ifset $task->id_room}
                             <div class="col-md-3 col-sm-12">
                             Místnost:<br>
