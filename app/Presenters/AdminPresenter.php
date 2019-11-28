@@ -248,7 +248,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 ]);
                 $this->template->success_notify = true;
             }
-            catch()
+            catch(Exception $e)
             {
                 $this->template->duplicate_notify = true;
             }
