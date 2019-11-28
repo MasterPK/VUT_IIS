@@ -25,7 +25,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	/** @var \App\Model\MainModel @inject */
 	public $mainModel;
 
-	private $id_course;
+	private $item;
 
 	public function startUp()
 	{
@@ -66,9 +66,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$this->garantModel->renderShowCourse($this,$id);
 	}
 
-	public function renderNewtask($id)
+	public function renderNewtask($item)
 	{
-		$this->id_course = $id;
+		//item moze byt bud course alebo task
+		$this->item = $item;
+
 	}
 	
 	public function createComponentCreateCourseForm(): Form
@@ -169,9 +171,8 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         $form = new Nette\Application\UI\Form;
 
         $form->addHidden('id_course');
-		$form->setDefaults([
-            'id_course' => $this->id_course,
-
+        $form->setDefaults([
+            'id_course' => $this->item->id_course,
         ]);
 
         $form->addText('task_name', 'Název termínu')
@@ -215,6 +216,20 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         ->setDefaultValue("13:00")
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired();
+
+        //itemom je task, takze chceme upravovat
+        if($this->item->id_task)
+        {
+        	$form->setDefaults([
+	            'task_name' => $this->item->task_name,
+	            'task_type' => $this->item->task_type,
+	            'task_description' => $this->item->task_description,
+	            'task_points' => $this->item->task_points,
+	            'task_date' => $this->item->task_date,
+	            'task_from' => $this->item->task_from,
+	            'task_to' => $this->item->task_to,
+	        ]);
+        }
 
         $form->addSubmit('create', 'Vytvořit termín')
         ->setHtmlAttribute('class', 'btn btn-block btn-primary');
