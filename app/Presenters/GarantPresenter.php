@@ -29,6 +29,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	private $id_course;
 	private $rooms;
 
+	private $coursetype = [
+        'P' => 'Povinný',
+        'V' => 'Volitelný'
+    ];
+
 	public function startUp()
 	{
 		parent::startup();
@@ -390,7 +395,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			->addRule(Form::MAX_LENGTH, 'Popis je příliš dlouhý', 499)
             ->setDefaultValue($this->current_course["course_description"]);
 
-        $form->addSelect('course_type', '')
+        $form->addSelect('course_type', '',$this->coursetype)
             ->setHtmlAttribute('class', 'form-control')
             ->setRequired()
             ->setDefaultValue($this->current_course["course_type"]);
