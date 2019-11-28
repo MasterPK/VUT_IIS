@@ -1,13 +1,5 @@
 {block header} Správa uživatelů{/block}
 {block content}
-{snippet notify}
-{ifset $succes_notif}
-<script>$.notify("uživatel byl deaktivován, ale bude uložen v archivu!", "success");</script>
-{/ifset}
-{ifset $error_notif}
-<script>$.notify("Operace selhala!", "error");</script>
-{/ifset}
-{/snippet}
 <div class="row">
     <div class="col-sm-12">
         {ifset $allUsers}
@@ -28,7 +20,7 @@
                 {foreach $allUsers as $row}
                 <tr>
                     <th>{$row->id_user}</th>
-                    <td><a n:href="Admin:editUser $row->id_user">{$row->email}</a></td>
+                    <td><a n:href="Admin:edituser $row->id_user">{$row->email}</a></td>
                     <td>{$row->first_name}</td>
                     <td>{$row->surname}</td>
                     <td>{$row->phone}</td>
