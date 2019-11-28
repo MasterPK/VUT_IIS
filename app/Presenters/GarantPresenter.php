@@ -243,7 +243,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
         $form->addText('task_to', 'Do')
         ->setType('time')
-        ->setDefaultValue((new \DateTime("12:00"))->format('H'))
+        ->setDefaultValue(0)
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired();
 
