@@ -434,9 +434,17 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			array_push($tags,$value->tag);
 		}
 
-		Debugger::barDump($tags);
+		
 
-		$form->addMultiSelect('tags', 'tags',$this->database->table("tag")->select("tag")->fetchAll() )
+		$allTags = array();
+		foreach ($this->database->table("tag")->select("tag")->fetchAll() as $value) {
+			array_push($allTags,$value->tag);
+		}
+
+		Debugger::barDump($tags,"aktuální");
+		Debugger::barDump($allTags,"všechny");
+
+		$form->addMultiSelect('tags', 'tags', $allTags)
 		->setHtmlAttribute('class', 'form-control')
         ->setDefaultValue($tags);
 
