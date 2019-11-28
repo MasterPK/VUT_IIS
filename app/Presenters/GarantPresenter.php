@@ -269,14 +269,12 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	
 	public function createTaskForm(Nette\Application\UI\Form $form): void
     {
-    	$values = $form->getValues(true);
-    	dump($values);
-    	array_filter($values);
-    	dump($values);
+    	$values = $form->getValues();
+    	
+    	if($values->id_room == '') $values->id_room = NULL;
+    	if($values->task_points == '') $values->task_points = NULL;
 
-    	$values['id_room'] = NULL;
-    	dump($values);
-    	$result = $this->database->query("INSERT INTO task (id_task, task_name, task_type, task_description, task_points, task_date, task_from, task_to, id_room, id_course) VALUES ('',?,?,?,?,?,?,?,?,?)", $values['task_name'], $values['task_type'], $values['task_description'], $values['task_points'], $values['task_date'], $values['task_from'], $values['task_to'], $values['id_room'], $values['id_course']);
+    	$result = $this->database->query("INSERT INTO task (id_task, task_name, task_type, task_description, task_points, task_date, task_from, task_to, id_room, id_course) VALUES ('',?,?,?,?,?,?,?,?,?)", $values->task_name, $values->task_type, $values->task_description, $values->task_points, $values->task_date, $values->task_from, $values->task_to, $values->id_room, $values->id_course);
     	
     	if($result->getRowCount() > 0)
     	{
@@ -335,12 +333,8 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	private $current_course;
 	public function renderModifyCourse($id)
 	{
-
 		$this->current_course=$this->database->table("course")->where("id_course",$id)->fetch();
-		if($this->current_course->id_guarantor!=$this->user->identity->id)
-		{
-			$this->redirect("Homepage:");
-		}
+
 	}
 
 	public function createComponentDeleteCourse()
@@ -351,7 +345,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			->setDefaultValue($this->current_course);
 
 		$form->addCheckBox("really")
-		->setRequired("Musíte opravdu souhlasit!")
+		->setRequired()
 		->addCondition(Form::EQUAL, true);
 			
 		$form->addSubmit('submit', 'Smazat?!')
