@@ -281,6 +281,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$this->current_Adres=$this->database->table("room_address")->where("id_room_address",$id)->fetch();
 
 	}
+	dump($this->current_Adres);
 
 	public function createComponentDeleteAdres()
 	{
@@ -319,7 +320,6 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 			
 		$form->addText('id_course_show', '')
             ->setHtmlAttribute('class', 'form-control')
-            ->setDisabled()
             ->setDefaultValue($this->current_Adres["room_address"]);
 
         $form->addSubmit('submit', 'Potvrdit změny')
