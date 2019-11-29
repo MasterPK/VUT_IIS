@@ -140,18 +140,6 @@ Detail kurzu
 
                     <button class="btn btn-outline btn-primary" ref="popupCustomContent"><span>Smazat termín</span></button>
 
-                    <latte-popup :associate-with="$refs.popupCustomContent" persistent>
-                        <div class="panel" style="width: 300px">
-                            <div class="panel-header"><span class="panel-title">Potvrdit</span></div>
-                            <div class="panel-body">
-                                Opravdu smazat termín {$task->task_name}?
-                            </div>
-                            <div class="panel-footer justify-content-end">
-                                <button class="btn btn-contained btn-primary" data-close><span>Zavřít</span></button>
-                            </div>
-                        </div>
-                    </latte-popup>
-
                     <a n:href="Garant:newtask $task->id_course, $task->id_task">
                     <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Upravit termín</button></a>
                     {/if}
@@ -222,3 +210,15 @@ Detail kurzu
 {/ifset}
 {/snippet}
 {/block}
+
+<latte-popup :associate-with="$refs.popupCustomContent" persistent>
+    <div class="panel" style="width: 300px">
+        <div class="panel-header"><span class="panel-title">Potvrdit</span></div>
+        <div class="panel-body">
+            Opravdu smazat termín {$task->task_name}?
+        </div>
+        <div class="panel-footer justify-content-end">
+            <button class="btn btn-contained btn-primary" data-close><span>Zavřít</span></button>
+        </div>
+    </div>
+</latte-popup>
