@@ -188,15 +188,15 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		
         $form->addText('room_id', '')
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired()
+            ->setRequired();
 
         $form->addText('room_type', '')
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired()
+            ->setRequired();
 
         $form->addInteger('room_capacity', '')
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired()
+            ->setRequired();
 
         $form->addSubmit('submit', 'Vytvořit místnost')
             ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
