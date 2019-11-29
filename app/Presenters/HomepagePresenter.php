@@ -38,12 +38,6 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 		$this->startup->mainStartUp($this);
 	}
 
-
-	public function renderDefault(): void
-	{
-		FileSystem::createDir("Files/IMP");
-	}
-
 	public function renderCourses($search, $filter): void
 	{
 		if ($search) {
