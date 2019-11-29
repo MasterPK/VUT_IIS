@@ -250,7 +250,27 @@ Detail kurzu
 {/ifset}
 {/snippet}
 
+<a id="cart-popover" class="btn" data-placement="left">
+  <i class="fa fa-shopping-cart"></i>
+ <span class="badge"></span>
+ <span class="total_price">RM 0.00</span>
+</a>
 
+<div class="popover_title" style="display: none">
+<h6>Shopping Cart<span class="close-popover float-right text-danger "><i class="fas fa-times"></i></span></h6>
+</div>
+<div id="popover_content_wrapper" style="display: none">
+    <span id="cart_details"></span>
+                 
+    <div align="right">
+        <a href="#" class="btn btn-primary" id="check_out_cart">
+          <i class="fa fa-shopping-cart"></i> Check Out
+        </a>
+        <a href="#" class="btn btn-danger" id="clear_cart">
+          <i class="fa fa-trash"></i> Clear
+        </a>
+    </div>
+</div>
 
 <script>
 function show(id)
@@ -273,11 +293,22 @@ $("html").on("mouseup", function (e) {
     }
 });
 
-$('#btnpopover').popover({
-    placement: 'bottom',
-    container: 'body',
-    html: true,
-    content: '<button type="button" class="btn btn-default popover-dismiss">dismiss</button>'
+$(document).ready(function(){
+     $('#cart-popover').popover({
+       html : true,
+       title:function(){
+          return $('.popover_title').html();
+       },
+       content:function(){
+          return $('#popover_content_wrapper').html();
+       }
+       
+    });
+      
+});    
+
+$(document).on('click','.close-popover',function(){
+  $('#cart-popover').popover('hide');
 });
 
 </script>
