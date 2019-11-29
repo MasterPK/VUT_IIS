@@ -69,6 +69,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	public function renderAddEquipment($id)
 	{
 		$this->actual_room = $id;
+		$this->template->actual_room = $id;
 	}
 
 	public function renderManageAdres(): void
