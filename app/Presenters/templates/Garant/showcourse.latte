@@ -21,7 +21,7 @@ Detail kurzu
                 {$course->id_course}
                 {ifset $courseActive}
                 {if $userIsGuarantorInCourse == true}
-                <button id="popbutton" style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0" >Nový termín</button>
+                <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" data-toggle="popover" title="Vyberte typ termínu" data-content='<a n:href="Garant:newtask $course->id_course">Otvor</a>'>Nový termín</a>
                 <a n:href="Garant:modifyCourse $course->id_course"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Správa kurzu</button></a>
                 {/if}
                 {/ifset}
@@ -263,27 +263,17 @@ function hide(id)
     $("#" + id).modal("hide"); 
 }
 
-$('[data-toggle="popover"]').popover();
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
 
 $('body').on('click', function (e) {
-    $('[data-toggle="popover"]').each(function () {
-        //the 'is' for buttons that trigger popups
-        //the 'has' for icons within a button that triggers a popup
-        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
-            $(this).popover('hide');
-        }
-    });
+    //did not click a popover toggle or popover
+    if ($(e.target).data('toggle') !== 'popover'
+        && $(e.target).parents('.popover.in').length === 0) { 
+        $('[data-toggle="popover"]').popover('hide');
+    }
 });
-
-$(document).ready(function() {
-    $("#popbutton").popover({
-        placement: 'bottom',
-        html: true,
-        title : '<span class="text-info"><strong>title</strong></span>'+
-                '<button type="button" id="close" class="close" onclick="$("#popbutton").popover("hide");">Zavriet</button>',
-        content : 'test'
-    });
-}); 
 
 </script>
 
