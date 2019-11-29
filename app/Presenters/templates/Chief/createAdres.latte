@@ -18,12 +18,13 @@ Vytvoření nové místnosti
                     <div class="col-md-6 col-sm-12">
                         <form n:name="createAdres">
                             <div class="form-group">
-                                <label>Název Adresy</label> {input adres_name}
+                                <label>Název Adresy</label> <label class='required'> *</label> {input adres_name}
                             </div>
                             <div class="form-group">
                                 {input submit}
                             </div>
                         </form>
+                        <a n:href="Chief:manageAdres"><button class="btn btn-primary">Zpátky</button></a>
                     </div>
                 </div>
             </div>

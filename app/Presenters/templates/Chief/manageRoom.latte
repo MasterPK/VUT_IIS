@@ -19,7 +19,7 @@
                         <form n:name="updateRoom">
                             {input id_room}
                             <div class="form-group">
-                                <label>Název místnosti:</label> {input room_id}
+                                <label>Název místnosti:</label> <label class='required'> *</label> {input room_id}
                             </div>
                             <div class="form-group">
                                 <label>Typ:</label> {input room_type}
@@ -34,6 +34,7 @@
                                 {input submit}
                             </div>
                         </form>
+                        <a n:href="Chief:rooms"><button class="btn btn-primary">Zpátky</button></a>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <form n:name="deleteRoom">
