@@ -83,6 +83,8 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$this->template->rooms = $data;
 	}
 
+	
+
 	public function renderGarantCourses()
 	{
 		$lectorCourses = $this->garantModel->getLectorCourses($this->user->identity->id);
@@ -300,6 +302,8 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 	private $current_Adres;
 	private $current_Equip;
+
+	private $current_room;
 	public function renderChangeAdres($id)
 	{
 		$this->current_Adres = $this->database->table("room_address")->where("id_room_address", $id)->fetch();
@@ -308,6 +312,71 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	public function renderChangeEquipment($id)
 	{
 		$this->current_Equip = $this->database->table("room_equipment")->where("id_room_equipment", $id)->fetch();
+	}
+
+	public function renderManageCourses($id)
+	{
+		$this->current_room = $this->database->table("room")->where("id_room", $id)->fetch();
+	}
+
+	public function createComponentUpdateRoom()
+	{
+
+		$form = new Form;
+
+        $form->addHidden('id_room', '')
+			->setDefaultValue($this->current_room["id_room"]);
+
+		$form->addText('room_id', '')
+			->setHtmlAttribute('class', 'form-control')
+			->setRequired();
+			->setDefaultValue($this->current_room["id_room"]);
+
+		$form->addText('room_type', '')
+			->setHtmlAttribute('class', 'form-control')
+			->setRequired();
+			->setDefaultValue($this->current_room["room_type"]);
+
+		$form->addInteger('room_capacity', '')
+			->setHtmlAttribute('class', 'form-control')
+			->setRequired();
+			->setDefaultValue($this->current_room["room_capacity"]);
+
+		$tmp = $this->database->query("SELECT * FROM room_address")->fetchAll();
+
+		$address = array();
+		foreach ($tmp as $row) {
+			$address[$row->id_room_address]= $row->room_address;
+		}
+
+		$form->addSelect('room_Adres', '', $address)
+			->setHtmlAttribute('class', 'form-control')
+			->setRequired();
+			->setDefaultValue($address[$this->current_room["id_room_address"]]);
+
+		$form->addSubmit('submit', 'Upravit místnost')
+			->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+
+		$form->onSuccess[] = [$this, 'updateRoomSubmit'];
+		return $form;
+	}
+
+
+
+	public function updateRoomSubmit(Form $form)
+	{
+		$values = $form->getValues();
+		
+		$data = $this->database->table("room")
+			->update([
+				'id_room' => $values->room_id,
+				'room_type' => $values->room_type,
+				'room_capacity' => $values->room_capacity,
+				'id_room_address' => $values->room_Adres,
+			]);
+
+		$this->template->success_notify = true;
+		$this->redirect("Chief:rooms");
 	}
 
 
