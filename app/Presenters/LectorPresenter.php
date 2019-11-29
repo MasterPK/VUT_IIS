@@ -7,7 +7,7 @@ namespace App\Presenters;
 use Nette;
 use Nette\Application\UI\Form;
 use Tracy\Debugger;
-
+use Nette\Utils\FileSystem;
 
 final class LectorPresenter extends Nette\Application\UI\Presenter 
 {
@@ -77,6 +77,15 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
     	$this->redirect("Homepage:courses", $values->search, $values->filter);
 	}
 
+
+	public function handleDeleteFile($file)
+	{
+		FileSystem::delete("/$file");
+		if ($this->isAjax()) {
+			$this->template->succes_notif = true;
+			$this->redrawControl("content_snippet");
+		}
+	}
 
 	/*public function renderLector(): void
 	{
