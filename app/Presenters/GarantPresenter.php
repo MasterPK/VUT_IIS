@@ -512,12 +512,12 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         }
     }
 
-    public function handleDeleteTask($id_task)
+    public function handleDeleteTask($id_task,$id_course)
     {
     	$result = $this->database->table("task")->where("id_task", $id_task)
 			->delete();
 			
-		FileSystem::delete("Files//$id_task");
+		FileSystem::delete("Files/$id_course/$id_task");
     	$task = $this->database->table("task")->where("id_task", $id_task)
     		->fetch();
 
