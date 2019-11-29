@@ -68,20 +68,157 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 	private $task_id;
 	public function rendernewFile($course_id, $task_id)
 	{
-		$this->course_id=$course_id;
-		$this->task_id=$task_id;
+		$this->course_id = $course_id;
+		$this->task_id = $task_id;
 	}
+	public function createComponentCreateTaskForm(): Nette\Application\UI\Form
+	{
+		$form = new Nette\Application\UI\Form;
+
+		$form->addHidden('id_course');
+		$form->addHidden('id_task');
+
+		$form->setDefaults([
+			'id_course' => $this->id_course,
+			'id_task' => NULL,
+		]);
+
+		$form->addText('task_name', 'Název termínu')
+			->setHtmlAttribute('class', 'form-control')
+			->setRequired()
+			->addRule(Form::MAX_LENGTH, 'Dĺžka názvu je maximálně 50 znaků!', 50);
+
+		$form->addSelect('task_type', 'Typ termínu', [
+			'CV' => 'Cvičení',
+			'PR' => 'Přednáška',
+			'DU' => 'Domácí úkol',
+			'PJ' => 'Projekt',
+			'ZK' => 'Zkouška',
+		])
+			->setHtmlAttribute('class', 'form-control')
+			->setRequired();
+
+		$form->addText('task_description', 'Popis')
+			->setHtmlAttribute('class', 'form-control')
+			->setRequired()
+			->addRule(Form::MAX_LENGTH, 'Dĺžka popisu je maximálně 100 znaků!', 100);
+
+		$form->addText('task_points', 'Počet bodů')
+			->setHtmlAttribute('class', 'form-control')
+			->addRule(Form::RANGE, "Zadejte počet bodů v rozmezí 1 - 100!", [1, 100])
+			->addRule(Form::MAX_LENGTH, "Zadejte počet bodů v rozmezí 1 - 100!", 3);
+
+		$allrooms = $this->database->query("SELECT id_room FROM room")->fetchAll();
+		$rooms[NULL] = "Žádná";
+		foreach ($allrooms as $room) {
+			$rooms[$room->id_room] = $room->id_room;
+		}
+
+		$form->addSelect('id_room', 'Místnost', $rooms)
+			->setHtmlAttribute('class', 'form-control');
+
+		$form->addText('task_date', 'Datum')
+			->setType('date')
+			->setDefaultValue((new \DateTime)->format('Y-m-d'))
+			->setHtmlAttribute('class', 'form-control')
+			->setRequired();
+
+		$form->addText('task_from', 'Od')
+			->setHtmlAttribute('class', 'form-control')
+			->addRule(Form::RANGE, "Zadejte číslo v rozmezí 0 - 23!", [0, 23])
+			->addRule(Form::MAX_LENGTH, "Zadejte číslo v rozmezí 0 - 23!", 2);
+
+		$form->addText('task_to', 'Do')
+			->setHtmlAttribute('class', 'form-control')
+			->addRule(Form::RANGE, "Zadejte číslo v rozmezí 0 - 23!", [0, 23])
+			->addRule(Form::MAX_LENGTH, "Zadejte číslo v rozmezí 0 - 23!", 2)
+			->setRequired();
+
+		if ($this->task) {
+			$form->setDefaults([
+				'task_name' => $this->task->task_name,
+				'task_type' => $this->task->task_type,
+				'task_description' => $this->task->task_description,
+				'task_points' => $this->task->task_points,
+				'task_date' => $this->task->task_date->format('Y-m-d'),
+				'task_from' => $this->task->task_from,
+				'task_to' => $this->task->task_to,
+				'id_room' => $this->task->id_room,
+			]);
+
+			$form->setDefaults([
+				'id_task' => $this->task->id_task,
+			]);
+
+			$form->addSubmit('create', 'Aktualizovat termín')
+				->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+		} else {
+			$form->addSubmit('create', 'Vytvořit termín')
+				->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+		}
+		$form->onSuccess[] = [$this, 'createTaskForm'];
+		return $form;
+	}
+
+	public function createTaskForm(Nette\Application\UI\Form $form): void
+	{
+		$values = $form->getValues();
+
+		if ($values->task_from == '') $values->task_from = NULL;
+		if ($values->id_room == '') $values->id_room = NULL;
+		if ($values->task_points == '') $values->task_points = NULL;
+		if ($values->task_from >= $values->task_to) {
+			if ($this->isAjax()) {
+				$this->template->error = 1;
+				$this->redrawControl('error_snippet');
+			}
+			return;
+		}
+
+		//ak je id_task, tak upravujeme
+		if ($values->id_task != NULL) {
+			$result = $this->database->query("UPDATE task SET task_name = ?, task_type = ?, task_description = ?, task_points = ?, task_date = ?, task_from = ?, task_to = ?, id_room = ?, id_course = ? WHERE id_task = ?", $values->task_name, $values->task_type, $values->task_description, $values->task_points, $values->task_date, $values->task_from, $values->task_to, $values->id_room, $values->id_course, $values->id_task);
+
+			if ($result->getRowCount() > 0) {
+				$this->template->update_task_success = 1;
+			} else {
+				$this->template->update_task_success = 0;
+			}
+
+			if ($this->isAjax()) {
+				$this->redrawControl('update_task_snippet');
+			}
+		} else {
+			$result = $this->database->query("INSERT INTO task (id_task, task_name, task_type, task_description, task_points, task_date, task_from, task_to, id_room, id_course) VALUES ('',?,?,?,?,?,?,?,?,?)", $values->task_name, $values->task_type, $values->task_description, $values->task_points, $values->task_date, $values->task_from, $values->task_to, $values->id_room, $values->id_course);
+			$task_id = $this->database->getInsertId('task');
+			Debugger::barDump($result);
+			Debugger::barDump($task_id, "id");
+			if ($result->getRowCount() > 0) {
+				try {
+					FileSystem::createDir("Files/$values->id_course/$task_id");
+					$this->template->create_task_success = 1;
+				} catch (Nette\IOException $e) {
+					$this->template->create_task_success = 0;
+				}
+			} else {
+				$this->template->create_task_success = 0;
+			}
+
+			if ($this->isAjax()) {
+				$this->redrawControl('create_task_snippet');
+			}
+		}
+	}
+
 	public function renderNewtask($id_course, $id_task)
 	{
 		$this->id_course = $id_course;
-		if($id_task != NULL)
-		{
+		if ($id_task != NULL) {
 			$this->task = $this->database->query("SELECT * FROM task WHERE id_task = ? AND id_course = ?", $id_task, $id_course)->fetch();
 		}
 		$rooms = $this->database->query("SELECT id_room FROM room")->fetchAll();
 		$category[NULL] = "Žádná";
-		foreach($rooms as $room)
-		{
+		foreach ($rooms as $room) {
 			$category[$room->id_room] = $room->id_room;
 		}
 		$this->rooms = $category;
@@ -102,15 +239,15 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 	public function handleDeleteFile($file)
 	{
 		/*try {*/
-			Debugger::barDump($file,"souborDelete");
-			FileSystem::delete("$file");
-			$this->template->success_notif = true;
+		Debugger::barDump($file, "souborDelete");
+		FileSystem::delete("$file");
+		$this->template->success_notif = true;
 		/*} catch (Nette\IOException $e) {
 			$this->template->error_notif = true;
 		}*/
-		
+
 		if ($this->isAjax()) {
-			
+
 			$this->redrawControl("content_snippet");
 		}
 	}
@@ -120,21 +257,21 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 		$form = new Form;
 
 		$form->addHidden("course_id")
-		->setDefaultValue($this->course_id);
+			->setDefaultValue($this->course_id);
 
 		$form->addHidden("task_id")
-		->setDefaultValue($this->task_id);
-		
+			->setDefaultValue($this->task_id);
+
 		$form->addUpload('file', '')
-		->setRequired(true)
-		->addRule(Form::MAX_FILE_SIZE, 'Maximální velikost souboru je 5 MB.', 5242880 /* v bytech */);
+			->setRequired(true)
+			->addRule(Form::MAX_FILE_SIZE, 'Maximální velikost souboru je 5 MB.', 5242880 /* v bytech */);
 
 		$form->addSubmit('submit', 'Odeslat')
 			->setHtmlAttribute('class', 'btn btn-block btn-primary');
-			
+
 		$form->onSuccess[] = [$this, 'newFileToCourseFormSubmit'];
 
-        return $form;
+		return $form;
 	}
 
 	public function newFileToCourseFormSubmit(Form $form)
@@ -143,7 +280,6 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 		$path = "Files/$values->course_id/$values->task_id/" . $values->file->getName();
 		$values->file->move($path);
 		$this->redirect('Lector:showcourse $');
-
 	}
 
 	/*public function renderLector(): void
