@@ -8,6 +8,7 @@ use Nette;
 use Nette\Application\UI\Form;
 use Tracy\Debugger;
 use Nette\Utils\FileSystem;
+use Nette\Utils\Finder;
 
 final class GarantPresenter extends Nette\Application\UI\Presenter 
 {
