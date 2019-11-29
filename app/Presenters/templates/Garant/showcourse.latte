@@ -140,6 +140,23 @@ Detail kurzu
 
                     <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="show()"><span>Smazat termín</span></button>
 
+                    <div class="modal fade" id="my-modal">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Potvrzení</h4>
+                          </div>
+                          <div class="modal-body">
+                            <p>Opravdu smazat termín {$task->task_name}?</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Zrušit</button>
+                            <button type="button" class="btn btn-primary" n:href="deleteTask! $task->task_id">Potvrdit</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                     <a n:href="Garant:newtask $task->id_course, $task->id_task">
                     <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Upravit termín</button></a>
                     {/if}
@@ -209,25 +226,6 @@ Detail kurzu
 <script>$.notify("Termín byl úspěšně smazán!", "success");</script>
 {/ifset}
 {/snippet}
-
-<div class="modal fade" id="my-modal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Potvrzení</h4>
-      </div>
-      <div class="modal-body">
-        <p>Opravdu?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Zrušit</button>
-        <button type="button" class="btn btn-primary">Potvrdit</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
 
 <script>
 function show()
