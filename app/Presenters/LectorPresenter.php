@@ -79,13 +79,13 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 
 	public function handleDeleteFile($file)
 	{
-		try {
+		/*try {*/
 			Debugger::barDump($file,"soubor");
 			FileSystem::delete("/$file");
 			$this->template->success_notif = true;
-		} catch (Nette\IOException $e) {
+		/*} catch (Nette\IOException $e) {
 			$this->template->error_notif = true;
-		}
+		}*/
 		
 		if ($this->isAjax()) {
 			
