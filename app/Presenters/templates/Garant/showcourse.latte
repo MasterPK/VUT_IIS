@@ -40,6 +40,12 @@ Detail kurzu
                         Cena:<br>
                         <b>{$course->course_price}&nbsp;Kč</b>
                     </div>
+                    {ifset $courseActive}
+                    <div class="col-md-3 col-sm-12">
+                        Stav registrací:<br>
+                        <b>Čeká na se na schválení kurzu vedoucím</b>
+                    </div>
+                    {elseifset}
                     <div class="col-md-3 col-sm-12">
                         Stav registrací:<br>
                         <b>{if $course->course_status == 2 }Otevřeno{else}Zavřeno{/if}</b>
@@ -50,6 +56,7 @@ Detail kurzu
                         <b>{ifset $userCourseStatus}{if $userCourseStatus == 0 }Čeká se na schválení{elseif $userCourseStatus == 1}Potvrzeno{elseif $userCourseStatus == 2}Zamítnuto{/if}{else}Žádná žádost neexistuje!{/ifset}</b>
                     </div>
                    {/if}
+                   {/ifset}
                     
                 </div>
                 <br>
