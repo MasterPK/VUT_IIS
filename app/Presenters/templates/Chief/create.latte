@@ -22,22 +22,27 @@ Vytvoření nového kurzu
         <div id="divForm" class="d-block">
             <form n:name="createCourseForm">
                 <div class="form-group">
-                    <label>Zkratka kurzu </label><label class='required'>*</label> {input id_course}
+                    <label>Zkratka kurzu</label><label class='required'> *</label> 
+                    {input id_course}
                 </div>
                 <div class="form-group">
-                    <label>Název kurzu</label> {input name}
+                    <label>Název kurzu</label><label class='required'> *</label>
+                    {input name}
                 </div>
                 <div class="form-group">
-                    <label>Popis</label> {input description}
+                    <label>Popis</label><label class='required'> *</label>
+                    {input description}
                 </div>
                 <div class="form-group">
-                    <label>Typ</label> {input type}
+                    <label>Typ</label><label class='required'> *</label>
+                    {input type}
                 </div>
                 <div class="form-group">
-                    <label>Cena</label> {input price}
+                    <label>Cena</label><label class='required'> *</label>
+                    {input price}
                 </div>
                 <div class="form-group">
-                    <label>Štítky:</label> {input tags}
+                    <label>Štítky</label> {input tags}
                 </div>
                 <div class="form-group text-center">
                     {input create}
