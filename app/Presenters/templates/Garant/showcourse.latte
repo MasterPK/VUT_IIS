@@ -223,6 +223,14 @@ Detail kurzu
                             <p class="card-text">{$task->task_description}</p>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            Soubory:<br>
+                            {foreach $files[$task->id_task] as $file}
+                                <a href="/{$file}">{=basename($file)}</a><br>  
+                            {/foreach}
+                        </div>
+                    </div>
                 </div>
             </div>
         {ifset delete_task_success}
