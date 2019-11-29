@@ -114,7 +114,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 				"tags" => $values->tags
 			]);
     		//$data = $this->database->query("INSERT INTO course (id_course, course_name, course_description, course_type, course_price, id_guarantor, course_status) VALUES (?, ?, ?, ?, ?, ?, 0, ?);", $values->id_course, $values->name, $values->description, $values->type, $values->price, $values->tags,  $this->user->identity->id);
-			FileSystem::createDir("Files/$values->id_course");
+			FileSystem::createDir("./Files/$values->id_course");
     		$this->template->success_insert = true;
     	}
     	catch(Nette\Database\UniqueConstraintViolationException $e)
@@ -337,7 +337,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	    	{
 				try
 				{
-					FileSystem::createDir("Files/$values->id_course/$values->id_task");
+					FileSystem::createDir("./Files/$values->id_course/$values->id_task");
 					$this->template->create_task_success = 1;
 				}
 				catch(Nette\IOException $e)
