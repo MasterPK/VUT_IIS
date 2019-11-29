@@ -269,22 +269,39 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         $form->addSelect('id_room', 'Místnost', $rooms)
 		->setHtmlAttribute('class', 'form-control');
 
-        $form->addText('task_date', 'Datum')
-        ->setType('date')
-        ->setDefaultValue((new \DateTime)->format('Y-m-d'))
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired("Tohle pole je povinné.");
+		switch($this->task_type)
+		{
+			case 'PR':
+				$form->addText('task_day', 'Den')
+		        ->setDefaultValue("Pondělí")
+		        ->setHtmlAttribute('class', 'form-control')
+		        ->setRequired("Tohle pole je povinné.");
 
-        $form->addText('task_from', 'Od')
-        ->setHtmlAttribute('class', 'form-control')
-        ->addRule(Form::RANGE, "Zadejte číslo v rozmezí 0 - 23!", [0,23])
-        ->addRule(Form::MAX_LENGTH, "Zadejte číslo v rozmezí 0 - 23!", 2);
+		        $form->addText('task_num', 'Počet')
+		        ->setDefaultValue(1)
+		        ->setHtmlAttribute('class', 'form-control')
+		        ->setRequired("Tohle pole je povinné.");
+				break;
+			default:
+				 $form->addText('task_date', 'Datum')
+		        ->setType('date')
+		        ->setDefaultValue((new \DateTime)->format('Y-m-d'))
+		        ->setHtmlAttribute('class', 'form-control')
+		        ->setRequired("Tohle pole je povinné.");
 
-        $form->addText('task_to', 'Do')
-        ->setHtmlAttribute('class', 'form-control')
-        ->addRule(Form::RANGE, "Zadejte číslo v rozmezí 0 - 23!", [0,23])
-        ->addRule(Form::MAX_LENGTH, "Zadejte číslo v rozmezí 0 - 23!", 2)
-        ->setRequired("Tohle pole je povinné.");
+		        $form->addText('task_from', 'Od')
+		        ->setHtmlAttribute('class', 'form-control')
+		        ->addRule(Form::RANGE, "Zadejte číslo v rozmezí 0 - 23!", [0,23])
+		        ->addRule(Form::MAX_LENGTH, "Zadejte číslo v rozmezí 0 - 23!", 2);
+
+		        $form->addText('task_to', 'Do')
+		        ->setHtmlAttribute('class', 'form-control')
+		        ->addRule(Form::RANGE, "Zadejte číslo v rozmezí 0 - 23!", [0,23])
+		        ->addRule(Form::MAX_LENGTH, "Zadejte číslo v rozmezí 0 - 23!", 2)
+		        ->setRequired("Tohle pole je povinné.");
+				break;
+		}
+       
 
         if($this->task)
         {
