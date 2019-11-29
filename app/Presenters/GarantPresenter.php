@@ -105,6 +105,12 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		}
 		$this->rooms = $category;
 	}
+
+	public function renderAddlectors($id_course)
+	{
+		$this->template->lectors = $this->database->table("user")->where("rank >= 2")->fetchAll();
+		$this->template->id_course = $id_course;
+	}
 	
 	public function createComponentCreateCourseForm(): Form
 	{
@@ -596,5 +602,49 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$path = "Files/$values->course_id/$values->task_id/" . $values->file->getName();
 		$values->file->move($path);
 		$this->redirect('Garant:showcourse',$values->course_id);
+	}
+
+	public function handleRegister($users, $id_course): void
+    {
+    	//ak neni ziaden checkbox, tak sa odosle []
+    	$users = substr($users, 1, -1);
+    	//po substr ostane prazdny
+    	if(empty($users))
+		{
+			$this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'notify'] ) );
+			return;	
+		}
+
+		//inak tam je aspon jedno id
+		$users = preg_split("/[,]/", $users);
+		
+		//po preg_split sa z toho stava array
+		foreach($users as $user)
+		{
+			$result = $this->database->table("course_has_lecturer")->insert("id_user", $user)->insert("id_course", $id_course);
+
+			//ak sa nejaky insert nevykona, ukonci s chybou
+			if($result == 0)
+			{
+				$this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'error'] ) );
+				return;
+			}
+		}
+		
+
+		if ($this->isAjax())
+		{
+            $this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'success'] ) );
+        }
+		
+    	
+	}
+
+	public function handleFinish(): void
+	{
+		if($this->isAjax())
+		{
+			$this->redrawControl("reg_snippet");
+		}
 	}
 }
