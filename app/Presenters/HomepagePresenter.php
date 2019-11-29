@@ -72,6 +72,10 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 		$grid->setPrimaryKey('id_course');
 		$grid->setDataSource($this->database->table('course'));
 
+		$grid->addColumnText('id_course', 'Zkratka kurzu')
+		->setSortable()
+		->setFilterText();
+
 		$grid->addColumnText('course_name', 'Jméno kurzu')
 		->setSortable()
 		->setFilterText();
