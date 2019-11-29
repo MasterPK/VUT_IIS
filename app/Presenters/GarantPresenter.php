@@ -622,7 +622,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		
 		if ($this->isAjax())
 		{
-            $this->redrawControl("remove_snippet");
+            $this->redrawControl("manage_snippet");
         }
 	}
 
@@ -642,7 +642,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		
 		if ($this->isAjax())
 		{
-            $this->redrawControl("add_snippet");
+            $this->redrawControl("manage_snippet");
         }	
 	}
 }
