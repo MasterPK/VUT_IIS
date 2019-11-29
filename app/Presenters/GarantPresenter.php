@@ -240,7 +240,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         $form->setDefaults([
             'id_course' => $this->id_course,
             'id_task' => NULL,
-            'task_type' => $this->task_type;
+            'task_type' => $this->task_type,
         ]);
 
         $form->addText('task_name', 'Název termínu')
