@@ -75,7 +75,7 @@ Detail kurzu
 <br>
 {ifset $courseActive}
 {snippet studentRegistration}
-{if $userIsGuarantorInCourse == false}
+{if $userIsLectorInCourse == false}
 {ifset $openRegistration}
 {ifset $userCourseStatus}
 {if $userCourseStatus==1}
@@ -102,32 +102,6 @@ Detail kurzu
     </div>
 </div>
 {/ifset}
-{/ifset}
-{/if}
-
-{if $userIsGuarantorInCourse == true}
-{ifset $openRegistration}
-<div class="row">
-    <div class="col-auto mr-auto"></div>
-    <div class="col-auto">
-        <form n:name="closeRegisterForm">
-            <div class="form-group text-center ">
-                {input register}
-            </div>
-        </form>
-    </div>
-</div>
-{else}
-<div class="row">
-    <div class="col-auto mr-auto"></div>
-    <div class="col-auto">
-        <form n:name="openRegisterForm">
-            <div class="form-group text-center ">
-                {input register}
-            </div>
-        </form>
-    </div>
-</div>
 {/ifset}
 {/if}
 {/snippet}
