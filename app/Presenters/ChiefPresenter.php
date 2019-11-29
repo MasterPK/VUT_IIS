@@ -212,9 +212,8 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	{
 		$values = $form->getValues();
 
-		Debugger::barDump($values, "nic1");
 		$address_id = $this->database->table("room_address")->where("room_address", $values->room_Adres)->fetch();
-		Debugger::barDump($address_id, "nic");
+
 		$data = $this->database->table("room")
 			->insert([
 				'id_room' => $values->room_id,
@@ -223,10 +222,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 				'id_room_address' => $address_id,
 			]);
 
-		$this->template->success_notify = true;
-		if ($this->isAjax()) {
-			$this->redrawControl("content_snippet");
-		}
+		$this->redirect("Chief:rooms");
 	}
 
 	public function createComponentCreateEquipment()
