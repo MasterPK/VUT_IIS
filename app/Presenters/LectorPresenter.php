@@ -71,6 +71,21 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 		$this->course_id=$course_id;
 		$this->task_id=$task_id;
 	}
+	public function renderNewtask($id_course, $id_task)
+	{
+		$this->id_course = $id_course;
+		if($id_task != NULL)
+		{
+			$this->task = $this->database->query("SELECT * FROM task WHERE id_task = ? AND id_course = ?", $id_task, $id_course)->fetch();
+		}
+		$rooms = $this->database->query("SELECT id_room FROM room")->fetchAll();
+		$category[NULL] = "Žádná";
+		foreach($rooms as $room)
+		{
+			$category[$room->id_room] = $room->id_room;
+		}
+		$this->rooms = $category;
+	}
 
 	public function createComponentSearchCourseForm(): Nette\Application\UI\Form
 	{
