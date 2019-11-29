@@ -340,7 +340,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     
     public function updateUser(Row $row)
     {
-        $this-database->table("user")->where("id_user",$row->id_user)->update([
+        $this->database->table("user")->where("id_user",$row->id_user)->update([
             'email' => $row->email,
             'first_name' => $row->first_name,
             'surname' => $row->surname,
