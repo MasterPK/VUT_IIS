@@ -519,8 +519,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		FileSystem::delete("Files/$id_course/$id_task");
     	$task = $this->database->table("task")->where("id_task", $id_task)
 			->fetch();
-		$result = $this->database->table("task")->where("id_task", $id_task)
-			->delete();
 
     	if($task)
     	{	
