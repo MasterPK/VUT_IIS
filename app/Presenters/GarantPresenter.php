@@ -248,16 +248,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         ->setRequired()
         ->addRule(Form::MAX_LENGTH, 'Dĺžka názvu je maximálně 50 znaků!', 50);
 
-        /*$form->addSelect('task_type', 'Typ termínu', [
-		    'CV' => 'Cvičení',
-		    'PR' => 'Přednáška',
-		    'DU' => 'Domácí úkol',
-		    'PJ' => 'Projekt',
-		    'ZK' => 'Zkouška',
-		])
-		->setHtmlAttribute('class', 'form-control')
-        ->setRequired("Tohle pole je povinné.");*/
-
         $form->addText('task_description', 'Popis')
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired()
