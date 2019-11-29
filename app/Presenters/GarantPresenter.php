@@ -129,22 +129,21 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			]);
     		//$data = $this->database->query("INSERT INTO course (id_course, course_name, course_description, course_type, course_price, id_guarantor, course_status) VALUES (?, ?, ?, ?, ?, ?, 0, ?);", $values->id_course, $values->name, $values->description, $values->type, $values->price, $values->tags,  $this->user->identity->id);
 			FileSystem::createDir("Files/$values->id_course");
-			$form->setValues([], TRUE);
-    		$this->template->success_notify = true;
+			
+    		$this->template->success_insert = true;
     	}
     	catch(Nette\Database\UniqueConstraintViolationException $e)
     	{
-    		$this->template->error_notify=true;
+    		$this->template->error_insert=true;
+    		$this->template->error_course=$values->id_course;
 		}
 		catch(Nette\IOException $e)
     	{
-    		$this->template->error_notify=true;
+    		$this->template->error_insert=true;
+    		$this->template->error_course=$values->id_course;
 		}
 		
-		if ($this->isAjax())
-		{
-            $this->redrawControl('content_snippet');
-        }
+	
 	}
 
 	public function createComponentRegisterForm()

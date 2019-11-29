@@ -83,7 +83,7 @@ class GarantModel
         ->setHtmlAttribute('class', 'form-control');
         
         $form->addSubmit('create', 'Vytvořit kurz')
-        ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+        ->setHtmlAttribute('class', 'btn btn-block btn-primary');
         
         $form->onSuccess[] = [$meno, 'createCourseForm'];
         return $form;
