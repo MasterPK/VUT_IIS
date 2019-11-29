@@ -11,6 +11,35 @@
     </div>
 </div>
 {include '../Homepage/showCourseBlock.latte'}
+{snippet studentRegistration}
+{ifset $openRegistration}
+{ifset $userCourseStatus}
+{if $userCourseStatus==1}
+<div class="row">
+    <div class="col-auto mr-auto"></div>
+    <div class="col-auto">
+        <form n:name="unRegisterForm">
+            <div class="form-group text-center ">
+                {input register}
+            </div>
+        </form>
+    </div>
+</div>
+{/if}
+{else}
+<div class="row">
+    <div class="col-auto mr-auto"></div>
+    <div class="col-auto">
+        <form n:name="registerForm">
+            <div class="form-group text-center ">
+                {input register}
+            </div>
+        </form>
+    </div>
+</div>
+{/ifset}
+{/ifset}
+{/snippet}
 <br>
 {snippet course_tasks_snippet}
 {ifset $course_tasks}
@@ -80,33 +109,5 @@
 </div>
 {/ifset}
 {/snippet}
-{snippet studentRegistration}
-{ifset $openRegistration}
-{ifset $userCourseStatus}
-{if $userCourseStatus==1}
-<div class="row">
-    <div class="col-auto mr-auto"></div>
-    <div class="col-auto">
-        <form n:name="unRegisterForm">
-            <div class="form-group text-center ">
-                {input register}
-            </div>
-        </form>
-    </div>
-</div>
-{/if}
-{else}
-<div class="row">
-    <div class="col-auto mr-auto"></div>
-    <div class="col-auto">
-        <form n:name="registerForm">
-            <div class="form-group text-center ">
-                {input register}
-            </div>
-        </form>
-    </div>
-</div>
-{/ifset}
-{/ifset}
-{/snippet}
+
 
