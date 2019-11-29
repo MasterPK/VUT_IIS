@@ -191,7 +191,6 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		{
 			array_push($this->address, $row->room_address);
 		}
-		Debugger::barDump($this->address,"test");
 	}
 
 	
@@ -211,6 +210,9 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
             ->setHtmlAttribute('class', 'form-control')
 			->setRequired();
 			
+		$form->addSelect('room_Adres', '', $this->address)
+            ->setHtmlAttribute('class', 'form-control')
+			->setRequired();
 
         $form->addSubmit('submit', 'Vytvořit místnost')
             ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
