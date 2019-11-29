@@ -3,8 +3,9 @@
 declare(strict_types=1);
 
 namespace App\Presenters;
-use Ublaboo\DataGrid\DataGrid;
 use Ublaboo;
+use Ublaboo\DataGrid\DataGrid;
+
 use Nette;
 
 use Nette\Application\UI;
@@ -78,10 +79,8 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 
 		$grid->addColumnText('course_name', 'Jméno kurzu')
 		->setSortable()
-		->setFilterText()
-		->setEditableCallback(function($id, $value): void {
-			echo("Id: $id, new value: $value"); die;
-		});
+		->setFilterText();
+		
 
 		$grid->addColumnText('course_type', 'Typ kurzu')
 		->setReplacement([
