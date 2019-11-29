@@ -115,9 +115,9 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 		}
 	}
 
-	public function renderShowcourse($id): void
+	public function renderShowcourse($id_course): void
 	{
-		$this->visitorModel->renderShowcourse($this, $id);
+		$this->visitorModel->renderShowcourse($this, $id_course);
 	}
 
 	public function createComponentSearchCourseForm(): Nette\Application\UI\Form
