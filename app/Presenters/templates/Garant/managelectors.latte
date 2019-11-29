@@ -1,0 +1,80 @@
+{block header}
+Přidat lektory
+{/block}
+{block content}
+{snippet remove_snippet}
+{ifset $current_lectors}
+    
+    {ifset $remove_lector_success}
+    {if $remove_lector_success == 1}
+        <script>$.notify("Vybraní lektoři byli odebráni", "success");</script>
+    {else}
+        <script>$.notify("Některé lektory nebylo možné odebrat!", "error");</script>
+    {/if}
+    {/ifset}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Email lektora</th>
+                <th scope="col">Jméno</th>
+                <th scope="col">Odebrat</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {foreach $current_lectors as $row}
+            <tr>
+            <td>{$row->email}</td>
+            <td>{$row->first_name} {$row->surname}</td>
+            <td>
+                <a class="ajax" n:href="remove! $row->id_user, $id_course"><button class="btn btn-primary btn-sm text-white order-1 order-sm-0">Odebrat</button></a>
+            </td>
+            </tr>
+
+            {/foreach}
+
+        </tbody>
+    </table>
+
+{/ifset}
+{/snippet}
+
+{snippet add_snippet}
+{ifset $select_lectors}
+
+    {ifset $add_lector_success}
+    {if $add_lector_success == 1}
+        <script>$.notify("Vybraní lektoři byli přidáni", "success");</script>
+    {else}
+        <script>$.notify("Některé lektory nebylo možné přidat!", "error");</script>
+    {/if}
+    {/ifset}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Email lektora</th>
+                <th scope="col">Jméno</th>
+                <th scope="col">Přidat</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {foreach $select_lectors as $row}
+            <tr>
+            <td>{$row->email}</td>
+            <td>{$row->first_name} {$row->surname}</td>
+            <td>
+                <a class="ajax" n:href="add! $row->id_user, $id_course"><button class="btn btn-primary btn-sm text-white order-1 order-sm-0">Přidat</button></a>
+            </td>
+            </tr>
+
+            {/foreach}
+
+        </tbody>
+    </table>
+
+{/ifset}
+{/snippet}
+{/block}

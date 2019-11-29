@@ -106,9 +106,10 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$this->rooms = $category;
 	}
 
-	public function renderAddlectors($id_course)
+	public function renderManagelectors($id_course)
 	{
-		$this->template->lectors = $this->database->query("SELECT id_user, email, first_name, surname FROM user WHERE rank >= 2")->fetchAll();
+		$this->template->select_lectors = $this->database->query("SELECT id_user, email, first_name, surname FROM user WHERE rank >= 2")->fetchAll();
+		$this->template->current_lectors = $this->database->query("SELECT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_lecturer")->fetchAll();
 		$this->template->id_course = $id_course;
 	}
 	
@@ -604,47 +605,43 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$this->redirect('Garant:showcourse',$values->course_id);
 	}
 
-	public function handleRegister($users, $id_course): void
+	public function handleRemove($user, $id_course): void
     {
-    	//ak neni ziaden checkbox, tak sa odosle []
-    	$users = substr($users, 1, -1);
-    	//po substr ostane prazdny
-    	if(empty($users))
+    	
+		$result = $this->database->query("DELETE FROM course_has_lecturer WHERE id_user = ? AND id_course = ?", $user, $id_course);
+
+		if($result->getRowCount() > 0)
 		{
-			$this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'notify'] ) );
-			return;	
+			$this->template->remove_lector_success = 1;
 		}
-
-		//inak tam je aspon jedno id
-		$users = preg_split("/[,]/", $users);
-		
-		//po preg_split sa z toho stava array
-		foreach($users as $user)
+		else
 		{
-			$result = $this->database->query("INSERT INTO course_has_lecturer (id_user, id_course) VALUES (?,?)", $user, $id_course);
-
-			//ak sa nejaky insert nevykona, ukonci s chybou
-			if($result->getRowCount() == 0)
-			{
-				$this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'error'] ) );
-				return;
-			}
+			$this->template->remove_lector_success = 0;
 		}
 		
-
 		if ($this->isAjax())
 		{
-            $this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'success'] ) );
+            $this->redrawControl("remove_snippet");
         }
-		
-    	
 	}
 
-	public function handleFinish(): void
-	{
-		if($this->isAjax())
+	public function handleAdd($user, $id_course): void
+    {
+    	
+		$result = $this->database->query("INSERT INTO course_has_lecturer (id_user, id_course) VALUES (?,?)", $user, $id_course);
+
+		if($result->getRowCount() > 0)
 		{
-			$this->redrawControl("reg_snippet");
+			$this->template->add_lector_success = 1;
 		}
+		else
+		{
+			$this->template->add_lector_success = 0;
+		}		
+		
+		if ($this->isAjax())
+		{
+            $this->redrawControl("add_snippet");
+        }	
 	}
 }
