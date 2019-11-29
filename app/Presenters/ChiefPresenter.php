@@ -445,10 +445,10 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 		$address = array();
 		foreach ($tmp as $row) {
-			$address[$row->id_room_address]= $row->room_address;
+			$address[$row->id_room_equipment]= $row->room_equipment;
 		}
 
-		$form->addSelect('room_Adres', '', $address)
+		$form->addSelect('room_Equip', '', $address)
 			->setHtmlAttribute('class', 'form-control')
 			->setRequired();
 
@@ -459,18 +459,17 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	public function AddEquipSubmit(Form $form)
 	{
 		$values = $form->getValues();
-		Debugger::barDump($values->room_id,"values->room_id");
-		Debugger::barDump($values->room_Adres,"values->room_Adres");
-
+		
 		$data = $this->database->table("room")
 			->insert([
-				'id_room' => $values->room_id,
-				'room_type' => $values->room_type,
-				'room_capacity' => $values->room_capacity,
-				'id_room_address' => $values->room_Adres,
+				'id_room' => $this->actual_room,
+				'id_room_equipment' => $values->id_room_equipment,
 			]);
 
-		$this->redirect("Chief:rooms");
+		$this->template->success_notify = true;
+		if ($this->isAjax()) {
+			$this->redrawControl("notify");
+		}
 	}
 	
 }
