@@ -338,7 +338,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 		->setSortable()
         ->setFilterText();
         
-        $grid->addFilterSelect('rank', 'Typ kurzu:', [
+        $grid->addFilterSelect('active', 'Typ kurzu:', [
 			'0' => 'Neaktivní',
 			'1' => 'Aktivní'
 		]);
