@@ -114,7 +114,7 @@ Detail kurzu
             <div class="card bg-default ">
                 <div class="card-header">
                     {$task->task_name}
-                    {if $userIsGuarantorInCourse == true || $userIsLectorInCourse == true}
+                    {if $userIsLectorInCourse == true}
 
                     <a n:href="Garant:newtask $task->id_course, $task->id_task">
                     <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Upravit termín</button></a>
