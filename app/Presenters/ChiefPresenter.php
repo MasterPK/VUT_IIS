@@ -220,7 +220,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 				'id_room' => $values->room_id,
 				'room_type' => $values->room_type,
 				'room_capacity' => $values->room_capacity,
-				'id_room_address' => $values->address_id,
+				'id_room_address' => $values->room_Adres,
 			]);
 
 		$this->redirect("Chief:rooms");
