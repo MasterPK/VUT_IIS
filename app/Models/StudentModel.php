@@ -6,6 +6,7 @@ namespace App\Model;
 use Nette;
 use Nette\Application\UI\Form;
 use Tracy\Debugger;
+use Nette\Utils\Finder;
 
 class StudentModel
 {
