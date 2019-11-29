@@ -517,24 +517,34 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
     public function handleDeleteTask($id_task)
     {
-    	$result = $this->database->table("task")->where("id_task", $id_task)
-    		->delete();
+    	$task = $this->database->table("task")->where("id_task", $id_task)
+    		->fetch();
 
-        if($this->isAjax())
-    	{
-    		$this->template->course_tasks_key = array_search($id_task, array_column($this->template->course_tasks, 'id_task'));;
-    		if ($result > 0) 
-	        {	
-	        	$this->template->delete_task_success = 1;
-	            $this->redrawControl("course_tasks_snippet");
-	        }
-	        else
-	        {
-	        	$this->template->delete_task_success = 0;
-	        	$this->redrawControl("course_tasks_snippet");
-	        }
+    	if($task)
+    	{	
+    		$result = $this->database->table("task")->where("id_task", $id_task)
+    			->delete();
+
+    		if($this->isAjax())
+	    	{
+	    		$this->template->task_name = $task->task_name;
+	    		if ($result > 0) 
+		        {	
+		        	$this->template->delete_task_success = 1;
+		            $this->redrawControl("course_tasks_snippet");
+		        }
+		        else
+		        {
+		        	$this->template->delete_task_success = 0;
+		        	$this->redrawControl("course_tasks_snippet");
+		        }
+	    	}
     	}
-        
+    	else
+    	{
+    		$this->template->delete_task_success = 0;
+		    $this->redrawControl("course_tasks_snippet");
+    	}
 	}
 	
 	public function handleDeleteFile($file)
