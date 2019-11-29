@@ -353,6 +353,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     
     public function updateUser(Row $row)
     {
+        Debugger::barDump($row,"updateUser \$row");
         $this->database->table("user")->where("id_user",$row->id_user)->update([
             'email' => $row->email,
             'first_name' => $row->first_name,
