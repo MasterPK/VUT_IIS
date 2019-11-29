@@ -46,7 +46,7 @@ class StudentModel
 
         $presenter->template->course_tasks = $this->database->query("SELECT * FROM task WHERE id_course = ?", $id)->fetchAll();
 
-        $this->presenter->files=array();
+       
         foreach ($presenter->template->course_tasks as $value) {
             $this->presenter->files[$value->id_task]=array();
             foreach (Finder::findFiles('*')->in("Files/$id/$value->id_task") as $key => $file) {
