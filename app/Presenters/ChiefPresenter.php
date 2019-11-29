@@ -186,11 +186,13 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	public function renderCreateRoom(): void
 	{
 		$tmp=$this->database->query("SELECT * FROM room_address")->fetchAll();
+		$this->address_id = $this->database->table("room_address")->fetchAll();
 
 		foreach($tmp as $row)
 		{
 			array_push($this->address, $row->room_address);
 		}
+
 	}
 
 	
@@ -224,7 +226,21 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	public function createRoomSubmit(Form $form)
 	{
 		$values = $form->getValues();
+		
+		$address_id = $this->database->table("room_address")->where("room_address",$values->room_Adres)->fetch();
 
+		$data = $this->database->table("room")
+		->insert([
+			'id_room' => $values->room_id,
+			'room_type' => $values->room_type,
+			'room_capacity' => $values->room_capacity,
+			'id_room_address' => $address_id,
+		]);
+
+		$this->template->success_notify = true;
+        if ($this->isAjax()) {
+            $this->redrawControl("notify");
+        }
 	}
 	
 	public function createComponentCreateEquipment()
