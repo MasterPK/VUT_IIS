@@ -7,7 +7,7 @@ namespace App\Presenters;
 use Nette;
 
 use Nette\Application\UI;
-
+use Nette\Utils\FileSystem;
 
 class HomepagePresenter extends Nette\Application\UI\Presenter
 {
@@ -41,7 +41,6 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 
 	public function renderDefault(): void
 	{
-		
 	}
 
 	public function renderCourses($search, $filter): void

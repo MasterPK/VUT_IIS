@@ -7,6 +7,7 @@ namespace App\Presenters;
 use Nette;
 use Nette\Application\UI\Form;
 use Tracy\Debugger;
+use Nette\Utils\FileSystem;
 
 final class GarantPresenter extends Nette\Application\UI\Presenter 
 {
@@ -102,11 +103,26 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
     	try
     	{
-    		$data = $this->database->query("INSERT INTO course (id_course, course_name, course_description, course_type, course_price, id_guarantor, course_status) VALUES (?, ?, ?, ?, ?, ?, 0,?)", $values->id_course, $values->name, $values->description, $values->type, $values->price, $values->tags,  $this->user->identity->id);
-
+			$this->database->table("course")->insert([
+				"id_course" => $values->id_course,
+				"course_name" => $values->name,
+				"course_description" => $values->description,
+				"course_type" => $values->type,
+				"course_price" => $values->price,
+				"id_guarantor" => $this->user->identity->id,
+				"course_status" => 0,
+				"tags" => $values->tags
+			]);
+    		//$data = $this->database->query("INSERT INTO course (id_course, course_name, course_description, course_type, course_price, id_guarantor, course_status) VALUES (?, ?, ?, ?, ?, ?, 0, ?);", $values->id_course, $values->name, $values->description, $values->type, $values->price, $values->tags,  $this->user->identity->id);
+			FileSystem::createDir("Files/$values->id_course");
     		$this->template->success_insert = true;
     	}
     	catch(Nette\Database\UniqueConstraintViolationException $e)
+    	{
+    		$this->template->error_insert=true;
+    		$this->template->error_course=$values->id_course;
+		}
+		catch(Nette\IOException $e)
     	{
     		$this->template->error_insert=true;
     		$this->template->error_course=$values->id_course;
@@ -319,7 +335,16 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
     		if($result->getRowCount() > 0)
 	    	{
-	    		$this->template->create_task_success = 1;
+				try
+				{
+					FileSystem::createDir("Files/$values->id_course/$values->id_task");
+					$this->template->create_task_success = 1;
+				}
+				catch(Nette\IOException $e)
+				{
+					$this->template->create_task_success = 0;
+				}
+	    		
 	    	}
 	    	else
 	    	{
@@ -488,7 +513,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         {	
         	$this->template->delete_task_success = 1;
             $this->redrawControl("course_tasks_snippet");
-            $this->redrawControl("delete_task_snippet");
         }
     }
 }
