@@ -6,6 +6,7 @@ namespace App\Presenters;
 
 use Nette;
 use Nette\Application\UI\Form;
+use Tracy\Debugger;
 
 
 final class LectorPresenter extends Nette\Application\UI\Presenter 
