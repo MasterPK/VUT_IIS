@@ -128,6 +128,7 @@ Detail kurzu
 {/if}
 {/snippet}
 
+{snippet course_tasks_snippet}
 {ifset $course_tasks}
 <div class="row">
     <div class="col-sm-12">
@@ -136,6 +137,26 @@ Detail kurzu
                 <div class="card-header">
                     {$task->task_name}
                     {if $userIsGuarantorInCourse == true || $userIsLectorInCourse == true}
+
+                    <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="show({$task->id_task})"><span>Smazat termín</span></button>
+
+                    <div class="modal fade" id="{$task->id_task}">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Potvrzení</h4>
+                          </div>
+                          <div class="modal-body">
+                            <p>Opravdu smazat termín {$task->task_name}?</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Zrušit</button>
+                            <a n:href="deleteTask! $task->id_task"><button type="button" class="btn btn-primary">Potvrdit</button></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                     <a n:href="Garant:newtask $task->id_course, $task->id_task">
                     <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Upravit termín</button></a>
                     {/if}
@@ -198,5 +219,21 @@ Detail kurzu
     </div>
 </div>
 {/ifset}
+{/snippet}
+
+{snippet delete_task_snippet}
+{ifset delete_task_success}
+<script>$.notify("Termín byl úspěšně smazán!", "success");</script>
+{/ifset}
+{/snippet}
+
+<script>
+function show(id)
+{
+    $('#' + id).modal('show');
+}
+
+</script>
+
 
 {/block}

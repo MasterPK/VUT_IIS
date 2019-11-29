@@ -182,45 +182,34 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
     	$this->redirect("Homepage:courses", $values->search, $values->filter);
 	}
 
-	/*public function createComponentCreateRoom()
+	public function createComponentCreateRoom()
     {
-        $form = new Form;
-
-        $form->addHidden('id_course', '')
-			->setDefaultValue($this->current_course["id_course"]);
-			
-		$form->addText('id_course_show', '')
+		$form = new Form;
+		
+        $form->addText('room_id', '')
             ->setHtmlAttribute('class', 'form-control')
-            ->setDisabled()
-            ->setDefaultValue($this->current_course["id_course"]);
+            ->setRequired();
 
-        $form->addText('course_name', '')
+        $form->addText('room_type', '')
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired()
-            ->setDefaultValue($this->current_course["course_name"]);
+            ->setRequired();
 
-        $form->addTextArea('course_description', '')
+        $form->addInteger('room_capacity', '')
             ->setHtmlAttribute('class', 'form-control')
-			->setRequired()
-			->addRule(Form::MAX_LENGTH, 'Popis je příliš dlouhý', 499)
-            ->setDefaultValue($this->current_course["course_description"]);
+            ->setRequired();
 
-        $form->addText('course_type', '')
-            ->setHtmlAttribute('class', 'form-control')
-            ->setRequired()
-            ->setDefaultValue($this->current_course["course_type"]);
-
-        $form->addInteger('course_price', '')
-            ->setHtmlAttribute('class', 'form-control')
-            ->setRequired()
-            ->setDefaultValue($this->current_course["course_price"]);
-
-        $form->addSubmit('submit', 'Potvrdit změny')
+        $form->addSubmit('submit', 'Vytvořit místnost')
             ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
 
-        $form->onSuccess[] = [$this, 'editCourseSubmit'];
+        $form->onSuccess[] = [$this, 'createRoomSubmit'];
         return $form;
-	}*/
+	}
+
+	public function createRoomSubmit(Form $form)
+	{
+		$values = $form->getValues();
+
+	}
 	
 	public function createComponentCreateEquipment()
     {

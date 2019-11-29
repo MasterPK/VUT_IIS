@@ -11,7 +11,7 @@ Správa místností
                         <th>Místnost</th>
                         <th>Vybavení</th>
                         <th>Adresa</th>
-                        <th/>
+                        <th>Kapacita</th>
                         <th/>
                     </tr>
                 </thead>
@@ -21,8 +21,8 @@ Správa místností
                         <td>{$row->id_room}</td>
                         <td><a n:href="Chief:roomsEquipment $row->id_room"><button class="btn btn-primary">Zobrazit</button></a></td>
                         <td>{$row->room_address}</td>
+                        <td>{$row->room_capacity}</td>
                         <td><button class="btn btn-primary">Upravit</button></td>
-                        <td><button class="btn btn-primary">Smazat</button></td>
                     </tr>
                     {/foreach}
                 </tbody>
