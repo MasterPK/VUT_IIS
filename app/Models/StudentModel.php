@@ -49,13 +49,13 @@ class StudentModel
 
        
         foreach ($presenter->template->course_tasks as $value) {
-            $this->presenter->template->files[$value->id_task]=array();
+            $presenter->template->files[$value->id_task]=array();
             foreach (Finder::findFiles('*')->in("Files/$id/$value->id_task") as $key => $file) {
                 array_push($this->presenter->template->files[$value->id_task],$key); // $key je řetězec s názvem souboru včetně cesty
             }
         }
 
-        Debugger::barDump($this->presenter->template->files,"soubory");
+        
 
         $presenter->template->course_tasks = $this->database->query("SELECT * FROM task WHERE id_course = ?", $id)->fetchAll();
 		
