@@ -325,7 +325,16 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
     		if($result->getRowCount() > 0)
 	    	{
-	    		$this->template->create_task_success = 1;
+				try
+				{
+					createDir("./Files/$values->id_course/$values->id_task");
+					$this->template->create_task_success = 1;
+				}
+				catch(Nette\IOException $e)
+				{
+					$this->template->create_task_success = 0;
+				}
+	    		
 	    	}
 	    	else
 	    	{
