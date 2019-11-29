@@ -66,6 +66,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 	}
 	private $course_id;
 	private $task_id;
+	private $rooms;
 	public function rendernewFile($course_id, $task_id)
 	{
 		$this->course_id = $course_id;
