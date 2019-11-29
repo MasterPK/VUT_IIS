@@ -2,4 +2,130 @@
 Přidat lektory
 {/block}
 {block content}
+{snippet reg_snippet}
+{ifset $lectors}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Email lektora</th>
+                <th scope="col">Jméno</th>
+                <th scope="col">Registrovat</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {foreach $lectors as $row}
+            <tr>
+            <td>{$row->email}</td>
+            <td>{$row->first_name} {$row->surname}</td>
+            <td>
+                <p><input type=checkbox id="{$row->id_user}" onClick="check({$row->id_user})"></p>
+            </td>
+            </tr>
+
+            {/foreach}
+
+        </tbody>
+    </table>
+
+<button class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="done()">Přidat lektory</button>
+<button class="btn btn-primary btn-sm text-white order-1 order-sm-0" id="checkAllButton" onClick="checkAll()">Označit všechny</button>
+
+<script>
+    
+    var users = [];
+    var check_status = false;
+    function checkAll() 
+    {
+        var array = [{foreach $lectors as $row}{$row->id_user},{/foreach}];
+        if(check_status == false)
+        {
+            for(var i = 0; i < array.length; i++) 
+            {   
+                if(!document.getElementById(array[i]).checked) 
+                {
+                    $("#" + array[i]).prop("checked", true);  
+                    check(array[i]);
+                } 
+            }
+        }
+        else
+        {
+            for(var i = 0; i < array.length; i++) 
+            {   
+                if(document.getElementById(array[i]).checked) 
+                {
+                    $("#" + array[i]).prop("checked", false);  
+                    check(array[i]);
+                }
+            }
+        }
+        
+    }
+
+    function check(id)
+    {
+        if(document.getElementById(id).checked) 
+        {
+            users.push(id);
+        }
+        else
+        {
+            var index = users.indexOf(id);
+            if (index > -1) 
+            {
+                users.splice(index, 1);
+            }
+        }
+
+        if(jQuery.isEmptyObject(users))
+        {
+            $("#checkAllButton").html("Označit všechny");
+            check_status = false;
+        }
+        
+        if({$lectors}.length == users.length)
+        {
+            $("#checkAllButton").html("Odznačit všechny");
+            check_status = true;
+        }
+    }
+    
+    function done()
+    {
+        $.ajax({
+          method: "POST",
+          url: {link register!},
+          data: { users: JSON.stringify(users), id_course:{$id_course}}
+        }).done(function( html ) {
+            if(html.status=="success")
+            {
+                $.notify("Vybraní lektoři byli přidáni!", "success");
+                
+                $.nette.ajax({
+                    type: "POST",
+                    url: {link finish!}
+                });
+            }
+            else if(html.status=="error")
+            {
+                $.notify("Některé lektory nebylo možné přidat!", "error");
+
+                $.nette.ajax({
+                    type: "POST",
+                    url: {link finish!}
+                });
+            }
+            else
+            {
+                $.notify("Nebyl vybrán žádný lektor", "warn");
+            }
+        });
+
+    }
+
+
+</script>
+{/ifset}
+{/snippet}
 {/block}
