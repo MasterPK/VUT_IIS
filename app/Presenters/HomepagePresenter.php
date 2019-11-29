@@ -43,6 +43,14 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 	{
 	}
 
+	public function createComponentSimpleGrid()
+	{
+		$grid = new DataGrid($this, "name");
+
+		$grid->setDataSource($this->database->from('course'));
+		$grid->addColumnText('course_name', 'Jméno kurzu');
+	}
+
 	public function renderCourses($search, $filter): void
 	{
 		if ($search) {
