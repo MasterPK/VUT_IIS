@@ -296,7 +296,9 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setFilterText();
 
-		$grid->addColumnText('email', 'Email')
+        $grid->addColumnText('email', 'Email')
+        ->setSortable()
+        ->setFilterText()
 		->setEditableCallback([$this, 'updateUser']);
 
 		$grid->addColumnText('first_name', 'Křestní jméno')
@@ -312,7 +314,14 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 		->setFilterText();
 
         $grid->addColumnStatus('rank', 'Hodnost')
-		->setSortable()
+        ->setSortable()
+        ->setReplacement([
+            '1' => 'Student',
+            '2' => 'Lektor',
+            '3' => 'Garant',
+            '4' => 'Vedoucí',
+			'5' => 'Administrátor'
+        ])
         ->setFilterSelect([
             '1' => 'Student',
             '2' => 'Lektor',
@@ -322,7 +331,11 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         ]);
         
         $grid->addColumnStatus('active', 'Aktivní účet?')
-		->setSortable()
+        ->setSortable()
+        ->setReplacement([
+            '0' => 'Neaktivní',
+			'1' => 'Aktivní'
+		])
         ->setFilterSelect([
             '0' => 'Neaktivní',
 			'1' => 'Aktivní'
@@ -340,6 +353,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     
     public function updateUser(Row $row)
     {
+        Debugger::barDump($row,"updateUser \$row");
         $this->database->table("user")->where("id_user",$row->id_user)->update([
             'email' => $row->email,
             'first_name' => $row->first_name,
