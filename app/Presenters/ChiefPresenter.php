@@ -207,7 +207,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
             ->setHtmlAttribute('class', 'form-control')
 			->setRequired();
 			
-		$form->addSelect('room_Adres', '', $this->address["room_address"])
+		$form->addSelect('room_Adres', '', $this->address)
             ->setHtmlAttribute('class', 'form-control')
 			->setRequired();
 
