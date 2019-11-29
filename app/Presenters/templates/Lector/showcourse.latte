@@ -173,11 +173,14 @@ Detail kurzu
                             <p class="card-text">{$task->task_description}</p>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-12">
-                        Soubory:<br>
-                        {foreach $files[$task->id_task] as $file}
-                            {=basename($file)}    
-                        {/foreach}
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            Soubory:<br>
+                            {foreach $files[$task->id_task] as $file}
+                                {=basename($file)}    
+                            {/foreach}
+                        </div>
                     </div>
                 </div>
             </div>
