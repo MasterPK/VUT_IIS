@@ -441,8 +441,8 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	{
 		$form = new Form;
 
-		$tmp = $this->database->query("SELECT * FROM room_equipment R LEFT JOIN room_has_equipment E on R.id_room_equipment = E.id_room_equipment WHERE E.id_room = ? AND E.id_room_equipment IS NULL",$this->actual_room)->fetchAll();
-		
+		$tmp = $this->database->query("SELECT * FROM room_equipment R RIGHT JOIN room_has_equipment E on R.id_room_equipment = E.id_room_equipment WHERE E.id_room = ? AND R.id_room_equipment IS NULL",$this->actual_room)->fetchAll();
+
 		$address = array();
 		foreach ($tmp as $row) {
 			$address[$row->id_room_address]= $row->room_address;
