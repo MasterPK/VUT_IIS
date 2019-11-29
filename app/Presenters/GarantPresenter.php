@@ -65,11 +65,12 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$this->template->courses=$this->mainModel->getCoursesOfStudent($this->user->identity->id);	
 	}
 
-	public function renderManagecourses($course_delete_status): void
+	public function renderManagecourses($deleted_course, $course_delete_status): void
 	{
 		if($course_delete_status)
 		{
-			$this->template->delete_course_success = $course_delete_status;
+			$this->template->course_delete_status = $course_delete_status;
+			$this->template->deleted_course = $deleted_course;
 		}
 		$this->template->courses = $this->garantModel->getGarantCourses($this->user->identity->id);
 	}
@@ -434,11 +435,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 		if($result > 0)
 		{
-			$this->redirect("Garant:managecourses", 1);
+			$this->redirect("Garant:managecourses", $id_course, 1);
 		}
 		else
 		{
-			$this->redirect("Garant:managecourses", 0);
+			$this->redirect("Garant:managecourses", $id_course, 0);
 		}		
 	}
 
