@@ -108,8 +108,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	public function renderManagelectors($id_course)
 	{
-		$this->template->select_lectors = $this->database->query("SELECT id_user, email, first_name, surname FROM user WHERE rank >= 2")->fetchAll();
-		$this->template->current_lectors = $this->database->query("SELECT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_lecturer")->fetchAll();
+		//vyber lektorov, ktori este nie su lektormi daneho kurzu
+		$this->template->select_lectors = $this->database->query("SELECT id_user, email, first_name, surname FROM user NATURAL LEFT JOIN course_has_lecturer WHERE rank >= 2 AND (id_course != ? OR id_course IS NULL)", $id_course)->fetchAll();
+		$this->template->current_lectors = $this->database->query("SELECT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_lecturer WHERE id_course = ?", $id_course)->fetchAll();
 		$this->template->id_course = $id_course;
 	}
 	
