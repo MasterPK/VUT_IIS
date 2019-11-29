@@ -43,6 +43,7 @@ Přidat lektory
 {/ifset}
 
 {ifset $select_lectors}
+    {if count($select_lectors) > 0}
 
     {ifset $add_lector_success}
     {if $add_lector_success == 1}
@@ -75,6 +76,8 @@ Přidat lektory
 
         </tbody>
     </table>
+
+    {/if}
 
 {/ifset}
 {/snippet}
