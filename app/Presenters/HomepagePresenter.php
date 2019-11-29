@@ -47,7 +47,7 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 	{
 		$grid = new DataGrid($this, "name");
 
-		$grid->setDataSource($this->database->from('course'));
+		$grid->setDataSource($this->database->table('course'));
 		$grid->addColumnText('course_name', 'Jméno kurzu');
 	}
 
