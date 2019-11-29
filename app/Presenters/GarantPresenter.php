@@ -499,10 +499,8 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     	$this->database->table("task")->where("id_task", $id_task)
     		->delete();
 
-    	Debugger::barDump("not ajax");
         if ($this->isAjax()) 
         {	
-        	Debugger::barDump("ajax");
         	$this->template->delete_task_success = 1;
             $this->redrawControl("course_tasks_snippet");
         }
