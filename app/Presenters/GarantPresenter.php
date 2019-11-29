@@ -434,11 +434,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 		if($result > 0)
 		{
-			$this->redirect("Garant:managecourses 1");
+			$this->redirect("Garant:managecourses", 1);
 		}
 		else
 		{
-			$this->redirect("Garant:managecourses 0");
+			$this->redirect("Garant:managecourses", 0);
 		}		
 	}
 
