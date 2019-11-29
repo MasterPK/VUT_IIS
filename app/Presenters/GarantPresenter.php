@@ -95,6 +95,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	{
 		$this->id_course = $id_course;
 		$this->task_type = $task_type;
+		$this->template->task_type = $task_type;
 
 		if($id_task != NULL)
 		{
