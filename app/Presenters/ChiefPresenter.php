@@ -324,6 +324,9 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 		$form = new Form;
 
+        $form->addHidden('id_room', '')
+			->setDefaultValue($this->current_room["id_room"]);
+
 		$form->addText('room_id', '')
 			->setHtmlAttribute('class', 'form-control')
 			->setRequired()
@@ -364,9 +367,8 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	{
 		$values = $form->getValues();
 		Debugger::barDump($values->room_Adres,"test");
-		Debugger::barDump($values->room_id,"id");
 
-		$data = $this->database->table("room")
+		$data = $this->database->table("room")->where('id_room',$values->id_room)
 			->update([
 				'id_room' => $values->room_id,
 				'room_type' => $values->room_type,
