@@ -329,17 +329,17 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 		$form->addText('room_id', '')
 			->setHtmlAttribute('class', 'form-control')
-			->setRequired();
+			->setRequired()
 			->setDefaultValue($this->current_room["id_room"]);
 
 		$form->addText('room_type', '')
 			->setHtmlAttribute('class', 'form-control')
-			->setRequired();
+			->setRequired()
 			->setDefaultValue($this->current_room["room_type"]);
 
 		$form->addInteger('room_capacity', '')
 			->setHtmlAttribute('class', 'form-control')
-			->setRequired();
+			->setRequired()
 			->setDefaultValue($this->current_room["room_capacity"]);
 
 		$tmp = $this->database->query("SELECT * FROM room_address")->fetchAll();
@@ -351,7 +351,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 		$form->addSelect('room_Adres', '', $address)
 			->setHtmlAttribute('class', 'form-control')
-			->setRequired();
+			->setRequired()
 			->setDefaultValue($address[$this->current_room["id_room_address"]]);
 
 		$form->addSubmit('submit', 'Upravit místnost')
