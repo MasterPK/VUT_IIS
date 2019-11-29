@@ -22,7 +22,7 @@ Detail kurzu
                 {ifset $courseActive}
                 {if $userIsGuarantorInCourse == true}
                 <a n:href="Garant:newtask $course->id_course, NULL"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Nový termín</button></a>
-                <a n:href="Garant:modifyCourse $course->id_course"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Správa kurz</button></a>
+                <a n:href="Garant:modifyCourse $course->id_course"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Správa kurzu</button></a>
                 {/if}
                 {/ifset}
             </div>
@@ -147,6 +147,8 @@ Detail kurzu
                 <div class="card-header">
                     {$task->task_name}
                     {if $userIsGuarantorInCourse == true || $userIsLectorInCourse == true}
+                    <a n:href="Garant:newFile $task->id_course, $task->id_task">
+                    <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Přidat soubor</button></a>
 
                     <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="show({$task->id_task})"><span>Smazat termín</span></button>
 
@@ -161,7 +163,7 @@ Detail kurzu
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Zrušit</button>
-                            <a class="ajax" n:href="deleteTask! $task->id_task"><button onClick="hide({$task->id_task})" type="button" class="btn btn-primary">Potvrdit</button></a>
+                            <a class="ajax" n:href="deleteTask! $task->id_task, $task->id_course"><button onClick="hide({$task->id_task})" type="button" class="btn btn-primary">Potvrdit</button></a>
                           </div>
                         </div>
                       </div>
@@ -227,20 +229,25 @@ Detail kurzu
                         <div class="col-md-12">
                             Soubory:<br>
                             {foreach $files[$task->id_task] as $file}
-                                <a href="/{$file}">{=basename($file)}</a><br>  
+                                <a href="/{$file}">{=basename($file)}</a>{if $userIsGuarantorInCourse == true || $userIsLectorInCourse == true}<a class="ajax" n:href="deleteFile! $file"><i class="fas fa-times fa-fw"></i></a>{/if}<br>  
                             {/foreach}
                         </div>
                     </div>
                 </div>
             </div>
-        {ifset delete_task_success}
-        <script>$.notify("Termín {$task->task_name} byl úspěšně smazán!", "success");</script>
-        {/ifset}
         {/foreach}
     </div>
 </div>
 {/ifset}
+{ifset $delete_task_success}
+    {if $delete_task_success == 1}
+        <script>$.notify("Termín " + {$task_name} + " byl úspěšně smazán!", "success");</script>
+    {else}
+        <script>$.notify("Došlo k chybě při mazání termínu" + {$task_name} + "!", "error");</script>
+    {/if}
+{/ifset}
 {/snippet}
+
 
 
 <script>

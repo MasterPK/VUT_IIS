@@ -64,8 +64,25 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 		$this->lectorModel->renderShowCourse($this, $id);
 		Debugger::barDump($this->presenter->template->files, "soubory");
 	}
+	private $task;
+	private $id_course;
+	public function renderNewtask($id_course, $id_task)
+	{
+		$this->id_course = $id_course;
+		if ($id_task != NULL) {
+			$this->task = $this->database->query("SELECT * FROM task WHERE id_task = ? AND id_course = ?", $id_task, $id_course)->fetch();
+		}
+		$rooms = $this->database->query("SELECT id_room FROM room")->fetchAll();
+		$category[NULL] = "Žádná";
+		foreach ($rooms as $room) {
+			$category[$room->id_room] = $room->id_room;
+		}
+		$this->rooms = $category;
+	}
+
 	private $course_id;
 	private $task_id;
+	private $rooms;
 	public function rendernewFile($course_id, $task_id)
 	{
 		$this->course_id = $course_id;
@@ -210,19 +227,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 		}
 	}
 
-	public function renderNewtask($id_course, $id_task)
-	{
-		$this->id_course = $id_course;
-		if ($id_task != NULL) {
-			$this->task = $this->database->query("SELECT * FROM task WHERE id_task = ? AND id_course = ?", $id_task, $id_course)->fetch();
-		}
-		$rooms = $this->database->query("SELECT id_room FROM room")->fetchAll();
-		$category[NULL] = "Žádná";
-		foreach ($rooms as $room) {
-			$category[$room->id_room] = $room->id_room;
-		}
-		$this->rooms = $category;
-	}
+	
 
 	public function createComponentSearchCourseForm(): Nette\Application\UI\Form
 	{
@@ -279,7 +284,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 		$values = $form->getValues();
 		$path = "Files/$values->course_id/$values->task_id/" . $values->file->getName();
 		$values->file->move($path);
-		$this->redirect('Lector:showcourse $');
+		$this->redirect('Lector:showcourse',$values->course_id);
 	}
 
 	/*public function renderLector(): void

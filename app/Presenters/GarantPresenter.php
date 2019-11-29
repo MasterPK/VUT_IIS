@@ -65,8 +65,13 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$this->template->courses=$this->mainModel->getCoursesOfStudent($this->user->identity->id);	
 	}
 
-	public function renderManagecourses(): void
+	public function renderManagecourses($deleted_course, $course_delete_status): void
 	{
+		if($course_delete_status)
+		{
+			$this->template->course_delete_status = $course_delete_status;
+			$this->template->deleted_course = $deleted_course;
+		}
 		$this->template->courses = $this->garantModel->getGarantCourses($this->user->identity->id);
 	}
 
@@ -75,6 +80,14 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	{
 		$this->garantModel->renderShowCourse($this,$id);
 		$this->id_course=$id;
+	}
+
+	private $course_id;
+	private $task_id;
+	public function rendernewFile($course_id, $task_id)
+	{
+		$this->course_id = $course_id;
+		$this->task_id = $task_id;
 	}
 
 	public function renderNewtask($id_course, $id_task)
@@ -413,35 +426,27 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		{
 			$this->redirect("Homepage:");
 		}
+		$this->template->id_course = $this->current_course->id_course;
 	}
 
-	public function createComponentDeleteCourse()
+	public function handleDeleteCourse($id_course)
 	{
-		$form = new Form;
-        $form->addHidden('id_course', '')
-            ->setRequired()
-			->setDefaultValue($this->current_course);
+		$result = $this->database->table("course")->where("id_course",$id_course)->delete();
 
-		$form->addCheckBox("really")
-		->setRequired("Opravdu?")
-		->addCondition(Form::EQUAL, true);
-			
-		$form->addSubmit('submit', 'Smazat?!')
-			->setHtmlAttribute('class', 'btn btn-primary');
-			
-		$form->onSuccess[] = [$this, 'deleteCourseFormHandle'];
+		
 
-		return $form;
-	}
-
-	public function deleteCourseFormHandle(Form $form)
-	{
-
-		$values = $form->getValues();
-
-		$this->database->table("course")->where("id_course",$values->id_course)->delete();
+		$this->database->table("course")->where("id_course",$id_course)->delete();
+		FielSystem::delete("Files/$id_course");
 		$this->redirect("Garant:managecourses");
 
+		if($result > 0)
+		{
+			$this->redirect("Garant:managecourses", $id_course, 1);
+		}
+		else
+		{
+			$this->redirect("Garant:managecourses", $id_course, 0);
+		}		
 	}
 
 
@@ -507,15 +512,86 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         }
     }
 
-    public function handleDeleteTask($id_task)
+    public function handleDeleteTask($id_task,$id_course)
     {
-    	$this->database->table("task")->where("id_task", $id_task)
-    		->delete();
+    	
+			
+		FileSystem::delete("Files/$id_course/$id_task");
+    	$task = $this->database->table("task")->where("id_task", $id_task)
+			->fetch();
+		$result = $this->database->table("task")->where("id_task", $id_task)
+			->delete();
 
-        if ($this->isAjax()) 
-        {	
-        	$this->template->delete_task_success = 1;
-            $this->redrawControl("course_tasks_snippet");
-        }
-    }
+    	if($task)
+    	{	
+    		$result = $this->database->table("task")->where("id_task", $id_task)
+    			->delete();
+
+    		$this->template->task_name = $task->task_name;
+    		if ($result > 0) 
+	        {	
+	        	$this->template->delete_task_success = 1;
+	        }
+	        else
+	        {
+	        	$this->template->delete_task_success = 0;
+	        }
+    	}
+    	else
+    	{
+    		$this->template->delete_task_success = 0;
+    	}
+
+    	if($this->isAjax())
+	    {
+    		//$this->redrawControl("delete_task_snippet");
+			$this->redrawControl("course_tasks_snippet");
+		}
+	}
+	
+	public function handleDeleteFile($file)
+	{
+		/*try {*/
+		Debugger::barDump($file, "souborDelete");
+		FileSystem::delete("$file");
+		$this->template->success_notif = true;
+		/*} catch (Nette\IOException $e) {
+			$this->template->error_notif = true;
+		}*/
+
+		if ($this->isAjax()) {
+
+			$this->redrawControl("content_snippet");
+		}
+	}
+
+	public function createComponentNewFileToCourseForm()
+	{
+		$form = new Form;
+
+		$form->addHidden("course_id")
+			->setDefaultValue($this->course_id);
+
+		$form->addHidden("task_id")
+			->setDefaultValue($this->task_id);
+
+		$form->addUpload('file', '')
+			->setRequired(true)
+			->addRule(Form::MAX_FILE_SIZE, 'Maximální velikost souboru je 5 MB.', 5242880 /* v bytech */);
+
+		$form->addSubmit('submit', 'Odeslat')
+			->setHtmlAttribute('class', 'btn btn-block btn-primary');
+
+		$form->onSuccess[] = [$this, 'newFileToCourseFormSubmit'];
+
+		return $form;
+	}
+
+	public function newFileToCourseFormSubmit(Form $form)
+	{
+		$values = $form->getValues();
+		$path = "Files/$values->course_id/$values->task_id/" . $values->file->getName();
+		$values->file->move($path);
+		$this->redirect('Garant:showcourse',$values->course_id);
+	}
 }
