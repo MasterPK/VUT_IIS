@@ -456,7 +456,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 			->setRequired();
 
 		$form->addSubmit('submit', 'Přidat vybavení')
-			->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+			->setHtmlAttribute('class', 'btn btn-block btn-primary');
 
 		$form->onSuccess[] = [$this, 'AddEquipSubmit'];
 		return $form;
@@ -473,9 +473,6 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 			]);
 
 		$this->template->success_notify = true;
-		if ($this->isAjax()) {
-			$this->redrawControl("content_snippet");
-		}
 	}
 
 	function handleDelete($id,$id2) {
