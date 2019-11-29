@@ -57,6 +57,7 @@ class StudentModel
 
         $presenter->template->course_tasks = $this->database->query("SELECT * FROM task WHERE id_course = ?", $id)->fetchAll();
 		
+        \Tracy\Debugger::barDump($presenter->template->course_tasks);
 
         if($presenter->template->course->course_status>=1)
         {
