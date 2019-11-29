@@ -261,4 +261,70 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             
         }
     }
+
+    public function createComponentUserMng($name)
+	{
+		$grid = new DataGrid($this, $name);
+		$grid->setPrimaryKey('id_user');
+		$grid->setDataSource($this->database->table("user"));
+
+		$grid->addColumnText('id_user', 'ID')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('email', 'Email')
+		->setEditableCallback(function($id, $value): void {
+            echo("Id: $id, new value: $value"); die;
+        });
+
+		$grid->addColumnText('first_name', 'Křestní jméno')
+        ->setSortable();
+        
+        $grid->addColumnText('surname', 'Příjmení')
+		->setSortable();
+		
+		$grid->addColumnText('phone', 'Telefonní číslo')
+		->setSortable()
+		->setFilterText();
+
+        $grid->addColumnText('rank', 'Hodnost')
+        ->setReplacement([
+            '1' => 'Student',
+            '2' => 'Lektor',
+            '3' => 'Garant',
+            '4' => 'Vedoucí',
+			'5' => 'Administrátor'
+		])
+		->setSortable()
+        ->setFilterText();
+
+        $grid->addFilterSelect('rank', 'Typ kurzu:', [
+            '1' => 'Student',
+            '2' => 'Lektor',
+            '3' => 'Garant',
+            '4' => 'Vedoucí',
+			'5' => 'Administrátor'
+		]);
+        
+        $grid->addColumnText('active', 'Aktivní')
+        ->setReplacement([
+			'0' => 'Neaktivní',
+			'1' => 'Aktivní'
+		])
+		->setSortable()
+        ->setFilterText();
+        
+        $grid->addFilterSelect('rank', 'Typ kurzu:', [
+			'0' => 'Neaktivní',
+			'1' => 'Aktivní'
+		]);
+
+		/*$grid->addAction("select","Detail", 'Homepage:showcourse')
+		->setClass("btn btn-primary");*/
+
+		$grid->setTranslator($this->dataGridTranslator);
+
+	
+		return $grid;
+	}
 }
