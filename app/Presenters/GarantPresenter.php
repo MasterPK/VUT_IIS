@@ -621,10 +621,10 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		//po preg_split sa z toho stava array
 		foreach($users as $user)
 		{
-			$result = $this->database->table("course_has_lecturer")->insert("id_user, id_course", $user, $id_course);
+			$result = $this->database->query("INSERT INTO course_has_lecturer (id_user, id_course) VALUES (?,?)", $user, $id_course);
 
 			//ak sa nejaky insert nevykona, ukonci s chybou
-			if($result == 0)
+			if($result->getRowCount() == 0)
 			{
 				$this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'error'] ) );
 				return;
