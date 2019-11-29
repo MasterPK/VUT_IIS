@@ -8,6 +8,7 @@ use Nette;
 use Nette\Application\UI\Form;
 use Tracy\Debugger;
 use Nette\Utils\FileSystem;
+use Nette\Utils\Finder;
 
 final class GarantPresenter extends Nette\Application\UI\Presenter 
 {
@@ -332,12 +333,14 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     	else
     	{
     		$result = $this->database->query("INSERT INTO task (id_task, task_name, task_type, task_description, task_points, task_date, task_from, task_to, id_room, id_course) VALUES ('',?,?,?,?,?,?,?,?,?)", $values->task_name, $values->task_type, $values->task_description, $values->task_points, $values->task_date, $values->task_from, $values->task_to, $values->id_room, $values->id_course);
-
+			$task_id = $this->database->getInsertId('task');
+			Debugger::barDump($result);
+			Debugger::barDump($task_id,"id");
     		if($result->getRowCount() > 0)
 	    	{
 				try
 				{
-					FileSystem::createDir("Files/$values->id_course/$values->id_task");
+					FileSystem::createDir("Files/$values->id_course/$task_id");
 					$this->template->create_task_success = 1;
 				}
 				catch(Nette\IOException $e)
