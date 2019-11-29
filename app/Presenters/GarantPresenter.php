@@ -525,8 +525,8 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     		if ($result > 0) 
 	        {	
 	        	$this->template->delete_task_success = 1;
+	        	$this->redrawControl("delete_task_notify");
 	            $this->redrawControl("course_tasks_snippet");
-	            $this->redrawControl("delete_task_notify");
 	        }
 	        else
 	        {
