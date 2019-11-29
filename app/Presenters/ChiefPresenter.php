@@ -62,6 +62,13 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$data = $this->database->query("SELECT * FROM room_equipment NATURAL JOIN room_has_equipment WHERE id_room = ?",  $id)->fetchAll();
 
 		$this->template->equip = $data;
+		$this->template->id = $id;
+	}
+
+
+	public function renderAddEquipment($id)
+	{
+
 	}
 
 	public function renderManageAdres(): void
@@ -225,6 +232,8 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 		$this->redirect("Chief:rooms");
 	}
+
+
 
 	public function createComponentCreateEquipment()
 	{
@@ -427,4 +436,23 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 			$this->redrawControl("notify");
 		}
 	}
+
+	public function createComponentAddEquip()
+	{
+		$form = new Form;
+
+		$form->addHidden('id_room_equipment', '')
+			->setDefaultValue($this->current_Equip);
+
+		$form->addText('id_course_show', '')
+			->setHtmlAttribute('class', 'form-control')
+			->setDefaultValue($this->current_Equip["room_equipment"]);
+
+		$form->addSubmit('submit', 'Potvrdit změny')
+			->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+
+		$form->onSuccess[] = [$this, 'ChangeEquipmentSubmit'];
+		return $form;
+	}
+	
 }
