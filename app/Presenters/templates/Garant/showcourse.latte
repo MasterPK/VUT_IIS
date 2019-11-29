@@ -19,10 +19,12 @@ Detail kurzu
         <div class="card bg-default ">
             <div class="card-header">
                 {$course->id_course}
+                {ifset $courseActive}
                 {if $userIsGuarantorInCourse == true}
                 <a n:href="Garant:newtask $course->id_course, NULL"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Nový termín</button></a>
                 <a n:href="Garant:modifyCourse $course->id_course"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Správa kurz</button></a>
                 {/if}
+                {/ifset}
             </div>
             <div class="card-body">
                 <div class="row">
@@ -70,6 +72,7 @@ Detail kurzu
     </div>
 </div>
 <br>
+{ifset $courseActive}
 {snippet studentRegistration}
 {if $userIsGuarantorInCourse == false}
 {ifset $openRegistration}
@@ -238,5 +241,5 @@ function hide(id)
 
 </script>
 
-
+{/ifset}
 {/block}
