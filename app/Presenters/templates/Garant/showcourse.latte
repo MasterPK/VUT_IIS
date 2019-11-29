@@ -21,7 +21,7 @@ Detail kurzu
                 {$course->id_course}
                 {ifset $courseActive}
                 {if $userIsGuarantorInCourse == true}
-                <button id="btnpopover" style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Nový termín</button>
+                
                 <a n:href="Garant:modifyCourse $course->id_course"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Správa kurzu</button></a>
                 {/if}
                 {/ifset}
@@ -251,19 +251,12 @@ Detail kurzu
 {/snippet}
 
 
-<nav class="navbar">
-    <div class="container navbar-cart">
-        <ul class="navbar-nav ml-auto">
-            <li>
-               <a id="btnpopover" class="btn" data-placement="left">
-                  <i class="fa fa-shopping-cart"></i>
-                 <span class="badge"></span>
-                 <span class="total_price">RM 0.00</span>
-               </a>
-            </li>
-        </ul>
-    </div>
-</nav>
+
+
+<a id="btnpopover">
+ <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Nový termín</button>
+</a>
+
 
 
 <div class="popover_title" style="display: none">
