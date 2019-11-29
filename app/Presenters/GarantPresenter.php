@@ -421,35 +421,28 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		{
 			$this->redirect("Homepage:");
 		}
+		$this->template->id_course = $this->current_course->id_course;
 	}
 
-	public function createComponentDeleteCourse()
+	public function handleDeleteCourse($id_course)
 	{
-		$form = new Form;
-        $form->addHidden('id_course', '')
-            ->setRequired()
-			->setDefaultValue($this->current_course);
+		$result = $this->database->table("course")->where("id_course",$id_course)->delete();
 
-		$form->addCheckBox("really")
-		->setRequired("Opravdu?")
-		->addCondition(Form::EQUAL, true);
-			
-		$form->addSubmit('submit', 'Smazat?!')
-			->setHtmlAttribute('class', 'btn btn-primary');
-			
-		$form->onSuccess[] = [$this, 'deleteCourseFormHandle'];
+		if($result > 0)
+		{
+			$this->template->delete_course_success = 1;
+		}
+		else
+		{
+			$this->template->delete_course_success = 0;
+		}
 
-		return $form;
-	}
+		if($this->isAjax())
+		{
+			$this->redrawControl('delete_course_snippet');
+		}
 
-	public function deleteCourseFormHandle(Form $form)
-	{
-
-		$values = $form->getValues();
-
-		$this->database->table("course")->where("id_course",$values->id_course)->delete();
 		$this->redirect("Garant:managecourses");
-
 	}
 
 
