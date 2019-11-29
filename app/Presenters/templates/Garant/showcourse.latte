@@ -255,7 +255,7 @@ Detail kurzu
     <div class="container navbar-cart">
         <ul class="navbar-nav ml-auto">
             <li>
-               <a id="cart-popover" class="btn" data-placement="left">
+               <a id="btnpopover" class="btn" data-placement="left">
                   <i class="fa fa-shopping-cart"></i>
                  <span class="badge"></span>
                  <span class="total_price">RM 0.00</span>
@@ -304,7 +304,7 @@ $("html").on("mouseup", function (e) {
 });
 
 $(document).ready(function(){
-     $('#cart-popover').popover({
+     $('#btnpopover').popover({
        html : true,
        title:function(){
           return $('.popover_title').html();
@@ -318,7 +318,7 @@ $(document).ready(function(){
 });    
 
 $(document).on('click','.close-popover',function(){
-  $('#cart-popover').popover('hide');
+  $('#btnpopover').popover('hide');
 });
     
     
