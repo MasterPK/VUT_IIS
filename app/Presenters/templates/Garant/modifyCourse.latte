@@ -64,16 +64,6 @@
     </div>
 </div>
 
-{snippet delete_course_snippet}
-{ifset $delete_course_success}
-    {if $delete_course_success == 1}
-        <script>$.notify("Kurz " + {$id_course} + " byl úspěšně smazán!", "success");</script>
-    {else}
-        <script>$.notify("Došlo k chybě při mazání kurzu" + {$id_course} + "!", "error");</script>
-    {/if}
-{/ifset}
-{/snippet}
-
 <script>
 function show()
 {
