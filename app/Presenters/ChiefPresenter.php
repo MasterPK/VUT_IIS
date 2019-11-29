@@ -170,7 +170,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$this->redirect("Homepage:courses", $values->search, $values->filter);
 	}
 
-	private $address = array();
+
 	public function renderCreateRoom(): void
 	{ }
 
@@ -193,8 +193,9 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 		$tmp = $this->database->query("SELECT * FROM room_address")->fetchAll();
 
+		$address = array();
 		foreach ($tmp as $row) {
-			array_push($this->address, $row->room_address);
+			$address[$row->id_room_address]= $row->room_address;
 		}
 
 		$form->addSelect('room_Adres', '', $this->address)
