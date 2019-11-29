@@ -28,7 +28,7 @@ Přidat lektory
             <td>{$row->email}</td>
             <td>{$row->first_name} {$row->surname}</td>
             <td>
-                <a class="ajax" n:href="remove! $row->id_user, $row->first_name.$row->surname, $id_course"><button class="btn btn-primary btn-sm text-white order-1 order-sm-0">Odebrat</button></a>
+                <a class="ajax" n:href="remove! $row->id_user, $row->first_name.' '.$row->surname, $id_course"><button class="btn btn-primary btn-sm text-white order-1 order-sm-0">Odebrat</button></a>
             </td>
             </tr>
 
@@ -64,7 +64,7 @@ Přidat lektory
             <td>{$row->email}</td>
             <td>{$row->first_name} {$row->surname}</td>
             <td>
-                <a class="ajax" n:href="add! $row->id_user, $row->first_name.$row->surname, $id_course"><button class="btn btn-primary btn-sm text-white order-1 order-sm-0">Přidat</button></a>
+                <a class="ajax" n:href="add! $row->id_user, $row->first_name.' '.$row->surname, $id_course"><button class="btn btn-primary btn-sm text-white order-1 order-sm-0">Přidat</button></a>
             </td>
             </tr>
 
