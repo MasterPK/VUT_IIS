@@ -22,7 +22,7 @@ Správa místností
                         <td><a n:href="Chief:roomsEquipment $row->id_room"><button class="btn btn-primary">Zobrazit</button></a></td>
                         <td>{$row->room_address}</td>
                         <td>{$row->room_capacity}</td>
-                        <td><button class="btn btn-primary">Upravit</button></td>
+                        <td><a n:href="Chief:manageRoom $row->id_room"><button class="btn btn-primary">Upravit</button></a></td>
                     </tr>
                     {/foreach}
                 </tbody>
