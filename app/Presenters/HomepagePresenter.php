@@ -78,7 +78,11 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 
 		$grid->addColumnText('course_type', 'Typ kurzu')
 		->setSortable()
-		->setFilterText();
+		->setFilterText()
+		->setReplacement([
+			'P' => 'Povinný',
+			'V' => 'Volitelný'
+		]);
 
 		$grid->addColumnText('course_price', 'Cena kurzu')
 		->setSortable()
@@ -88,7 +92,7 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setFilterText();
 
-		$grid->addAction("select","Detail", 'showcourse')
+		$grid->addAction("select","Detail", 'Homepage:showcourse')
 		->setClass("btn btn-primary");
 
 		$grid->setTranslator($this->dataGridTranslator);
