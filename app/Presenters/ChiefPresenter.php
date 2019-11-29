@@ -211,7 +211,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	public function createRoomSubmit(Form $form)
 	{
 		$values = $form->getValues();
-
+		dump($values);
 		$address_id = $this->database->table("room_address")->where("room_address", $values->room_Adres)->fetch();
 
 		$data = $this->database->table("room")
