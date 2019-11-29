@@ -570,7 +570,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$values = $form->getValues();
 		$path = "Files/$values->course_id/$values->task_id/" . $values->file->getName();
 		$values->file->move($path);
-		$this->redirect('Lector:showcourse',$values->course_id);
+		$this->redirect('Garant:showcourse',$values->course_id);
 	}
     	/*if($this->isAjax())
     	{
