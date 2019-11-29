@@ -250,24 +250,20 @@ Detail kurzu
 {/ifset}
 {/snippet}
 
-<a id="cart-popover" class="btn" data-placement="left">
-  <i class="fa fa-shopping-cart"></i>
- <span class="badge"></span>
- <span class="total_price">RM 0.00</span>
+<a id="btnpopover" style="float: right;">
+ <button class="btn btn-primary btn-sm text-white order-1 order-sm-0">Nový termín</button>
 </a>
 
 <div class="popover_title" style="display: none">
-<h6>Shopping Cart<span class="close-popover float-right text-danger "><i class="fas fa-times"></i></span></h6>
+<h6>Vyberte typ kurzu</h6>
 </div>
-<div id="popover_content_wrapper" style="display: none">
-    <span id="cart_details"></span>
-                 
+<div id="popover_content_wrapper" style="display: none">                 
     <div align="right">
-        <a href="#" class="btn btn-primary" id="check_out_cart">
-          <i class="fa fa-shopping-cart"></i> Check Out
+        <a href="#" class="btn btn-primary">
+          Přednáška
         </a>
-        <a href="#" class="btn btn-danger" id="clear_cart">
-          <i class="fa fa-trash"></i> Clear
+        <a href="#" class="btn btn-primary">
+          Cvičení
         </a>
     </div>
 </div>
@@ -294,7 +290,7 @@ $("html").on("mouseup", function (e) {
 });
 
 $(document).ready(function(){
-     $('#cart-popover').popover({
+     $('#btnpopover').popover({
        html : true,
        title:function(){
           return $('.popover_title').html();
