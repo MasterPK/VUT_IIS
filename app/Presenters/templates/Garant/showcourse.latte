@@ -138,17 +138,16 @@ Detail kurzu
                     {$task->task_name}
                     {if $userIsGuarantorInCourse == true || $userIsLectorInCourse == true}
 
-                    <button style="float: right;" ref="popupCustomContent" class="btn btn-primary btn-sm text-white order-1 order-sm-0 ajax">Smazat termín</button>
+                    <button class="btn btn-outline btn-primary" ref="popupCustomContent"><span>Smazat termín</span></button>
 
                     <latte-popup :associate-with="$refs.popupCustomContent" persistent>
                         <div class="panel" style="width: 300px">
-                            <div class="panel-header"><span class="panel-title">Panel</span></div>
+                            <div class="panel-header"><span class="panel-title">Potvrdit</span></div>
                             <div class="panel-body">
-                                Opravdu chcete smazat termín {$task->task_name}?
+                                Opravdu smazat termín {$task->task_name}?
                             </div>
                             <div class="panel-footer justify-content-end">
-                                <button class="btn btn-contained btn-primary" n:href="deleteTask! $task->id_task"><span>Smazat</span></button>
-                                <button class="btn btn-contained btn-primary" data-close><span>Zrušiť</span></button>
+                                <button class="btn btn-contained btn-primary" data-close><span>Zavřít</span></button>
                             </div>
                         </div>
                     </latte-popup>
