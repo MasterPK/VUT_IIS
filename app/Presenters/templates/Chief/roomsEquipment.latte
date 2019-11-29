@@ -17,7 +17,7 @@ Správa místností
                     {foreach $equip as $row}
                     <tr class="text-center">
                         <td style="min-width:100px">{$row->room_equipment}</td>
-                        <td><a n:href="delete! $row->id_room_equipment,$id"><button class="btn btn-dark">Smazat záznam</button></a></td>
+                        <td><a class="ajax" n:href="delete! $row->id_room_equipment,$id"><button class="btn btn-dark">Smazat záznam</button></a></td>
                     </tr>
                     {/foreach}
                 </tbody>
