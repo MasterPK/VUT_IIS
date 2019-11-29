@@ -55,7 +55,7 @@ class StudentModel
             }
         }
 
-        Debugger::barDump($this->presenter->files,"soubory");
+        Debugger::barDump($this->presenter->template->files,"soubory");
 
         $presenter->template->course_tasks = $this->database->query("SELECT * FROM task WHERE id_course = ?", $id)->fetchAll();
 		
