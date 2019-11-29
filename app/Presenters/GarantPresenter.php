@@ -520,11 +520,21 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     	$result = $this->database->table("task")->where("id_task", $id_task)
     		->delete();
 
-        if ($this->isAjax()) 
-        {	
-        	$this->template->delete_task_success = 1;
-            $this->redrawControl("course_tasks_snippet");
-        }
+        if($this->isAjax())
+    	{
+    		if ($result > 0) 
+	        {	
+	        	$this->template->delete_task_success = 1;
+	            $this->redrawControl("course_tasks_snippet");
+	            $this->redrawControl("delete_task_notify");
+	        }
+	        else
+	        {
+	        	$this->template->delete_task_success = 0;
+	        	$this->redrawControl("delete_task_notify");
+	        }
+    	}
+        
 	}
 	
 	public function handleDeleteFile($file)
@@ -572,20 +582,4 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$values->file->move($path);
 		$this->redirect('Garant:showcourse',$values->course_id);
 	}
-    	/*if($this->isAjax())
-    	{
-    		if ($result > 0) 
-	        {	
-	        	$this->template->delete_task_success = 1;
-	            $this->redrawControl("course_tasks_snippet");
-	            $this->redrawControl("delete_task_notify");
-	        }
-	        else
-	        {
-	        	$this->template->delete_task_success = 0;
-	        	$this->redrawControl("delete_task_notify");
-	        }
-    	}
-        
-    }*/
 }
