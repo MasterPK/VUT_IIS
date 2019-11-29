@@ -226,6 +226,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	{
 		$values = $form->getValues();
 		
+		Debugger::barDump($values,"nic1");
 		$address_id = $this->database->table("room_address")->where("room_address",$values->room_Adres)->fetch();
 		Debugger::barDump($address_id,"nic");
 		$data = $this->database->table("room")
