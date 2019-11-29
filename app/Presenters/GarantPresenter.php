@@ -65,8 +65,13 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$this->template->courses=$this->mainModel->getCoursesOfStudent($this->user->identity->id);	
 	}
 
-	public function renderManagecourses(): void
+	public function renderManagecourses($deleted_course, $course_delete_status): void
 	{
+		if($course_delete_status)
+		{
+			$this->template->course_delete_status = $course_delete_status;
+			$this->template->deleted_course = $deleted_course;
+		}
 		$this->template->courses = $this->garantModel->getGarantCourses($this->user->identity->id);
 	}
 
@@ -421,36 +426,27 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		{
 			$this->redirect("Homepage:");
 		}
+		$this->template->id_course = $this->current_course->id_course;
 	}
 
-	public function createComponentDeleteCourse()
+	public function handleDeleteCourse($id_course)
 	{
-		$form = new Form;
-        $form->addHidden('id_course', '')
-            ->setRequired()
-			->setDefaultValue($this->current_course);
+		$result = $this->database->table("course")->where("id_course",$id_course)->delete();
 
-		$form->addCheckBox("really")
-		->setRequired("Opravdu?")
-		->addCondition(Form::EQUAL, true);
-			
-		$form->addSubmit('submit', 'Smazat?!')
-			->setHtmlAttribute('class', 'btn btn-primary');
-			
-		$form->onSuccess[] = [$this, 'deleteCourseFormHandle'];
+		
 
-		return $form;
-	}
-
-	public function deleteCourseFormHandle(Form $form)
-	{
-
-		$values = $form->getValues();
-
-		$this->database->table("course")->where("id_course",$values->id_course)->delete();
-		FielSystem::delete("Files/$values->id_course");
+		$this->database->table("course")->where("id_course",$id_course)->delete();
+		FielSystem::delete("Files/$id_course");
 		$this->redirect("Garant:managecourses");
 
+		if($result > 0)
+		{
+			$this->redirect("Garant:managecourses", $id_course, 1);
+		}
+		else
+		{
+			$this->redirect("Garant:managecourses", $id_course, 0);
+		}		
 	}
 
 
@@ -522,22 +518,34 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			->delete();
 			
 		FileSystem::delete("Files//$id_task");
+    	$task = $this->database->table("task")->where("id_task", $id_task)
+    		->fetch();
 
-        if($this->isAjax())
-    	{
-    		$this->template->course_tasks_key = array_search($id_task, array_column($this->template->course_tasks, 'id_task'));;
+    	if($task)
+    	{	
+    		$result = $this->database->table("task")->where("id_task", $id_task)
+    			->delete();
+
+    		$this->template->task_name = $task->task_name;
     		if ($result > 0) 
 	        {	
 	        	$this->template->delete_task_success = 1;
-	            $this->redrawControl("course_tasks_snippet");
 	        }
 	        else
 	        {
 	        	$this->template->delete_task_success = 0;
-	        	$this->redrawControl("course_tasks_snippet");
 	        }
     	}
-        
+    	else
+    	{
+    		$this->template->delete_task_success = 0;
+    	}
+
+    	if($this->isAjax())
+	    {
+    		//$this->redrawControl("delete_task_snippet");
+			$this->redrawControl("course_tasks_snippet");
+		}
 	}
 	
 	public function handleDeleteFile($file)

@@ -22,7 +22,7 @@ Detail kurzu
                 {ifset $courseActive}
                 {if $userIsGuarantorInCourse == true}
                 <a n:href="Garant:newtask $course->id_course, NULL"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Nový termín</button></a>
-                <a n:href="Garant:modifyCourse $course->id_course"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Správa kurz</button></a>
+                <a n:href="Garant:modifyCourse $course->id_course"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Správa kurzu</button></a>
                 {/if}
                 {/ifset}
             </div>
@@ -238,15 +238,17 @@ Detail kurzu
         {/foreach}
     </div>
 </div>
+{/ifset}
 {ifset $delete_task_success}
     {if $delete_task_success == 1}
-        <script>$.notify("Termín {$course_tasks[$course_tasks_key]->task_name} byl úspěšně smazán!", "success");</script>
+        <script>$.notify("Termín " + {$task_name} + " byl úspěšně smazán!", "success");</script>
     {else}
-        <script>$.notify("Došlo k chybě při mazání termínu {$course_tasks[$course_tasks_key]->task_name}!", "error");</script>
+        <script>$.notify("Došlo k chybě při mazání termínu" + {$task_name} + "!", "error");</script>
     {/if}
 {/ifset}
-{/ifset}
 {/snippet}
+
+
 
 <script>
 function show(id)
