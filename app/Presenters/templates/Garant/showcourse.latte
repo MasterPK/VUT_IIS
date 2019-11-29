@@ -21,7 +21,7 @@ Detail kurzu
                 {$course->id_course}
                 {ifset $courseActive}
                 {if $userIsGuarantorInCourse == true}
-                
+                <button id="btnpopover" data-placement="left" style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Nový termín</button>
                 <a n:href="Garant:modifyCourse $course->id_course"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Správa kurzu</button></a>
                 {/if}
                 {/ifset}
@@ -254,7 +254,7 @@ Detail kurzu
 
 
 
- <button id="btnpopover" data-placement="left" style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Nový termín</button>
+
 
 
 
@@ -264,27 +264,27 @@ Detail kurzu
 </div>
 <div id="popover_content_wrapper" style="display: none">                 
     <div align="right">
-    <div class="col-md-3 col-sm-12">
+    <div class=".col-12 .mb-2">
         <a n:href="Garant:newtask $course->id_course, 'PR'" class="btn btn-primary btn-sm text-white order-1 order-sm-0">
           Přednáška
         </a>
     </div>
-    <div class="col-md-3 col-sm-12">
+    <div class=".col-12 .mb-2">
         <a n:href="Garant:newtask $course->id_course, 'CV'" class="btn btn-primary btn-sm text-white order-1 order-sm-0">
           Cvičení
         </a>
     </div>
-    <div class="col-md-3 col-sm-12">
+    <div class=".col-12 .mb-2">
         <a n:href="Garant:newtask $course->id_course, 'DU'" class="btn btn-primary btn-sm text-white order-1 order-sm-0">
           Domácí úkol
         </a>
     </div>
-    <div class="col-md-3 col-sm-12">
+    <div class=".col-12 .mb-2">
         <a n:href="Garant:newtask $course->id_course, 'PJ'" class="btn btn-primary btn-sm text-white order-1 order-sm-0">
           Projekt
         </a>
     </div>
-    <div class="col-md-3 col-sm-12">
+    <div class=".col-12 .mb-2">
         <a n:href="Garant:newtask $course->id_course, 'ZK'" class="btn btn-primary btn-sm text-white order-1 order-sm-0">
           Zkouška
         </a>
