@@ -522,7 +522,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
         if($this->isAjax())
     	{
-    		$this->template->course_tasks_key = array_search($id_task, array_column($course_tasks, 'id_task'));;
+    		$this->template->course_tasks_key = array_search($id_task, array_column($this->template->course_tasks, 'id_task'));;
     		if ($result > 0) 
 	        {	
 	        	$this->template->delete_task_success = 1;
