@@ -49,9 +49,9 @@ class StudentModel
 
        
         foreach ($presenter->template->course_tasks as $value) {
-            $this->presenter->files[$value->id_task]=array();
+            $this->presenter->template->files[$value->id_task]=array();
             foreach (Finder::findFiles('*')->in("Files/$id/$value->id_task") as $key => $file) {
-                array_push($this->presenter->files[$value->id_task],$key); // $key je řetězec s názvem souboru včetně cesty
+                array_push($this->presenter->template->files[$value->id_task],$key); // $key je řetězec s názvem souboru včetně cesty
             }
         }
 
