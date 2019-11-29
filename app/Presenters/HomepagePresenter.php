@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Presenters;
 use Ublaboo\DataGrid\DataGrid;
+use Ublaboo;
 use Nette;
 
 use Nette\Application\UI;
