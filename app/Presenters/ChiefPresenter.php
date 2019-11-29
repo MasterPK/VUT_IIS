@@ -323,7 +323,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	{
 
 		$form = new Form;
-		
+
 		$form->addText('room_id', '')
 			->setHtmlAttribute('class', 'form-control')
 			->setRequired()
@@ -364,6 +364,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	{
 		$values = $form->getValues();
 		Debugger::barDump($values->room_Adres,"test");
+		Debugger::barDump($values->room_id,"id");
 
 		$data = $this->database->table("room")
 			->update([
