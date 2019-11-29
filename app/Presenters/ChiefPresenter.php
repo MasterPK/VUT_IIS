@@ -189,9 +189,9 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 		foreach($tmp as $row)
 		{
-			$address += $row->room_address;
+			$this->address += $row->room_address;
 		}
-		Debugger::barDump($address,"test");
+		Debugger::barDump($this->address,"test");
 	}
 
 	
