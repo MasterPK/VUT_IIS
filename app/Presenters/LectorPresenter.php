@@ -64,6 +64,13 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 		$this->lectorModel->renderShowCourse($this, $id);
 		Debugger::barDump($this->presenter->template->files, "soubory");
 	}
+	private $course_id;
+	private $task_id;
+	public function rendernewFile($course_id, $task_id)
+	{
+		$this->course_id=$course_id;
+		$this->task_id=$task_id;
+	}
 
 	public function createComponentSearchCourseForm(): Nette\Application\UI\Form
 	{
@@ -91,6 +98,37 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 			
 			$this->redrawControl("content_snippet");
 		}
+	}
+
+	public function createComponentNewFileToCourseForm()
+	{
+		$form = new Form;
+
+		$form->addHidden("course_id")
+		->setDefaultValue($this->course_id);
+
+		$form->addHidden("task_id")
+		->setDefaultValue($this->task_id);
+		
+		$form->addUpload('file', '')
+		->setRequired(true)
+		->addRule(Form::MAX_FILE_SIZE, 'Maximální velikost souboru je 5 MB.', 5242880 /* v bytech */);
+
+		$form->addSubmit('submit', 'Odeslat')
+			->setHtmlAttribute('class', 'btn btn-block btn-primary');
+			
+		$form->onSuccess[] = [$this, 'newFileToCourseFormSubmit'];
+
+        return $form;
+	}
+
+	public function newFileToCourseFormSubmit(Form $form)
+	{
+		$values = $form->getValues();
+		$path = "Files/$values->course_id/$values->task_id/" . $values->file->getName();
+		$values->file->move($path);
+		$this->redirect('Lector:showcourse $');
+
 	}
 
 	/*public function renderLector(): void
