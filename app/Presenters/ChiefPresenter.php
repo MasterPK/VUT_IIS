@@ -65,10 +65,10 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$this->template->id = $id;
 	}
 
-
+	private $actual_room;
 	public function renderAddEquipment($id)
 	{
-
+		$this->actual_room = $id;
 	}
 
 	public function renderManageAdres(): void
@@ -441,18 +441,36 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	{
 		$form = new Form;
 
-		$form->addHidden('id_room_equipment', '')
-			->setDefaultValue($this->current_Equip);
+		$tmp = $this->database->query("SELECT * FROM room_equipment R RIGHT JOIN room_has_equipment E on R.id_room_equipment = E.id_room_equipment WHERE E.id_room = ? AND R.id_room_equipment IS NULL",$this->actual_room)->fetchAll();
 
-		$form->addText('id_course_show', '')
+		$address = array();
+		foreach ($tmp as $row) {
+			$address[$row->id_room_address]= $row->room_address;
+		}
+
+		$form->addSelect('room_Adres', '', $address)
 			->setHtmlAttribute('class', 'form-control')
-			->setDefaultValue($this->current_Equip["room_equipment"]);
+			->setRequired();
 
-		$form->addSubmit('submit', 'Potvrdit změny')
-			->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
-
-		$form->onSuccess[] = [$this, 'ChangeEquipmentSubmit'];
+		$form->onSuccess[] = [$this, 'AddEquipSubmit'];
 		return $form;
+	}
+
+	public function AddEquipSubmit(Form $form)
+	{
+		$values = $form->getValues();
+		Debugger::barDump($values->room_id,"values->room_id");
+		Debugger::barDump($values->room_Adres,"values->room_Adres");
+
+		$data = $this->database->table("room")
+			->insert([
+				'id_room' => $values->room_id,
+				'room_type' => $values->room_type,
+				'room_capacity' => $values->room_capacity,
+				'id_room_address' => $values->room_Adres,
+			]);
+
+		$this->redirect("Chief:rooms");
 	}
 	
 }
