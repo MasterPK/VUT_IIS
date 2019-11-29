@@ -297,7 +297,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 		->setFilterText();
 
         $grid->addColumnText('email', 'Email')
-        ->setEditableCallback([$this, 'updateUser'])
+        ->setEditableValueCallback([$this, 'updateUser'])
         ->setSortable()
         ->setFilterText();
 		
