@@ -229,7 +229,7 @@ Detail kurzu
                         <div class="col-md-12">
                             Soubory:<br>
                             {foreach $files[$task->id_task] as $file}
-                                <a href="/{$file}">{=basename($file)}</a><br>  
+                                <a href="/{$file}">{=basename($file)}</a>{if $userIsGuarantorInCourse == true || $userIsLectorInCourse == true}<a class="ajax" n:href="deleteFile! $file"><i class="fas fa-times fa-fw"></i></a>{/if}<br>  
                             {/foreach}
                         </div>
                     </div>
