@@ -138,7 +138,7 @@ Detail kurzu
                     {$task->task_name}
                     {if $userIsGuarantorInCourse == true || $userIsLectorInCourse == true}
 
-                    <button class="btn btn-outline btn-primary" ref="popupCustomContent"><span>Smazat termín</span></button>
+                    <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="show()"><span>Smazat termín</span></button>
 
                     <a n:href="Garant:newtask $task->id_course, $task->id_task">
                     <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Upravit termín</button></a>
@@ -210,16 +210,32 @@ Detail kurzu
 {/ifset}
 {/snippet}
 
-<latte-popup :associate-with="$refs.popupCustomContent" persistent>
-    <div class="panel" style="width: 300px">
-        <div class="panel-header"><span class="panel-title">Potvrdit</span></div>
-        <div class="panel-body">
-            Opravdu smazat termín?
-        </div>
-        <div class="panel-footer justify-content-end">
-            <button class="btn btn-contained btn-primary" data-close><span>Zavřít</span></button>
-        </div>
-    </div>
-</latte-popup>
+<div class="modal fade" id="my-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Potvrzení</h4>
+      </div>
+      <div class="modal-body">
+        <p>Opravdu?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Zrušit</button>
+        <button type="button" class="btn btn-primary">Potvrdit</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<script>
+function show()
+{
+    $('#my-modal').modal('show');
+}
+
+</script>
+
 
 {/block}
