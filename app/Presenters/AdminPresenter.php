@@ -356,7 +356,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     {
         Debugger::barDump($id_user,"id_user ");
         Debugger::barDump($value,"value");
-        Debugger::barDump($key,"value");
+        Debugger::barDump($key,"key");
         $this->database->table("user")->where("id_user",$id_user)->update([
             'email' => $row->email,
             'first_name' => $row->first_name,
