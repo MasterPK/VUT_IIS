@@ -81,13 +81,13 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 		->setFilterText();
 
 		$grid->addColumnText('course_type', 'Typ kurzu')
-		->setSortable()
-		->setFilterText()
 		->setReplacement([
 			'P' => 'Povinný',
 			'V' => 'Volitelný'
-		]);
-
+		])
+		->setSortable()
+		->setFilterText();
+		
 		$grid->addColumnText('course_price', 'Cena kurzu')
 		->setSortable()
 		->setFilterText();
