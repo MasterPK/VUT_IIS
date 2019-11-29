@@ -215,17 +215,15 @@ Detail kurzu
                     </div>
                 </div>
             </div>
+        {ifset delete_task_success}
+        <script>$.notify("Termín {$task->task_name} byl úspěšně smazán!", "success");</script>
+        {/ifset}
         {/foreach}
     </div>
 </div>
 {/ifset}
 {/snippet}
 
-{snippet delete_task_snippet}
-{ifset delete_task_success}
-<script>$.notify("Termín byl úspěšně smazán!", "success");</script>
-{/ifset}
-{/snippet}
 
 <script>
 function show(id)
