@@ -21,9 +21,7 @@ Detail kurzu
                 {$course->id_course}
                 {ifset $courseActive}
                 {if $userIsGuarantorInCourse == true}
-                <a tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">Dismissible popover</a>
-
-                <a n:href="Garant:newtask $course->id_course, NULL"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Nový termín</button></a>
+                <a style="float: right;" tabindex="0" class="btn btn-primary btn-sm text-white order-1 order-sm-0" role="button" data-toggle="popover" data-trigger="focus" title="Vyberte typ termínu" data-content="Text">Nový termín</a>
                 <a n:href="Garant:modifyCourse $course->id_course"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Správa kurzu</button></a>
                 {/if}
                 {/ifset}
