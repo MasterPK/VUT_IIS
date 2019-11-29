@@ -77,6 +77,14 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$this->id_course=$id;
 	}
 
+	private $course_id;
+	private $task_id;
+	public function rendernewFile($course_id, $task_id)
+	{
+		$this->course_id = $course_id;
+		$this->task_id = $task_id;
+	}
+
 	public function renderNewtask($id_course, $id_task)
 	{
 		$this->id_course = $id_course;
@@ -512,6 +520,58 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     	$result = $this->database->table("task")->where("id_task", $id_task)
     		->delete();
 
+        if ($this->isAjax()) 
+        {	
+        	$this->template->delete_task_success = 1;
+            $this->redrawControl("course_tasks_snippet");
+        }
+	}
+	
+	public function handleDeleteFile($file)
+	{
+		/*try {*/
+		Debugger::barDump($file, "souborDelete");
+		FileSystem::delete("$file");
+		$this->template->success_notif = true;
+		/*} catch (Nette\IOException $e) {
+			$this->template->error_notif = true;
+		}*/
+
+		if ($this->isAjax()) {
+
+			$this->redrawControl("content_snippet");
+		}
+	}
+
+	public function createComponentNewFileToCourseForm()
+	{
+		$form = new Form;
+
+		$form->addHidden("course_id")
+			->setDefaultValue($this->course_id);
+
+		$form->addHidden("task_id")
+			->setDefaultValue($this->task_id);
+
+		$form->addUpload('file', '')
+			->setRequired(true)
+			->addRule(Form::MAX_FILE_SIZE, 'Maximální velikost souboru je 5 MB.', 5242880 /* v bytech */);
+
+		$form->addSubmit('submit', 'Odeslat')
+			->setHtmlAttribute('class', 'btn btn-block btn-primary');
+
+		$form->onSuccess[] = [$this, 'newFileToCourseFormSubmit'];
+
+		return $form;
+	}
+
+	public function newFileToCourseFormSubmit(Form $form)
+	{
+		$values = $form->getValues();
+		$path = "Files/$values->course_id/$values->task_id/" . $values->file->getName();
+		$values->file->move($path);
+		$this->redirect('Lector:showcourse',$values->course_id);
+	}
     	if($this->isAjax())
     	{
     		if ($result > 0) 
