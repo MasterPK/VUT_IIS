@@ -103,10 +103,7 @@ class GarantModel
             $presenter->template->userIsGuarantorInCourse=false;
         }
 
-        if($presenter->template->course->course_status>=1)
-        {
-            $presenter->template->courseActive=true;
-        }
+        
         
         $this->currentCourseId=$id;
 

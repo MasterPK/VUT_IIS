@@ -44,6 +44,11 @@ class StudentModel
         $this->currentCourseId=$id;
 
         $presenter->template->course_tasks = $this->database->query("SELECT * FROM task WHERE id_course = ?", $id)->fetchAll();
+
+        if($presenter->template->course->course_status>=1)
+        {
+            $presenter->template->courseActive=true;
+        }
     
 
     }
