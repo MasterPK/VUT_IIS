@@ -110,7 +110,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	{
 		//vyber lektorov, ktori este nie su lektormi daneho kurzu
 		$this->template->select_lectors = $this->database->query("SELECT id_user, email, first_name, surname FROM user WHERE rank >= 2 AND id_user NOT IN
-										(SELECT id_user FROM user NATURAL LEFT JOIN course_has_lecturer WHERE rank >= 2 AND (id_course = ?)))", $id_course)->fetchAll();
+										(SELECT id_user FROM user NATURAL LEFT JOIN course_has_lecturer WHERE rank >= 2 AND id_course = ?)", $id_course)->fetchAll();
 		$this->template->current_lectors = $this->database->query("SELECT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_lecturer WHERE id_course = ?", $id_course)->fetchAll();
 		$this->template->id_course = $id_course;
 	}
