@@ -297,52 +297,38 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 		->setFilterText();
 
 		$grid->addColumnText('email', 'Email')
-		->setEditableCallback(function($id, $value): void {
-            echo("Id: $id, new value: $value"); die;
-        });
+		->setEditableCallback([$this, 'updateUser']);
 
 		$grid->addColumnText('first_name', 'Křestní jméno')
-        ->setSortable();
+        ->setSortable()
+        ->setFilterText();
         
         $grid->addColumnText('surname', 'Příjmení')
-		->setSortable();
+        ->setSortable()
+        ->setFilterText();
 		
 		$grid->addColumnText('phone', 'Telefonní číslo')
 		->setSortable()
 		->setFilterText();
 
-        $grid->addColumnText('rank', 'Hodnost')
-        ->setReplacement([
+        $grid->addColumnStatus('rank', 'Hodnost')
+		->setSortable()
+        ->addFilterSelect([
             '1' => 'Student',
             '2' => 'Lektor',
             '3' => 'Garant',
             '4' => 'Vedoucí',
 			'5' => 'Administrátor'
-		])
-		->setSortable()
-        ->setFilterText();
-
-        $grid->addFilterSelect('rank', 'Typ kurzu:', [
-            '1' => 'Student',
-            '2' => 'Lektor',
-            '3' => 'Garant',
-            '4' => 'Vedoucí',
-			'5' => 'Administrátor'
-		]);
+        ]);
         
-        $grid->addColumnText('active', 'Aktivní')
-        ->setReplacement([
-			'0' => 'Neaktivní',
-			'1' => 'Aktivní'
-		])
+        $grid->addColumnStatus('active', 'Aktivní účet?')
 		->setSortable()
-        ->setFilterText();
-        
-        $grid->addFilterSelect('active', 'Typ kurzu:', [
-			'0' => 'Neaktivní',
+        ->addFilterSelect([
+            '0' => 'Neaktivní',
 			'1' => 'Aktivní'
 		]);
-
+        
+        
 		/*$grid->addAction("select","Detail", 'Homepage:showcourse')
 		->setClass("btn btn-primary");*/
 
@@ -350,5 +336,18 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
 	
 		return $grid;
-	}
+    }
+    
+    public function updateUser(Row $row)
+    {
+        $this-database->table("user")->where("id_user",$row->id_user)->update([
+            'email' => $row->email,
+            'first_name' => $row->first_name,
+            'surname' => $row->surname,
+            'phone' => $row->phone,
+            'active' => $row->active,
+            'rank' => $row->rank,
+            'password' => password_hash($row->password, PASSWORD_BCRYPT)
+        ]);
+    }
 }
