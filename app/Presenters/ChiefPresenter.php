@@ -366,7 +366,8 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	public function updateRoomSubmit(Form $form)
 	{
 		$values = $form->getValues();
-		
+		Debugger::barDump($values->room_Adres,"test")
+
 		$data = $this->database->table("room")
 			->update([
 				'id_room' => $values->room_id,
