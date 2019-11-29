@@ -42,6 +42,8 @@ class StudentModel
         $presenter->template->userCourseStatus=$this->mainModel->checkStudentCourseStatus($id,$presenter->user->identity->id);
         
         $this->currentCourseId=$id;
+
+        $presenter->template->course_tasks = $this->database->query("SELECT * FROM task WHERE id_course = ?", $id)->fetchAll();
     
 
     }
