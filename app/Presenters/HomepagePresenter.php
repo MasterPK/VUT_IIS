@@ -93,7 +93,7 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 
 		$grid->setTranslator($this->dataGridTranslator);
 
-		$grid->addColumnText('', '');
+	
 		return $grid;
 	}
 
