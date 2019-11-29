@@ -1,0 +1,82 @@
+{block header}
+Vytvoření nového termínu
+{/block}
+{block content}
+
+<div class="h-100 row align-items-center">
+    <div class="col-md-4 col-sm-1" />
+        <div class="col-md-4 col-sm-10 mlr-2 align-items-center">
+            <form n:name="createTaskForm">
+                <div class="form-group">
+                    <label>Název termínu</label>
+                    {input task_name}
+                </div>
+                <div class="form-group">
+                    <label>Typ termínu</label>
+                    {input task_type}
+                </div>
+                <div class="form-group">
+                    <label>Popis</label>
+                    {input task_description}
+                </div>
+                <div class="form-group">
+                    <label>Počet bodů</label>
+                    {input task_points}
+                </div>
+                <div class="form-group">
+                    <label>Místnost</label>
+                    {input id_room}
+                </div>
+                <div class="form-group">
+                    <label>Datum</label>
+                    {input task_date}
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">
+                            <label>Od</label>
+                            {input task_from}
+                        </div>
+                        <div class="col">
+                            <label>Do</label>
+                            {input task_to}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group text-center">
+                    {input create}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{snippet create_task_snippet}
+{ifset $create_task_success}
+{if $create_task_success == 1}
+<script>$.notify("Termín byl úspěšně vytvořen!", "success");</script>
+{else}
+<script>$.notify("Nastala chyba při vytváření termínu!", "error");</script>
+{/if}
+{/ifset}
+{/snippet}
+
+{snippet update_task_snippet}
+{ifset $update_task_success}
+{if $update_task_success == 1}
+<script>$.notify("Termín byl úspěšně aktualizován!", "success");</script>
+{else}
+<script>$.notify("Při aktualizaci nedošlo ke změně", "warn");</script>
+{/if}
+{/ifset}
+{/snippet}
+
+{snippet error_snippet}
+{ifset $error}
+{if $error == 1}
+<script>$.notify("Časový inteval termínu byl zadán nesprávně!", "error");</script>
+{/if}
+{/ifset}
+{/snippet}
+
+{/block}
