@@ -137,7 +137,7 @@ Detail kurzu
                     {$task->task_name}
                     {if $userIsGuarantorInCourse == true || $userIsLectorInCourse == true}
                     <a n:href="deleteTask! $task->id_task">
-                    <a onclick="return confirm('Opravdu smazat termín $task->task_name?');" n:href="deleteTask! $task->id_task">
+                    <a onclick="return confirm('Opravdu smazat termín {$task->task_name}?');" n:href="deleteTask! $task->id_task">
                     <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Smazat termín</button></a>
 
                     <a n:href="Garant:newtask $task->id_course, $task->id_task">
