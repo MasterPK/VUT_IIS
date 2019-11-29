@@ -6,6 +6,7 @@ namespace App\Presenters;
 
 use Nette;
 use Nette\Application\UI\Form;
+use Tracy\Debugger;
 
 
 final class LectorPresenter extends Nette\Application\UI\Presenter 
@@ -62,6 +63,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 	public function renderShowcourse($id)
 	{
 		$this->lectorModel->renderShowCourse($this,$id);
+		Debugger::barDump($this->presenter->template->files,"soubory");
 	}
 
 	public function createComponentSearchCourseForm(): Nette\Application\UI\Form
