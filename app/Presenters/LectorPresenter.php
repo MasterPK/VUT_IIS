@@ -9,10 +9,10 @@ use Nette\Application\UI\Form;
 use Tracy\Debugger;
 use Nette\Utils\FileSystem;
 
-final class LectorPresenter extends Nette\Application\UI\Presenter 
+final class LectorPresenter extends Nette\Application\UI\Presenter
 {
 	/** @var \App\Model\StartUp @inject */
-    public $startup;
+	public $startup;
 
 	/** @var Nette\Database\Context @inject */
 	public $database;
@@ -30,10 +30,9 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 	{
 		parent::startup();
 
-		
+
 		$this->startup->mainStartUp($this);
-		if(!$this->startup->roleCheck($this,2))
-		{
+		if (!$this->startup->roleCheck($this, 2)) {
 			$this->redirect("Homepage:default");
 		}
 	}
@@ -47,42 +46,48 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 	 */
 	public function renderMycourses(): void
 	{
-		$this->template->courses=$this->lectorModel->getCoursesOfLector($this->user->identity->id);
+		$this->template->courses = $this->lectorModel->getCoursesOfLector($this->user->identity->id);
 	}
 
 	public function renderCourses(): void
 	{
-		$this->template->courses=$this->mainModel->getAllCourses();	
+		$this->template->courses = $this->mainModel->getAllCourses();
 	}
 
 	public function renderManagecourses()
 	{
-		$this->template->courses=$this->lectorModel->getLectorCourses($this->user->identity->id);
+		$this->template->courses = $this->lectorModel->getLectorCourses($this->user->identity->id);
 	}
 
 	public function renderShowcourse($id)
 	{
-		$this->lectorModel->renderShowCourse($this,$id);
-		Debugger::barDump($this->presenter->template->files,"soubory");
+		$this->lectorModel->renderShowCourse($this, $id);
+		Debugger::barDump($this->presenter->template->files, "soubory");
 	}
 
 	public function createComponentSearchCourseForm(): Nette\Application\UI\Form
-    {
-        return $this->mainModel->createComponentSearchCourseForm($this);
+	{
+		return $this->mainModel->createComponentSearchCourseForm($this);
 	}
-	
+
 	public function searchCourseForm(Nette\Application\UI\Form $form): void
-    {
-    	$values = $form->getValues();
-    	$this->redirect("Homepage:courses", $values->search, $values->filter);
+	{
+		$values = $form->getValues();
+		$this->redirect("Homepage:courses", $values->search, $values->filter);
 	}
 
 
 	public function handleDeleteFile($file)
 	{
-		FileSystem::delete("/$file");
+		try {
+			FileSystem::delete("/$file");
+			$this->template->success_notif = true;
+		} catch (Nette\IOException $e) {
+			$this->template->success_notif = true;
+		}
+		
 		if ($this->isAjax()) {
-			$this->template->succes_notif = true;
+			
 			$this->redrawControl("content_snippet");
 		}
 	}

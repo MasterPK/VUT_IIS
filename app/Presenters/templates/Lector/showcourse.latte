@@ -5,7 +5,7 @@ Detail kurzu
 <div class="row">
     <div class="col-sm-12">
         {snippet studentRegistrationErrorSnippet}
-        {ifset $succes_notif}
+        {ifset $success_notif}
         <script>$.notify("Operace byla provedena!", "success");</script>
         {/ifset}
         {ifset $error_notif}
