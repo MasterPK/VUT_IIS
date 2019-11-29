@@ -31,9 +31,7 @@ class StudentModel
     public function renderShowcourse($presenter,$id)
     {
         $this->visitorModel->renderShowcourse($presenter,$id);
-        course_tasks
 
-        
     
         if($this->mainModel->checkOpenRegistration($id))
         {
