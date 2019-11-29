@@ -185,9 +185,9 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	private $address;
 	public function renderCreateRoom(): void
 	{
-		$tmp=$this->database->table("room_address")->fetch();
-		dump($tmp);
-		//foreach($this->tmp)
+		$this->address=$this->database->query("SELECT * FROM room_address")->fetchAll();
+
+		dump($this->address["room_address"]);
 	}
 
 	
@@ -207,7 +207,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
             ->setHtmlAttribute('class', 'form-control')
 			->setRequired();
 			
-		$form->addSelect('room_Adres', '', $this->address)
+		$form->addSelect('room_Adres', '', $this->address["room_address"])
             ->setHtmlAttribute('class', 'form-control')
 			->setRequired();
 
