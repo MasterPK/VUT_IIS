@@ -624,7 +624,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			$result = $this->database->query("INSERT INTO course_has_lecturer (id_user, id_course) VALUES (?,?)", $user, $id_course);
 
 			//ak sa nejaky insert nevykona, ukonci s chybou
-			if($result == 0)
+			if($result->getRowCount() == 0)
 			{
 				$this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'error'] ) );
 				return;
