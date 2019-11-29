@@ -572,7 +572,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$values->file->move($path);
 		$this->redirect('Lector:showcourse',$values->course_id);
 	}
-    	if($this->isAjax())
+    	/*if($this->isAjax())
     	{
     		if ($result > 0) 
 	        {	
@@ -586,5 +586,5 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	        }
     	}
         
-    }
+    }*/
 }
