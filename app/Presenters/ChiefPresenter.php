@@ -473,7 +473,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 			]);
 
 		$this->template->success_notify = true;
-		$this->redirect("Chief:addEquipment $values->id_equip");
+		$this->redirect("Chief:addEquipment",$values->id_equip);
 	}
 
 	function handleDelete($id,$id2) {
