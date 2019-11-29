@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 namespace App\Presenters;
-
+use Ublaboo\DataGrid\DataGrid;
 use Nette;
 
 use Nette\Application\UI;
@@ -41,6 +41,15 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 
 	public function renderDefault(): void
 	{
+	}
+
+	public function createComponentSimpleGrid()
+	{
+		$grid = new DataGrid($this, "name");
+
+		$grid->setDataSource($this->database->table('course'));
+		$grid->addColumnText('course_name', 'Jméno kurzu');
+		return $grid;
 	}
 
 	public function renderCourses($search, $filter): void
