@@ -251,7 +251,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		    'ZK' => 'Zkouška',
 		])
 		->setHtmlAttribute('class', 'form-control')
-        ->setRequired();
+        ->setRequired("Tohle pole je povinné.");
 
         $form->addText('task_description', 'Popis')
         ->setHtmlAttribute('class', 'form-control')
@@ -277,7 +277,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         ->setType('date')
         ->setDefaultValue((new \DateTime)->format('Y-m-d'))
         ->setHtmlAttribute('class', 'form-control')
-        ->setRequired();
+        ->setRequired("Tohle pole je povinné.");
 
         $form->addText('task_from', 'Od')
         ->setHtmlAttribute('class', 'form-control')
@@ -288,7 +288,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         ->setHtmlAttribute('class', 'form-control')
         ->addRule(Form::RANGE, "Zadejte číslo v rozmezí 0 - 23!", [0,23])
         ->addRule(Form::MAX_LENGTH, "Zadejte číslo v rozmezí 0 - 23!", 2)
-        ->setRequired();
+        ->setRequired("Tohle pole je povinné.");
 
         if($this->task)
         {

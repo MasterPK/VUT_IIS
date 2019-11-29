@@ -231,7 +231,7 @@ class MainModel
 
         $form->addText('search', 'Hledat:')
         ->setHtmlAttribute('class', 'form-control')
-        ->setRequired();
+        ->setRequired("Tohle pole je povinné.");
 
         $form->addSubmit('send', 'Hledat')
         ->setHtmlAttribute('class', 'btn btn-block btn-primary');
