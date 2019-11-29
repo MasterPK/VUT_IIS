@@ -81,7 +81,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 	{
 		/*try {*/
 			Debugger::barDump($file,"souborDelete");
-			FileSystem::delete("/$file");
+			FileSystem::delete("$file");
 			$this->template->success_notif = true;
 		/*} catch (Nette\IOException $e) {
 			$this->template->error_notif = true;
