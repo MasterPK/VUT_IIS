@@ -4,6 +4,7 @@ Přidat lektory
 {block content}
 {snippet manage_snippet}
 {ifset $current_lectors}
+    {if $current_lectors.length > 0}
     
     {ifset $remove_lector_success}
     {if $remove_lector_success == 1}
@@ -36,6 +37,8 @@ Přidat lektory
 
         </tbody>
     </table>
+
+    {/if}
 
 {/ifset}
 
