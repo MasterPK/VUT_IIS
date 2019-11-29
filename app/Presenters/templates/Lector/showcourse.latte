@@ -115,7 +115,7 @@ Detail kurzu
                 <div class="card-header">
                     {$task->task_name}
                     {if $userIsLectorInCourse == true}
-                    <a n:href="Lector:addFile $task->id_course, $task->id_task">
+                    <a n:href="Lector:newFile $task->id_course, $task->id_task">
                     <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Přidat soubor</button></a>
                     <a n:href="Lector:newtask $task->id_course, $task->id_task">
                     <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Upravit termín</button></a>
