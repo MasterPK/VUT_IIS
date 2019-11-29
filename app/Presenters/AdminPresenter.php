@@ -313,21 +313,24 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setFilterText();
 
-
-        $grid->addFilterSelect('rank', 'Hodnost:', [
+        $grid->addColumnStatus('rank', 'Hodnost')
+		->setSortable()
+        ->addFilterSelect([
             '1' => 'Student',
             '2' => 'Lektor',
             '3' => 'Garant',
             '4' => 'Vedoucí',
 			'5' => 'Administrátor'
-		]);
+        ]);
         
-        
-        $grid->addFilterSelect('active', 'Aktivní účet?:', [
-			'0' => 'Neaktivní',
+        $grid->addColumnStatus('active', 'Aktivní účet?')
+		->setSortable()
+        ->addFilterSelect([
+            '0' => 'Neaktivní',
 			'1' => 'Aktivní'
 		]);
-
+        
+        
 		/*$grid->addAction("select","Detail", 'Homepage:showcourse')
 		->setClass("btn btn-primary");*/
 
