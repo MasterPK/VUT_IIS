@@ -185,7 +185,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	private $address;
 	public function renderCreateRoom(): void
 	{
-		$tmp=$this->database->table("room_address")->fetch();
+		$tmp=$this->database->query("SELECT * FROM room_equipment")->fetchAll();
 		dump($tmp);
 		//foreach($this->tmp)
 	}
