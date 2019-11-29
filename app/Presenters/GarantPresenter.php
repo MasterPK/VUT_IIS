@@ -494,7 +494,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         {	
         	$this->template->delete_task_success = 1;
             $this->redrawControl("course_tasks_snippet");
-            $this->redrawControl("delete_task_snippet");
         }
     }
 }
