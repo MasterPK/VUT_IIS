@@ -621,7 +621,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		//po preg_split sa z toho stava array
 		foreach($users as $user)
 		{
-			$result = $this->database->table("course_has_lecturer")->insert("id_user", $user)->insert("id_course", $id_course);
+			$result = $this->database->table("course_has_lecturer")->insert("id_user, id_course", $user, $id_course);
 
 			//ak sa nejaky insert nevykona, ukonci s chybou
 			if($result == 0)
