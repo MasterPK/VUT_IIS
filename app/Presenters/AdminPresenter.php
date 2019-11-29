@@ -313,7 +313,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
         $grid->addColumnStatus('rank', 'Hodnost')
 		->setSortable()
-        ->addFilterSelect([
+        ->setFilterSelect([
             '1' => 'Student',
             '2' => 'Lektor',
             '3' => 'Garant',
@@ -323,7 +323,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         
         $grid->addColumnStatus('active', 'Aktivní účet?')
 		->setSortable()
-        ->addFilterSelect([
+        ->setFilterSelect([
             '0' => 'Neaktivní',
 			'1' => 'Aktivní'
 		]);
@@ -340,7 +340,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     
     public function updateUser(Row $row)
     {
-        $this-database->table("user")->where("id_user",$row->id_user)->update([
+        $this->database->table("user")->where("id_user",$row->id_user)->update([
             'email' => $row->email,
             'first_name' => $row->first_name,
             'surname' => $row->surname,
