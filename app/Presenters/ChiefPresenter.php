@@ -182,7 +182,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
     	$this->redirect("Homepage:courses", $values->search, $values->filter);
 	}
 
-	public $address;
+	private $address;
 	public function renderCreateRoom(): void
 	{
 		$this->address=$this->database->table("room_address")->fetchAll();
@@ -205,7 +205,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
             ->setHtmlAttribute('class', 'form-control')
 			->setRequired();
 			
-		$form->addSelect('room_Adres', '', $address['room_address'])
+		$form->addSelect('room_Adres', '', $this->address['room_address'])
             ->setHtmlAttribute('class', 'form-control')
 			->setRequired();
 
