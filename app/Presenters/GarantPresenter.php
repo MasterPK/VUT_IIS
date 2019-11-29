@@ -606,11 +606,12 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$this->redirect('Garant:showcourse',$values->course_id);
 	}
 
-	public function handleRemove($user, $id_course): void
+	public function handleRemove($id_user, $name, $id_course): void
     {
     	
-		$result = $this->database->query("DELETE FROM course_has_lecturer WHERE id_user = ? AND id_course = ?", $user, $id_course);
+		$result = $this->database->query("DELETE FROM course_has_lecturer WHERE id_user = ? AND id_course = ?", $id_user, $id_course);
 
+		$this->template->name = $name;
 		if($result->getRowCount() > 0)
 		{
 			$this->template->remove_lector_success = 1;
@@ -626,11 +627,12 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         }
 	}
 
-	public function handleAdd($user, $id_course): void
+	public function handleAdd($id_user, $name, $id_course): void
     {
     	
-		$result = $this->database->query("INSERT INTO course_has_lecturer (id_user, id_course) VALUES (?,?)", $user, $id_course);
+		$result = $this->database->query("INSERT INTO course_has_lecturer (id_user, id_course) VALUES (?,?)", $id_user, $id_course);
 
+		$this->template->name = $name;
 		if($result->getRowCount() > 0)
 		{
 			$this->template->add_lector_success = 1;
