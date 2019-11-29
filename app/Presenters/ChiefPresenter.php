@@ -463,7 +463,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	{
 		$values = $form->getValues();
 		
-		$data = $this->database->table("room")
+		$data = $this->database->table("room_has_equipment")
 			->insert([
 				'id_room' => $this->actual_room,
 				'id_room_equipment' => $values->id_room_equipment,
