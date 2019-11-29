@@ -58,6 +58,6 @@ class LectorModel
             $presenter->template->userIsLectorInCourse=true;
         }
  
-        $presenter->template->course_tasks = $this->database->query("SELECT * FROM task WHERE id_course = ?", $id)->fetchAll();
+        
     }
 }
