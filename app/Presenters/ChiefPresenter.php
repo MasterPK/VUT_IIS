@@ -9,10 +9,10 @@ use Nette\Application\UI\Form;
 use Tracy\Debugger;
 
 
-final class ChiefPresenter extends Nette\Application\UI\Presenter 
+final class ChiefPresenter extends Nette\Application\UI\Presenter
 {
 	/** @var \App\Model\StartUp @inject */
-    public $startup;
+	public $startup;
 
 	/** @var Nette\Database\Context @inject */
 	public $database;
@@ -32,10 +32,9 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	{
 		parent::startup();
 
-		
+
 		$this->startup->mainStartUp($this);
-		if(!$this->startup->roleCheck($this,3))
-		{
+		if (!$this->startup->roleCheck($this, 3)) {
 			$this->redirect("Homepage:default");
 		}
 	}
@@ -49,7 +48,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	 */
 	public function renderCourses(): void
 	{
-		$this->template->courses=$this->mainModel->getAllCourses();
+		$this->template->courses = $this->mainModel->getAllCourses();
 	}
 
 	public function renderRooms(): void
@@ -81,34 +80,31 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	{
 		$lectorCourses = $this->garantModel->getLectorCourses($this->user->identity->id);
 		$garantCourses = $this->garantModel->getGarantCourses($this->user->identity->id);
-		$this->template->courses = array_merge($lectorCourses,$garantCourses);
+		$this->template->courses = array_merge($lectorCourses, $garantCourses);
 	}
 
 	public function rendershowCourse($id)
 	{
-		$this->garantModel->renderShowCourse($this,$id);
+		$this->garantModel->renderShowCourse($this, $id);
 	}
-	
+
 	public function createComponentCreateCourseForm(): Form
 	{
 		return $this->garantModel->createCourseF($this);
 	}
 
 	public function createCourseForm(Nette\Application\UI\Form $form): void
-    {
-    	$values = $form->getValues();
+	{
+		$values = $form->getValues();
 
-    	try
-    	{
-    		$data = $this->database->query("INSERT INTO course (id_course, course_name, course_description, course_type, course_price, id_guarantor, course_status) VALUES (?, ?, ?, ?, ?, ?, 0)", $values->id_course, $values->name, $values->description, $values->type, $values->price,  $this->user->identity->id);
+		try {
+			$data = $this->database->query("INSERT INTO course (id_course, course_name, course_description, course_type, course_price, id_guarantor, course_status) VALUES (?, ?, ?, ?, ?, ?, 0)", $values->id_course, $values->name, $values->description, $values->type, $values->price,  $this->user->identity->id);
 
-    		$this->template->success_insert = true;
-    	}
-    	catch(Nette\Database\UniqueConstraintViolationException $e)
-    	{
-    		$this->template->error_insert=true;
-    		$this->template->error_course=$values->id_course;
-    	}
+			$this->template->success_insert = true;
+		} catch (Nette\Database\UniqueConstraintViolationException $e) {
+			$this->template->error_insert = true;
+			$this->template->error_course = $values->id_course;
+		}
 	}
 
 	public function createComponentRegisterForm()
@@ -136,19 +132,15 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$values = $form->getValues();
 		$get = $this->database->query("UPDATE course SET course_status = 2 WHERE id_course = ?", $values->id_course);
 
-    	if($get->getRowCount() == 1)
-    	{
-    		$this->template->succes_notif = true;
-    	}
-    	else
-    	{
-    		$this->template->error_notif = false;
-    	}	
+		if ($get->getRowCount() == 1) {
+			$this->template->succes_notif = true;
+		} else {
+			$this->template->error_notif = false;
+		}
 
-    	if ($this->isAjax())
-		{
-            $this->redrawControl('content_snippet');
-        }
+		if ($this->isAjax()) {
+			$this->redrawControl('content_snippet');
+		}
 	}
 
 	public function closeRegisterFormHandle($form)
@@ -156,166 +148,160 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$values = $form->getValues();
 		$get = $this->database->query("UPDATE course SET course_status = 3 WHERE id_course = ?", $values->id_course);
 
-    	if($get->getRowCount() == 1)
-    	{
-    		$this->template->succes_notif = true;
-    	}
-    	else
-    	{
-    		$this->template->error_notif = false;
-    	}	
+		if ($get->getRowCount() == 1) {
+			$this->template->succes_notif = true;
+		} else {
+			$this->template->error_notif = false;
+		}
 
-    	if ($this->isAjax())
-		{
-            $this->redrawControl('content_snippet');
-        }
+		if ($this->isAjax()) {
+			$this->redrawControl('content_snippet');
+		}
 	}
 
 	public function createComponentSearchCourseForm(): Nette\Application\UI\Form
-    {
-        return $this->mainModel->createComponentSearchCourseForm($this);
+	{
+		return $this->mainModel->createComponentSearchCourseForm($this);
 	}
-	
+
 	public function searchCourseForm(Nette\Application\UI\Form $form): void
-    {
-    	$values = $form->getValues();
-    	$this->redirect("Homepage:courses", $values->search, $values->filter);
+	{
+		$values = $form->getValues();
+		$this->redirect("Homepage:courses", $values->search, $values->filter);
 	}
 
 	private $address = array();
 	public function renderCreateRoom(): void
-	{
-		$tmp=$this->database->query("SELECT * FROM room_address")->fetchAll();
+	{ }
 
-		foreach($tmp as $row)
-		{
+
+	public function createComponentCreateRoom()
+	{
+		$form = new Form;
+
+		$form->addText('room_id', '')
+			->setHtmlAttribute('class', 'form-control')
+			->setRequired();
+
+		$form->addText('room_type', '')
+			->setHtmlAttribute('class', 'form-control')
+			->setRequired();
+
+		$form->addInteger('room_capacity', '')
+			->setHtmlAttribute('class', 'form-control')
+			->setRequired();
+
+		$tmp = $this->database->query("SELECT * FROM room_address")->fetchAll();
+
+		foreach ($tmp as $row) {
 			array_push($this->address, $row->room_address);
 		}
 
-	}
-
-	
-	public function createComponentCreateRoom()
-    {
-		$form = new Form;
-		
-        $form->addText('room_id', '')
-            ->setHtmlAttribute('class', 'form-control')
-            ->setRequired();
-
-        $form->addText('room_type', '')
-            ->setHtmlAttribute('class', 'form-control')
-            ->setRequired();
-
-        $form->addInteger('room_capacity', '')
-            ->setHtmlAttribute('class', 'form-control')
-			->setRequired();
-			
 		$form->addSelect('room_Adres', '', $this->address)
-            ->setHtmlAttribute('class', 'form-control')
+			->setHtmlAttribute('class', 'form-control')
 			->setRequired();
 
-        $form->addSubmit('submit', 'Vytvořit místnost')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+		$form->addSubmit('submit', 'Vytvořit místnost')
+			->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
 
-        $form->onSuccess[] = [$this, 'createRoomSubmit'];
-        return $form;
+		$form->onSuccess[] = [$this, 'createRoomSubmit'];
+		return $form;
 	}
 
 	public function createRoomSubmit(Form $form)
 	{
 		$values = $form->getValues();
-		
-		Debugger::barDump($values,"nic1");
-		$address_id = $this->database->table("room_address")->where("room_address",$values->room_Adres)->fetch();
-		Debugger::barDump($address_id,"nic");
+
+		Debugger::barDump($values, "nic1");
+		$address_id = $this->database->table("room_address")->where("room_address", $values->room_Adres)->fetch();
+		Debugger::barDump($address_id, "nic");
 		$data = $this->database->table("room")
-		->insert([
-			'id_room' => $values->room_id,
-			'room_type' => $values->room_type,
-			'room_capacity' => $values->room_capacity,
-			'id_room_address' => $address_id,
-		]);
+			->insert([
+				'id_room' => $values->room_id,
+				'room_type' => $values->room_type,
+				'room_capacity' => $values->room_capacity,
+				'id_room_address' => $address_id,
+			]);
 
 		$this->template->success_notify = true;
-        if ($this->isAjax()) {
-            $this->redrawControl("content_snippet");
-        }
+		if ($this->isAjax()) {
+			$this->redrawControl("content_snippet");
+		}
 	}
-	
+
 	public function createComponentCreateEquipment()
-    {
+	{
 		$form = new Form;
-		
+
 		$form->addText('equip_name', '')
-            ->setHtmlAttribute('class', 'form-control');
+			->setHtmlAttribute('class', 'form-control');
 
-        $form->addSubmit('submit', 'Potvrdit změny')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+		$form->addSubmit('submit', 'Potvrdit změny')
+			->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
 
-        $form->onSuccess[] = [$this, 'createEquipmenttSubmit'];
-        return $form;
+		$form->onSuccess[] = [$this, 'createEquipmenttSubmit'];
+		return $form;
 	}
 
 	public function createEquipmenttSubmit(Form $form)
-    {
-        $values = $form->getValues();
+	{
+		$values = $form->getValues();
 
-        $data = $this->database->table("room_equipment")
-            ->insert([
-                'room_equipment' => $values->equip_name,
-            ]);
+		$data = $this->database->table("room_equipment")
+			->insert([
+				'room_equipment' => $values->equip_name,
+			]);
 
-        $this->template->success_notify = true;
-        if ($this->isAjax()) {
+		$this->template->success_notify = true;
+		if ($this->isAjax()) {
 			$form->setValues([], TRUE);
-            $this->redrawControl("content_snippet");
-        }
+			$this->redrawControl("content_snippet");
+		}
 	}
 
 
-	
+
 	public function createComponentCreateAdres()
-    {
+	{
 		$form = new Form;
-		
+
 		$form->addText('adres_name', '')
-            ->setHtmlAttribute('class', 'form-control');
+			->setHtmlAttribute('class', 'form-control');
 
-        $form->addSubmit('submit', 'Potvrdit změny')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+		$form->addSubmit('submit', 'Potvrdit změny')
+			->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
 
-        $form->onSuccess[] = [$this, 'createAdresSubmit'];
-        return $form;
+		$form->onSuccess[] = [$this, 'createAdresSubmit'];
+		return $form;
 	}
 
 	public function createAdresSubmit(Form $form)
-    {
-        $values = $form->getValues();
+	{
+		$values = $form->getValues();
 
-        $data = $this->database->table("room_address")
-            ->insert([
-                'room_address' => $values->adres_name,
-            ]);
+		$data = $this->database->table("room_address")
+			->insert([
+				'room_address' => $values->adres_name,
+			]);
 
-        $this->template->success_notify = true;
-        if ($this->isAjax()) {
+		$this->template->success_notify = true;
+		if ($this->isAjax()) {
 			$form->setValues([], TRUE);
-            $this->redrawControl("content_snippet");
-        }
+			$this->redrawControl("content_snippet");
+		}
 	}
-	
+
 
 	private $current_Adres;
 	private $current_Equip;
 	public function renderChangeAdres($id)
 	{
-		$this->current_Adres=$this->database->table("room_address")->where("id_room_address",$id)->fetch();
+		$this->current_Adres = $this->database->table("room_address")->where("id_room_address", $id)->fetch();
 	}
 
 	public function renderChangeEquipment($id)
 	{
-		$this->current_Equip=$this->database->table("room_equipment")->where("id_room_equipment",$id)->fetch();
+		$this->current_Equip = $this->database->table("room_equipment")->where("id_room_equipment", $id)->fetch();
 	}
 
 
@@ -323,61 +309,61 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	{
 		$form = new Form;
 
-        $form->addHidden('id_room_address', '')
-            ->setRequired()
+		$form->addHidden('id_room_address', '')
+			->setRequired()
 			->setDefaultValue($this->current_Adres);
 
 		$form->addCheckBox("really")
-		->setRequired()
-		->addCondition(Form::EQUAL, true);
-			
+			->setRequired()
+			->addCondition(Form::EQUAL, true);
+
 		$form->addSubmit('submit', 'Smazat?!')
 			->setHtmlAttribute('class', 'btn btn-primary');
-			
+
 		$form->onSuccess[] = [$this, 'deleteAdresSubmit'];
 
 		return $form;
 	}
 
 	public function deleteAdresSubmit(Form $form)
-    {
+	{
 		$values = $form->getValues();
 
-		$this->database->table("room_address")->where("id_room_address",$values->id_room_address)->delete();
+		$this->database->table("room_address")->where("id_room_address", $values->id_room_address)->delete();
 		$this->redirect("Chief:manageAdres");
 	}
 
 	public function createComponentChangeAdres()
-    {
-        $form = new Form;
+	{
+		$form = new Form;
 
-        $form->addHidden('id_room_address', '')
+		$form->addHidden('id_room_address', '')
 			->setDefaultValue($this->current_Adres);
-			
+
 		$form->addText('id_course_show', '')
-            ->setHtmlAttribute('class', 'form-control')
-            ->setDefaultValue($this->current_Adres["room_address"]);
+			->setHtmlAttribute('class', 'form-control')
+			->setDefaultValue($this->current_Adres["room_address"]);
 
-        $form->addSubmit('submit', 'Potvrdit změny')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+		$form->addSubmit('submit', 'Potvrdit změny')
+			->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
 
-        $form->onSuccess[] = [$this, 'ChangeAdresSubmit'];
-        return $form;
+		$form->onSuccess[] = [$this, 'ChangeAdresSubmit'];
+		return $form;
 	}
 
 	public function ChangeAdresSubmit(Form $form)
 	{
-        $values = $form->getValues();
+		$values = $form->getValues();
 
-        $data = $this->database->table("room_address")->where("id_room_address", $values->id_room_address)
-            ->update([
-                'room_address' => $values->id_course_show,
-            ]);
+		$data = $this->database->table("room_address")->where("id_room_address", $values->id_room_address)
+			->update([
+				'room_address' => $values->id_course_show,
+			]);
 
-        $this->template->success_notify = true;
-        if ($this->isAjax()) {
-            $this->redrawControl("notify");
-        }
+		$this->template->success_notify = true;
+		if ($this->isAjax()) {
+			$this->redrawControl("notify");
+		}
 	}
 
 
@@ -388,62 +374,60 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	{
 		$form = new Form;
 
-        $form->addHidden('id_room_equipment', '')
-            ->setRequired()
+		$form->addHidden('id_room_equipment', '')
+			->setRequired()
 			->setDefaultValue($this->current_Equip);
 
 		$form->addCheckBox("really")
-		->setRequired()
-		->addCondition(Form::EQUAL, true);
-			
+			->setRequired()
+			->addCondition(Form::EQUAL, true);
+
 		$form->addSubmit('submit', 'Smazat?!')
 			->setHtmlAttribute('class', 'btn btn-primary');
-			
+
 		$form->onSuccess[] = [$this, 'deleteEquipmentSubmit'];
 
 		return $form;
 	}
 
 	public function deleteEquipmentSubmit(Form $form)
-    {
+	{
 		$values = $form->getValues();
 
-		$this->database->table("room_equipment")->where("id_room_equipment",$values->id_room_equipment)->delete();
+		$this->database->table("room_equipment")->where("id_room_equipment", $values->id_room_equipment)->delete();
 		$this->redirect("Chief:manageEquipment");
 	}
 
 	public function createComponentChangeEquipment()
-    {
-        $form = new Form;
+	{
+		$form = new Form;
 
-        $form->addHidden('id_room_equipment', '')
+		$form->addHidden('id_room_equipment', '')
 			->setDefaultValue($this->current_Equip);
-			
+
 		$form->addText('id_course_show', '')
-            ->setHtmlAttribute('class', 'form-control')
-            ->setDefaultValue($this->current_Equip["room_equipment"]);
+			->setHtmlAttribute('class', 'form-control')
+			->setDefaultValue($this->current_Equip["room_equipment"]);
 
-        $form->addSubmit('submit', 'Potvrdit změny')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+		$form->addSubmit('submit', 'Potvrdit změny')
+			->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
 
-        $form->onSuccess[] = [$this, 'ChangeEquipmentSubmit'];
-        return $form;
+		$form->onSuccess[] = [$this, 'ChangeEquipmentSubmit'];
+		return $form;
 	}
 
 	public function ChangeEquipmentSubmit(Form $form)
 	{
-        $values = $form->getValues();
+		$values = $form->getValues();
 
-        $data = $this->database->table("room_equipment")->where("id_room_equipment", $values->id_room_equipment)
-            ->update([
-                'room_equipment' => $values->id_course_show,
-            ]);
+		$data = $this->database->table("room_equipment")->where("id_room_equipment", $values->id_room_equipment)
+			->update([
+				'room_equipment' => $values->id_course_show,
+			]);
 
-        $this->template->success_notify = true;
-        if ($this->isAjax()) {
-            $this->redrawControl("notify");
-        }
+		$this->template->success_notify = true;
+		if ($this->isAjax()) {
+			$this->redrawControl("notify");
+		}
 	}
-
-
 }
