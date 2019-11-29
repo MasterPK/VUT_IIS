@@ -5,6 +5,7 @@ namespace App\Model;
 
 use Nette;
 use Nette\Application\UI\Form;
+use Tracy\Debugger;
 
 class StudentModel
 {
@@ -44,6 +45,19 @@ class StudentModel
         $this->currentCourseId=$id;
 
         $presenter->template->course_tasks = $this->database->query("SELECT * FROM task WHERE id_course = ?", $id)->fetchAll();
+
+        $this->presenter->files=array();
+        foreach ($presenter->template->course_tasks as $value) {
+            $this->presenter->files[$value->id_task]=array();
+            foreach (Finder::findFiles('*')->in("Files/$id/$value->id_task") as $key => $file) {
+                array_push($this->presenter->files[$value->id_task],$key); // $key je řetězec s názvem souboru včetně cesty
+            }
+        }
+
+        Debugger::barDump($this->presenter->files,"soubory");
+
+        $presenter->template->course_tasks = $this->database->query("SELECT * FROM task WHERE id_course = ?", $id)->fetchAll();
+		
 
         if($presenter->template->course->course_status>=1)
         {
