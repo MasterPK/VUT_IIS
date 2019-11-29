@@ -41,7 +41,7 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 
 	public function renderDefault(): void
 	{
-		FileSystem::createDir("/Files/IMP");
+		FileSystem::createDir("Files/IMP");
 	}
 
 	public function renderCourses($search, $filter): void
