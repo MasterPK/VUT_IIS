@@ -479,10 +479,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	function handleDelete($id,$id2) {
 		$this->database->table("room_has_equipment")->where("id_room_equipment", $id)->where("id_room", $id2)->delete();
 		
-		$this->template->success_notify = true;
-		if ($this->isAjax()) {
-			$this->redrawControl("content_snippet");
-		}
+		$this->redirect("Chief:roomsEquipment",$id2);
 	}
 	
 }
