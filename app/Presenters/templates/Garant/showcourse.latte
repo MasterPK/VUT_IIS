@@ -250,20 +250,25 @@ Detail kurzu
 {/ifset}
 {/snippet}
 
-<a id="btnpopover" class="btn" style="float: right;">
- <button class="btn btn-primary btn-sm text-white order-1 order-sm-0">Nový termín</button>
+
+<a id="btnpopover" class="btn" data-placement="left">
+ <span class="total_price">Nový termín</span>
 </a>
+ 
+
 
 <div class="popover_title" style="display: none">
-<h6>Vyberte typ kurzu</h6>
+<h6>Shopping Cart<span class="close-popover float-right text-danger "><i class="fas fa-times"></i></span></h6>
 </div>
-<div id="popover_content_wrapper" style="display: none">                 
+<div id="popover_content_wrapper" style="display: none">
+    <span id="cart_details"></span>
+                 
     <div align="right">
-        <a href="#" class="btn btn-primary">
-          Přednáška
+        <a href="#" class="btn btn-primary" id="check_out_cart">
+          <i class="fa fa-shopping-cart"></i> Check Out
         </a>
-        <a href="#" class="btn btn-primary">
-          Cvičení
+        <a href="#" class="btn btn-danger" id="clear_cart">
+          <i class="fa fa-trash"></i> Clear
         </a>
     </div>
 </div>
@@ -304,8 +309,9 @@ $(document).ready(function(){
 });    
 
 $(document).on('click','.close-popover',function(){
-  $('#cart-popover').popover('hide');
+  $('#btnpopover').popover('hide');
 });
+    
 
 </script>
 
