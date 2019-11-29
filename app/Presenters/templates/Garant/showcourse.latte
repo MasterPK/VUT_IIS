@@ -265,7 +265,12 @@ function hide(id)
     $("#" + id).modal("hide"); 
 }
 
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+
 </script>
 
 {/ifset}
 {/block}
+
