@@ -448,6 +448,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$values = $form->getValues();
 
 		$this->database->table("course")->where("id_course",$values->id_course)->delete();
+		FielSystem::delete("Files/$values->id_course");
 		$this->redirect("Garant:managecourses");
 
 	}
@@ -518,7 +519,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     public function handleDeleteTask($id_task)
     {
     	$result = $this->database->table("task")->where("id_task", $id_task)
-    		->delete();
+			->delete();
+			
+		FileSystem::delete("Files//$id_task");
 
         if($this->isAjax())
     	{
