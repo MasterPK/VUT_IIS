@@ -182,7 +182,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
     	$this->redirect("Homepage:courses", $values->search, $values->filter);
 	}
 
-	private $address;
+	public $address;
 	public function renderCreateRoom(): void
 	{
 		$this->address=$this->database->table("room_address")->fetchAll();
