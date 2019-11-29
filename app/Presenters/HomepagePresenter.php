@@ -49,6 +49,7 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 
 		$grid->setDataSource($this->database->table('course'));
 		$grid->addColumnText('course_name', 'Jméno kurzu');
+		return $grid;
 	}
 
 	public function renderCourses($search, $filter): void
