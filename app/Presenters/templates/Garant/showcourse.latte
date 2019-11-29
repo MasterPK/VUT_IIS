@@ -128,6 +128,7 @@ Detail kurzu
 {/if}
 {/snippet}
 
+{snippet course_tasks_snippet}
 {ifset $course_tasks}
 <div class="row">
     <div class="col-sm-12">
@@ -138,7 +139,7 @@ Detail kurzu
                     {if $userIsGuarantorInCourse == true || $userIsLectorInCourse == true}
                     <a n:href="deleteTask! $task->id_task">
                     <a onclick="return confirm('Opravdu smazat termín {$task->task_name}?');" n:href="deleteTask! $task->id_task">
-                    <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Smazat termín</button></a>
+                    <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0 ajax">Smazat termín</button></a>
 
                     <a n:href="Garant:newtask $task->id_course, $task->id_task">
                     <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Upravit termín</button></a>
@@ -202,5 +203,5 @@ Detail kurzu
     </div>
 </div>
 {/ifset}
-
+{/snippet}
 {/block}
