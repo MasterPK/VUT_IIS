@@ -198,7 +198,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 			$address[$row->id_room_address]= $row->room_address;
 		}
 
-		$form->addSelect('room_Adres', '', $this->address)
+		$form->addSelect('room_Adres', '', $address)
 			->setHtmlAttribute('class', 'form-control')
 			->setRequired();
 
@@ -214,14 +214,13 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$values = $form->getValues();
 		Debugger::barDump($values->room_id,"values->room_id");
 		Debugger::barDump($values->room_Adres,"values->room_Adres");
-		$address_id = $this->database->table("room_address")->where("room_address", $values->room_Adres)->fetch();
 
 		$data = $this->database->table("room")
 			->insert([
 				'id_room' => $values->room_id,
 				'room_type' => $values->room_type,
 				'room_capacity' => $values->room_capacity,
-				'id_room_address' => $address_id,
+				'id_room_address' => $values->address_id,
 			]);
 
 		$this->redirect("Chief:rooms");
