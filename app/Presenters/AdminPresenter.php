@@ -312,7 +312,14 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 		->setFilterText();
 
         $grid->addColumnStatus('rank', 'Hodnost')
-		->setSortable()
+        ->setSortable()
+        ->setReplacement([
+            '1' => 'Student',
+            '2' => 'Lektor',
+            '3' => 'Garant',
+            '4' => 'Vedoucí',
+			'5' => 'Administrátor'
+        ])
         ->setFilterSelect([
             '1' => 'Student',
             '2' => 'Lektor',
@@ -322,7 +329,11 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         ]);
         
         $grid->addColumnStatus('active', 'Aktivní účet?')
-		->setSortable()
+        ->setSortable()
+        ->setReplacement([
+            '0' => 'Neaktivní',
+			'1' => 'Aktivní'
+		])
         ->setFilterSelect([
             '0' => 'Neaktivní',
 			'1' => 'Aktivní'
