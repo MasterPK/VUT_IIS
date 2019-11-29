@@ -72,14 +72,22 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 		$grid->setPrimaryKey('id_course');
 		$grid->setDataSource($this->database->table('course'));
 
+		$grid->addColumnText('id_course', 'Zkratka kurzu')
+		->setSortable()
+		->setFilterText();
+
 		$grid->addColumnText('course_name', 'Jméno kurzu')
 		->setSortable()
 		->setFilterText();
 
 		$grid->addColumnText('course_type', 'Typ kurzu')
+		->setReplacement([
+			'P' => 'Povinný',
+			'V' => 'Volitelný'
+		])
 		->setSortable()
 		->setFilterText();
-
+		
 		$grid->addColumnText('course_price', 'Cena kurzu')
 		->setSortable()
 		->setFilterText();
@@ -88,7 +96,7 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setFilterText();
 
-		$grid->addAction("select","Detail", 'showcourse')
+		$grid->addAction("select","Detail", 'Homepage:showcourse')
 		->setClass("btn btn-primary");
 
 		$grid->setTranslator($this->dataGridTranslator);
@@ -107,9 +115,9 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 		}
 	}
 
-	public function renderShowcourse($id): void
+	public function renderShowcourse($id_course): void
 	{
-		$this->visitorModel->renderShowcourse($this, $id);
+		$this->visitorModel->renderShowcourse($this, $id_course);
 	}
 
 	public function createComponentSearchCourseForm(): Nette\Application\UI\Form

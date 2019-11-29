@@ -237,7 +237,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 
 
-	public function createComponentCreateEquipment()
+	public function createComponentCreateEquip()
 	{
 		$form = new Form;
 
