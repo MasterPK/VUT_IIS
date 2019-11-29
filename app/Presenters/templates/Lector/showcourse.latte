@@ -5,7 +5,7 @@ Detail kurzu
 <div class="row">
     <div class="col-sm-12">
         {snippet studentRegistrationErrorSnippet}
-        {ifset $succes_notif}
+        {ifset $success_notif}
         <script>$.notify("Operace byla provedena!", "success");</script>
         {/ifset}
         {ifset $error_notif}
@@ -179,7 +179,7 @@ Detail kurzu
                         <div class="col-md-12">
                             Soubory:<br>
                             {foreach $files[$task->id_task] as $file}
-                                <a href="/{$file}">{=basename($file)}</a><br>  
+                                <a href="/{$file}">{=basename($file)}</a><a class="ajax" n:href="deleteFile! $file"><i class="fas fa-times fa-fw"></i></a><br>  
                             {/foreach}
                         </div>
                     </div>
