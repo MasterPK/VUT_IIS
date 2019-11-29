@@ -302,10 +302,12 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         });
 
 		$grid->addColumnText('first_name', 'Křestní jméno')
-        ->setSortable();
+        ->setSortable()
+        ->setFilterText();
         
         $grid->addColumnText('surname', 'Příjmení')
-		->setSortable();
+        ->setSortable()
+        ->setFilterText();
 		
 		$grid->addColumnText('phone', 'Telefonní číslo')
 		->setSortable()
