@@ -178,7 +178,7 @@ Detail kurzu
                         <div class="col-md-12">
                             Soubory:<br>
                             {foreach $files[$task->id_task] as $file}
-                                <a href="/$file">{=basename($file)}</a><br>  
+                                <a href="/{$file}">{=basename($file)}</a><br>  
                             {/foreach}
                         </div>
                     </div>
