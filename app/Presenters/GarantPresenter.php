@@ -108,7 +108,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	public function renderAddlectors($id_course)
 	{
-		$this->template->lectors = $this->database->table("user")->where("rank >= 2")->fetchAll();
+		$this->template->lectors = $this->database->query("SELECT id_user, email, first_name, surname FROM user WHERE rank >= 2")->fetchAll();
 		$this->template->id_course = $id_course;
 	}
 	
