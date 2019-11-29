@@ -184,9 +184,8 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     {
         $form = new Form;
 
-        $form->addText('email', 'Email:')
-            ->setType('email')
-            ->setHtmlAttribute('class', 'form-control')
+        $form->addEmail('email', 'Email:')
+            ->addRule(Form::EMAIL, 'Email není platný.')
             ->setRequired();
 
         $form->addText('first_name', 'Křestní jméno:')
