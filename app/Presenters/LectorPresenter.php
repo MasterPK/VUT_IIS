@@ -84,7 +84,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 			FileSystem::delete("/$file");
 			$this->template->success_notif = true;
 		} catch (Nette\IOException $e) {
-			$this->template->success_notif = true;
+			$this->template->error_notif = true;
 		}
 		
 		if ($this->isAjax()) {
