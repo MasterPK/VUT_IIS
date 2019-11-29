@@ -313,7 +313,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
         $grid->addColumnStatus('rank', 'Hodnost')
 		->setSortable()
-        ->addFilterSelect([
+        ->setFilterSelect([
             '1' => 'Student',
             '2' => 'Lektor',
             '3' => 'Garant',
@@ -323,7 +323,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         
         $grid->addColumnStatus('active', 'Aktivní účet?')
 		->setSortable()
-        ->addFilterSelect([
+        ->setFilterSelect([
             '0' => 'Neaktivní',
 			'1' => 'Aktivní'
 		]);
