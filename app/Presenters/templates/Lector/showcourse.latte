@@ -163,13 +163,7 @@ Detail kurzu
                             <b>{$task->id_room}</b>
                         </div>
                         {/ifset}
-                        <div class="col-md-3 col-sm-12">
-                            Soubory:<br>
-                            {foreach $files[$task->id_task] as $file}
-                            {$file}
-                                
-                            {/foreach}
-                        </div>
+                        
                         
                     </div>
                     <br>
@@ -178,6 +172,12 @@ Detail kurzu
                             Popis:<br>
                             <p class="card-text">{$task->task_description}</p>
                         </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        Soubory:<br>
+                        {foreach $files[$task->id_task] as $file}
+                            {=basename($file)}    
+                        {/foreach}
                     </div>
                 </div>
             </div>
