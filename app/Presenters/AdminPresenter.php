@@ -312,7 +312,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 		->setFilterText();
 
 
-        $grid->addFilterSelect('rank', 'Typ kurzu:', [
+        $grid->addFilterSelect('rank', 'Hodnost:', [
             '1' => 'Student',
             '2' => 'Lektor',
             '3' => 'Garant',
@@ -321,7 +321,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 		]);
         
         
-        $grid->addFilterSelect('active', 'Typ kurzu:', [
+        $grid->addFilterSelect('active', 'Aktivní účet?:', [
 			'0' => 'Neaktivní',
 			'1' => 'Aktivní'
 		]);
