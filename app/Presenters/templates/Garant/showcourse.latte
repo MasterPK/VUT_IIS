@@ -19,10 +19,12 @@ Detail kurzu
         <div class="card bg-default ">
             <div class="card-header">
                 {$course->id_course}
+                {ifset $courseActive}
                 {if $userIsGuarantorInCourse == true}
                 <a n:href="Garant:newtask $course->id_course, NULL"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Nový termín</button></a>
                 <a n:href="Garant:modifyCourse $course->id_course"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Správa kurz</button></a>
                 {/if}
+                {/ifset}
             </div>
             <div class="card-body">
                 <div class="row">
@@ -38,6 +40,7 @@ Detail kurzu
                         Cena:<br>
                         <b>{$course->course_price}&nbsp;Kč</b>
                     </div>
+                    {ifset $courseActive}
                     <div class="col-md-3 col-sm-12">
                         Stav registrací:<br>
                         <b>{if $course->course_status == 2 }Otevřeno{else}Zavřeno{/if}</b>
@@ -47,7 +50,13 @@ Detail kurzu
                         Stav Vaší registrace:<br>
                         <b>{ifset $userCourseStatus}{if $userCourseStatus == 0 }Čeká se na schválení{elseif $userCourseStatus == 1}Potvrzeno{elseif $userCourseStatus == 2}Zamítnuto{/if}{else}Žádná žádost neexistuje!{/ifset}</b>
                     </div>
-                   {/if}
+                    {/if}
+                    {else}
+                    <div class="col-md-3 col-sm-12">
+                        Stav registrací:<br>
+                        <b>Čeká na se na schválení kurzu vedoucím</b>
+                    </div>
+                   {/ifset}
                     
                 </div>
                 <br>
@@ -70,6 +79,7 @@ Detail kurzu
     </div>
 </div>
 <br>
+{ifset $courseActive}
 {snippet studentRegistration}
 {if $userIsGuarantorInCourse == false}
 {ifset $openRegistration}
@@ -238,5 +248,5 @@ function hide(id)
 
 </script>
 
-
+{/ifset}
 {/block}
