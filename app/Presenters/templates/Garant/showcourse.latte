@@ -21,7 +21,7 @@ Detail kurzu
                 {$course->id_course}
                 {ifset $courseActive}
                 {if $userIsGuarantorInCourse == true}
-                <button id="popbutton" style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0" >Nový termín</button>
+                <button type="button" id="popbutton" style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Nový termín</button>
                 <a n:href="Garant:modifyCourse $course->id_course"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Správa kurzu</button></a>
                 {/if}
                 {/ifset}
