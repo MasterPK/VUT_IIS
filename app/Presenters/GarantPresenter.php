@@ -103,7 +103,17 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
     	try
     	{
-    		$data = $this->database->query("INSERT INTO course (id_course, course_name, course_description, course_type, course_price, id_guarantor, course_status) VALUES (?, ?, ?, ?, ?, ?, 0, ?);", $values->id_course, $values->name, $values->description, $values->type, $values->price, $values->tags,  $this->user->identity->id);
+			$this->database->table("course")->insert([
+				"id_course" => $values->id_course,
+				"course_name" => $values->name,
+				"course_description" => $values->description,
+				"course_type" => $values->type,
+				"course_price" => $values->price,
+				"id_guarantor" => $this->user->identity->id,
+				"course_status" => 0,
+				"tags" => $values->tags
+			]);
+    		//$data = $this->database->query("INSERT INTO course (id_course, course_name, course_description, course_type, course_price, id_guarantor, course_status) VALUES (?, ?, ?, ?, ?, ?, 0, ?);", $values->id_course, $values->name, $values->description, $values->type, $values->price, $values->tags,  $this->user->identity->id);
 			createDir("./Files/$values->id_course");
     		$this->template->success_insert = true;
     	}
