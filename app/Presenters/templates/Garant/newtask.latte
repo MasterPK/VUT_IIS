@@ -24,26 +24,14 @@ Vytvoření nového termínu
                     {input id_room}
                 </div>
                 {switch $task_type}
-                {case 'PR'}
+                {case 'DU' or 'PJ'}
                     <div class="form-group">
-                        <label>Datum</label>
+                        <label>Datum odevzdání</label>
                         {input task_date}
                     </div>
-                    <div class="form-group">
-                        <label>Počet</label>
-                        {input task_num}
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col">
-                                <label>Od</label>
-                                {input task_from}
-                            </div>
-                            <div class="col">
-                                <label>Do</label>
-                                {input task_to}
-                            </div>
-                        </div>
+                    <div class="col">
+                        <label>Čas odevzdání</label>
+                        {input task_to}
                     </div>
                 {default}
                     <div class="form-group">
