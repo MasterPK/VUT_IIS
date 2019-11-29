@@ -514,7 +514,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
     	if($this->isAjax())
     	{
-    		if ($result->getRowCount() > 0) 
+    		if ($result > 0) 
 	        {	
 	        	$this->template->delete_task_success = 1;
 	            $this->redrawControl("course_tasks_snippet");
