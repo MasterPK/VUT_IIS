@@ -542,7 +542,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
     	if($this->isAjax())
 	    {
-    		$this->redrawControl("delete_task_snippet");
+    		//$this->redrawControl("delete_task_snippet");
 			$this->redrawControl("course_tasks_snippet");
 		}
 	}

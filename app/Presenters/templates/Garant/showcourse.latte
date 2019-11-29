@@ -239,17 +239,16 @@ Detail kurzu
     </div>
 </div>
 {/ifset}
+{ifset $delete_task_success}
+    {if $delete_task_success == 1}
+        <script>$.notify("Termín {$task_name} byl úspěšně smazán!", "success");</script>
+    {else}
+        <script>$.notify("Došlo k chybě při mazání termínu {$task_name}!", "error");</script>
+    {/if}
+{/ifset}
 {/snippet}
 
-{snippet delete_task_snippet}
-    {ifset $delete_task_success}
-        {if $delete_task_success == 1}
-            <script>$.notify("Termín {$task_name} byl úspěšně smazán!", "success");</script>
-        {else}
-            <script>$.notify("Došlo k chybě při mazání termínu {$task_name}!", "error");</script>
-        {/if}
-    {/ifset}
-{/snippet}
+
 
 <script>
 function show(id)
