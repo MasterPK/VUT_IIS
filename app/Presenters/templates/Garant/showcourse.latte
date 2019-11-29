@@ -240,9 +240,9 @@ Detail kurzu
 </div>
 {ifset $delete_task_success}
     {if $delete_task_success == 1}
-        <script>$.notify("Termín {$course_tasks['$id_task']} byl úspěšně smazán!", "success");</script>
+        <script>$.notify("Termín {$course_tasks[$course_tasks_key]->task_name} byl úspěšně smazán!", "success");</script>
     {else}
-        <script>$.notify("Došlo k chybě při mazání termínu {$course_tasks['$id_task']}!", "error");</script>
+        <script>$.notify("Došlo k chybě při mazání termínu {$course_tasks[$course_tasks_key]->task_name}!", "error");</script>
     {/if}
 {/ifset}
 {/ifset}
