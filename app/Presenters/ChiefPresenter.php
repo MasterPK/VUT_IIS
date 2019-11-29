@@ -466,7 +466,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$data = $this->database->table("room_has_equipment")
 			->insert([
 				'id_room' => $this->actual_room,
-				'id_room_equipment' => $values->id_room_equipment,
+				'id_room_equipment' => $values->room_Equip,
 			]);
 
 		$this->template->success_notify = true;
