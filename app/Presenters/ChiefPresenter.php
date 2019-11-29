@@ -448,6 +448,9 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 			$address[$row->id_room_equipment]= $row->room_equipment;
 		}
 
+		$form->addHidden('id_equip', '')
+			->setDefaultValue($this->actual_room);
+
 		$form->addSelect('room_Equip', '', $address)
 			->setHtmlAttribute('class', 'form-control')
 			->setRequired();
@@ -465,7 +468,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		
 		$data = $this->database->table("room_has_equipment")
 			->insert([
-				'id_room' => $this->actual_room,
+				'id_room' => $values->id_equip,
 				'id_room_equipment' => $values->room_Equip,
 			]);
 
