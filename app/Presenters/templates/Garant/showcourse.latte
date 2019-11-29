@@ -138,9 +138,9 @@ Detail kurzu
                     {$task->task_name}
                     {if $userIsGuarantorInCourse == true || $userIsLectorInCourse == true}
 
-                    <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="show()"><span>Smazat termín</span></button>
+                    <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="show($task->id_task)"><span>Smazat termín</span></button>
 
-                    <div class="modal fade" id="my-modal">
+                    <div class="modal fade" id="{$task->id_task}">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -228,9 +228,9 @@ Detail kurzu
 {/snippet}
 
 <script>
-function show()
+function show(id)
 {
-    $('#my-modal').modal('show');
+    $('#'.id).modal('show');
 }
 
 </script>
