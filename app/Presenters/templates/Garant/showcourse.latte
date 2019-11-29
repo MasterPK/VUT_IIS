@@ -21,7 +21,7 @@ Detail kurzu
                 {$course->id_course}
                 {ifset $courseActive}
                 {if $userIsGuarantorInCourse == true}
-                <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0" data-toggle="popover" title="Vyberte typ termínu" data-content='<a n:href="Garant:newtask $course->id_course">Otvor</a>'>Nový termín</a>
+                <button id="btnpopover" style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Nový termín</button>
                 <a n:href="Garant:modifyCourse $course->id_course"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Správa kurzu</button></a>
                 {/if}
                 {/ifset}
@@ -263,7 +263,6 @@ function hide(id)
     $("#" + id).modal("hide"); 
 }
 
-$('[data-toggle="popover"]').popover();
 
 $("html").on("mouseup", function (e) {
     var l = $(e.target);
@@ -272,6 +271,13 @@ $("html").on("mouseup", function (e) {
             $(this).popover("hide");
         });
     }
+});
+
+$('#btnpopover').popover({
+    placement: 'bottom',
+    container: 'body',
+    html: true,
+    content: '<p>Popover is only dismissed when the "dismiss" button is explicity clicked, or when neither button nor popover is hovered over.</p><button type="button" class="btn btn-default popover-dismiss">dismiss</button>'
 });
 
 </script>
