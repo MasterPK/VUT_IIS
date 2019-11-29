@@ -501,6 +501,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
         if ($this->isAjax()) 
         {	
+        	Debugger::barDump("ajax");
         	$this->template->delete_task_success = 1;
             $this->redrawControl("course_tasks_snippet");
         }
