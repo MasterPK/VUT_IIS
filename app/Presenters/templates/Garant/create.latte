@@ -5,19 +5,15 @@ Vytvoření nového kurzu
 <div class="h-100 row align-items-center">
     <div class="col-md-4 col-sm-1" />
     <div class="col-md-4 col-sm-10 mlr-2 align-items-center">
-
-    	{ifset $error_insert}
-        <div class="alert alert-danger">
-            <strong>Vytvoření kurzu bylo neúspěšné!</strong> 
-            Kurz se zkratkou <strong>{$error_course}</strong> již existuje!
-        </div>
+        {snippet notify}
+        {ifset $success_notify}
+        <script>$.notify("Kurz byl přidán!", "success");</script>
         {/ifset}
-
-        {ifset $success_insert}
-        <div class="alert alert-success animated bounce">
-                <strong>Kurz byl úspěšně vytvořen</strong> a bude spracován vedoucím.
-        </div>
+        {ifset $error_notify}
+        <script>$.notify("Kurz již existuje!", "error");</script>
         {/ifset}
+        {/snippet}
+
         
         <div id="divForm" class="d-block">
             <form n:name="createCourseForm">
