@@ -301,13 +301,15 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
                 '0' => 'Čeká na schválení',
 				'1' => 'Schválen',
 				'2' => 'Otevřené registrace',
-                '3' => 'Uzavřené registrace'
+				'3' => 'Uzavřené registrace',
+				'4' => 'Zamítnut'
             ])
             ->setFilterSelect([
                 '0' => 'Čeká na schválení',
 				'1' => 'Schválen',
 				'2' => 'Otevřené registrace',
-                '3' => 'Uzavřené registrace'
+				'3' => 'Uzavřené registrace',
+				'4' => 'Zamítnut'
             ]);
 
 		$grid->addAction("select","Detail", 'Student:showcourse')
