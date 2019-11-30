@@ -582,18 +582,18 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         ->setHtmlAttribute('class', 'form-control');
         \Tracy\Debugger::barDump($this->id_course);
 
-        $data=$this->database->table("course")->where("id_course",$this->id_course)->select("*");
+        $data=$this->database->table("course")->where("id_course",$this->id_course)->select("*")->fetchAll();
         \Tracy\Debugger::barDump($data);
         if($data)
         {
             $form->setDefaults([
-                'old_id_course' => $data->id_course,
-                'id_course' => $data->id_course,
-                'name' => $data->course_name,
-                'description' => $data->course_description,
-                'type' => $data->course_type,
-                'price' => $data->course_price,
-                'tags' => $data->tags,
+                'old_id_course' => $data["id_course"],
+                'id_course' => $data["id_course"],
+                'name' => $data["course_name"],
+                'description' => $data["course_description"],
+                'type' => $data["course_type"],
+                'price' => $data["course_price"],
+                'tags' => $data["tags"],
             ]);
 
             $form->addSubmit('create', 'Upravit kurz')
