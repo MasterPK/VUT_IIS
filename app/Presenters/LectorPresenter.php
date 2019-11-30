@@ -91,9 +91,6 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setFilterText();
 
-		$grid->addColumnText('tags', 'Štítky')
-		->setSortable()
-		->setFilterText();
 
 		$grid->addAction("select","Detail", 'Student:showcourse')
 		->setClass("btn btn-primary");
