@@ -140,7 +140,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
         $grid->addAction('delete', '', 'deleteEquipRoom!')
             ->setIcon('trash')
             ->setTitle('Smazat')
-            ->setClass('btn btn-xs btn-danger')
+            ->setClass('btn btn-xs btn-danger ajax')
 			->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet smazat místnost?'));
 			
 		$grid->addToolbarButton('Chief:manageAdres', 'Správa adres')
@@ -152,11 +152,9 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		return $grid;
 	}
 
-	public function handleDeleteEquipRoom($room_equipment,$values)
+	public function handleDeleteEquipRoom($room_equipment,$id_room)
     {
-		Debugger::barDump($room_equipment,"delete_value");
-		Debugger::barDump($values,"actual_room");
-		$data = $this->database->table("room_equipment")->where("id_room", $this->actual_room)->where("room_equipment", $room_equipment)
+		$data = $this->database->table("room_equipment")->where("id_room", $id_room)->where("room_equipment", $room_equipment)
 		->update([
 			'id_room' => NULL,
 		]);
