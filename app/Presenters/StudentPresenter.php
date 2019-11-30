@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
+
 namespace App\Presenters;
+
 use Nette;
 use Nette\Application\UI\Form;
 use Ublaboo\DataGrid\DataGrid;
@@ -29,7 +31,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 	public function startUp()
 	{
 		parent::startup();
-
+		
 		
 		$this->startup->mainStartUp($this);
 		if(!$this->startup->roleCheck($this,1))
@@ -208,10 +210,13 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			return;
 		}
 		$dayTasksCount=array();
+		setlocale(LC_ALL,"cs-CZ");
 		foreach ($data as $value) {
 			
-			$day = strftime ('l',$value->task_date->getTimestamp());
-			Debugger:dump($day);
+			$day = date ('l',$value->task_date->getTimestamp());
+			Debugger::barDump($day,"den");
+			$day = strftime ('%A',$value->task_date->getTimestamp());
+			Debugger::barDump($day,"den1");
 		}
 		
 
