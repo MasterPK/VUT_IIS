@@ -11,7 +11,7 @@ class GarantModel
     private $lectorModel;
     private $mainModel;
     private $database;
-    public $current_course;
+    private $current_course;
 
 	public function __construct(Nette\Database\Context $database, \App\Model\MainModel $mainModel, \App\Model\LectorModel $lectorModel)
 	{
@@ -99,12 +99,12 @@ class GarantModel
             ]);
 
             $form->addSubmit('create', 'Upravit kurz')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary');
         }
         else
         {
             $form->addSubmit('create', 'Vytvořit kurz')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary');
         }
         
         $form->onSuccess[] = [$meno, 'createCourseForm'];
@@ -171,14 +171,13 @@ class GarantModel
 
     public function getCurrentCourse($presenter, $id_course)
     {
-        $this->current_course=$this->database->table("course")->where("id_course",$id_course)->fetch();
+        $this->current_course = $this->database->table("course")->where("id_course",$id_course)->fetch();
         if($this->current_course)
         {
             if($this->current_course->id_guarantor != $presenter->user->identity->id)
             {
                 $presenter->redirect("Homepage:");
             }
-            $presenter->template->current_course = $this->current_course;
         }
     }
 
