@@ -393,10 +393,29 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             ->setIcon('edit')
             ->setClass("btn btn-xs btn-default btn-secondary");
 
+        $grid->addAction('delete', '', 'delete!')
+            ->setIcon('trash')
+            ->setTitle('Smazat')
+            ->setClass('btn btn-xs btn-danger ajax')
+            ->setConfirmation(
+                new StringConfirmation('Opravdu chcet smazat uživatele %s?', 'email') // Second parameter is optional
+            );
+
 
         $grid->setTranslator($this->dataGridTranslator);
 
 
         return $grid;
+    }
+
+    public function handleDelete($id_user)
+    {
+        $this->database->table("user")->where("id_user", $id_user)->delete();
+        if ($this->isAjax()) {
+            $this->template->success_notify=true;
+            $this->redrawControl('notify');
+        } else {
+            $this->redirect('this');
+        }
     }
 }
