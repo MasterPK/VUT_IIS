@@ -299,11 +299,6 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             ->setFilterText();
 
         $grid->addColumnText('email', 'Email')
-            ->setEditableCallback(function ($id, $value): void {
-                $this->database->table("user")->where("id_user", $id)->update([
-                    'email' => $value,
-                ]);
-            })
             ->setSortable()
             ->setFilterText();
 
@@ -320,9 +315,9 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             ->setSortable()
             ->setFilterText();
 
-        $grid->addColumnStatus('rank', 'Hodnost')
+        $grid->addColumnText('rank', 'Hodnost')
             ->setSortable()
-            ->setOptions([
+            ->setReplacement([
                 '1' => 'Student',
                 '2' => 'Lektor',
                 '3' => 'Garant',
@@ -330,6 +325,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 '5' => 'Administrátor'
             ])
             ->setFilterSelect([
+                '' => "Vše",
                 '1' => 'Student',
                 '2' => 'Lektor',
                 '3' => 'Garant',
@@ -337,13 +333,14 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 '5' => 'Administrátor'
             ]);
 
-        $grid->addColumnStatus('active', 'Aktivní účet?')
+        $grid->addColumnText('active', 'Aktivní účet?')
             ->setSortable()
-            ->setOptions([
+            ->setReplacement([
                 '0' => 'Neaktivní',
                 '1' => 'Aktivní'
             ])
             ->setFilterSelect([
+                '' => "Vše",
                 '0' => 'Neaktivní',
                 '1' => 'Aktivní'
             ]);
@@ -354,6 +351,18 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             $container->addText('email', '');
             $container->addText('first_name', '');
             $container->addText('surname', '');
+            $container->addText('phone', '');
+            $container->addSelect('rank', '',[
+                '1' => 'Student',
+                '2' => 'Lektor',
+                '3' => 'Garant',
+                '4' => 'Vedoucí',
+                '5' => 'Administrátor'
+            ]);
+            $container->addSelect('active', '',[
+                '0' => 'Neaktivní',
+                '1' => 'Aktivní'
+            ]);
         };
 
         $grid->getInlineEdit()->onSetDefaults[] = function (Nette\Forms\Container $container, $item): void {
@@ -367,9 +376,15 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         };
 
         $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): void {
-            /**
-             * Save new values
-             */
+            $this->database->table("user")->where("id_user", $id)
+            ->update([
+                'email' => $values->email,
+                'first_name' => $values->first_name,
+                'surname' => $values->surname,
+                'phone' => $values->phone,
+                'rank' => $values->rank,
+                'active' => $values->active,
+            ]);
         };
 
         /*$grid->addAction("select","Detail", 'Homepage:showcourse')
