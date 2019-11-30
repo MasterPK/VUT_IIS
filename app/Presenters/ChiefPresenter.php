@@ -93,8 +93,8 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setFilterText();
 
-		//$grid->addAction("select","Detail", 'Homepage:showcourse')
-		//->setClass("btn btn-primary");
+		$grid->addAction("select","Detail", 'Homepage:showcourse')
+		->setClass("btn btn-primary");
 
 		$grid->setTranslator($this->dataGridTranslator);
 
