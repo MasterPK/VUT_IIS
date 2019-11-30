@@ -28,27 +28,13 @@ Detail kurzu
                         <div class="col-md-4 col-sm-12 ">
                             <div class="float-right">
                             {ifset $openRegistration}
-                            <div class="row">
-                                <div class="col-auto mr-auto"></div>
-                                <div class="col-auto">
-                                    <form n:name="closeRegisterForm">
-                                        <div class="form-group text-center ">
-                                            {input register}
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+                                <form n:name="closeRegisterForm">
+                                        {input register}
+                                </form>
                             {else}
-                            <div class="row">
-                                <div class="col-auto mr-auto"></div>
-                                <div class="col-auto">
                                     <form n:name="openRegisterForm">
-                                        <div class="form-group text-center ">
                                             {input register}
-                                        </div>
                                     </form>
-                                </div>
-                            </div>
                             {/ifset}
                                 <a id="btnpopover"  class="btn btn-xs btn-primary"><i class="fas fa-plus-square text-white"></i></a>
                                 <a n:href="Garant:create $course->id_course" class="btn btn-xs btn-primary"><i class="fas fa-edit "></i></a>
@@ -57,9 +43,6 @@ Detail kurzu
                      {/if}
                     {/ifset}
                 </div>
-                
-                
-               
             </div>
             <div class="card-body">
                 <div class="row">
