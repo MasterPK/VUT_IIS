@@ -129,7 +129,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	public function createComponentManageEquipmentGrid($name)
 	{
 		$grid = new DataGrid($this, $name);
-		$grid->setPrimaryKey('id_room');
+		$grid->setPrimaryKey('room_equipment');
 		$grid->setDataSource($this->database->query("SELECT * FROM room NATURAL JOIN room_equipment")->fetchAll());
 
 		$grid->addColumnText('room_equipment', 'Vybavení')
@@ -152,12 +152,10 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		return $grid;
 	}
 
-	public function handleDeleteEquipRoom($id_room, $room_equipment)
+	public function handleDeleteEquipRoom($room_equipment)
     {
-		Debugger::barDump($id_room,"room_id");
-		Debugger::barDump($room_equipment,"equip");
 		
-		$data = $this->database->table("room_equipment")->where("id_room", $id_room)->where("room_equipment", $room_equipment)
+		$data = $this->database->table("room_equipment")->where("room_equipment", $this->actual_room)->where("room_equipment", $room_equipment)
 		->update([
 			'id_room' => NULL,
 		]);
@@ -165,7 +163,6 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
         $this->template->success_notify = true;
         if ($this->isAjax()) {
-            
             $this->redrawControl('content_snipet');
         } else {
             $this->redirect('this');
@@ -197,6 +194,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$this->template->courses = $this->mainModel->getAllCourses();
 	}
 
+	private $actual_room;
 	public function renderRooms(): void
 	{
 		$data = $this->database->query("SELECT * FROM room NATURAL JOIN room_address")->fetchAll();
@@ -209,9 +207,10 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 		$this->template->equip = $data;
 		$this->template->id = $id_room;
+		$this->actual_room = $id_room;
 	}
 
-	private $actual_room;
+	
 	public function renderAddEquipment($id)
 	{
 		$this->actual_room = $id;
