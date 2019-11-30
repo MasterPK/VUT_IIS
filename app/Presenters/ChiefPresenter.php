@@ -144,7 +144,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
             ->setClass('btn btn-xs btn-danger ajax')
 			->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet smazat místnost?'));
 			
-		$grid->addToolbarButton('Chief:addEquipment', 'Přidat vynavení',[$this->actual_room])
+		$grid->addToolbarButton('Chief:addEquipment', 'Přidat vybavení',[$this->actual_room])
             ->setTitle('Správa adres')
             ->setClass('btn btn-xs btn-primary');
 
