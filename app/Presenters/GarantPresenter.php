@@ -154,12 +154,17 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	                'course_description' => $values->description,
 	                'course_type' => $values->type,
 	                'course_price' => $values->price,
-	                "course_status" => 0,
 					"tags" => $values->tags
 	            ]);
 
 	            if($data == 1)
 	            {
+	            	//ak nastala zmena, nastav status na ziadost o schvalenie
+	            	$data = $this->database->table("course")->where("id_course", $values->id_course)
+		            ->update([
+		            	"course_status" => 0
+		            ]);
+	            	
 	            	FileSystem::rename("Files/$values->old_id_course", "Files/$values->id_course");
     				$this->template->success_update = true;
 	            }
