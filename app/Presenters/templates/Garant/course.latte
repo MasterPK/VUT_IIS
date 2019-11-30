@@ -56,41 +56,7 @@ Vytvoření nového kurzu
                 {input create}
             </div>
         </form>
-        
-        {ifset $current_course}
-        <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="show()"><span>Smazat kurz</span></button>
-
-        <div class="modal fade" id="courseDelete">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Potvrzení</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>Opravdu smazat kurz {$current_course->id_course}?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Zrušit</button>
-                        <a class="ajax" n:href="deleteCourse! $current_course->id_course"><button onClick="hide()" type="button" class="btn btn-primary">Potvrdit</button></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {/ifset}
     </div>
 </div>
-
-<script>
-function show()
-{
-    $('#courseDelete').modal('show');
-}
-
-function hide()
-{
-    $("#courseDelete").modal("hide"); 
-}
-
-</script>
 
 {/block}
