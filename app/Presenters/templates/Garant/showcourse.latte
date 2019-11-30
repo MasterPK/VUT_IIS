@@ -20,24 +20,32 @@ Detail kurzu
             <div class="card-header">
                 
                 <div class="row">
-                    <div class="col-md-8 col-sm-12">
+                    <div class="col-md-6 col-sm-12">
                         {$course->id_course}
                     </div>
                     {ifset $courseActive}
                     {if $userIsGuarantorInCourse == true}
-                        <div class="col-md-4 col-sm-12 ">
+                        <div class="col-md-6 col-sm-12 ">
                             <div class="float-right">
-                            {ifset $openRegistration}
-                                <form n:name="closeRegisterForm">
-                                        {input register}
-                                </form>
-                            {else}
-                                    <form n:name="openRegisterForm">
-                                            {input register}
-                                    </form>
-                            {/ifset}
-                                <a id="btnpopover"  class="btn btn-xs btn-primary"><i class="fas fa-plus-square text-white"></i></a>
-                                <a n:href="Garant:create $course->id_course" class="btn btn-xs btn-primary"><i class="fas fa-edit "></i></a>
+                                <div class="row">
+                                <div class="col-md-4">
+                                    {ifset $openRegistration}
+                                        <form n:name="closeRegisterForm">
+                                                {input register}
+                                        </form>
+                                    {else}
+                                        <form n:name="openRegisterForm">
+                                                {input register}
+                                        </form>
+                                    {/ifset}
+                                </div>
+                                <div class="col-md-4">
+                                    <a id="btnpopover"  class="btn btn-xs btn-primary"><i class="fas fa-plus-square text-white"></i></a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a n:href="Garant:create $course->id_course" class="btn btn-xs btn-primary"><i class="fas fa-edit "></i></a>
+                                </div>
+                                </div>
                             </div>
                         </div>
                      {/if}
