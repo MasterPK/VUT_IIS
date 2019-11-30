@@ -401,6 +401,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	public function renderManageRoom($id)
 	{
 		$this->current_room = $this->database->table("room")->where("id_room", $id)->fetch();
+		Debugger::barDump($this->current_room,"test");
 	}
 
 	public function createComponentUpdateRoom()
