@@ -60,7 +60,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$grid->addColumnText('room_capacity', 'Kapacita místnosti')
 		->setSortable()
 		->setFilterText();
-		
+
 		$grid->addColumnText('id_room_address', 'Adresa místnosti')
 		->setSortable()
 		->setFilterText();
