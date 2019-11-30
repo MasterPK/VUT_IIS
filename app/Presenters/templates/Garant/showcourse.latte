@@ -26,9 +26,9 @@ Detail kurzu
                     {ifset $courseActive}
                     {if $userIsGuarantorInCourse == true}
                         <div class="col-md-9 col-sm-12 ">
-                            <div class="float-right">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
+                            
+                                <div class="row float-right">
+                                   
                                         {ifset $openRegistration}
                                             <form n:name="closeRegisterForm">
                                                     {input register}
@@ -38,21 +38,20 @@ Detail kurzu
                                                     {input register}
                                             </form>
                                         {/ifset}
-                                    </div>
-                                    <div class="col-md-2 col-sm-3">
+                                    
+                                   
                                     <a n:href="Garant:managelectors $course->id_course" class="btn btn-sm btn-primary">Správa lektorů</a>
-                                </div>
-                                    <div class="col-md-2 col-sm-3">
+                            
+                               
                                         <a id="btnpopover" class="btn btn-sm btn-primary"><i class="fas fa-plus-square text-white"></i></a>
-                                    </div>
-                                    <div class="col-md-2 col-sm-3">
-                                        <a n:href="Garant:course $course->id_course" class="btn btn-xs btn-primary"><i class="fas fa-edit "></i></a>
-                                    </div>
+                                  
+                                        <a n:href="Garant:course $course->id_course" class="btn btn-sm btn-primary"><i class="fas fa-edit "></i></a>
+                              
                                     
                                     {ifset $id_course}
-                                        <div class="col">
+                                     
                                             <button class="btn btn-sm btn-primary" onClick="show({$id_course})"><i class="fas fa-trash"></i></button>
-                                        </div>
+                                       
 
                                         
                                         <div class="modal fade" id="{$id_course}">
@@ -74,7 +73,7 @@ Detail kurzu
                                         
                                     {/ifset}
                                 </div>
-                            </div>
+                            
                         </div>
                      {/if}
                     {/ifset}
