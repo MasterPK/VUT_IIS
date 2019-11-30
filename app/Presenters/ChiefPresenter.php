@@ -128,7 +128,6 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 	public function createComponentManageEquipmentGrid($name)
 	{
-		$this->actual_room = 
 
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('room_equipment');
