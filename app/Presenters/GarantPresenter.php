@@ -845,7 +845,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         $grid->getInlineEdit()->onSetDefaults[] = function (Nette\Forms\Container $container, $item): void {
 
             $container->setDefaults([
-                'points' => $item->points
+                'points' => 0
             ]);
         };
 
