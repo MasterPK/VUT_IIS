@@ -3,7 +3,7 @@
 namespace App\Model;
 
 use Ublaboo;
-class DataGrid
+class DataGridModel
 {
     private $dataGridTranslator;
 	public function __construct()
