@@ -255,7 +255,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			}
     	}
 
-        $this->redirect("");
+        $this->redirect("this",$this->id_course);
             
         
 	}
