@@ -441,12 +441,25 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     	
     	if($values->task_from == '') $values->task_from = NULL;
     	if($values->id_room == '') $values->id_room = NULL;
-    	if($values->task_points == '') $values->task_points = NULL;
     	if($values->task_from >= $values->task_to)
     	{
     		if($this->isAjax())
 	    	{
 	    		$this->template->error = 1;
+	    		$this->redrawControl('error_snippet');
+	    	}
+    		return;
+    	}
+
+
+    	//vezmi vsetky terminy daneho kurzu a spocitaj celkove body
+    	$points = $this->database->query("SELECT SUM(task_points) AS total_points FROM task NATURAL JOIN course WHERE id_course = ?", $values->id_course);
+
+    	if(($points->total_points + $values->task_points) > 100)
+    	{
+    		if($this->isAjax())
+	    	{
+	    		$this->template->error_points = 1;
 	    		$this->redrawControl('error_snippet');
 	    	}
     		return;
