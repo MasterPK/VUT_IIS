@@ -14,10 +14,7 @@ Vytvoření nového kurzu
         <script>$.notify("Nastala chyba při vytváření kurzu!", "error");</script>
         {/ifset}
         {ifset $success_update}
-        <script>
-            $.notify("Kurz byl úspěšně aktualizován a čeká na schválení.", "success");
-            $("#button").attr("disabled", true);
-        </script>
+        <script>$.notify("Kurz byl úspěšně aktualizován a čeká na schválení.", "success");</script>
         {/ifset}
         {ifset $error_update}
         <script>$.notify("Nastala chyba při aktualizování kurzu!", "error");</script>
@@ -62,4 +59,13 @@ Vytvoření nového kurzu
     </div>
 </div>
 
+<script>
+$(document).ready(function () 
+{
+    $("#createCourseForm").submit(function (e) 
+    {
+        $("#button").attr("disabled", true);
+    });
+});
+</script>
 {/block}
