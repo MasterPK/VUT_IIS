@@ -135,8 +135,8 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	    		//overenie, ci kurz s novym id existuje
 	    		if($values->old_id_course != $values->id_course)
 	    		{
-	    			$check = $this->database->table("course")->where("id_course", $values->id_course)->fetch();
-	    			if(count($check) == 1)
+	    			$check = $this->database->table("course")->where("id_course", $values->id_course);
+	    			if($check.getRowCount() == 1)
 	    			{
 	    				$this->template->error_update_exists=true;
 	    				if ($this->isAjax()) 
