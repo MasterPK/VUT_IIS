@@ -165,10 +165,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$this->template->id_course = $id_course;
 	}
 	
-	public function createComponentCreateCourseForm(): Form
-	{
-		return $this->garantModel->createCourseF($this);
-	}
 
 	public function createCourseForm(Nette\Application\UI\Form $form): void
     {
@@ -547,6 +543,74 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			$this->garantModel->getCurrentCourse($this, $id);
 		}
 	}
+
+	public function createComponentCreateCourseForm($id): Form
+    {
+        $form = new Form;
+
+        $form->addHidden('old_id_course', NULL);
+
+        $form->addText('id_course', 'Zkratka kurzu')
+        ->setHtmlAttribute('class', 'form-control')
+        ->setRequired("Tohle pole je povinné")
+        ->addRule(Form::PATTERN, 'Zadejte 3 až 5 velkých písmen nebo čísel!', '([A-Z0-9]\s*){3,5}')
+        ->addRule(Form::MAX_LENGTH, 'Zadejte 3 až 5 velkých písmen nebo čísel!', 5);
+
+        $form->addText('name', 'Název kurzu')
+        ->setHtmlAttribute('class', 'form-control')
+        ->setRequired("Tohle pole je povinné")
+        ->addRule(Form::MIN_LENGTH, 'Dĺžka jména musí být 5 až 30 znaků!', 5)
+        ->addRule(Form::MAX_LENGTH, 'Dĺžka jména musí být 5 až 30 znaků!', 30);
+
+        $form->addTextArea('description', 'Popis')
+        ->setHtmlAttribute('class', 'form-control')
+        ->setRequired("Tohle pole je povinné")
+        ->addRule(Form::MIN_LENGTH, 'Dĺžka popisu musí být 5 až 500 znaků!', 5)
+        ->addRule(Form::MAX_LENGTH, 'Dĺžka popisu musí být 5 až 500 znaků!', 500);
+
+        $form->addSelect('type', 'Typ', [
+		    'P' => 'Povinný',
+		    'V' => 'Volitelný',
+		])
+        ->setHtmlAttribute('class', 'form-control')
+        ->setRequired("Tohle pole je povinné");
+
+		$form->addText('price', 'Cena (Kč)')
+        ->setHtmlAttribute('class', 'form-control')
+        ->setRequired("Tohle pole je povinné")
+        ->addRule(Form::PATTERN, 'Zadejte číslo v rozmezí 0 - 999 999 999!', '([0-9]\s*){1,9}')
+        ->addRule(Form::MAX_LENGTH, 'Zadejte číslo v rozmezí 0 - 999 999 999!', 9);
+
+        $form->addText('tags', 'tags',)
+        ->setHtmlAttribute('class', 'form-control');
+        \Tracy\Debugger::barDump($id);
+
+        $data=$this->table->database("course")->where("id_course",$id);
+        \Tracy\Debugger::barDump($data);
+        if($data)
+        {
+            $form->setDefaults([
+                'old_id_course' => $data->id_course,
+                'id_course' => $data->id_course,
+                'name' => $data->course_name,
+                'description' => $data->course_description,
+                'type' => $data->course_type,
+                'price' => $data->course_price,
+                'tags' => $data->tags,
+            ]);
+
+            $form->addSubmit('create', 'Upravit kurz')
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+        }
+        else
+        {
+            $form->addSubmit('create', 'Vytvořit kurz')
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+        }
+        
+        $form->onSuccess[] = [$this, 'createCourseForm'];
+        return $form;
+    }
 
 	public function handleDeleteCourse($id_course)
 	{
