@@ -55,14 +55,15 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	public function renderDefault(): void
 	{ }
 
+	private $id_course;
 	/**
 	 * Generuje aktuálne zapsané predmety lektora
 	 *
 	 * @return void
 	 */
-	public function renderCourses(): void
+	public function renderCourses($id): void
 	{
-		
+		$this->id_course=$id;
 	}
 
 	public function createComponentCourses($name)
@@ -544,7 +545,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		}
 	}
 
-	public function createComponentCreateCourseForm($id): Form
+	public function createComponentCreateCourseForm(): Form
     {
         $form = new Form;
 
@@ -583,9 +584,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
         $form->addText('tags', 'tags',)
         ->setHtmlAttribute('class', 'form-control');
-        \Tracy\Debugger::barDump($id);
+        \Tracy\Debugger::barDump($this->id_course);
 
-        $data=$this->database->table("course")->where("id_course",$id);
+        $data=$this->database->table("course")->where("id_course",$this->id_course);
         \Tracy\Debugger::barDump($data);
         if($data)
         {
