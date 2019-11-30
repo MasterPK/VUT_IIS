@@ -60,7 +60,7 @@ class GarantModel
         ->addRule(Form::MIN_LENGTH, 'Dĺžka jména musí být 5 až 30 znaků!', 5)
         ->addRule(Form::MAX_LENGTH, 'Dĺžka jména musí být 5 až 30 znaků!', 30);
 
-        $form->addText('description', 'Popis')
+        $form->addTextArea('description', 'Popis')
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired("Tohle pole je povinné")
         ->addRule(Form::MIN_LENGTH, 'Dĺžka popisu musí být 5 až 500 znaků!', 5)
