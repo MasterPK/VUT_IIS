@@ -405,8 +405,8 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             ->setClass('btn btn-xs btn-danger ajax')
             ->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet smazat uživatele %s?', 'email'));
 
-        $grid->addToolbarButton('addUser', '')
-            ->setIcon('add')
+        $grid->addToolbarButton('adduser', '')
+            ->setIcon('plus')
             ->setTitle('Přidat uživatele')
             ->setClass('btn btn-xs btn-primary');
 
