@@ -27,6 +27,9 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 	/** @var \App\Model\MainModel @inject */
 	public $mainModel;
 
+	/** @var \App\Model\DataGridModel @inject */
+    public $dataGridModel;
+
 	public function startUp()
 	{
 		parent::startup();

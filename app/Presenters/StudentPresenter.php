@@ -7,6 +7,8 @@ use Nette;
 use Nette\Application\UI\Form;
 use Ublaboo\DataGrid\DataGrid;
 
+
+
 class StudentPresenter extends Nette\Application\UI\Presenter
 {
 	/** @var \App\Model\StartUp @inject */
@@ -20,6 +22,9 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 	
 	/** @var Nette\Database\Context @inject */
 	public $database;
+
+	/** @var \App\Model\DataGridModel @inject */
+    public $dataGridModel;
 
 	public function startUp()
 	{
