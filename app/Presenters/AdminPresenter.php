@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace App\Presenters;
+
 use Ublaboo;
 use Ublaboo\DataGrid\DataGrid;
 use Tracy\Debugger;
@@ -37,27 +38,27 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     public function __construct(Nette\Database\Context $database)
     {
         $this->database = $database;
-        $this->dataGridTranslator=new Ublaboo\DataGrid\Localization\SimpleTranslator([
-			'ublaboo_datagrid.no_item_found_reset' => 'Žádné položky nenalezeny. Filtr můžete vynulovat',
-			'ublaboo_datagrid.no_item_found' => 'Žádné položky nenalezeny.',
-			'ublaboo_datagrid.here' => 'zde',
-			'ublaboo_datagrid.items' => 'Položky',
-			'ublaboo_datagrid.all' => 'všechny',
-			'ublaboo_datagrid.from' => 'z',
-			'ublaboo_datagrid.reset_filter' => 'Resetovat filtr',
-			'ublaboo_datagrid.group_actions' => 'Hromadné akce',
-			'ublaboo_datagrid.show_all_columns' => 'Zobrazit všechny sloupce',
-			'ublaboo_datagrid.hide_column' => 'Skrýt sloupec',
-			'ublaboo_datagrid.action' => 'Akce',
-			'ublaboo_datagrid.previous' => 'Předchozí',
-			'ublaboo_datagrid.next' => 'Další',
-			'ublaboo_datagrid.choose' => 'Vyberte',
-			'ublaboo_datagrid.execute' => 'Provést',
-			'ublaboo_datagrid.per_page_submit'=>"Aktualizovat",
+        $this->dataGridTranslator = new Ublaboo\DataGrid\Localization\SimpleTranslator([
+            'ublaboo_datagrid.no_item_found_reset' => 'Žádné položky nenalezeny. Filtr můžete vynulovat',
+            'ublaboo_datagrid.no_item_found' => 'Žádné položky nenalezeny.',
+            'ublaboo_datagrid.here' => 'zde',
+            'ublaboo_datagrid.items' => 'Položky',
+            'ublaboo_datagrid.all' => 'všechny',
+            'ublaboo_datagrid.from' => 'z',
+            'ublaboo_datagrid.reset_filter' => 'Resetovat filtr',
+            'ublaboo_datagrid.group_actions' => 'Hromadné akce',
+            'ublaboo_datagrid.show_all_columns' => 'Zobrazit všechny sloupce',
+            'ublaboo_datagrid.hide_column' => 'Skrýt sloupec',
+            'ublaboo_datagrid.action' => 'Akce',
+            'ublaboo_datagrid.previous' => 'Předchozí',
+            'ublaboo_datagrid.next' => 'Další',
+            'ublaboo_datagrid.choose' => 'Vyberte',
+            'ublaboo_datagrid.execute' => 'Provést',
+            'ublaboo_datagrid.per_page_submit' => "Aktualizovat",
 
-			'Name' => 'Jméno',
-			'Inserted' => 'Vloženo'
-		]);
+            'Name' => 'Jméno',
+            'Inserted' => 'Vloženo'
+        ]);
     }
 
 
@@ -257,111 +258,137 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 $this->redrawControl("notify");
             }
         } else {
-            try{
+            try {
                 $this->database->table("user")
-                ->insert([
-                    'email' => $values->email,
-                    'first_name' => $values->first_name,
-                    'surname' => $values->surname,
-                    'phone' => $values->phone,
-                    'active' => $values->active,
-                    'rank' => $values->rank,
-                    'password' => password_hash($values->password, PASSWORD_BCRYPT)
-                ]);
+                    ->insert([
+                        'email' => $values->email,
+                        'first_name' => $values->first_name,
+                        'surname' => $values->surname,
+                        'phone' => $values->phone,
+                        'active' => $values->active,
+                        'rank' => $values->rank,
+                        'password' => password_hash($values->password, PASSWORD_BCRYPT)
+                    ]);
                 $this->template->success_notify = true;
                 if ($this->isAjax()) {
                     $form->setValues([], TRUE);
                     $this->redrawControl("content_snippet");
                 }
-            }
-            catch(Nette\Database\UniqueConstraintViolationException $e)
-            {
+            } catch (Nette\Database\UniqueConstraintViolationException $e) {
                 $this->template->duplicate_notify = true;
                 if ($this->isAjax()) {
                     $this->redrawControl("content_snippet");
                 }
             }
-           
-            
         }
     }
 
     public function createComponentUserMng($name)
-	{
-		$grid = new DataGrid($this, $name);
-		$grid->setPrimaryKey('id_user');
-		$grid->setDataSource($this->database->table("user"));
+    {
+        $grid = new DataGrid($this, $name);
 
-		$grid->addColumnText('id_user', 'ID')
-		->setSortable()
-		->setFilterText();
+        $grid->setPrimaryKey('id_user');
+        $grid->setDataSource($this->database->table("user"));
+
+        $grid->addInlineEdit()
+            ->onControlAdd[] = function (Nette\Forms\Container $container): void {
+            $container->addText('id_user', '')
+            ->setSortable()
+            ->setFilterText();
+            $container->addText('email', '');
+            $container->addText('first_name', '');
+            $container->addText('surname', '');
+        };
+
+        $grid->getInlineEdit()->onSetDefaults[] = function (Nette\Forms\Container $container, $item): void {
+            
+            $container->setDefaults([
+                'id_user' => $item->id_user,
+                'email' => $item->email,
+                'first_name' => $item->first_name,
+                'surname' => $item->surname,
+            ]);
+        };
+
+        $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): void {
+            /**
+             * Save new values
+             */
+        };
+
+
+       
+/*
+        $grid->addColumnText('id_user', 'ID')
+            ->setSortable()
+            ->setFilterText();
 
         $grid->addColumnText('email', 'Email')
-        ->setEditableCallback(function($id, $value): void {
-            $this->database->table("user")->where("id_user",$id)->update([
-                'email' => $value,
-            ]);
-        })
-        ->setSortable()
-        ->setFilterText();
-		
+            ->setEditableCallback(function ($id, $value): void {
+                $this->database->table("user")->where("id_user", $id)->update([
+                    'email' => $value,
+                ]);
+            })
+            ->setSortable()
+            ->setFilterText();
 
-		$grid->addColumnText('first_name', 'Křestní jméno')
-        ->setSortable()
-        ->setFilterText();
-        
+
+        $grid->addColumnText('first_name', 'Křestní jméno')
+            ->setSortable()
+            ->setFilterText();
+
         $grid->addColumnText('surname', 'Příjmení')
-        ->setSortable()
-        ->setFilterText();
-		
-		$grid->addColumnText('phone', 'Telefonní číslo')
-		->setSortable()
-		->setFilterText();
+            ->setSortable()
+            ->setFilterText();
+
+        $grid->addColumnText('phone', 'Telefonní číslo')
+            ->setSortable()
+            ->setFilterText();
 
         $grid->addColumnStatus('rank', 'Hodnost')
-        ->setSortable()
-        ->setOptions([
-            '1' => 'Student',
-            '2' => 'Lektor',
-            '3' => 'Garant',
-            '4' => 'Vedoucí',
-			'5' => 'Administrátor'
-        ])
-        ->setFilterSelect([
-            '1' => 'Student',
-            '2' => 'Lektor',
-            '3' => 'Garant',
-            '4' => 'Vedoucí',
-			'5' => 'Administrátor'
-        ]);
-        
+            ->setSortable()
+            ->setOptions([
+                '1' => 'Student',
+                '2' => 'Lektor',
+                '3' => 'Garant',
+                '4' => 'Vedoucí',
+                '5' => 'Administrátor'
+            ])
+            ->setFilterSelect([
+                '1' => 'Student',
+                '2' => 'Lektor',
+                '3' => 'Garant',
+                '4' => 'Vedoucí',
+                '5' => 'Administrátor'
+            ]);
+
         $grid->addColumnStatus('active', 'Aktivní účet?')
-        ->setSortable()
-        ->setOptions([
-            '0' => 'Neaktivní',
-			'1' => 'Aktivní'
-		])
-        ->setFilterSelect([
-            '0' => 'Neaktivní',
-			'1' => 'Aktivní'
-		]);
-        
-        
-		/*$grid->addAction("select","Detail", 'Homepage:showcourse')
+            ->setSortable()
+            ->setOptions([
+                '0' => 'Neaktivní',
+                '1' => 'Aktivní'
+            ])
+            ->setFilterSelect([
+                '0' => 'Neaktivní',
+                '1' => 'Aktivní'
+            ]);
+
+
+        /*$grid->addAction("select","Detail", 'Homepage:showcourse')
 		->setClass("btn btn-primary");*/
 
-		$grid->setTranslator($this->dataGridTranslator);
+        $grid->setTranslator($this->dataGridTranslator);
 
-	
-		return $grid;
+
+        return $grid;
     }
-    
-    public function updateUser($id_user,$value,$key)
+
+    public function updateUser($id_user, $value, $key)
     {
-        Debugger::barDump($id_user,"id_user ");
-        Debugger::barDump($value,"value");
-        Debugger::barDump($key,"key");
-        $this->database->table("user")->where("id_user",$id_user)->update([
+        Debugger::barDump($id_user, "id_user ");
+        Debugger::barDump($value, "value");
+        Debugger::barDump($key, "key");
+        $this->database->table("user")->where("id_user", $id_user)->update([
             'email' => $row->email,
             'first_name' => $row->first_name,
             'surname' => $row->surname,
