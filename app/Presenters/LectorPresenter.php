@@ -8,6 +8,7 @@ use Nette;
 use Nette\Application\UI\Form;
 use Tracy\Debugger;
 use Nette\Utils\FileSystem;
+use Ublaboo\DataGrid\DataGrid;
 
 final class LectorPresenter extends Nette\Application\UI\Presenter
 {
@@ -25,6 +26,9 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 
 	/** @var \App\Model\MainModel @inject */
 	public $mainModel;
+
+	/** @var \App\Model\DataGridModel @inject */
+    public $dataGridModel;
 
 	public function startUp()
 	{
