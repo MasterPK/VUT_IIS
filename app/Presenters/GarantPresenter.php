@@ -250,6 +250,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 				FileSystem::createDir("Files/$values->id_course");
 				
 	    		$this->template->success_insert = true;
+	    		
+	    		$values->old_id_course = $values->id_course;
+    			$form->setValues($values);
 	    	}
 	    	catch(Nette\Database\UniqueConstraintViolationException $e)
 	    	{
