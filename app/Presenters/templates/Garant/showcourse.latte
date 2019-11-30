@@ -46,24 +46,24 @@ Detail kurzu
                                         <a n:href="Garant:course $course->id_course" class="btn btn-xs btn-primary"><i class="fas fa-edit "></i></a>
                                     </div>
                                     
-                                    {ifset $current_course}
+                                    {ifset $id_course}
                                         <div class="col">
-                                            <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="show({$current_course->id_course})"><i class="fas fa-trash"></i></button>
+                                            <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="show({$id_course})"><i class="fas fa-trash"></i></button>
                                         </div>
 
                                         
-                                        <div class="modal fade" id="{$current_course->id_course}">
+                                        <div class="modal fade" id="{$id_course}">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h4 class="modal-title">Potvrzení</h4>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <p>Opravdu smazat kurz {$current_course->id_course}?</p>
+                                                        <p>Opravdu smazat kurz {$id_course}?</p>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Zrušit</button>
-                                                        <a class="ajax" n:href="deleteCourse! $current_course->id_course"><button onClick="hide({$current_course->id_course})" type="button" class="btn btn-primary">Potvrdit</button></a>
+                                                        <a class="ajax" n:href="deleteCourse! $id_course"><button onClick="hide({$id_course})" type="button" class="btn btn-primary">Potvrdit</button></a>
                                                     </div>
                                                 </div>
                                             </div>
