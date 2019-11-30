@@ -397,9 +397,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             ->setIcon('trash')
             ->setTitle('Smazat')
             ->setClass('btn btn-xs btn-danger ajax')
-            ->setConfirmation(
-                new StringConfirmation('Opravdu chcet smazat uživatele %s?', 'email') // Second parameter is optional
-            );
+            ->setConfirmation('Opravdu chcet smazat uživatele %s?', 'email');
 
 
         $grid->setTranslator($this->dataGridTranslator);
