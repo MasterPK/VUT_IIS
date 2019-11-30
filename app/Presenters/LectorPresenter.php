@@ -108,7 +108,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 	{
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('id_course');
-		$grid->setDataSource($this->database->query($this->database->query("SELECT id_course, course_name, course_type, course_status FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ? AND course_status != 0",  $id_lector)->fetchAll());
+		$grid->setDataSource($this->database->query($this->database->query("SELECT id_course, course_name, course_type, course_status FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ? AND course_status != 0",  $this->user->identity->id)->fetchAll());
 
 		$grid->addColumnText('id_course', 'Zkratka kurzu')
 		->setSortable()
