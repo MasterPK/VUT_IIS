@@ -254,7 +254,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	    		$this->template->error_insert=true;
 			}
     	}
-	$this->redirect("Garant:course/".$values->id_course);	
+	$this->redirect("garant/course/".$values->id_course);	
 	}
 
 	public function createComponentRegisterForm()
