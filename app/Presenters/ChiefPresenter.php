@@ -97,7 +97,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
             ->setIcon('edit')
             ->setClass("btn btn-xs btn-default btn-secondary");
 
-        $grid->addAction('delete', '', 'delete!')
+        $grid->addAction('delete', '', 'deleteRoom!')
             ->setIcon('trash')
             ->setTitle('Smazat')
             ->setClass('btn btn-xs btn-danger ajax')
@@ -108,6 +108,18 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	
 		return $grid;
 	}
+
+	public function handleDeleteRoom($id_room)
+    {
+        $this->database->table("room")->where("id_room", $id_room)->delete();
+        $this->template->success_notify = true;
+        if ($this->isAjax()) {
+            
+            $this->redrawControl('notify');
+        } else {
+            $this->redirect('this');
+        }
+    }
 
 	public function renderDefault(): void
 	{ }
