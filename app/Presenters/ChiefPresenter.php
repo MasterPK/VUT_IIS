@@ -125,6 +125,33 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		return $grid;
 	}
 
+
+	public function createComponentManageEquipmentGrid($name)
+	{
+		$grid = new DataGrid($this, $name);
+		$grid->setPrimaryKey('room_equipment');
+		$grid->setDataSource($this->database->table("room_has_equipment")->select("room_has_equipment.*,id_room_equipment.id_room_equipment"));
+
+		$grid->addColumnText('room_equipment', 'Vybavení')
+		->setSortable()
+		->setFilterText();
+			
+        $grid->addAction('delete', '', 'deleteRoom!')
+            ->setIcon('trash')
+            ->setTitle('Smazat')
+            ->setClass('btn btn-xs btn-danger ajax')
+			->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet smazat místnost?'));
+			
+		$grid->addToolbarButton('Chief:manageAdres', 'Správa adres')
+            ->setTitle('Správa adres')
+            ->setClass('btn btn-xs btn-primary');
+
+		$grid->setTranslator($this->dataGridTranslator);
+
+	
+		return $grid;
+	}
+
 	public function handleDeleteRoom($id_room)
     {
         $this->database->table("room")->where("id_room", $id_room)->delete();

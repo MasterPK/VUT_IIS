@@ -2,14 +2,6 @@
 Správa místností
 {/block}
 {block content}
-{snippet notify}
-        {ifset $success_notify}
-        <script>$.notify("Operace byla provedena!", "success");</script>
-        {/ifset}
-        {ifset $error_notify}
-        <script>$.notify("Operace selhala!", "error");</script>
-        {/ifset}
-        {/snippet}
     <div class="row">
         <div class="col-sm-12">
         {ifset $equip}
@@ -35,4 +27,5 @@ Správa místností
         {/ifset}
         </div>
     </div>
+{control manageEquipmentGrid}
 {/block}
