@@ -139,7 +139,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		                'course_name' => $values->course_name,
 		                'course_description' => $values->course_description,
 		                'course_type' => $values->course_type,
-		                'course_price' => $values->course_price
+		                'course_price' => $values->course_price,
 		                "course_status" => 0,
 						"tags" => $values->tags
 		            ]);
