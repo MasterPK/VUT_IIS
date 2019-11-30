@@ -63,26 +63,26 @@ class GarantModel
         ->addRule(Form::PATTERN, 'Zadejte 3 až 5 velkých písmen nebo čísel!', '([A-Z0-9]\s*){3,5}')
         ->addRule(Form::MAX_LENGTH, 'Zadejte 3 až 5 velkých písmen nebo čísel!', 5);
 
-        $form->addText('name', 'Název kurzu')
+        $form->addText('course_name', 'Název kurzu')
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired("Tohle pole je povinné")
         ->addRule(Form::MIN_LENGTH, 'Dĺžka jména musí být 5 až 30 znaků!', 5)
         ->addRule(Form::MAX_LENGTH, 'Dĺžka jména musí být 5 až 30 znaků!', 30);
 
-        $form->addTextArea('description', 'Popis')
+        $form->addTextArea('course_description', 'Popis')
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired("Tohle pole je povinné")
         ->addRule(Form::MIN_LENGTH, 'Dĺžka popisu musí být 5 až 500 znaků!', 5)
         ->addRule(Form::MAX_LENGTH, 'Dĺžka popisu musí být 5 až 500 znaků!', 500);
 
-        $form->addSelect('type', 'Typ', [
+        $form->addSelect('course_type', 'Typ', [
             'P' => 'Povinný',
             'V' => 'Volitelný',
         ])
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired("Tohle pole je povinné");
 
-        $form->addText('price', 'Cena (Kč)')
+        $form->addText('course_price', 'Cena (Kč)')
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired("Tohle pole je povinné")
         ->addRule(Form::PATTERN, 'Zadejte číslo v rozmezí 0 - 999 999 999!', '([0-9]\s*){1,9}')
