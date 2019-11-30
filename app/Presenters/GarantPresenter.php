@@ -815,7 +815,14 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	public function createComponentTaskStudentsGrid($name)
 	{
-		\Tracy\Debugger::barDump($_POST);
+		if(count($_POST) > 0)
+        {
+            $this->id_task = $_POST['id_task'];
+        }
+        else
+        {
+        	$_POST['id_task'] = $this->id_task;
+        }
 
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('id_user');
