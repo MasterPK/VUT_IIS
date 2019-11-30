@@ -50,6 +50,11 @@ class GarantModel
     {
         $form = new Form;
 
+        if($_POST['current_course'])
+        {
+            \Tracy\Debugger::barDump($_POST['current_course']);
+        }
+
         $form->addHidden('old_id_course', NULL);
 
         $form->addText('id_course', 'Zkratka kurzu')
