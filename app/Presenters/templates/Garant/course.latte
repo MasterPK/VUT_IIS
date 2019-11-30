@@ -8,13 +8,13 @@ Vytvoření nového kurzu
   
     	{snippet course_snippet}
         {ifset $success_insert}
-        <script>$.notify("Kurz byl úspěšně vytvořen!", "success");</script>
+        <script>$.notify("Kurz byl úspěšně vytvořen a čeká na schválení.", "success");</script>
         {/ifset}
         {ifset $error_insert}
         <script>$.notify("Nastala chyba při vytváření kurzu!", "error");</script>
         {/ifset}
         {ifset $success_update}
-        <script>$.notify("Kurz byl úspěšně aktualizován!", "success");</script>
+        <script>$.notify("Kurz byl úspěšně aktualizován a čeká na schválení.", "success");</script>
         {/ifset}
         {ifset $error_update}
         <script>$.notify("Nastala chyba při aktualizování kurzu!", "error");</script>
@@ -57,8 +57,39 @@ Vytvoření nového kurzu
             </div>
         </form>
         
-        
+        <button class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="show()"><span>Smazat kurz</span></button>
+
+        <div class="modal fade" id="courseDelete">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Potvrzení</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Opravdu smazat kurz {$id_course}?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Zrušit</button>
+                        <a class="ajax" n:href="deleteCourse! $id_course"><button onClick="hide()" type="button" class="btn btn-primary">Potvrdit</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="col-md-4 col-sm-1" />
 </div>
+
+<script>
+function show()
+{
+    $('#courseDelete').modal('show');
+}
+
+function hide()
+{
+    $("#courseDelete").modal("hide"); 
+}
+
+</script>
+
 {/block}
