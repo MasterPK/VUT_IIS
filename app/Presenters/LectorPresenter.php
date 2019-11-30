@@ -85,7 +85,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 		])
 		->setSortable();
 
-		$grid->addFilterSelect('course_type', 'Typ kurzu:', ["P" => 'Povinný', "V" => 'Volitelný']);
+		$grid->addFilterSelect('course_type', 'Typ kurzu:', [""=>"Vše","P" => 'Povinný', "V" => 'Volitelný']);
 		
 		$grid->addColumnText('course_price', 'Cena kurzu')
 		->setSortable()
