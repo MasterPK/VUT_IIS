@@ -5,7 +5,7 @@ namespace App\Model;
 use Ublaboo;
 class DataGridModel
 {
-    private $dataGridTranslator;
+    public $dataGridTranslator;
 	public function __construct()
 	{
 		$this->dataGridTranslator = new Ublaboo\DataGrid\Localization\SimpleTranslator([
@@ -30,9 +30,5 @@ class DataGridModel
             'Inserted' => 'Vloženo'
         ]);
 	}
-
-	public function getDataGridTranslator(){
-        return $this->dataGridTranslator;
-    }
 
 }

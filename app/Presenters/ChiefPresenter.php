@@ -93,11 +93,11 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setFilterText();
 
-        $grid->addAction("select", "", 'Admin:edituser')
+        $grid->addAction("select", "", 'Chief:manageRoom')
             ->setIcon('edit')
             ->setClass("btn btn-xs btn-default btn-secondary");
 
-        $grid->addAction('delete', '', 'delete!')
+        $grid->addAction('delete', '', 'deleteRoom!')
             ->setIcon('trash')
             ->setTitle('Smazat')
             ->setClass('btn btn-xs btn-danger ajax')
@@ -108,6 +108,18 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	
 		return $grid;
 	}
+
+	public function handleDeleteRoom($id_room)
+    {
+        $this->database->table("room")->where("id_room", $id_room)->delete();
+        $this->template->success_notify = true;
+        if ($this->isAjax()) {
+            
+            $this->redrawControl('content_snipet');
+        } else {
+            $this->redirect('this');
+        }
+    }
 
 	public function renderDefault(): void
 	{ }
@@ -449,36 +461,6 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 			]);
 
 		$this->template->success_notify = true;
-		$this->redirect("Chief:rooms");
-	}
-
-
-	public function createComponentDeleteRoom()
-	{
-		$form = new Form;
-
-		$form->addHidden('id_room', '')
-			->setRequired()
-			->setDefaultValue($this->current_room["id_room"]);
-
-		$form->addCheckBox("really")
-			->setRequired()
-			->addCondition(Form::EQUAL, true);
-
-		$form->addSubmit('submit', 'Smazat?!')
-			->setHtmlAttribute('class', 'btn btn-primary');
-
-		$form->onSuccess[] = [$this, 'deleteRoomSubmit'];
-
-		return $form;
-	}
-
-
-	public function deleteRoomSubmit(Form $form)
-	{
-		$values = $form->getValues();
-
-		$this->database->table("room")->where("id_room", $values->id_room)->delete();
 		$this->redirect("Chief:rooms");
 	}
 
