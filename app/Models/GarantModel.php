@@ -73,7 +73,7 @@ class GarantModel
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired("Tohle pole je povinné");
 
-		$form->addText('price', 'Cena')
+		$form->addText('price', 'Cena (Kč)')
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired("Tohle pole je povinné")
         ->addRule(Form::PATTERN, 'Zadejte číslo v rozmezí 0 - 999 999 999!', '([0-9]\s*){1,9}')
@@ -84,6 +84,18 @@ class GarantModel
         
         $form->addSubmit('create', 'Vytvořit kurz')
         ->setHtmlAttribute('class', 'btn btn-block btn-primary');
+
+        if($this->current_course)
+        {
+            $form->setDefaults([
+            'id_course' => $this->current_course->id_course,
+            'name' => $this->current_course->course_name,
+            'description' => $this->current_course->course_description,
+            'type' => $this->current_course->course_type,
+            'price' => $this->current_course->course_price,
+            'tags' => $this->current_course->tags,
+        ]);
+        }
         
         $form->onSuccess[] = [$meno, 'createCourseForm'];
         return $form;
