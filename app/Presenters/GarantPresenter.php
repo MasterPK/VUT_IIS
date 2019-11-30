@@ -133,16 +133,18 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     		\Tracy\Debugger::barDump($values);
     		try
 	    	{
-				$this->database->table("course")->update([
-					"id_course" => $values->id_course,
-					"course_name" => $values->name,
-					"course_description" => $values->description,
-					"course_type" => $values->type,
-					"course_price" => $values->price,
-					"id_guarantor" => $this->user->identity->id,
-					"course_status" => 0,
-					"tags" => $values->tags
-				]);
+	    		$data = $this->database->table("course")->where("id_course", $values->old_id_course)
+		            ->update([
+		            	"id_course" => $values->id_course,
+		                'course_name' => $values->course_name,
+		                'course_description' => $values->course_description,
+		                'course_type' => $values->course_type,
+		                'course_price' => $values->course_price
+		                "course_status" => 0,
+						"tags" => $values->tags
+		            ]);
+
+
 	    		//$data = $this->database->query("INSERT INTO course (id_course, course_name, course_description, course_type, course_price, id_guarantor, course_status) VALUES (?, ?, ?, ?, ?, ?, 0, ?);", $values->id_course, $values->name, $values->description, $values->type, $values->price, $values->tags,  $this->user->identity->id);
 				FileSystem::rename("Files/$values->old_id_course", "Files/$values->id_course");
 				
@@ -151,12 +153,10 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	    	catch(Nette\Database\UniqueConstraintViolationException $e)
 	    	{
 	    		$this->template->error_update=true;
-	    		$this->template->error_course=$values->id_course;
 			}
 			catch(Nette\IOException $e)
 	    	{
 	    		$this->template->error_update=true;
-	    		$this->template->error_course=$values->id_course;
 			}
     	}
     	else
@@ -181,14 +181,17 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	    	catch(Nette\Database\UniqueConstraintViolationException $e)
 	    	{
 	    		$this->template->error_insert=true;
-	    		$this->template->error_course=$values->id_course;
 			}
 			catch(Nette\IOException $e)
 	    	{
 	    		$this->template->error_insert=true;
-	    		$this->template->error_course=$values->id_course;
 			}
-    	}		
+    	}
+
+        if ($this->isAjax()) 
+        {
+            $this->redrawControl("course_snippet");
+        }		
 	}
 
 	public function createComponentRegisterForm()
@@ -504,69 +507,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			$this->redirect("Garant:managecourses", $id_course, 0);
 		}		
 	}
-
-
-	public function createComponentEditCourse()
-    {
-        $form = new Form;
-
-        $form->addHidden('id_course', '')
-			->setDefaultValue($this->current_course["id_course"]);
-			
-		$form->addText('id_course_show', '')
-            ->setHtmlAttribute('class', 'form-control')
-            ->setDisabled()
-            ->setDefaultValue($this->current_course["id_course"]);
-
-        $form->addText('course_name', '')
-            ->setHtmlAttribute('class', 'form-control')
-            ->setRequired("Tohle pole je povinné")
-            ->setDefaultValue($this->current_course["course_name"]);
-
-        $form->addTextArea('course_description', '')
-            ->setHtmlAttribute('class', 'form-control')
-			->setRequired("Tohle pole je povinné")
-			->addRule(Form::MAX_LENGTH, 'Popis je příliš dlouhý', 499)
-            ->setDefaultValue($this->current_course["course_description"]);
-
-        $form->addSelect('course_type', '',$this->coursetype)
-            ->setHtmlAttribute('class', 'form-control')
-            ->setRequired("Tohle pole je povinné")
-            ->setDefaultValue($this->current_course["course_type"]);
-
-        $form->addInteger('course_price', '')
-            ->setHtmlAttribute('class', 'form-control')
-            ->setRequired("Tohle pole je povinné")
-			->setDefaultValue($this->current_course["course_price"]);
-
-		$form->addText('tags', 'tags',)
-		->setHtmlAttribute('class', 'form-control')
-        ->setDefaultValue($this->current_course["tags"]);
-
-        $form->addSubmit('submit', 'Potvrdit změny')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
-
-        $form->onSuccess[] = [$this, 'editCourseSubmit'];
-        return $form;
-    }
-
-    public function editCourseSubmit(Form $form)
-    {
-        $values = $form->getValues();
-
-        $data = $this->database->table("course")->where("id_course", $values->id_course)
-            ->update([
-                'course_name' => $values->course_name,
-                'course_description' => $values->course_description,
-                'course_type' => $values->course_type,
-                'course_price' => $values->course_price
-            ]);
-
-        $this->template->success_notify = true;
-        if ($this->isAjax()) {
-            $this->redrawControl("notify");
-        }
-    }
 
     public function handleDeleteTask($id_task,$id_course)
     {
