@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+setlocale(LC_TIME,"Czech");
 
 namespace App\Presenters;
 use Nette;
