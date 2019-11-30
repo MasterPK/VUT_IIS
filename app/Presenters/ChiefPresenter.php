@@ -688,7 +688,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$values = $form->getValues();
 		
 		dump($values);
-		$data = $this->database->table("room_equipment")->where()
+		$data = $this->database->table("room_equipment")
 			->update([
 				'id_room' => $values->id_equip,
 			]);
