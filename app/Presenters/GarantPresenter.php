@@ -131,12 +131,15 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     	$check = $this->database->query("SELECT id_course FROM course WHERE id_course = ?", $values->id_course);
 		if($check->getRowCount() == 1)
 		{
-			$this->template->error_course_exists=true;
-			if ($this->isAjax()) 
-	        {
-	            $this->redrawControl("course_snippet");
-	        }	
-			return;
+			if(($values->old_id_course != NULL && $values->old_id_course != $values->id_course) || $values->old_id_course == NULL)
+    		{
+				$this->template->error_course_exists=true;
+				if ($this->isAjax()) 
+		        {
+		            $this->redrawControl("course_snippet");
+		        }	
+				return;
+			}
 		}
 
     	if($values->old_id_course != NULL)
