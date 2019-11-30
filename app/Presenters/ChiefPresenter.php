@@ -38,6 +38,35 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 			$this->redirect("Homepage:default");
 		}
 	}
+
+
+	public function createComponentRoomsGrid($name)
+	{
+		$grid = new DataGrid($this, $name);
+		$grid->setPrimaryKey('id_room');
+		$grid->setDataSource($this->database->table('room'));
+
+		$grid->addColumnText('room_type', 'Typ místnosti')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('room_capacity', 'Kapacita místnosti')
+		->setSortable()
+		->setFilterText();
+		
+		$grid->addColumnText('id_room_address', 'Adresa místnosti')
+		->setSortable()
+		->setFilterText();
+
+		//$grid->addAction("select","Detail", 'Homepage:showcourse')
+		//->setClass("btn btn-primary");
+
+		//$grid->setTranslator($this->dataGridTranslator);
+
+	
+		return $grid;
+	}
+
 	public function renderDefault(): void
 	{ }
 
