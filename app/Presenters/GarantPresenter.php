@@ -179,7 +179,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     		$check = $this->database->query("SELECT id_course FROM course WHERE id_course = ?", $values->id_course);
 			if($check->getRowCount() == 1)
 			{
-				$this->template->notify_course_exists=true;
+				$this->template->error_course_exists=true;
 			}
 			else
 			{
