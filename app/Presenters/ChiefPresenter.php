@@ -130,7 +130,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	{
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('room_equipment');
-		$grid->setDataSource($this->database->table("room_has_equipment")->select("room_has_equipment.*,id_room_equipment.id_room_equipment"));
+		$grid->setDataSource($this->database->table("room_equipment")->select("room_equipment.*,id_room.id_room"));
 
 		$grid->addColumnText('room_equipment', 'Vybavení')
 		->setSortable()
@@ -185,7 +185,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 	public function renderRoomsEquipment($id_room)
 	{
-		$data = $this->database->query("SELECT * FROM room_equipment NATURAL JOIN room_has_equipment WHERE id_room = ?",  $id_room)->fetchAll();
+		$data = $this->database->query("SELECT * FROM room NATURAL JOIN room_equipment WHERE id_room = ?",  $id_room)->fetchAll();
 
 		$this->template->equip = $data;
 		$this->template->id = $id_room;
@@ -642,7 +642,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	{
 		$form = new Form;
 
-		$tmp = $this->database->query("SELECT * FROM room_equipment WHERE room_equipment.id_room_equipment NOT IN (SELECT id_room_equipment FROM room_has_equipment)")->fetchAll();
+		$tmp = $this->database->query("SELECT * FROM room_equipment WHERE room_equipment.id_room_equipment NOT IN (SELECT id_room FROM room)")->fetchAll();
 
 		$address = array();
 		foreach ($tmp as $row) {
@@ -667,10 +667,9 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	{
 		$values = $form->getValues();
 		
-		$data = $this->database->table("room_has_equipment")
-			->insert([
+		$data = $this->database->table("room_equipment")
+			->update([
 				'id_room' => $values->id_equip,
-				'id_room_equipment' => $values->room_Equip,
 			]);
 
 		$this->template->success_notify = true;
@@ -678,7 +677,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	}
 
 	function handleDelete($id,$id2) {
-		$this->database->table("room_has_equipment")->where("id_room_equipment", $id)->where("id_room", $id2)->delete();
+		$this->database->table("room_equipment")->where("id_room_equipment", $id)->where("id_room", $id2)->delete();
 		
 		$this->redirect("Chief:roomsEquipment",$id2);
 	}
