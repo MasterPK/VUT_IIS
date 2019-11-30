@@ -49,6 +49,10 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$grid->setPrimaryKey('id_room');
 		$grid->setDataSource($this->database->table('room'));
 
+		$grid->addColumnText('id_room', 'Místnost')
+		->setSortable()
+		->setFilterText();
+
 		$grid->addColumnText('room_type', 'Typ místnosti')
 		->setSortable()
 		->setFilterText();
