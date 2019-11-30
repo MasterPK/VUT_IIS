@@ -315,7 +315,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             ->setSortable()
             ->setFilterText();
 
-        $grid->addColumnStatus('rank', 'Hodnost')
+        $grid->addColumnText('rank', 'Hodnost')
             ->setSortable()
             ->setOptions([
                 '1' => 'Student',
@@ -332,7 +332,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 '5' => 'Administrátor'
             ]);
 
-        $grid->addColumnStatus('active', 'Aktivní účet?')
+        $grid->addColumnText('active', 'Aktivní účet?')
             ->setSortable()
             ->setOptions([
                 '0' => 'Neaktivní',
@@ -349,6 +349,9 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             $container->addText('email', '');
             $container->addText('first_name', '');
             $container->addText('surname', '');
+            $container->addText('phone', '');
+            $container->addStatus('rank', '');
+            $container->addStatus('active', '');
         };
 
         $grid->getInlineEdit()->onSetDefaults[] = function (Nette\Forms\Container $container, $item): void {
