@@ -8,6 +8,9 @@ use Nette;
 use Nette\Application\UI\Form;
 use Tracy\Debugger;
 
+use Ublaboo;
+use Ublaboo\DataGrid\DataGrid;
+
 
 final class ChiefPresenter extends Nette\Application\UI\Presenter
 {
