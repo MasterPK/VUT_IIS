@@ -109,6 +109,14 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$grid->addToolbarButton('Chief:createRoom', '')
             ->setIcon('plus')
             ->setTitle('Přidat místnost')
+			->setClass('btn btn-xs btn-primary');
+			
+		$grid->addToolbarButton('Chief:manageEquipment', 'Správa vybavení')
+            ->setTitle('Správa vybavení')
+			->setClass('btn btn-xs btn-primary');
+			
+		$grid->addToolbarButton('Chief:manageAdres', 'Správa adres')
+            ->setTitle('Správa adres')
             ->setClass('btn btn-xs btn-primary');
 
 		$grid->setTranslator($this->dataGridTranslator);
