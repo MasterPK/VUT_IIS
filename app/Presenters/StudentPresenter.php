@@ -210,14 +210,16 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			return;
 		}
 		$dayTasksCount=array();
-		setlocale(LC_ALL,"cs-CZ");
+		for ($i=1; $i <= 7; $i++) { 
+			$dayTasksCount[$i]=0;
+		}
 		foreach ($data as $value) {
 			
-			$day = date ('l',$value->task_date->getTimestamp());
-			Debugger::barDump($day,"den");
-			$day = strftime ('%A',$value->task_date->getTimestamp());
-			Debugger::barDump($day,"den1");
+			$day = date ('N',$value->task_date->getTimestamp());
+			$dayTasksCount[$day]+=1;
 		}
+
+		Debugger::barDump($dayTasksCount);
 		
 
 	}
