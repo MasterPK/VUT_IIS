@@ -201,6 +201,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			$dayTasksCount[$i] = 0;
 		}
 		foreach ($data as $value) {
+			Debugger::barDump($value,"value");
 			$day = date('N', $value->task_date->getTimestamp());
 			$dayTasksCount[$day] += 1;
 			switch ($day) {
