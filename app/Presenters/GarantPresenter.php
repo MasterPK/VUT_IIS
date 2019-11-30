@@ -542,8 +542,8 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 
     	//vezmi vsetky terminy daneho kurzu a spocitaj celkove body
-    	$points = $this->database->query("SELECT SUM(task_points) AS total_points FROM task NATURAL JOIN course WHERE id_course = ?", $values->id_course)->fetch();
-    	\Tracy\Debugger::barDump($points);
+    	$points = $this->database->query("SELECT SUM(task_points) AS total_points FROM task NATURAL JOIN course WHERE id_course = ? AND id_task != ?", $values->id_course, $values->id_task)->fetch();
+
     	if(($points->total_points + $values->task_points) > 100)
     	{
     		if($this->isAjax())
