@@ -209,8 +209,8 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		}
 		$dayTasksCount=array();
 		foreach ($data as $value) {
-			$day = date('l', $value->task_date);
-			Debugger:dump($day);
+			//$day = date('l', );
+			Debugger:dump($value->task_date);
 		}
 		
 
