@@ -270,6 +270,55 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		}
 	}
 
+	public function createComponentCoursesMng($name)
+	{
+		$grid = new DataGrid($this, $name);
+		$grid->setPrimaryKey('id_course');
+		$grid->setDataSource($this->garantModel->getGarantCourses($this->user->identity->id));
+
+		$grid->addColumnText('id_course', 'Zkratka kurzu')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('course_name', 'Jméno kurzu')
+		->setSortable()
+		->setFilterText();
+		
+
+		$grid->addColumnText('course_type', 'Typ kurzu')
+		->setReplacement([
+			'P' => 'Povinný',
+			'V' => 'Volitelný'
+		])
+		->setSortable();
+
+		$grid->addFilterSelect('course_type', 'Typ kurzu:', ["P" => 'Povinný', "V" => 'Volitelný']);
+		
+
+		$grid->addColumnText('course_status', 'Stav kurzu')
+		->setSortable()
+            ->setReplacement([
+                '0' => 'Čeká na schválení',
+				'1' => 'Schválen',
+				'2' => 'Otevřené registrace',
+                '3' => 'Uzavřené registrace'
+            ])
+            ->setFilterSelect([
+                '0' => 'Čeká na schválení',
+				'1' => 'Schválen',
+				'2' => 'Otevřené registrace',
+                '3' => 'Uzavřené registrace'
+            ]);
+
+		$grid->addAction("select","Detail", 'Student:showcourse')
+		->setClass("btn btn-primary");
+
+		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
+
+	
+		return $grid;
+	}
+
 	public function createComponentRegisterForm()
 	{
 		return $this->studentModel->createComponentRegisterForm($this);
