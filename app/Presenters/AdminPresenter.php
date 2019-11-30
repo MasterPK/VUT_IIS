@@ -89,28 +89,28 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         $form = new Form;
 
         $form->addHidden('id_user', '')
-            ->setRequired("Tohle pole je povinné.")
+            ->setRequired()
             ->setDefaultValue($this->userInfo["id_user"]);
 
         $form->addText('id_user_show', '')
             ->setHtmlAttribute('class', 'form-control')
-            ->setDisabled("Tohle pole je povinné.")
+            ->setDisabled()
             ->setDefaultValue($this->userInfo["id_user"]);
 
         $form->addText('email', 'Email:')
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired("Tohle pole je povinné.")
+            ->setRequired("Tohle pole je povinné")
             ->addRule(Form::EMAIL, 'Email není platný.')
             ->setDefaultValue($this->userInfo["email"]);
 
         $form->addText('first_name', 'Křestní jméno:')
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired("Tohle pole je povinné.")
+            ->setRequired("Tohle pole je povinné")
             ->setDefaultValue($this->userInfo["first_name"]);
 
         $form->addText('surname', 'Příjmení:')
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired("Tohle pole je povinné.")
+            ->setRequired("Tohle pole je povinné")
             ->setDefaultValue($this->userInfo["surname"]);
 
         $form->addText('phone', 'Telefonní číslo:')
@@ -119,12 +119,12 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
         $form->addSelect('rank', '', $this->ranks)
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired("Tohle pole je povinné.")
+            ->setRequired("Tohle pole je povinné")
             ->setDefaultValue($this->userInfo["rank"]);
 
         $form->addSelect('active', '', $this->activeStatus)
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired("Tohle pole je povinné.")
+            ->setRequired("Tohle pole je povinné")
             ->setValue($this->userInfo["active"]);
 
         $form->addSubmit('submit', 'Potvrdit')
@@ -218,26 +218,26 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         $form->addEmail('email', 'Email:')
             ->setHtmlAttribute('class', 'form-control')
             ->addRule(Form::EMAIL, 'Email není platný.')
-            ->setRequired("Tohle pole je povinné.");
+            ->setRequired("Tohle pole je povinné");
 
         $form->addText('first_name', 'Křestní jméno:')
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired("Tohle pole je povinné.");
+            ->setRequired("Tohle pole je povinné");
 
         $form->addText('surname', 'Příjmení:')
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired("Tohle pole je povinné.");
+            ->setRequired("Tohle pole je povinné");
 
         $form->addText('phone', 'Telefonní číslo:')
             ->setHtmlAttribute('class', 'form-control');
 
         $form->addSelect('rank', '', $this->ranks)
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired("Tohle pole je povinné.");
+            ->setRequired("Tohle pole je povinné");
 
         $form->addSelect('active', '', $this->activeStatus)
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired("Tohle pole je povinné.");
+            ->setRequired("Tohle pole je povinné");
 
         $form->addPassword('password', 'Heslo:')
             ->setHtmlAttribute('class', 'form-control')

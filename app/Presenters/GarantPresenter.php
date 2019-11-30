@@ -246,12 +246,12 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
         $form->addText('task_name', 'Název termínu')
         ->setHtmlAttribute('class', 'form-control')
-        ->setRequired()
+        ->setRequired("Tohle pole je povinné")
         ->addRule(Form::MAX_LENGTH, 'Dĺžka názvu je maximálně 50 znaků!', 50);
 
         $form->addText('task_description', 'Popis')
         ->setHtmlAttribute('class', 'form-control')
-        ->setRequired()
+        ->setRequired("Tohle pole je povinné")
         ->addRule(Form::MAX_LENGTH, 'Dĺžka popisu je maximálně 100 znaků!', 100);
 
         $form->addText('task_points', 'Počet bodů')
@@ -277,7 +277,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		        ->setType('date')
 		        ->setDefaultValue((new \DateTime)->format('Y-m-d'))
 		        ->setHtmlAttribute('class', 'form-control')
-		        ->setRequired("Tohle pole je povinné.");
+		        ->setRequired("Tohle pole je povinné");
 
 		        $form->addText('task_to', 'Čas odevzdání')
 		        ->setHtmlAttribute('class', 'form-control')
@@ -290,7 +290,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		        ->setType('date')
 		        ->setDefaultValue((new \DateTime)->format('Y-m-d'))
 		        ->setHtmlAttribute('class', 'form-control')
-		        ->setRequired("Tohle pole je povinné.");
+		        ->setRequired("Tohle pole je povinné");
 
 		        $form->addText('task_from', 'Od')
 		        ->setHtmlAttribute('class', 'form-control')
@@ -301,7 +301,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		        ->setHtmlAttribute('class', 'form-control')
 		        ->addRule(Form::RANGE, "Zadejte číslo v rozmezí 0 - 23!", [0,23])
 		        ->addRule(Form::MAX_LENGTH, "Zadejte číslo v rozmezí 0 - 23!", 2)
-		        ->setRequired("Tohle pole je povinné.");
+		        ->setRequired("Tohle pole je povinné");
 		        
 				break;
 		}
@@ -494,23 +494,23 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
         $form->addText('course_name', '')
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired()
+            ->setRequired("Tohle pole je povinné")
             ->setDefaultValue($this->current_course["course_name"]);
 
         $form->addTextArea('course_description', '')
             ->setHtmlAttribute('class', 'form-control')
-			->setRequired()
+			->setRequired("Tohle pole je povinné")
 			->addRule(Form::MAX_LENGTH, 'Popis je příliš dlouhý', 499)
             ->setDefaultValue($this->current_course["course_description"]);
 
         $form->addSelect('course_type', '',$this->coursetype)
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired()
+            ->setRequired("Tohle pole je povinné")
             ->setDefaultValue($this->current_course["course_type"]);
 
         $form->addInteger('course_price', '')
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired()
+            ->setRequired("Tohle pole je povinné")
 			->setDefaultValue($this->current_course["course_price"]);
 
 		$form->addText('tags', 'tags',)

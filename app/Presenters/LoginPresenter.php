@@ -109,17 +109,17 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
 
         $form->addText('email', 'Email:')
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired()
+            ->setRequired("Tohle pole je povinné")
             ->setDefaultValue($user->data["email"]);
 
         $form->addText('first_name', 'Křestní jméno:')
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired()
+            ->setRequired("Tohle pole je povinné")
             ->setDefaultValue($user->data["first_name"]);
 
         $form->addText('surname', 'Příjmení:')
             ->setHtmlAttribute('class', 'form-control')
-            ->setRequired()
+            ->setRequired("Tohle pole je povinné")
             ->setDefaultValue($user->data["surname"]);
 
         $form->addText('phone', 'Telefonní číslo:')
