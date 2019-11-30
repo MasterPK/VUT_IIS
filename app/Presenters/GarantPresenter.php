@@ -130,6 +130,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
     	if($values->old_id_course != NULL)
     	{
+    		\Tracy\Debugger::barDump($values);
     		try
 	    	{
 				$this->database->table("course")->update([
