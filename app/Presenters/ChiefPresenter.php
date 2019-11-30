@@ -642,7 +642,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	{
 		$form = new Form;
 
-		$tmp = $this->database->query("SELECT * FROM room_equipment WHERE room_equipment.id_room_equipment NOT IN (SELECT id_room_equipment FROM room_has_equipment)")->fetchAll();
+		$tmp = $this->database->query("SELECT * FROM room_equipment WHERE room_equipment.id_room_equipment NOT IN (SELECT id_room FROM room)")->fetchAll();
 
 		$address = array();
 		foreach ($tmp as $row) {
