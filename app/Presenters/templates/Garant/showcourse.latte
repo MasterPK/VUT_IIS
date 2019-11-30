@@ -40,6 +40,9 @@ Detail kurzu
                                         {/ifset}
                                     </div>
                                     <div class="col">
+                                    <a n:href="Garant:managelectors $course->id_course"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Správa lektorů</button></a>
+                                </div>
+                                    <div class="col">
                                         <a id="btnpopover" class="btn btn-xs btn-primary"><i class="fas fa-plus-square text-white"></i></a>
                                     </div>
                                     <div class="col">
@@ -164,7 +167,7 @@ Detail kurzu
 
 {/snippet}
 
-<a n:href="Garant:managelectors $course->id_course"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Správa lektorů</button></a>
+
 
 {snippet course_tasks_snippet}
 {ifset $course_tasks}
@@ -176,11 +179,11 @@ Detail kurzu
                     
                     
                     <div class="row">
-                        <div class="col-md-6 col-sm-12 ">
+                        <div class="col-md-3 col-sm-12 ">
                             {$task->task_name}
                         </div>
                         {if $userIsGuarantorInCourse == true || $userIsLectorInCourse == true}
-                        <div class="col-md-6 col-sm-12 ">
+                        <div class="col-md-9 col-sm-12 ">
                             <div class="float-right">
                                 <div class="row">
                                     <div class="col">
