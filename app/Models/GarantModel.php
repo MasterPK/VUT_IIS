@@ -49,7 +49,7 @@ class GarantModel
     {
         $form = new Form;
 
-        $form->addHidden('old_id_course');
+        $form->addHidden('old_id_course', NULL);
 
         $form->addText('id_course', 'Zkratka kurzu')
         ->setHtmlAttribute('class', 'form-control')

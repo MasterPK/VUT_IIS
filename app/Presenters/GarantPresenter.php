@@ -128,7 +128,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     {
     	$values = $form->getValues();
 
-    	if($values->old_course_id)
+    	if($values->old_id_course != NULL)
     	{
     		try
 	    	{
