@@ -55,13 +55,12 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	public function renderDefault(): void
 	{ }
 
-	
 	/**
 	 * Generuje aktuálne zapsané predmety lektora
 	 *
 	 * @return void
 	 */
-	public function renderCourses($id): void
+	public function renderCourses(): void
 	{
 		
 	}
@@ -166,6 +165,10 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$this->template->id_course = $id_course;
 	}
 	
+	public function createComponentCreateCourseForm(): Form
+	{
+		return $this->garantModel->createCourseF($this);
+	}
 
 	public function createCourseForm(Nette\Application\UI\Form $form): void
     {
@@ -177,10 +180,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			if(($values->old_id_course != NULL && $values->old_id_course != $values->id_course) || $values->old_id_course == NULL)
     		{
 				$this->template->error_course_exists=true;
-				if($this->isAjax()) 
-		        {
-		            $this->redrawControl("course_snippet");
-		        }	
+				$this->redirect("this");
 				return;
 			}
 		}
@@ -254,10 +254,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	    		$this->template->error_insert=true;
 			}
     	}
-
-        $this->redirect("this",$values->id_course);
-            
-        
+		$this->redirect("course", $values->id_course);	
 	}
 
 	public function createComponentRegisterForm()
@@ -538,81 +535,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	public function renderCourse($id)
 	{
-		if(empty($id))
-		{
-			$this->redirect("Homepage:");
+		if($id)
+        {
+			$this->garantModel->getCurrentCourse($this, $id);
 		}
-		$this->id_course=$id;
 	}
-
-	public function createComponentCreateCourseForm(): Form
-    {
-        $form = new Form;
-
-        $form->addHidden('old_id_course', NULL);
-
-        $form->addText('id_course', 'Zkratka kurzu')
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired("Tohle pole je povinné")
-        ->addRule(Form::PATTERN, 'Zadejte 3 až 5 velkých písmen nebo čísel!', '([A-Z0-9]\s*){3,5}')
-        ->addRule(Form::MAX_LENGTH, 'Zadejte 3 až 5 velkých písmen nebo čísel!', 5);
-
-        $form->addText('name', 'Název kurzu')
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired("Tohle pole je povinné")
-        ->addRule(Form::MIN_LENGTH, 'Dĺžka jména musí být 5 až 30 znaků!', 5)
-        ->addRule(Form::MAX_LENGTH, 'Dĺžka jména musí být 5 až 30 znaků!', 30);
-
-        $form->addTextArea('description', 'Popis')
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired("Tohle pole je povinné")
-        ->addRule(Form::MIN_LENGTH, 'Dĺžka popisu musí být 5 až 500 znaků!', 5)
-        ->addRule(Form::MAX_LENGTH, 'Dĺžka popisu musí být 5 až 500 znaků!', 500);
-
-        $form->addSelect('type', 'Typ', [
-		    'P' => 'Povinný',
-		    'V' => 'Volitelný',
-		])
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired("Tohle pole je povinné");
-
-		$form->addText('price', 'Cena (Kč)')
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired("Tohle pole je povinné")
-        ->addRule(Form::PATTERN, 'Zadejte číslo v rozmezí 0 - 999 999 999!', '([0-9]\s*){1,9}')
-        ->addRule(Form::MAX_LENGTH, 'Zadejte číslo v rozmezí 0 - 999 999 999!', 9);
-
-        $form->addText('tags', 'tags',)
-        ->setHtmlAttribute('class', 'form-control');
-        \Tracy\Debugger::barDump($this->id_course);
-
-        $data=$this->database->query("SELECT * FROM course WHERE id_course=?;",$this->id_course)->fetch();
-		\Tracy\Debugger::barDump($data);
-		\Tracy\Debugger::barDump($data->id_course);
-        if($data)
-        {
-            $form->setDefaults([
-                'old_id_course' => $data->id_course,
-                'id_course' => $data->id_course,
-                'name' => $data->course_name,
-                'description' => $data->course_description,
-                'type' => $data->course_type,
-                'price' => $data->course_price,
-                'tags' => $data->tags
-            ]);
-
-            $form->addSubmit('create', 'Upravit kurz')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary ');
-        }
-        else
-        {
-            $form->addSubmit('create', 'Vytvořit kurz')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary ');
-        }
-        
-        $form->onSuccess[] = [$this, 'createCourseForm'];
-        return $form;
-    }
 
 	public function handleDeleteCourse($id_course)
 	{
