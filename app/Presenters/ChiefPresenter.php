@@ -677,7 +677,11 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	}
 
 	function handleDelete($id,$id2) {
-		$this->database->table("room_equipment")->where("id_room_equipment", $id)->where("id_room", $id2)->delete();
+
+		$data = $this->database->table("room_equipment")->where("id_room_equipment", $id)->where("id_room", $id2)
+		->update([
+			'id_room' => NULL,
+		]);
 		
 		$this->redirect("Chief:roomsEquipment",$id2);
 	}
