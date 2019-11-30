@@ -230,7 +230,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			}
 			if($dayTasksCount[$day]>0)
 			{
-				$day_p=$day_p+$dayTasksCount[$day];
+				$day_p=$day_p.$dayTasksCount[$day];
 			}
 			array_push($tasks,[
 				"task_name"=>$value->task_name,
