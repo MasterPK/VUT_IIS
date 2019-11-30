@@ -2,34 +2,5 @@
 Moje kurzy
 {/block}
 {block content}
-<div class="row">
-    <div class="col-sm-12">
-        {ifset $courses}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Zkratka</th>
-                    <th scope="col">Název</th>
-                    <th scope="col">Typ</th>
-                    <th scope="col">Cena</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                {foreach $courses as $row}
-                <tr>
-                    <th scope="row"><a n:href="Garant:showcourse $row->id_course">{$row->id_course}</a></th>
-                    <td>{$row->course_name}</td>
-                    <td>{$row->course_type}</td>
-                    <td>{$row->course_price}</td>
-                </tr>
-                {/foreach}
-
-            </tbody>
-        </table>
-        {else}
-        <h3>Žádné kurzy nejsou k dispozici!</h3>
-        {/ifset}
-    </div>
-</div>
+{control myCourses}
 {/block}
