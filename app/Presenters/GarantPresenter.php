@@ -1,50 +1,37 @@
 <?php
-
 declare(strict_types=1);
-
 namespace App\Presenters;
-
 use Nette;
 use Nette\Application\UI\Form;
 use Ublaboo\DataGrid\DataGrid;
 use Tracy\Debugger;
 use Nette\Utils\FileSystem;
 use Nette\Utils\Finder;
-
 final class GarantPresenter extends Nette\Application\UI\Presenter 
 {
 	/** @var \App\Model\StartUp @inject */
     public $startup;
-
 	/** @var Nette\Database\Context @inject */
 	public $database;
-
 	/** @var \App\Model\GarantModel @inject */
 	public $garantModel;
-
 	/** @var \App\Model\StudentModel @inject */
 	public $studentModel;
-
 	/** @var \App\Model\MainModel @inject */
 	public $mainModel;
-
 	/** @var \App\Model\DataGridModel @inject */
     public $dataGridModel;
-
 	private $task;
 	private $id_course;
 	private $task_type;
 	private $rooms;
-
 	private $coursetype = [
         'P' => 'Povinný',
         'V' => 'Volitelný'
     ];
-
 	public function startUp()
 	{
 		parent::startup();
-
 		
 		$this->startup->mainStartUp($this);
 		if(!$this->startup->roleCheck($this,3))
@@ -54,64 +41,51 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	}
 	public function renderDefault(): void
 	{ }
-
-	
 	/**
 	 * Generuje aktuálne zapsané predmety lektora
 	 *
 	 * @return void
 	 */
-	public function renderCourses($id): void
+	public function renderCourses(): void
 	{
 		
 	}
-
 	public function createComponentCourses($name)
 	{
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('id_course');
 		$grid->setDataSource($this->database->table('course'));
-
 		$grid->addColumnText('id_course', 'Zkratka kurzu')
 		->setSortable()
 		->setFilterText();
-
 		$grid->addColumnText('course_name', 'Jméno kurzu')
 		->setSortable()
 		->setFilterText();
 		
-
 		$grid->addColumnText('course_type', 'Typ kurzu')
 		->setReplacement([
 			'P' => 'Povinný',
 			'V' => 'Volitelný'
 		])
 		->setSortable();
-
 		$grid->addFilterSelect('course_type', 'Typ kurzu:', ["P" => 'Povinný', "V" => 'Volitelný']);
 		
 		$grid->addColumnText('course_price', 'Cena kurzu')
 		->setSortable()
 		->setFilterText();
-
 		$grid->addColumnText('tags', 'Štítky')
 		->setSortable()
 		->setFilterText();
-
 		$grid->addAction("select","Detail", 'Garant:showcourse')
 		->setClass("btn btn-primary");
-
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
-
 	
 		return $grid;
 	}
-
 	public function renderMycourses(): void
 	{
 		$this->template->courses=$this->mainModel->getCoursesOfStudent($this->user->identity->id);	
 	}
-
 	public function renderManagecourses($deleted_course, $course_delete_status): void
 	{
 		if($course_delete_status)
@@ -121,7 +95,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		}
 		$this->template->courses = $this->garantModel->getGarantCourses($this->user->identity->id);
 	}
-
 	
 	public function rendershowCourse($id_course)
 	{
@@ -129,7 +102,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$this->id_course=$id_course;
 		$this->template->id_course = $id_course;
 	}
-
 	private $course_id;
 	private $task_id;
 	public function rendernewFile($course_id, $task_id)
@@ -137,13 +109,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$this->course_id = $course_id;
 		$this->task_id = $task_id;
 	}
-
 	public function renderNewtask($id_course, $task_type, $id_task)
 	{
 		$this->id_course = $id_course;
 		$this->task_type = $task_type;
 		$this->template->task_type = $task_type;
-
 		if($id_task != NULL)
 		{
 			$this->task = $this->database->query("SELECT * FROM task WHERE id_task = ? AND id_course = ?", $id_task, $id_course)->fetch();
@@ -156,7 +126,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		}
 		$this->rooms = $category;
 	}
-
 	public function renderManagelectors($id_course)
 	{
 		//vyber lektorov, ktori este nie su lektormi daneho kurzu
@@ -166,25 +135,23 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$this->template->id_course = $id_course;
 	}
 	
-
+	public function createComponentCreateCourseForm(): Form
+	{
+		return $this->garantModel->createCourseF($this);
+	}
 	public function createCourseForm(Nette\Application\UI\Form $form): void
     {
     	$values = $form->getValues();
-
     	$check = $this->database->query("SELECT id_course FROM course WHERE id_course = ?", $values->id_course);
 		if($check->getRowCount() == 1)
 		{
 			if(($values->old_id_course != NULL && $values->old_id_course != $values->id_course) || $values->old_id_course == NULL)
     		{
 				$this->template->error_course_exists=true;
-				if($this->isAjax()) 
-		        {
-		            $this->redrawControl("course_snippet");
-		        }	
+				$this->redirect("this");
 				return;
 			}
 		}
-
     	if($values->old_id_course != NULL)
     	{			
 			try
@@ -198,7 +165,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	                'course_price' => $values->price,
 					"tags" => $values->tags
 	            ]);
-
 	            if($data == 1)
 	            {
 	            	//ak nastala zmena, nastav status na ziadost o schvalenie
@@ -254,37 +220,28 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	    		$this->template->error_insert=true;
 			}
     	}
-
-        $this->redirect("");
-            
-        
+		$this->redirect("course", $values->id_course);	
 	}
-
 	public function createComponentRegisterForm()
 	{
 		return $this->studentModel->createComponentRegisterForm($this);
 	}
-
 	public function createComponentUnRegisterForm()
 	{
 		return $this->studentModel->createComponentUnRegisterForm($this);
 	}
-
 	public function createComponentOpenRegisterForm()
 	{
 		return $this->garantModel->createComponentOpenRegisterForm($this);
 	}
-
 	public function createComponentCloseRegisterForm()
 	{
 		return $this->garantModel->createComponentCloseRegisterForm($this);
 	}
-
 	public function openRegisterFormHandle($form)
 	{
 		$values = $form->getValues();
 		$get = $this->database->query("UPDATE course SET course_status = 2 WHERE id_course = ?", $values->id_course);
-
     	if($get->getRowCount() == 1)
     	{
     		$this->template->succes_notif = true;
@@ -293,18 +250,15 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     	{
     		$this->template->error_notif = false;
     	}	
-
     	if ($this->isAjax())
 		{
             $this->redrawControl('content_snippet');
         }
 	}
-
 	public function closeRegisterFormHandle($form)
 	{
 		$values = $form->getValues();
 		$get = $this->database->query("UPDATE course SET course_status = 3 WHERE id_course = ?", $values->id_course);
-
     	if($get->getRowCount() == 1)
     	{
     		$this->template->succes_notif = true;
@@ -313,54 +267,43 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     	{
     		$this->template->error_notif = false;
     	}	
-
     	if ($this->isAjax())
 		{
             $this->redrawControl('content_snippet');
         }
 	}
-
-
 	public function createComponentCreateTaskForm(): Nette\Application\UI\Form
     {
         $form = new Nette\Application\UI\Form;
-
         $form->addHidden('id_course');
         $form->addHidden('id_task');
         $form->addHidden('task_type');
-
         $form->setDefaults([
             'id_course' => $this->id_course,
             'id_task' => NULL,
             'task_type' => $this->task_type,
         ]);
-
         $form->addText('task_name', 'Název termínu')
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired("Tohle pole je povinné")
         ->addRule(Form::MAX_LENGTH, 'Dĺžka názvu je maximálně 50 znaků!', 50);
-
         $form->addText('task_description', 'Popis')
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired("Tohle pole je povinné")
         ->addRule(Form::MAX_LENGTH, 'Dĺžka popisu je maximálně 100 znaků!', 100);
-
         $form->addText('task_points', 'Počet bodů')
         ->setHtmlAttribute('class', 'form-control')
         ->setDefaultValue(0)
         ->addRule(Form::RANGE, "Zadejte počet bodů v rozmezí 0 - 100!", [0,100])
         ->addRule(Form::MAX_LENGTH, "Zadejte počet bodů v rozmezí 0 - 100!", 3);
-
         $allrooms = $this->database->query("SELECT id_room FROM room")->fetchAll();
 		$rooms[NULL] = "Žádná";
 		foreach($allrooms as $room)
 		{
 			$rooms[$room->id_room] = $room->id_room;
 		}
-
         $form->addSelect('id_room', 'Místnost', $rooms)
 		->setHtmlAttribute('class', 'form-control');
-
 		switch($this->task_type)
 		{
 			case 'DU':
@@ -370,12 +313,10 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		        ->setDefaultValue((new \DateTime)->format('Y-m-d'))
 		        ->setHtmlAttribute('class', 'form-control')
 		        ->setRequired("Tohle pole je povinné");
-
 		        $form->addText('task_to', 'Čas odevzdání')
 		        ->setHtmlAttribute('class', 'form-control')
 		        ->addRule(Form::RANGE, "Zadejte číslo v rozmezí 0 - 23!", [0,23])
 		        ->addRule(Form::MAX_LENGTH, "Zadejte číslo v rozmezí 0 - 23!", 2);
-
 				break;
 			default:
 				 $form->addText('task_date', 'Datum')
@@ -383,12 +324,10 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		        ->setDefaultValue((new \DateTime)->format('Y-m-d'))
 		        ->setHtmlAttribute('class', 'form-control')
 		        ->setRequired("Tohle pole je povinné");
-
 		        $form->addText('task_from', 'Od')
 		        ->setHtmlAttribute('class', 'form-control')
 		        ->addRule(Form::RANGE, "Zadejte číslo v rozmezí 0 - 23!", [0,23])
 		        ->addRule(Form::MAX_LENGTH, "Zadejte číslo v rozmezí 0 - 23!", 2);
-
 		        $form->addText('task_to', 'Do')
 		        ->setHtmlAttribute('class', 'form-control')
 		        ->addRule(Form::RANGE, "Zadejte číslo v rozmezí 0 - 23!", [0,23])
@@ -398,7 +337,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 				break;
 		}
        
-
         if($this->task)
         {
         	$form->setDefaults([
@@ -412,7 +350,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	            'task_to' => $this->task->task_to,
 	            'id_room' => $this->task->id_room,
 	        ]);
-
 	         $form->addSubmit('create', 'Aktualizovat termín')
         	->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
         }
@@ -441,12 +378,10 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	    	}
     		return;
     	}
-
     	//ak je id_task, tak upravujeme
     	if($values->id_task != NULL)
     	{
     		$result = $this->database->query("UPDATE task SET task_name = ?, task_type = ?, task_description = ?, task_points = ?, task_date = ?, task_from = ?, task_to = ?, id_room = ?, id_course = ? WHERE id_task = ?", $values->task_name, $values->task_type, $values->task_description, $values->task_points, $values->task_date, $values->task_from, $values->task_to, $values->id_room, $values->id_course, $values->id_task);
-
     		if($result->getRowCount() > 0)
 	    	{
 	    		$this->template->update_task_success = 1;
@@ -455,7 +390,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	    	{
 	    		$this->template->update_task_success = 0;
 	    	}
-
 	    	if($this->isAjax())
 	    	{
 	    		$this->redrawControl('update_task_snippet');
@@ -484,20 +418,17 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	    	{
 	    		$this->template->create_task_success = 0;
 	    	}
-
 	    	if($this->isAjax())
 	    	{
 	    		$this->redrawControl('create_task_snippet');
 	    	}
     	}
 	}
-
 	public function registerFormHandle($form)
 	{
 		$values = $form->getValues();
 		//Check if registration exists
     	$get = $this->database->query("SELECT `id` FROM `course_has_student` WHERE `id_course` = ? AND `id_user` = ?", $values->id_course, $this->user->identity->id);
-
     	if($get->getRowCount() == 0)
     	{
 			$data = $this->database->query("INSERT INTO course_has_student ( id, id_course, id_user, student_status) VALUES ('', ?, ?, 0)", $values->id_course, $this->user->identity->id);
@@ -513,13 +444,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
             $this->redrawControl('content_snippet');
         }
 	}
-
 	public function unRegisterFormHandle($form)
 	{
 		$values = $form->getValues();
 		//Check if registration exists
     	$get = $this->database->query("SELECT `id` FROM `course_has_student` WHERE `id_course` = ? AND `id_user` = ?", $values->id_course, $this->user->identity->id);
-
     	if($get->getRowCount() == 1)
     	{
 			$this->database->table("course_has_student")->where("id_course",$values->id_course)->where("id_user",$this->user->identity->id)->delete();
@@ -535,89 +464,16 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
             $this->redrawControl('content_snippet');
         }
 	}
-
 	public function renderCourse($id)
 	{
-		if(empty($id))
-		{
-			$this->redirect("Homepage:");
+		if($id)
+        {
+			$this->garantModel->getCurrentCourse($this, $id);
 		}
-		$this->id_course=$id;
 	}
-
-	public function createComponentCreateCourseForm(): Form
-    {
-        $form = new Form;
-
-        $form->addHidden('old_id_course', NULL);
-
-        $form->addText('id_course', 'Zkratka kurzu')
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired("Tohle pole je povinné")
-        ->addRule(Form::PATTERN, 'Zadejte 3 až 5 velkých písmen nebo čísel!', '([A-Z0-9]\s*){3,5}')
-        ->addRule(Form::MAX_LENGTH, 'Zadejte 3 až 5 velkých písmen nebo čísel!', 5);
-
-        $form->addText('name', 'Název kurzu')
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired("Tohle pole je povinné")
-        ->addRule(Form::MIN_LENGTH, 'Dĺžka jména musí být 5 až 30 znaků!', 5)
-        ->addRule(Form::MAX_LENGTH, 'Dĺžka jména musí být 5 až 30 znaků!', 30);
-
-        $form->addTextArea('description', 'Popis')
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired("Tohle pole je povinné")
-        ->addRule(Form::MIN_LENGTH, 'Dĺžka popisu musí být 5 až 500 znaků!', 5)
-        ->addRule(Form::MAX_LENGTH, 'Dĺžka popisu musí být 5 až 500 znaků!', 500);
-
-        $form->addSelect('type', 'Typ', [
-		    'P' => 'Povinný',
-		    'V' => 'Volitelný',
-		])
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired("Tohle pole je povinné");
-
-		$form->addText('price', 'Cena (Kč)')
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired("Tohle pole je povinné")
-        ->addRule(Form::PATTERN, 'Zadejte číslo v rozmezí 0 - 999 999 999!', '([0-9]\s*){1,9}')
-        ->addRule(Form::MAX_LENGTH, 'Zadejte číslo v rozmezí 0 - 999 999 999!', 9);
-
-        $form->addText('tags', 'tags',)
-        ->setHtmlAttribute('class', 'form-control');
-        \Tracy\Debugger::barDump($this->id_course);
-
-        $data=$this->database->table("course")->where("id_course",$this->id_course)->select("*");
-		\Tracy\Debugger::barDump($data);
-		\Tracy\Debugger::barDump($data->id_course);
-        if($data)
-        {
-            $form->setDefaults([
-                'old_id_course' => $data->id_course,
-                'id_course' => $data->id_course,
-                'name' => $data->course_name,
-                'description' => $data->course_description,
-                'type' => $data->course_type,
-                'price' => $data->course_price,
-                'tags' => $data->tags
-            ]);
-
-            $form->addSubmit('create', 'Upravit kurz')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary ');
-        }
-        else
-        {
-            $form->addSubmit('create', 'Vytvořit kurz')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary ');
-        }
-        
-        $form->onSuccess[] = [$this, 'createCourseForm'];
-        return $form;
-    }
-
 	public function handleDeleteCourse($id_course)
 	{
 		$result = $this->database->table("course")->where("id_course",$id_course)->delete();
-
 		if($result > 0)
 		{
 			FileSystem::delete("Files/$id_course");
@@ -628,7 +484,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			$this->redirect("Garant:managecourses", $id_course, 0);
 		}		
 	}
-
     public function handleDeleteTask($id_task,$id_course)
     {
     	
@@ -636,12 +491,10 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		
     	$task = $this->database->table("task")->where("id_task", $id_task)
 			->fetch();
-
     	if($task)
     	{	
     		$result = $this->database->table("task")->where("id_task", $id_task)
     			->delete();
-
     		$this->template->task_name = $task->task_name;
     		if ($result > 0) 
 	        {	
@@ -657,7 +510,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     	{
     		$this->template->delete_task_success = 0;
     	}
-
     	if($this->isAjax())
 	    {
     		//$this->redrawControl("delete_task_snippet");
@@ -674,35 +526,25 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		/*} catch (Nette\IOException $e) {
 			$this->template->error_notif = true;
 		}*/
-
 		if ($this->isAjax()) {
-
 			$this->redrawControl("content_snippet");
 		}
 	}
-
 	public function createComponentNewFileToCourseForm()
 	{
 		$form = new Form;
-
 		$form->addHidden("course_id")
 			->setDefaultValue($this->course_id);
-
 		$form->addHidden("task_id")
 			->setDefaultValue($this->task_id);
-
 		$form->addUpload('file', '')
 			->setRequired(true)
 			->addRule(Form::MAX_FILE_SIZE, 'Maximální velikost souboru je 5 MB.', 5242880 /* v bytech */);
-
 		$form->addSubmit('submit', 'Odeslat')
 			->setHtmlAttribute('class', 'btn btn-block btn-primary');
-
 		$form->onSuccess[] = [$this, 'newFileToCourseFormSubmit'];
-
 		return $form;
 	}
-
 	public function newFileToCourseFormSubmit(Form $form)
 	{
 		$values = $form->getValues();
@@ -710,12 +552,10 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$values->file->move($path);
 		$this->redirect('Garant:showcourse',$values->course_id);
 	}
-
 	public function handleRemove($id_user, $name, $id_course): void
     {
     	
 		$result = $this->database->query("DELETE FROM course_has_lecturer WHERE id_user = ? AND id_course = ?", $id_user, $id_course);
-
 		$this->template->name = $name;
 		if($result->getRowCount() > 0)
 		{
@@ -731,12 +571,10 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
             $this->redrawControl("manage_snippet");
         }
 	}
-
 	public function handleAdd($id_user, $name, $id_course): void
     {
     	
 		$result = $this->database->query("INSERT INTO course_has_lecturer (id_user, id_course) VALUES (?,?)", $id_user, $id_course);
-
 		$this->template->name = $name;
 		if($result->getRowCount() > 0)
 		{
