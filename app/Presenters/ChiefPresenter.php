@@ -154,9 +154,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 	public function handleDeleteEquipRoom($room_equipment,$id_room)
     {
-		Debugger::barDump($room_equipment,"delete_value");
-		Debugger::barDump($id_room,"actual_room");
-		$data = $this->database->table("room_equipment")->where("id_room", $this->actual_room)->where("room_equipment", $room_equipment)
+		$data = $this->database->table("room_equipment")->where("id_room", $id_room)->where("room_equipment", $room_equipment)
 		->update([
 			'id_room' => NULL,
 		]);
