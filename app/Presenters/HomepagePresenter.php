@@ -103,7 +103,7 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 		->setIcon("info")
 		->setClass("btn btn-info");
 
-		if($this->template->rank > 2)
+		if($this->getUser()->isLoggedIn() && $this->user->identity->rank > 2)
 		{
 			$grid->addAction("select2","", 'Homepage:showcourse')
 			->setIcon("trash")
