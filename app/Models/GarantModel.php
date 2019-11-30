@@ -82,20 +82,27 @@ class GarantModel
 
         $form->addText('tags', 'tags',)
         ->setHtmlAttribute('class', 'form-control');
-        
-        $form->addSubmit('create', 'Vytvořit kurz')
-        ->setHtmlAttribute('class', 'btn btn-block btn-primary');
 
         if($this->current_course)
         {
+            $form->addHidden('old_id_course', $this->current_course->id_course);
+
             $form->setDefaults([
-            'id_course' => $this->current_course->id_course,
-            'name' => $this->current_course->course_name,
-            'description' => $this->current_course->course_description,
-            'type' => $this->current_course->course_type,
-            'price' => $this->current_course->course_price,
-            'tags' => $this->current_course->tags,
-        ]);
+                'id_course' => $this->current_course->id_course,
+                'name' => $this->current_course->course_name,
+                'description' => $this->current_course->course_description,
+                'type' => $this->current_course->course_type,
+                'price' => $this->current_course->course_price,
+                'tags' => $this->current_course->tags,
+            ]);
+
+            $form->addSubmit('create', 'Upravit kurz')
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary');
+        }
+        else
+        {
+            $form->addSubmit('create', 'Vytvořit kurz')
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary');
         }
         
         $form->onSuccess[] = [$meno, 'createCourseForm'];
