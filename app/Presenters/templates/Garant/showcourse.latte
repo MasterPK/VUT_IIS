@@ -26,9 +26,9 @@ Detail kurzu
                     {ifset $courseActive}
                     {if $userIsGuarantorInCourse == true}
                         <div class="col-md-9 col-sm-12 ">
-                            <div class="float-right">
+                            
                                 <div class="row">
-                                    <div class="col-md-6 col-sm-12">
+                                    <div class="col-md-4 col-sm-12">
                                         {ifset $openRegistration}
                                             <form n:name="closeRegisterForm">
                                                     {input register}
@@ -50,7 +50,7 @@ Detail kurzu
                                     </div>
                                     
                                     {ifset $id_course}
-                                        <div class="col">
+                                        <div class="col-md-2 col-sm-3">
                                             <button class="btn btn-sm btn-primary" onClick="show({$id_course})"><i class="fas fa-trash"></i></button>
                                         </div>
 
@@ -74,7 +74,7 @@ Detail kurzu
                                         
                                     {/ifset}
                                 </div>
-                            </div>
+                            
                         </div>
                      {/if}
                     {/ifset}
