@@ -46,70 +46,7 @@ class GarantModel
         else return $lectorCourses;
     }
 
-    public function createCourseF($meno): Form
-    {
-        $form = new Form;
-
-        $form->addHidden('old_id_course', NULL);
-
-        $form->addText('id_course', 'Zkratka kurzu')
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired("Tohle pole je povinné")
-        ->addRule(Form::PATTERN, 'Zadejte 3 až 5 velkých písmen nebo čísel!', '([A-Z0-9]\s*){3,5}')
-        ->addRule(Form::MAX_LENGTH, 'Zadejte 3 až 5 velkých písmen nebo čísel!', 5);
-
-        $form->addText('name', 'Název kurzu')
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired("Tohle pole je povinné")
-        ->addRule(Form::MIN_LENGTH, 'Dĺžka jména musí být 5 až 30 znaků!', 5)
-        ->addRule(Form::MAX_LENGTH, 'Dĺžka jména musí být 5 až 30 znaků!', 30);
-
-        $form->addTextArea('description', 'Popis')
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired("Tohle pole je povinné")
-        ->addRule(Form::MIN_LENGTH, 'Dĺžka popisu musí být 5 až 500 znaků!', 5)
-        ->addRule(Form::MAX_LENGTH, 'Dĺžka popisu musí být 5 až 500 znaků!', 500);
-
-        $form->addSelect('type', 'Typ', [
-		    'P' => 'Povinný',
-		    'V' => 'Volitelný',
-		])
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired("Tohle pole je povinné");
-
-		$form->addText('price', 'Cena (Kč)')
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired("Tohle pole je povinné")
-        ->addRule(Form::PATTERN, 'Zadejte číslo v rozmezí 0 - 999 999 999!', '([0-9]\s*){1,9}')
-        ->addRule(Form::MAX_LENGTH, 'Zadejte číslo v rozmezí 0 - 999 999 999!', 9);
-
-        $form->addText('tags', 'tags',)
-        ->setHtmlAttribute('class', 'form-control');
-        \Tracy\Debugger::barDump($this->current_course);
-        if($this->current_course)
-        {
-            $form->setDefaults([
-                'old_id_course' => $this->current_course->id_course,
-                'id_course' => $this->current_course->id_course,
-                'name' => $this->current_course->course_name,
-                'description' => $this->current_course->course_description,
-                'type' => $this->current_course->course_type,
-                'price' => $this->current_course->course_price,
-                'tags' => $this->current_course->tags,
-            ]);
-
-            $form->addSubmit('create', 'Upravit kurz')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary');
-        }
-        else
-        {
-            $form->addSubmit('create', 'Vytvořit kurz')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary');
-        }
-        
-        $form->onSuccess[] = [$meno, 'createCourseForm'];
-        return $form;
-    }
+   
 
     private $currentCourseId;
     public function renderShowCourse($presenter,$id)
