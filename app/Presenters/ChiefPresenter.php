@@ -149,7 +149,6 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 		$grid->setTranslator($this->dataGridTranslator);
 
-
 		return $grid;
 	}
 
@@ -164,6 +163,9 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 
         $this->template->success_notify = true;
+        if ($this->isAjax()) {
+            $this->redrawControl('content_snipet');
+        } else {
             $this->redirect('this');
     }
 
