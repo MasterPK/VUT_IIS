@@ -388,7 +388,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 ]);
         };*/
 
-        $grid->addAction("select", "Upravit", 'Admin:edituser')
+        $grid->addAction("select", "", 'Admin:edituser')
             ->setIcon('pencil')
             ->setClass("btn btn-xs btn-default btn-secondary");
 
