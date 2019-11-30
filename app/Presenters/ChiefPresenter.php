@@ -143,7 +143,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
             ->setClass('btn btn-xs btn-danger ajax')
 			->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet smazat místnost?'));
 			
-		$grid->addToolbarButton('Chief:manageAdres', 'Správa adres')
+		$grid->addToolbarButton('Chief:addEquipment', 'Přidat vynavení')
             ->setTitle('Správa adres')
             ->setClass('btn btn-xs btn-primary');
 
@@ -210,10 +210,10 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	}
 
 	
-	public function renderAddEquipment($id)
+	public function renderAddEquipment($id_room)
 	{
-		$this->actual_room = $id;
-		$this->template->actual_room = $id;
+		$this->actual_room = $id_room;
+		$this->template->actual_room = $id_room;
 	}
 
 	public function renderManageAdres(): void
