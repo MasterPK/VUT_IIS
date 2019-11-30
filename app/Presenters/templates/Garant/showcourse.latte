@@ -82,7 +82,7 @@ Detail kurzu
                     {ifset $courseActive}
                         <div class="col-md-3 col-sm-12">
                             Stav registrací:<br>
-                            <b>{if $course->course_status == 2 }Otevřeno{else}Zavřeno{/if}</b>
+                            <b>{if $course->course_status == 2}Otevřeno{elseif $course->course_status == 3}Zavřeno{else}Kurz byl zamítnut{/if}</b>
                         </div>
                         {if $userIsGuarantorInCourse == false && $userIsLectorInCourse == false}
                             <div class="col-md-3 col-sm-12">
@@ -90,11 +90,6 @@ Detail kurzu
                                 <b>{ifset $userCourseStatus}{if $userCourseStatus == 0 }Čeká se na schválení{elseif $userCourseStatus == 1}Potvrzeno{elseif $userCourseStatus == 2}Zamítnuto{/if}{else}Žádná žádost neexistuje!{/ifset}</b>
                             </div>
                         {/if}
-                    {else}
-                        <div class="col-md-3 col-sm-12">
-                            Stav registrací:<br>
-                            <b>Čeká na se na schválení kurzu vedoucím</b>
-                        </div>
                     {/ifset}
                 </div>
                 <br>
