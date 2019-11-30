@@ -70,7 +70,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
         ]);
     }
 
-
+	private $actual_room;
 	public function createComponentRoomsGrid($name)
 	{
 		$grid = new DataGrid($this, $name);
@@ -195,7 +195,6 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$this->template->courses = $this->mainModel->getAllCourses();
 	}
 
-	private $actual_room;
 	public function renderRooms(): void
 	{
 		$data = $this->database->query("SELECT * FROM room NATURAL JOIN room_address")->fetchAll();
