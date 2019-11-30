@@ -9,6 +9,9 @@
 {ifset $password_notify}
 <script>$.notify("Hesla nejsou stejná!", "warn");</script>
 {/ifset}
+{ifset $duplicate_notify}
+<script>$.notify("Uživatel s tímto emailem již existuje!", "warn");</script>
+{/ifset}
 {/snippet}
 <div class="row">
     <div class="col-sm-12">

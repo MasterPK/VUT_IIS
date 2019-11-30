@@ -22,7 +22,7 @@ Detail kurzu
                 {ifset $courseActive}
                 {if $userIsGuarantorInCourse == true}
                 <a id="btnpopover" data-placement="left" style="float: right;"><i class="fas fa-plus-square"></i></a>
-                <a n:href="Garant:modifyCourse $course->id_course"><i class="fas fa-edit"></i></a>
+                <a n:href="Garant:modifyCourse $course->id_course"><i class="fas fa-edit btn btn-xs btn-default btn-secondary"></i></a>
                 {/if}
                 {/ifset}
             </div>
@@ -259,36 +259,26 @@ Detail kurzu
 
 
 
-<div class="popover_title" style="display: none">
-<h6 style="text-align:center;">Přidat</h6>
+<div class="popover_title">
+<h6 class="text-center">Přidat</h6>
 </div>
-<div id="popover_content_wrapper" style="display: none">                 
-    <div class="col-md-12 align-items-center">
-        <div class="form-group">
-            <a n:href="Garant:newtask $course->id_course, 'PR'" class="btn btn-primary btn-sm text-white order-1 order-sm-0">
+<div id="popover_content_wrapper">                 
+    <div class="col-md-12 text-center">
+            <a n:href="Garant:newtask $course->id_course, 'PR'" class="btn btn-primary btn-sm text-white btn-block m-b-1">
               Přednáška
             </a>
-        </div>
-        <div class="form-group">
-            <a n:href="Garant:newtask $course->id_course, 'CV'" class="btn btn-primary btn-sm text-white order-1 order-sm-0">
+            <a n:href="Garant:newtask $course->id_course, 'CV'" class="btn btn-primary btn-sm text-white btn-block m-b-1">
               Cvičení
             </a>
-        </div>
-        <div class="form-group">
-            <a n:href="Garant:newtask $course->id_course, 'DU'" class="btn btn-primary btn-sm text-white order-1 order-sm-0">
+            <a n:href="Garant:newtask $course->id_course, 'DU'" class="btn btn-primary btn-sm text-white btn-block m-b-1">
               Domácí úkol
             </a>
-        </div>
-        <div class="form-group">
-            <a n:href="Garant:newtask $course->id_course, 'PJ'" class="btn btn-primary btn-sm text-white order-1 order-sm-0">
+            <a n:href="Garant:newtask $course->id_course, 'PJ'" class="btn btn-primary btn-sm text-white btn-block m-b-1">
               Projekt
             </a>
-        </div>
-        <div class="form-group">
-            <a n:href="Garant:newtask $course->id_course, 'ZK'" class="btn btn-primary btn-sm text-white order-1 order-sm-0">
+            <a n:href="Garant:newtask $course->id_course, 'ZK'" class="btn btn-primary btn-sm text-white btn-block m-b-1">
               Zkouška
             </a>
-        </div>
     </div>
 </div>
 
