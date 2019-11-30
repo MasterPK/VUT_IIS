@@ -47,7 +47,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	{
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('id_room');
-		$grid->setDataSource($this->database->query('SELECT * FROM room NATURAL JOIN room_address'));
+		$grid->setDataSource($this->database->table("room")->select("room.*,room_address.room_address"));
 
 		$grid->addColumnText('id_room', 'Místnost')
 		->setSortable()
