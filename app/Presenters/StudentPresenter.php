@@ -10,7 +10,7 @@ use Ublaboo\DataGrid\DataGrid;
 use Tracy\Debugger;
 use Nette\Utils\DateTime;
 
-setlocale(LC_TIME,"cs-CZ");
+
 
 class StudentPresenter extends Nette\Application\UI\Presenter
 {
@@ -212,8 +212,8 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		}
 		$dayTasksCount=array();
 		foreach ($data as $value) {
-			
-			$day = strftime ('%A',$value->task_date->getTimestamp());
+			setlocale(LC_TIME,"cs-CZ");
+			$day = date ('l',$value->task_date->getTimestamp());
 			Debugger:dump($day);
 		}
 		
