@@ -239,6 +239,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			}
 		}
 		$weekDays=Json::encode($weekDays);
+		$this->template->weekDays=$weekDays;
 		Debugger::barDump($weekDays,"result");
 	}
 }
