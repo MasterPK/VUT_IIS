@@ -85,7 +85,7 @@ class GarantModel
 
         $form->addText('tags', 'tags',)
         ->setHtmlAttribute('class', 'form-control');
-
+        \Tracy\Debugger::barDump($this->current_course);
         if($this->current_course)
         {
             $form->setDefaults([
@@ -172,7 +172,6 @@ class GarantModel
     public function getCurrentCourse($presenter, $id_course)
     {
         $this->current_course=$this->database->table("course")->where("id_course",$id_course)->fetch();
-        \Tracy\Debugger::barDump($this->current_course);
         if($this->current_course)
         {
             if($this->current_course->id_guarantor != $presenter->user->identity->id)
