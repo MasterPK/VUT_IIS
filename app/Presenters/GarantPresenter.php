@@ -132,22 +132,35 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     	{
     		try
 	    	{
-	    		$data = $this->database->table("course")->where("id_course", $values->old_id_course)
-		            ->update([
-		            	"id_course" => $values->id_course,
-		                'course_name' => $values->name,
-		                'course_description' => $values->description,
-		                'course_type' => $values->type,
-		                'course_price' => $values->price,
-		                "course_status" => 0,
-						"tags" => $values->tags
-		            ]);
+	    		//overenie, ci kurz s novym id existuje
+	    		if($values->old_id_course != $values->id_course)
+	    		{
+	    			$check = $this->database->table("course")->where("id_course", $values->id_course)->fetch();
+	    			if(count($check) == 1)
+	    			{
+	    				$this->template->error_update_exists=true;
+	    				if ($this->isAjax()) 
+				        {
+				            $this->redrawControl("course_snippet");
+				        }	
+	    				return;
+	    			}
+	    		}
+	    		
+    			$data = $this->database->table("course")->where("id_course", $values->old_id_course)
+	            ->update([
+	            	"id_course" => $values->id_course,
+	                'course_name' => $values->name,
+	                'course_description' => $values->description,
+	                'course_type' => $values->type,
+	                'course_price' => $values->price,
+	                "course_status" => 0,
+					"tags" => $values->tags
+	            ]);
 
-
-	    		//$data = $this->database->query("INSERT INTO course (id_course, course_name, course_description, course_type, course_price, id_guarantor, course_status) VALUES (?, ?, ?, ?, ?, ?, 0, ?);", $values->id_course, $values->name, $values->description, $values->type, $values->price, $values->tags,  $this->user->identity->id);
 				FileSystem::rename("Files/$values->old_id_course", "Files/$values->id_course");
-				
-	    		$this->template->success_update = true;
+			
+    			$this->template->success_update = true;
 	    	}
 	    	catch(Nette\Database\UniqueConstraintViolationException $e)
 	    	{
