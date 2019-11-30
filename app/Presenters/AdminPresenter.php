@@ -344,7 +344,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 '0' => 'Neaktivní',
                 '1' => 'Aktivní'
             ]);
-/*
+        /*
         $grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
             $container->addText('email', '');
@@ -389,13 +389,13 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         };*/
 
         $grid->addAction("select", "Upravit", 'Admin:edituser')
-            ->setClass("btn btn-xs btn-default btn-secondary")
-            ->setIcon('pencil');
+            ->setIcon('pencil')
+            ->setClass("btn btn-xs btn-default btn-secondary");
+
 
         $grid->setTranslator($this->dataGridTranslator);
 
 
         return $grid;
     }
-
 }
