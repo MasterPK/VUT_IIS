@@ -501,12 +501,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	{
 		$result = $this->database->table("course")->where("id_course",$id_course)->delete();
 
-		
-
-		$this->database->table("course")->where("id_course",$id_course)->delete();
-		
-		$this->redirect("Garant:managecourses");
-
 		if($result > 0)
 		{
 			FileSystem::delete("Files/$id_course");
