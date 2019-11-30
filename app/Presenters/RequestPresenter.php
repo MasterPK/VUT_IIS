@@ -194,17 +194,52 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 			'course_status' => '1'
 		]);
 
-		if ($this->isAjax() && $count==1)
+		if($count == 1)
 		{
-			$this->template->error_notif = 3;
-            $this->redrawControl('content_snippet');
-		}
+			$this->template->success_approve = true;
+        }
 		else
 		{
-			$this->template->error_notif = 4;
-            $this->redrawControl('content_snippet');
+			$this->template->success_approve = false;
+		}
+
+		if($this->isAjax())
+		{
+			$this->redrawControl('content_snippet');
 		}
 		
+		
+    	
+	}
+
+	public function handleDenyCourse($id): void
+    {
+
+		
+		if(empty($id))
+		{
+			return;
+		}
+
+		$count = $this->database->table('course')
+		->where('id_course', $id)
+		->update([
+			'course_status' => '2'
+		]);
+
+		if($count == 1)
+		{
+			$this->template->success_deny = true;
+        }
+		else
+		{
+			$this->template->success_deny = false;
+		}
+
+		if($this->isAjax())
+		{
+			$this->redrawControl('content_snippet');
+		}
 		
     	
 	}
