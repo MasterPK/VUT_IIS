@@ -103,6 +103,10 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 		->setIcon("info")
 		->setClass("btn btn-info");
 
+		$grid->addAction("select","", 'Homepage:showcourse')
+		->setIcon("trash")
+		->setClass("btn btn-danger");
+
 		$grid->setTranslator($this->dataGridTranslator);
 
 	
