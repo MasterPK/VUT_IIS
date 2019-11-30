@@ -497,7 +497,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         }
 	}
 
-	public function renderCreate($id)
+	public function renderCourse($id)
 	{
 		if($id)
         {
