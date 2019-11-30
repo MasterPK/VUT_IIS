@@ -18,13 +18,25 @@ Detail kurzu
     <div class="col-sm-12">
         <div class="card bg-default ">
             <div class="card-header">
-                {$course->id_course}
-                {ifset $courseActive}
-                {if $userIsGuarantorInCourse == true}
-                <a id="btnpopover" data-placement="left" style="float: right;"><i class="fas fa-plus-square"></i></a>
-                <a n:href="Garant:modifyCourse $course->id_course"><i class="fas fa-edit btn btn-xs btn-default btn-secondary"></i></a>
-                {/if}
-                {/ifset}
+                
+                <div class="row">
+                    <div class="col-md-10 col-sm-12">
+                        {$course->id_course}
+                    </div>
+                    {ifset $courseActive}
+                    {if $userIsGuarantorInCourse == true}
+                        <div class="col-md-2 col-sm-12 ">
+                            <div class="float-right">
+                                <a id="btnpopover"  class="btn btn-xs btn-primary"><i class="fas fa-plus-square "></i></a>
+                                <a n:href="Garant:modifyCourse $course->id_course" class="btn btn-xs btn-default btn-secondary"><i class="fas fa-edit "></i></a>
+                            </div>
+                        </div>
+                     {/if}
+                    {/ifset}
+                </div>
+                
+                
+               
             </div>
             <div class="card-body">
                 <div class="row">
