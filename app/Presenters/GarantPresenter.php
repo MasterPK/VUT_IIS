@@ -538,6 +538,10 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	public function renderCourse($id)
 	{
+		if(empty($id))
+		{
+			$this->redirect("Homepage:");
+		}
 		$this->id_course=$id;
 	}
 
@@ -582,8 +586,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         ->setHtmlAttribute('class', 'form-control');
         \Tracy\Debugger::barDump($this->id_course);
 
-        $data=$this->database->table("course")->where("id_course",$this->id_course)->select("*");
-        \Tracy\Debugger::barDump($data);
+        $data=$this->database->table("course")->where("id_course",$this->id_course)->select("*")->fetchAll();
+		\Tracy\Debugger::barDump($data);
+		\Tracy\Debugger::barDump($data->id_course);
         if($data)
         {
             $form->setDefaults([
@@ -593,7 +598,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
                 'description' => $data->course_description,
                 'type' => $data->course_type,
                 'price' => $data->course_price,
-                'tags' => $data->tags,
+                'tags' => $data->tags
             ]);
 
             $form->addSubmit('create', 'Upravit kurz')
