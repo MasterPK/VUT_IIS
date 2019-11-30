@@ -599,7 +599,7 @@ var timetable = new Timetable();
 timetable.setScope(0, 23);
 timetable.addLocations(['Pondělí', 'Úterý', 'Středa', 'Čtvrtek', "Pátek", "Sobota", "Neděle"]);
 timetable.addEvent('Frankadelic', 'Pondělí', new Date(2019,7,17,10,45), new Date(2019,7,17,12,30));
-timetable.addEvent('Frankadelic2', 'Úterý', new Date(2019,7,17,10,45), new Date(2019,7,17,12,30));
+timetable.addEvent('Frankadelic2', 'Pondělí', new Date(2019,7,17,10,45), new Date(2019,7,17,12,30));
 var renderer = new Timetable.Renderer(timetable);
 renderer.draw('.timetable'); // any css selector
 </script>
