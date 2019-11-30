@@ -276,12 +276,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
             $this->redrawControl('content_snippet');
         }
 	}
-	
-	public function searchCourseForm(Nette\Application\UI\Form $form): void
-    {
-    	$values = $form->getValues();
-    	$this->redirect("Homepage:courses", $values->search, $values->filter);
-	}
+
 
 	public function createComponentCreateTaskForm(): Nette\Application\UI\Form
     {
