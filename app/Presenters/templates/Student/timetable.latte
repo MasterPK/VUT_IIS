@@ -13,7 +13,6 @@ timetable.addLocations(data);
 {foreach $tasks as $row}
 timetable.addEvent({$row[task_name]}, {$row[day]}, new Date(0000,0,00,{$row[task_from]|noescape},00), new Date(0000,0,00,{$row[task_to]|noescape},00));
 {/foreach}
-timetable.addEvent('Frankadelic', 'Pondělí', new Date(2019,7,17,10,45), new Date(2019,7,17,12,30));
 var renderer = new Timetable.Renderer(timetable);
 renderer.draw('.timetable'); // any css selector
 </script>
