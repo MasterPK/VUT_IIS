@@ -81,10 +81,6 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setFilterText();
 
-		$grid->addColumnText('tags', 'Štítky')
-		->setSortable()
-		->setFilterText();
-
 		$grid->addAction("select","Detail", 'Student:showcourse')
 		->setClass("btn btn-primary");
 
@@ -200,6 +196,12 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		{
             $this->redrawControl('content_snippet');
         }
+	}
+
+	public function renderTimetable()
+	{
+		//Get all tasks in student courses
+		$this->database->query("SELECT * FROM")
 	}
 	
 }
