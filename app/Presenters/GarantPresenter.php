@@ -538,6 +538,10 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	public function renderCourse($id)
 	{
+		if(empty($id))
+		{
+			$this->redirect("Homepage:");
+		}
 		$this->id_course=$id;
 	}
 
@@ -587,13 +591,13 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         if($data)
         {
             $form->setDefaults([
-                'old_id_course' => $data["id_course"],
-                'id_course' => $data["id_course"],
-                'name' => $data["course_name"],
-                'description' => $data["course_description"],
-                'type' => $data["course_type"],
-                'price' => $data["course_price"],
-                'tags' => $data["tags"],
+                'old_id_course' => $data->id_course,
+                'id_course' => $data->id_course,
+                'name' => $data->course_name,
+                'description' => $data->course_description,
+                'type' => $data->course_type,
+                'price' => $data->course_price,
+                'tags' => $data->tags
             ]);
 
             $form->addSubmit('create', 'Upravit kurz')
