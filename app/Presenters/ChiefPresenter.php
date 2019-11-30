@@ -126,9 +126,11 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	}
 
 
-	public function createComponentManageEquipmentGrid($name)
+	public function createComponentManageEquipmentGrid($name,$id_room)
 	{
 
+
+		Debugger::barDump($id_room,"dete");
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('room_equipment');
 		$grid->setDataSource($this->database->query("SELECT * FROM room_equipment NATURAL JOIN room")->fetchAll());
@@ -143,7 +145,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
             ->setClass('btn btn-xs btn-danger ajax')
 			->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet smazat místnost?'));
 			
-		$grid->addToolbarButton('Chief:addEquipment $id_room', 'Přidat vynavení')
+		$grid->addToolbarButton('Chief:addEquipment', 'Přidat vynavení')
             ->setTitle('Správa adres')
             ->setClass('btn btn-xs btn-primary');
 
