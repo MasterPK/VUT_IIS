@@ -128,86 +128,82 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     {
     	$values = $form->getValues();
 
-    	if($values->old_id_course != NULL)
-    	{
-    		$check = $this->database->query("SELECT id_course FROM course WHERE id_course = ?", $values->id_course);
-			if($check->getRowCount() == 1)
-			{
-				if($values->old_id_course != $values->id_course)
-	    		{
-					$this->template->error_course_exists=true;
-				}
+    	$check = $this->database->query("SELECT id_course FROM course WHERE id_course = ?", $values->id_course);
+		if($check->getRowCount() == 1)
+		{
+			if(($values->old_id_course != NULL && $values->old_id_course != $values->id_course) || $values->old_id_course == NULL)
+    		{
+				$this->template->error_course_exists=true;
+				if($this->isAjax()) 
+		        {
+		            $this->redrawControl("course_snippet");
+		        }	
+				return;
 			}
-			else
-			{
-				try
-		    	{	    		
-	    			$data = $this->database->table("course")->where("id_course", $values->old_id_course)
-		            ->update([
-		            	"id_course" => $values->id_course,
-		                'course_name' => $values->name,
-		                'course_description' => $values->description,
-		                'course_type' => $values->type,
-		                'course_price' => $values->price,
-		                "course_status" => 0,
-						"tags" => $values->tags
-		            ]);
+		}
 
-		            if($data == 1)
-		            {
-		            	FileSystem::rename("Files/$values->old_id_course", "Files/$values->id_course");
-	    				$this->template->success_update = true;
-		            }
-		            else
-		            {
-		            	$this->template->no_change = true;
-		            }
-					
-		    	}
-		    	catch(Nette\Database\UniqueConstraintViolationException $e)
-		    	{
-		    		$this->template->error_update=true;
-				}
-				catch(Nette\IOException $e)
-		    	{
-		    		$this->template->error_update=true;
-				}
+    	if($values->old_id_course != NULL)
+    	{			
+			try
+	    	{	    		
+    			$data = $this->database->table("course")->where("id_course", $values->old_id_course)
+	            ->update([
+	            	"id_course" => $values->id_course,
+	                'course_name' => $values->name,
+	                'course_description' => $values->description,
+	                'course_type' => $values->type,
+	                'course_price' => $values->price,
+	                "course_status" => 0,
+					"tags" => $values->tags
+	            ]);
+
+	            if($data == 1)
+	            {
+	            	FileSystem::rename("Files/$values->old_id_course", "Files/$values->id_course");
+    				$this->template->success_update = true;
+	            }
+	            else
+	            {
+	            	$this->template->no_change = true;
+	            }
+				
+	    	}
+	    	catch(Nette\Database\UniqueConstraintViolationException $e)
+	    	{
+	    		$this->template->error_update=true;
 			}
+			catch(Nette\IOException $e)
+	    	{
+	    		$this->template->error_update=true;
+			}
+			
     	}
     	else
     	{
-    		$check = $this->database->query("SELECT id_course FROM course WHERE id_course = ?", $values->id_course);
-			if($check->getRowCount() == 1)
-			{
-				$this->template->error_course_exists=true;
+			try
+	    	{
+				$this->database->table("course")->insert([
+					"id_course" => $values->id_course,
+					"course_name" => $values->name,
+					"course_description" => $values->description,
+					"course_type" => $values->type,
+					"course_price" => $values->price,
+					"id_guarantor" => $this->user->identity->id,
+					"course_status" => 0,
+					"tags" => $values->tags
+				]);
+	   
+				FileSystem::createDir("Files/$values->id_course");
+				
+	    		$this->template->success_insert = true;
+	    	}
+	    	catch(Nette\Database\UniqueConstraintViolationException $e)
+	    	{
+	    		$this->template->error_insert=true;
 			}
-			else
-			{
-				try
-		    	{
-					$this->database->table("course")->insert([
-						"id_course" => $values->id_course,
-						"course_name" => $values->name,
-						"course_description" => $values->description,
-						"course_type" => $values->type,
-						"course_price" => $values->price,
-						"id_guarantor" => $this->user->identity->id,
-						"course_status" => 0,
-						"tags" => $values->tags
-					]);
-		    		//$data = $this->database->query("INSERT INTO course (id_course, course_name, course_description, course_type, course_price, id_guarantor, course_status) VALUES (?, ?, ?, ?, ?, ?, 0, ?);", $values->id_course, $values->name, $values->description, $values->type, $values->price, $values->tags,  $this->user->identity->id);
-					FileSystem::createDir("Files/$values->id_course");
-					
-		    		$this->template->success_insert = true;
-		    	}
-		    	catch(Nette\Database\UniqueConstraintViolationException $e)
-		    	{
-		    		$this->template->error_insert=true;
-				}
-				catch(Nette\IOException $e)
-		    	{
-		    		$this->template->error_insert=true;
-				}
+			catch(Nette\IOException $e)
+	    	{
+	    		$this->template->error_insert=true;
 			}
     	}
 
@@ -276,12 +272,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
             $this->redrawControl('content_snippet');
         }
 	}
-	
-	public function searchCourseForm(Nette\Application\UI\Form $form): void
-    {
-    	$values = $form->getValues();
-    	$this->redirect("Homepage:courses", $values->search, $values->filter);
-	}
+
 
 	public function createComponentCreateTaskForm(): Nette\Application\UI\Form
     {
