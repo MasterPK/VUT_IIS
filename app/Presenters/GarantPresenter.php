@@ -55,7 +55,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	public function renderDefault(): void
 	{ }
 
-	private $id_course;
+	
 	/**
 	 * Generuje aktuálne zapsané predmety lektora
 	 *
