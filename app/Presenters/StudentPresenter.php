@@ -201,6 +201,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			$dayTasksCount[$i] = 0;
 		}
 		foreach ($data as $value) {
+			Debugger::barDump($value,"value");
 			$day = date('N', $value->task_date->getTimestamp());
 			$dayTasksCount[$day] += 1;
 			switch ($day) {
@@ -229,8 +230,8 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			array_push($tasks,[
 				"task_name"=>$value->task_name,
 				"day"=>$day,
-				"task_from"=>$value->task_from,
-				"task_to"=>$value->task_to
+				"task_from"=>$value->task_from==NULL?$value->task_to:$value->task_from,
+				"task_to"=>$value->task_from==NULL?$value->task_to+1:$value->task_to
 				]);
 			
 		}
