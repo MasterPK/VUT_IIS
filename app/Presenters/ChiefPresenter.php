@@ -148,7 +148,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$data = $this->database->query("SELECT * FROM room_equipment NATURAL JOIN room_has_equipment WHERE id_room = ?",  $id_room)->fetchAll();
 
 		$this->template->equip = $data;
-		$this->template->id = $id;
+		$this->template->id = $id_room;
 	}
 
 	private $actual_room;
