@@ -195,17 +195,45 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		if (!$data) {
 			return;
 		}
+		$tasks = array();
 		$dayTasksCount = array();
 		for ($i = 1; $i <= 7; $i++) {
 			$dayTasksCount[$i] = 0;
 		}
 		foreach ($data as $value) {
-
 			$day = date('N', $value->task_date->getTimestamp());
 			$dayTasksCount[$day] += 1;
+			switch ($day) {
+				case 1:
+					$day="Pondělí";
+					break;
+				case 2:
+					$day="Úterý";
+					break;
+				case 3:
+					$day="Středa";
+					break;
+				case 4:
+					$day="Čtvrtek";
+					break;
+				case 5:
+					$day="Pátek";
+					break;
+				case 6:
+					$day="Sobota";
+					break;
+				case 7:
+					$day="Neděle";
+					break;
+			}
+			array_push($tasks,[
+				"task_name"=>$value->task_name,
+				"day"=>$day,
+				"task_from"=>$value->task_from,
+				"task_to"=>$value->task_from
+				]);
+			
 		}
-
-		Debugger::barDump($dayTasksCount);
 		$weekDays = array();
 		foreach ($dayTasksCount as $key => $value) {
 			switch ($key) {
@@ -237,31 +265,32 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			for ($i = 0; $i < $value-1; $i++) {
 				switch ($key) {
 					case 1:
-						array_push($weekDays, "Pondělí$i");
+						array_push($weekDays, "Po$i");
 						break;
 					case 2:
-						array_push($weekDays, "Úterý$i");
+						array_push($weekDays, "Út$i");
 						break;
 					case 3:
-						array_push($weekDays, "Středa$i");
+						array_push($weekDays, "St$i");
 						break;
 					case 4:
-						array_push($weekDays, "Čtvrtek$i");
+						array_push($weekDays, "Čt$i");
 						break;
 					case 5:
-						array_push($weekDays, "Pátek$i");
+						array_push($weekDays, "Pá$i");
 						break;
 					case 6:
-						array_push($weekDays, "Sobota$i");
+						array_push($weekDays, "So$i");
 						break;
 					case 7:
-						array_push($weekDays, "Neděle$i");
+						array_push($weekDays, "Ne$i");
 						break;
 				}
 			}
 		}
-		$weekDays=Json::encode($weekDays);
-		$this->template->weekDays=$weekDays;
-		Debugger::barDump($weekDays,"result");
+		$this->template->weekDays=Json::encode($weekDays);
+		$this->template->tasks=$tasks;
+		Debugger::barDump($tasks,"tasks");
+
 	}
 }
