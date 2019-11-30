@@ -180,7 +180,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			if(($values->old_id_course != NULL && $values->old_id_course != $values->id_course) || $values->old_id_course == NULL)
     		{
 				$this->template->error_course_exists=true;
-				$this->redirect("this");
+				
 				return;
 			}
 		}
@@ -254,7 +254,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	    		$this->template->error_insert=true;
 			}
     	}
-		$this->redirect("course", $values->id_course);	
+		
 	}
 
 	public function createComponentRegisterForm()
