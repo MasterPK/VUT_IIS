@@ -93,8 +93,15 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setFilterText();
 
-		$grid->addAction("select","Detail", 'Homepage:showcourse')
-		->setClass("btn btn-primary");
+        $grid->addAction("select", "", 'Admin:edituser')
+            ->setIcon('edit')
+            ->setClass("btn btn-xs btn-default btn-secondary");
+
+        $grid->addAction('delete', '', 'delete!')
+            ->setIcon('trash')
+            ->setTitle('Smazat')
+            ->setClass('btn btn-xs btn-danger ajax')
+            ->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet smazat uživatele %s?', 'email'));
 
 		$grid->setTranslator($this->dataGridTranslator);
 
