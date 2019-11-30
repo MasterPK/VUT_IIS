@@ -306,8 +306,8 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
         $form->addText('task_points', 'Počet bodů')
         ->setHtmlAttribute('class', 'form-control')
-        ->addRule(Form::RANGE, "Zadejte počet bodů v rozmezí 1 - 100!", [1,100])
-        ->addRule(Form::MAX_LENGTH, "Zadejte počet bodů v rozmezí 1 - 100!", 3);
+        ->addRule(Form::RANGE, "Zadejte počet bodů v rozmezí 0 - 100!", [0,100])
+        ->addRule(Form::MAX_LENGTH, "Zadejte počet bodů v rozmezí 0 - 100!", 3);
 
         $allrooms = $this->database->query("SELECT id_room FROM room")->fetchAll();
 		$rooms[NULL] = "Žádná";
