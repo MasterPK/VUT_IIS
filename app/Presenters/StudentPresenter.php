@@ -6,8 +6,8 @@ namespace App\Presenters;
 use Nette;
 use Nette\Application\UI\Form;
 use Ublaboo\DataGrid\DataGrid;
-
-
+use Tracy\Debugger;
+use Nette\Utils\DateTime;
 
 class StudentPresenter extends Nette\Application\UI\Presenter
 {
@@ -78,10 +78,6 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		$grid->addFilterSelect('course_type', 'Typ kurzu:', ["P" => 'Povinný', "V" => 'Volitelný']);
 		
 		$grid->addColumnText('course_price', 'Cena kurzu')
-		->setSortable()
-		->setFilterText();
-
-		$grid->addColumnText('tags', 'Štítky')
 		->setSortable()
 		->setFilterText();
 
@@ -200,6 +196,25 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		{
             $this->redrawControl('content_snippet');
         }
+	}
+
+	public function renderTimetable()
+	{
+		//Get all tasks in student courses
+		$data=$this->database->query("SELECT task.* FROM course NATURAL JOIN course_has_student NATURAL JOIN task WHERE id_user=?;",$this->user->identity->id)->fetchAll();
+
+		if(!$data)
+		{
+			return;
+		}
+		$dayTasksCount=array();
+		foreach ($data as $value) {
+			
+			$day = date('l',$value->task_date->getTimestamp());
+			Debugger:dump($day);
+		}
+		
+
 	}
 	
 }
