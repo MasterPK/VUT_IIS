@@ -126,11 +126,11 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	}
 
 
-	public function createComponentManageEquipmentGrid($name,$id_room)
+	public function createComponentManageEquipmentGrid($name)
 	{
 
 
-		Debugger::barDump($id_room,"dete");
+		Debugger::barDump($this->actual_room,"dete");
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('room_equipment');
 		$grid->setDataSource($this->database->query("SELECT * FROM room_equipment NATURAL JOIN room")->fetchAll());
