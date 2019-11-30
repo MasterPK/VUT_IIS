@@ -99,7 +99,7 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setFilterText();
 
-		$grid->addAction("select","Detail", 'Homepage:showcourse')
+		$grid->addAction("select","", 'Homepage:showcourse')
 		->setIcon("info");
 
 		$grid->setTranslator($this->dataGridTranslator);
