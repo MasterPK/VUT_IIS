@@ -420,8 +420,9 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     public function handleDelete($id_user)
     {
         $this->database->table("user")->where("id_user", $id_user)->delete();
+        $this->template->success_notify = true;
         if ($this->isAjax()) {
-            $this->template->success_notify = true;
+            
             $this->redrawControl('notify');
         } else {
             $this->redirect('this');
