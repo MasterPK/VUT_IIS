@@ -347,7 +347,6 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
         $grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
-            $container->addText('id_user', '');
             $container->addText('email', '');
             $container->addText('first_name', '');
             $container->addText('surname', '');
@@ -368,7 +367,6 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         $grid->getInlineEdit()->onSetDefaults[] = function (Nette\Forms\Container $container, $item): void {
 
             $container->setDefaults([
-                'id_user' => $item->id_user,
                 'email' => $item->email,
                 'first_name' => $item->first_name,
                 'surname' => $item->surname,
