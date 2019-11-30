@@ -842,6 +842,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		->setEditableCallback(function($id, $value): void {
 			$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $id, $this->id_task);
         	$_POST['id_task'] = $this->id_task;
+        	$grid->redrawControl();
 		});
 	
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
