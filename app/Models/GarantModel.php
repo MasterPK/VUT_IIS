@@ -87,8 +87,6 @@ class GarantModel
 
         if($this->current_course)
         {
-            
-
             $form->setDefaults([
                 'old_id_course' => $this->current_course->id_course,
                 'id_course' => $this->current_course->id_course,
