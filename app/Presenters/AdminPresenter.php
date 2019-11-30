@@ -394,7 +394,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             ->setClass('btn btn-xs btn-primary');
 
 
-        $grid->setTranslator($this->dataGridModel->getDataGridTranslator);
+        $grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
 
         return $grid;
