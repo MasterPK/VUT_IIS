@@ -8,6 +8,7 @@ use Nette;
 use Nette\Application\UI\Form;
 use Tracy\Debugger;
 use Nette\Utils\FileSystem;
+use Ublaboo\DataGrid\DataGrid;
 
 final class LectorPresenter extends Nette\Application\UI\Presenter
 {
@@ -25,6 +26,9 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 
 	/** @var \App\Model\MainModel @inject */
 	public $mainModel;
+
+	/** @var \App\Model\DataGridModel @inject */
+    public $dataGridModel;
 
 	public function startUp()
 	{
@@ -57,6 +61,88 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 	public function renderManagecourses()
 	{
 		$this->template->courses = $this->lectorModel->getLectorCourses($this->user->identity->id);
+	}
+
+	public function createComponentMyCourses($name)
+	{
+		$grid = new DataGrid($this, $name);
+		$grid->setPrimaryKey('id_course');
+		$grid->setDataSource($this->database->query("SELECT id_course, course_name, course_type, course_price FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_user = ? AND student_status = 1 AND course_status != 0",  $this->user->identity->id)->fetchAll());
+
+		$grid->addColumnText('id_course', 'Zkratka kurzu')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('course_name', 'Jméno kurzu')
+		->setSortable()
+		->setFilterText();
+		
+
+		$grid->addColumnText('course_type', 'Typ kurzu')
+		->setReplacement([
+			'P' => 'Povinný',
+			'V' => 'Volitelný'
+		])
+		->setSortable();
+
+		$grid->addFilterSelect('course_type', 'Typ kurzu:', ["P" => 'Povinný', "V" => 'Volitelný']);
+		
+		$grid->addColumnText('course_price', 'Cena kurzu')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('tags', 'Štítky')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addAction("select","Detail", 'Student:showcourse')
+		->setClass("btn btn-primary");
+
+		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
+
+	
+		return $grid;
+	}
+
+	public function createComponentCourses($name)
+	{
+		$grid = new DataGrid($this, $name);
+		$grid->setPrimaryKey('id_course');
+		$grid->setDataSource($this->database->table('course'));
+
+		$grid->addColumnText('id_course', 'Zkratka kurzu')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('course_name', 'Jméno kurzu')
+		->setSortable()
+		->setFilterText();
+		
+
+		$grid->addColumnText('course_type', 'Typ kurzu')
+		->setReplacement([
+			'P' => 'Povinný',
+			'V' => 'Volitelný'
+		])
+		->setSortable();
+
+		$grid->addFilterSelect('course_type', 'Typ kurzu:', ["P" => 'Povinný', "V" => 'Volitelný']);
+		
+		$grid->addColumnText('course_price', 'Cena kurzu')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('tags', 'Štítky')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addAction("select","Detail", 'Student:showcourse')
+		->setClass("btn btn-primary");
+
+		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
+
+	
+		return $grid;
 	}
 
 	public function renderShowcourse($id)
