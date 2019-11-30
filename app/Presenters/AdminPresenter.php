@@ -290,35 +290,10 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         $grid->setPrimaryKey('id_user');
         $grid->setDataSource($this->database->table("user"));
 
-        $grid->addInlineEdit()
-            ->onControlAdd[] = function (Nette\Forms\Container $container): void {
-            $container->addText('id_user', '')
-            ->setSortable()
-            ->setFilterText();
-            $container->addText('email', '');
-            $container->addText('first_name', '');
-            $container->addText('surname', '');
-        };
-
-        $grid->getInlineEdit()->onSetDefaults[] = function (Nette\Forms\Container $container, $item): void {
-            
-            $container->setDefaults([
-                'id_user' => $item->id_user,
-                'email' => $item->email,
-                'first_name' => $item->first_name,
-                'surname' => $item->surname,
-            ]);
-        };
-
-        $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): void {
-            /**
-             * Save new values
-             */
-        };
+ 
 
 
-       
-/*
+    
         $grid->addColumnText('id_user', 'ID')
             ->setSortable()
             ->setFilterText();
@@ -373,6 +348,31 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 '1' => 'Aktivní'
             ]);
 
+            $grid->addInlineEdit()
+            ->onControlAdd[] = function (Nette\Forms\Container $container): void {
+            $container->addText('id_user', '')
+            ->setSortable()
+            ->setFilterText();
+            $container->addText('email', '');
+            $container->addText('first_name', '');
+            $container->addText('surname', '');
+        };
+
+        $grid->getInlineEdit()->onSetDefaults[] = function (Nette\Forms\Container $container, $item): void {
+            
+            $container->setDefaults([
+                'id_user' => $item->id_user,
+                'email' => $item->email,
+                'first_name' => $item->first_name,
+                'surname' => $item->surname,
+            ]);
+        };
+
+        $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): void {
+            /**
+             * Save new values
+             */
+        };
 
         /*$grid->addAction("select","Detail", 'Homepage:showcourse')
 		->setClass("btn btn-primary");*/
