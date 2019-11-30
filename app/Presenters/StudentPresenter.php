@@ -6,7 +6,7 @@ namespace App\Presenters;
 use Nette;
 use Nette\Application\UI\Form;
 use Ublaboo\DataGrid\DataGrid;
-
+use Tracy\Debugger;
 
 
 class StudentPresenter extends Nette\Application\UI\Presenter
@@ -201,7 +201,19 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 	public function renderTimetable()
 	{
 		//Get all tasks in student courses
-		$this->database->query("SELECT * FROM")
+		$data=$this->database->query("SELECT task.* FROM course NATURAL JOIN course_has_student NATURAL JOIN task WHERE id_user=?;",$this->user->identity->id)->fetchAll();
+
+		if(!$data)
+		{
+			return;
+		}
+		$dayTasksCount=array();
+		foreach ($data as $value) {
+			$day = date('l', $value->task_date);
+			Debugger:dump($day);
+		}
+		
+
 	}
 	
 }
