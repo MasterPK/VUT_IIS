@@ -25,8 +25,22 @@ Detail kurzu
                     {if $userIsGuarantorInCourse == true}
                         <div class="col-md-9 col-sm-12 ">
                             <div class="row float-right">
-                                <a n:href="Garant:course $course->id_course" class="btn btn-sm btn-primary ml-1"><i class="fas fa-edit "></i></a>
-                                {ifset $id_course}
+                                {ifset $courseActive}
+                                    {ifset $openRegistration}
+                                        <form n:name="closeRegisterForm">
+                                                {input register}
+                                        </form>
+                                    {else}
+                                        <form n:name="openRegisterForm">
+                                                {input register}
+                                        </form>
+                                    {/ifset}                                   
+                                    
+                                    <a n:href="Garant:managelectors $course->id_course" class="btn btn-sm btn-primary ml-1">Správa lektorů</a>
+                                    <a id="btnpopover" class="btn btn-sm btn-primary ml-1"><i class="fas fa-plus-square text-white"></i></a>
+                                    <a n:href="Garant:course $course->id_course" class="btn btn-sm btn-primary ml-1"><i class="fas fa-edit "></i></a>
+
+                                    {ifset $id_course}
                                     <button class="btn btn-sm btn-primary ml-1" onClick="show({$id_course})"><i class="fas fa-trash"></i></button>
                                     <div class="modal fade" id="{$id_course}">
                                         <div class="modal-dialog">
@@ -45,20 +59,6 @@ Detail kurzu
                                         </div>
                                     </div>
                                 {/ifset}
-
-                                {ifset $courseActive}
-                                    {ifset $openRegistration}
-                                        <form n:name="closeRegisterForm">
-                                                {input register}
-                                        </form>
-                                    {else}
-                                        <form n:name="openRegisterForm">
-                                                {input register}
-                                        </form>
-                                    {/ifset}                                   
-                                    
-                                    <a n:href="Garant:managelectors $course->id_course" class="btn btn-sm btn-primary ml-1">Správa lektorů</a>
-                                    <a id="btnpopover" class="btn btn-sm btn-primary ml-1"><i class="fas fa-plus-square text-white"></i></a>
                                 {/ifset}
                             </div>
                         </div>
