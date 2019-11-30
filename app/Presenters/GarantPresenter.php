@@ -27,6 +27,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	/** @var \App\Model\MainModel @inject */
 	public $mainModel;
 
+	/** @var \App\Model\DataGridModel @inject */
+    public $dataGridModel;
+
 	private $task;
 	private $id_course;
 	private $task_type;
@@ -58,7 +61,48 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	 */
 	public function renderCourses(): void
 	{
-		$this->template->courses=$this->mainModel->getAllCourses();
+		
+	}
+
+	public function createComponentCourses($name)
+	{
+		$grid = new DataGrid($this, $name);
+		$grid->setPrimaryKey('id_course');
+		$grid->setDataSource($this->database->table('course'));
+
+		$grid->addColumnText('id_course', 'Zkratka kurzu')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('course_name', 'Jméno kurzu')
+		->setSortable()
+		->setFilterText();
+		
+
+		$grid->addColumnText('course_type', 'Typ kurzu')
+		->setReplacement([
+			'P' => 'Povinný',
+			'V' => 'Volitelný'
+		])
+		->setSortable();
+
+		$grid->addFilterSelect('course_type', 'Typ kurzu:', ["P" => 'Povinný', "V" => 'Volitelný']);
+		
+		$grid->addColumnText('course_price', 'Cena kurzu')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('tags', 'Štítky')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addAction("select","Detail", 'Garant:showcourse')
+		->setClass("btn btn-primary");
+
+		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
+
+	
+		return $grid;
 	}
 
 	public function renderMycourses(): void
