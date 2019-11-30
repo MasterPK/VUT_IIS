@@ -398,11 +398,9 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$this->current_Equip = $this->database->table("room_equipment")->where("id_room_equipment", $id)->fetch();
 	}
 
-	public function renderManageRoom($id)
+	public function renderManageRoom($id_room)
 	{
-		Debugger::barDump($id,"test1");
-		$this->current_room = $this->database->table("room")->where("id_room", $id)->fetch();
-		Debugger::barDump($this->current_room,"test");
+		$this->current_room = $this->database->table("room")->where("id_room", $id_room)->fetch();
 	}
 
 	public function createComponentUpdateRoom()
