@@ -129,8 +129,8 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	public function createComponentManageEquipmentGrid($name)
 	{
 		$grid = new DataGrid($this, $name);
-		$grid->setPrimaryKey('room_equipment');
-		$grid->setDataSource($this->database->table("room_equipment")->select("room_equipment.*,id_room.id_room"));
+		$grid->setPrimaryKey('id_room');
+		$grid->setDataSource($this->database->query("SELECT * FROM room NATURAL JOIN room_equipment")->fetchAll());
 
 		$grid->addColumnText('room_equipment', 'Vybavení')
 		->setSortable()
