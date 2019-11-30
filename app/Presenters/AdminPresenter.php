@@ -317,7 +317,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
         $grid->addColumnText('rank', 'Hodnost')
             ->setSortable()
-            ->setOptions([
+            ->setReplacement([
                 '1' => 'Student',
                 '2' => 'Lektor',
                 '3' => 'Garant',
@@ -334,7 +334,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
         $grid->addColumnText('active', 'Aktivní účet?')
             ->setSortable()
-            ->setOptions([
+            ->setReplacement([
                 '0' => 'Neaktivní',
                 '1' => 'Aktivní'
             ])
