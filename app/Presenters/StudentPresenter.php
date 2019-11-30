@@ -234,7 +234,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			if ($value == 0 || $value == 1) {
 				continue;
 			}
-			for ($i = 0; $i < $value; $i++) {
+			for ($i = 0; $i < $value-1; $i++) {
 				array_push($weekDays, "");
 			}
 		}
