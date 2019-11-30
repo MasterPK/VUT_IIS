@@ -23,8 +23,7 @@ Vytvoření nového termínu
                     <label>Místnost</label>
                     {input id_room}
                 </div>
-                {switch $task_type}
-                {case 'DU' or 'PJ'}
+                {if $task_type == "DU" || $task_type == "PJ" }
                     <div class="form-group">
                         <label>Datum odevzdání</label>
                         {input task_date}
@@ -33,7 +32,7 @@ Vytvoření nového termínu
                         <label>Čas odevzdání</label>
                         {input task_to}
                     </div>
-                {default}
+                {else}
                     <div class="form-group">
                         <label>Datum</label>
                         {input task_date}
@@ -50,7 +49,7 @@ Vytvoření nového termínu
                             </div>
                         </div>
                     </div>
-                {/switch}    
+                {/if}    
                 <div class="form-group text-center">
                     {input create}
                 </div>
