@@ -130,7 +130,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	{
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('room_equipment');
-		$grid->setDataSource($this->database->table("room_has_equipment")->select("room_has_equipment.*,id_room_equipment.id_room_equipment"));
+		$grid->setDataSource($this->database->table("room_equipment")->select("room_equipment.*,id_room.id_room"));
 
 		$grid->addColumnText('room_equipment', 'Vybavení')
 		->setSortable()
@@ -667,20 +667,19 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	{
 		$values = $form->getValues();
 		
-		$data = $this->database->table("room_has_equipment")
-			->insert([
+		$data = $this->database->table("room_equipment")
+			->update([
 				'id_room' => $values->id_equip,
-				'id_room_equipment' => $values->room_Equip,
 			]);
 
 		$this->template->success_notify = true;
 		$this->redirect("Chief:addEquipment",$values->id_equip);
 	}
 
-	function handleDelete($id,$id2) {
+	/*function handleDelete($id,$id2) {
 		$this->database->table("room_has_equipment")->where("id_room_equipment", $id)->where("id_room", $id2)->delete();
 		
 		$this->redirect("Chief:roomsEquipment",$id2);
-	}
+	}*/
 	
 }
