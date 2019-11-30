@@ -833,7 +833,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 		$grid->addColumnText('points', 'Body')
 		->setSortable()
-		->setFilterText()
 		->setEditableCallback(function($id, $value): void {
 			echo("Id: $id, new value: $value"); die;
 		});
