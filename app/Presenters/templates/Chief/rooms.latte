@@ -3,44 +3,6 @@ Správa místností
 {/block}
 {block content}
 {snippet content_snipet}
-    <div class="row">
-        <div class="col-sm-12">
-        {ifset $rooms}
-            <table class="table table-bordered">
-                <thead class="thead-dark">
-                    <tr class="text-center">
-                        <th>Místnost</th>
-                        <th>Vybavení</th>
-                        <th>Adresa</th>
-                        <th>Typ</th>
-                        <th>Kapacita</th>
-                        <th/>
-                    </tr>
-                </thead>
-                <tbody>
-                    {foreach $rooms as $row}
-                    <tr class="text-center">
-                        <td>{$row->id_room}</td>
-                        <td><a n:href="Chief:roomsEquipment $row->id_room"><button class="btn btn-primary">Zobrazit</button></a></td>
-                        <td>{$row->room_address}</td>
-                        <td>{$row->room_type}</td>
-                        <td>{$row->room_capacity}</td>
-                        <td><a n:href="Chief:manageRoom $row->id_room"><button class="btn btn-primary">Upravit</button></a></td>
-                    </tr>
-                    {/foreach}
-                </tbody>
-                <tfoot class="thead-dark">
-                    <tr class = "text-center">
-                        <th><a n:href="Chief:createRoom"><button class="btn btn-primary">Přidat místnost</button></a></th>
-                        <th><a n:href="Chief:manageEquipment"><button class="btn btn-primary">Správa vybavení</button></a></th>
-                        <th><a n:href="Chief:manageAdres"><button class="btn btn-primary">Správa adres</button></a></th>
-                        <th colspan = "3"></th>
-                    </tr>
-                </tfoot>
-            </table>
-        {/ifset}
-        </div>
-    </div>
 {control roomsGrid}
 {/snippet}
 {/block}
