@@ -22,7 +22,7 @@ Detail kurzu
                 {ifset $courseActive}
                 {if $userIsGuarantorInCourse == true}
                 <a id="btnpopover" data-placement="left" style="float: right;"><i class="fas fa-plus-square"></i></a>
-                <a n:href="Garant:modifyCourse $course->id_course"><i class="fas fa-edit"></i></a>
+                <a n:href="Garant:modifyCourse $course->id_course"><i class="fas fa-edit btn btn-xs btn-default btn-secondary"></i></a>
                 {/if}
                 {/ifset}
             </div>
