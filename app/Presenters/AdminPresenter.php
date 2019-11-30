@@ -389,7 +389,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         };*/
 
         $grid->addAction("select", "", 'Admin:edituser')
-            ->setIcon('pencil')
+            ->setIcon('edit')
             ->setClass("btn btn-xs btn-default btn-secondary");
 
 
