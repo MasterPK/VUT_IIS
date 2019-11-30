@@ -45,7 +45,7 @@ Detail kurzu
                                         </div>
                                     </div>
                                 {/ifset}
-                            
+
                                 {ifset $courseActive}
                                     {ifset $openRegistration}
                                         <form n:name="closeRegisterForm">
@@ -299,6 +299,8 @@ Detail kurzu
     </div>
 </div>
 
+{/ifset}
+
 <script>
 function show(id)
 {
@@ -337,7 +339,5 @@ $(document).ready(function(){
     
 
 </script>
-
-{/ifset}
 {/block}
 
