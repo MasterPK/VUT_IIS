@@ -191,15 +191,15 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 		$form->addText('room_id', '')
 			->setHtmlAttribute('class', 'form-control')
-			->setRequired("Tohle pole je povinné.");
+			->setRequired("Tohle pole je povinné");
 
 		$form->addText('room_type', '')
 			->setHtmlAttribute('class', 'form-control')
-			->setRequired("Tohle pole je povinné.");
+			->setRequired("Tohle pole je povinné");
 
 		$form->addInteger('room_capacity', '')
 			->setHtmlAttribute('class', 'form-control')
-			->setRequired("Tohle pole je povinné.");
+			->setRequired("Tohle pole je povinné");
 
 		$tmp = $this->database->query("SELECT * FROM room_address")->fetchAll();
 
@@ -210,7 +210,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 		$form->addSelect('room_Adres', '', $address)
 			->setHtmlAttribute('class', 'form-control')
-			->setRequired("Tohle pole je povinné.");
+			->setRequired("Tohle pole je povinné");
 
 		$form->addSubmit('submit', 'Vytvořit místnost')
 			->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
@@ -330,17 +330,17 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 		$form->addText('room_id', '')
 			->setHtmlAttribute('class', 'form-control')
-			->setRequired()
+			->setRequired("Tohle pole je povinné")
 			->setDefaultValue($this->current_room["id_room"]);
 
 		$form->addText('room_type', '')
 			->setHtmlAttribute('class', 'form-control')
-			->setRequired()
+			->setRequired("Tohle pole je povinné")
 			->setDefaultValue($this->current_room["room_type"]);
 
 		$form->addInteger('room_capacity', '')
 			->setHtmlAttribute('class', 'form-control')
-			->setRequired()
+			->setRequired("Tohle pole je povinné")
 			->setDefaultValue($this->current_room["room_capacity"]);
 
 		$tmp = $this->database->query("SELECT * FROM room_address")->fetchAll();
@@ -352,7 +352,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 		$form->addSelect('room_Adres', '', $address)
 			->setHtmlAttribute('class', 'form-control')
-			->setRequired()
+			->setRequired("Tohle pole je povinné")
 			->setDefaultValue($this->current_room["id_room_address"]);
 
 		$form->addSubmit('submit', 'Upravit místnost')
@@ -554,7 +554,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 		$form->addSelect('room_Equip', '', $address)
 			->setHtmlAttribute('class', 'form-control')
-			->setRequired("Tohle pole je povinné.");
+			->setRequired("Tohle pole je povinné");
 
 		$form->addSubmit('submit', 'Přidat vybavení')
 			->setHtmlAttribute('class', 'btn btn-block btn-primary');
