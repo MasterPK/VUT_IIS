@@ -27,7 +27,8 @@ Detail kurzu
                     {if $userIsGuarantorInCourse == true}
                         <div class="col-md-6 col-sm-12 ">
                             <div class="float-right">
-                            
+                                <div class="row">
+                                <div class="col">
                                     {ifset $openRegistration}
                                         <form n:name="closeRegisterForm">
                                                 {input register}
@@ -37,13 +38,14 @@ Detail kurzu
                                                 {input register}
                                         </form>
                                     {/ifset}
-                               
-                               
-                                    <a id="btnpopover"  class="btn btn-xs btn-primary m-l-1"><i class="fas fa-plus-square text-white"></i></a>
-                           
-                                    <a n:href="Garant:course $course->id_course" class="btn btn-xs btn-primary m-l-1"><i class="fas fa-edit "></i></a>
-                             
-                                
+                                </div>
+                                <div class="col">
+                                    <a id="btnpopover"  class="btn btn-xs btn-primary"><i class="fas fa-plus-square text-white"></i></a>
+                                </div>
+                                <div class="col">
+                                    <a n:href="Garant:course $course->id_course" class="btn btn-xs btn-primary"><i class="fas fa-edit "></i></a>
+                                </div>
+                                </div>
                             </div>
                         </div>
                      {/if}
