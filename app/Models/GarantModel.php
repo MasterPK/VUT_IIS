@@ -11,7 +11,8 @@ class GarantModel
     private $lectorModel;
     private $mainModel;
     private $database;
-    private $current_course;
+    public $current_course;
+
 	public function __construct(Nette\Database\Context $database, \App\Model\MainModel $mainModel, \App\Model\LectorModel $lectorModel)
 	{
         $this->database = $database;
