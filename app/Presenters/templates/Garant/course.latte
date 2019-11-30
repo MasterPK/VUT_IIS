@@ -55,17 +55,9 @@ Vytvoření nového kurzu
             <div class="form-group">
                 <label>Štítky</label> {input tags}
             </div>
-            {ifset $current_course}
-                {if $current_course->course_status == 0}
-                    <div id="button" class="form-group text-center" disabled="true">
-                        {input create}
-                    </div>
-                {else}
-                    <div id="button" class="form-group text-center">
-                        {input create}
-                    </div>
-                {/if}
-            {/ifset}
+            <div id="button" class="form-group text-center">
+                {input create}
+            </div>
         </form>
     </div>
 </div>
