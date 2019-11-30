@@ -268,7 +268,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			if ($value == 0 || $value == 1) {
 				continue;
 			}
-			for ($i = 0; $i < $value-1; $i++) {
+			for ($i = 1; $i < $value; $i++) {
 				switch ($key) {
 					case 1:
 						array_push($weekDays, "Pondělí$i");
