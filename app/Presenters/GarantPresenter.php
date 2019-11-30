@@ -136,7 +136,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	    		if($values->old_id_course != $values->id_course)
 	    		{
 	    			$check = $this->database->table("course")->where("id_course", $values->id_course);
-	    			if($check.getRowCount() == 1)
+	    			if($check->getRowCount() == 1)
 	    			{
 	    				$this->template->error_update_exists=true;
 	    				if ($this->isAjax()) 
