@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-setlocale(LC_TIME,"Czech");
+
 
 namespace App\Presenters;
 use Nette;
@@ -30,7 +30,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 	public function startUp()
 	{
 		parent::startup();
-
+		setlocale(LC_TIME,"Czech");
 		
 		$this->startup->mainStartUp($this);
 		if(!$this->startup->roleCheck($this,1))
