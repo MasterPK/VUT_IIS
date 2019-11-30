@@ -290,10 +290,10 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         $grid->setPrimaryKey('id_user');
         $grid->setDataSource($this->database->table("user"));
 
- 
 
 
-    
+
+
         $grid->addColumnText('id_user', 'ID')
             ->setSortable()
             ->setFilterText();
@@ -348,18 +348,16 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 '1' => 'Aktivní'
             ]);
 
-            $grid->addInlineEdit()
+        $grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
-            $container->addText('id_user', '')
-            ->setSortable()
-            ->setFilterText();
+            $container->addText('id_user', '');
             $container->addText('email', '');
             $container->addText('first_name', '');
             $container->addText('surname', '');
         };
 
         $grid->getInlineEdit()->onSetDefaults[] = function (Nette\Forms\Container $container, $item): void {
-            
+
             $container->setDefaults([
                 'id_user' => $item->id_user,
                 'email' => $item->email,
