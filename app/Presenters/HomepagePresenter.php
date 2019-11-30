@@ -108,32 +108,11 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 		return $grid;
 	}
 
-	public function renderCourses($search, $filter): void
-	{
-		if ($search) {
-			$this->template->courses = $this->mainModel->getAllCoursesByFilter($filter, $search);
-		} else {
-			//zobraz vsetky schvalene kurzy
-			$this->template->courses = $this->mainModel->getAllApprovedCourses();
-		}
-	}
 
 	public function renderShowcourse($id_course): void
 	{
 		$this->visitorModel->renderShowcourse($this, $id_course);
 	}
-
-	public function createComponentSearchCourseForm(): Nette\Application\UI\Form
-	{
-		return $this->mainModel->createComponentSearchCourseForm($this);
-	}
-
-	public function searchCourseForm(Nette\Application\UI\Form $form): void
-	{
-		$values = $form->getValues();
-		$this->redirect("Homepage:courses", $values->search, $values->filter);
-	}
-
 
 
 	public function handleOpen($id)
