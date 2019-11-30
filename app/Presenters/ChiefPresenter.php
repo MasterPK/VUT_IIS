@@ -104,7 +104,12 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
             ->setIcon('trash')
             ->setTitle('Smazat')
             ->setClass('btn btn-xs btn-danger ajax')
-            ->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet smazat místnost?'));
+			->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet smazat místnost?'));
+			
+		$grid->addToolbarButton('Chief:createRoom', '')
+            ->setIcon('plus')
+            ->setTitle('Přidat místnost')
+            ->setClass('btn btn-xs btn-primary');
 
 		$grid->setTranslator($this->dataGridTranslator);
 
