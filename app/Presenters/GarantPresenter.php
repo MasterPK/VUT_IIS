@@ -201,6 +201,20 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$this->template->current_lectors = $this->database->query("SELECT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_lecturer WHERE id_course = ?", $id_course)->fetchAll();
 		$this->template->id_course = $id_course;
 	}
+
+	public function renderCourse($id)
+	{
+		if($id)
+        {
+			$this->garantModel->getCurrentCourse($this, $id);
+		}
+	}
+
+	private $id_task;
+	public function renderShowtask($id_task)
+	{
+		$this->id_task = $id_task;
+	}
 	
 	public function createComponentCreateCourseForm(): Form
 	{
@@ -648,14 +662,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         }
 	}
 
-	public function renderCourse($id)
-	{
-		if($id)
-        {
-			$this->garantModel->getCurrentCourse($this, $id);
-		}
-	}
-
 	public function handleDeleteCourse($id_course)
 	{
 		$result = $this->database->table("course")->where("id_course",$id_course)->delete();
@@ -793,5 +799,32 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		{
             $this->redrawControl("manage_snippet");
         }	
+	}
+
+	public function createComponentTaskStudentsGrid($name)
+	{
+		$grid = new DataGrid($this, $name);
+		$grid->setPrimaryKey('email');
+		$grid->setDataSource($this->database->query("SELECT email, first_name, surname, points FROM user NATURAL JOIN student_has_task WHERE id_task = ?", $this->id_task)->fetchAll());
+
+		$grid->addColumnText('email', 'Email studenta')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('first_name', 'Jméno studenta')
+		->setSortable()
+		->setFilterText();
+		
+		$grid->addColumnText('surname', 'Přijmení studenta')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('points', 'Body')
+		->setSortable()
+		->setFilterText();
+	
+		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
+		
+		return $grid;
 	}
 }
