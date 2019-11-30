@@ -42,6 +42,34 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		}
 	}
 
+	private $dataGridTranslator;
+
+    public function __construct(Nette\Database\Context $database)
+    {
+        $this->database = $database;
+        $this->dataGridTranslator = new Ublaboo\DataGrid\Localization\SimpleTranslator([
+            'ublaboo_datagrid.no_item_found_reset' => 'Žádné položky nenalezeny. Filtr můžete vynulovat',
+            'ublaboo_datagrid.no_item_found' => 'Žádné položky nenalezeny.',
+            'ublaboo_datagrid.here' => 'zde',
+            'ublaboo_datagrid.items' => 'Položky',
+            'ublaboo_datagrid.all' => 'všechny',
+            'ublaboo_datagrid.from' => 'z',
+            'ublaboo_datagrid.reset_filter' => 'Resetovat filtr',
+            'ublaboo_datagrid.group_actions' => 'Hromadné akce',
+            'ublaboo_datagrid.show_all_columns' => 'Zobrazit všechny sloupce',
+            'ublaboo_datagrid.hide_column' => 'Skrýt sloupec',
+            'ublaboo_datagrid.action' => 'Akce',
+            'ublaboo_datagrid.previous' => 'Předchozí',
+            'ublaboo_datagrid.next' => 'Další',
+            'ublaboo_datagrid.choose' => 'Vyberte',
+            'ublaboo_datagrid.execute' => 'Provést',
+            'ublaboo_datagrid.per_page_submit' => "Aktualizovat",
+
+            'Name' => 'Jméno',
+            'Inserted' => 'Vloženo'
+        ]);
+    }
+
 
 	public function createComponentRoomsGrid($name)
 	{
@@ -65,10 +93,17 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setFilterText();
 
-		//$grid->addAction("select","Detail", 'Homepage:showcourse')
-		//->setClass("btn btn-primary");
+        $grid->addAction("select", "", 'Admin:edituser')
+            ->setIcon('edit')
+            ->setClass("btn btn-xs btn-default btn-secondary");
 
-		//$grid->setTranslator($this->dataGridTranslator);
+        $grid->addAction('delete', '', 'delete!')
+            ->setIcon('trash')
+            ->setTitle('Smazat')
+            ->setClass('btn btn-xs btn-danger ajax')
+            ->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet smazat uživatele %s?', 'email'));
+
+		$grid->setTranslator($this->dataGridTranslator);
 
 	
 		return $grid;
