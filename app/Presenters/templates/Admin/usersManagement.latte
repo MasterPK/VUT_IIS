@@ -2,41 +2,6 @@
 {block content}
 <div class="row">
     <div class="col-sm-12">
-        {ifset $allUsers}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Email</th>
-                    <th>Křestní jméno</th>
-                    <th>Příjmení</th>
-                    <th>Telefonní číslo</th>
-                    <th>Úroveň</th>
-                    <th><a n:href="Admin:adduser"><button class="btn btn-primary">Přidat</button></a></th>
-                </tr>
-            </thead>
-            <tbody>
-
-                {foreach $allUsers as $row}
-                <tr>
-                    <th>{$row->id_user}</th>
-                    <td><a n:href="Admin:edituser $row->id_user">{$row->email}</a></td>
-                    <td>{$row->first_name}</td>
-                    <td>{$row->surname}</td>
-                    <td>{$row->phone}</td>
-                    <td>{if $row->rank==1}Student{elseif $row->rank==2}Lektor{elseif $row->rank==3}Garant{elseif
-                        $row->rank==4}Vedoucí{elseif $row->rank==5}Administrátor{/if}</td>
-                    <td>
-                        <a n:href="Admin:edituser $row->id_user"><button class="btn btn-primary">Upravit</button></a>
-                    </td>
-                </tr>
-                {/foreach}
-
-            </tbody>
-        </table>
-        {else}
-        <h3>Žádní uživatelé nejsou k dispozici!</h3>
-        {/ifset}
         {control userMng}
     </div>
 </div>
