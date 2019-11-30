@@ -101,7 +101,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
             ->setIcon('trash')
             ->setTitle('Smazat')
             ->setClass('btn btn-xs btn-danger ajax')
-            ->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet smazat uživatele %s?', 'email'));
+            ->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet smazat místnost?'));
 
 		$grid->setTranslator($this->dataGridTranslator);
 
