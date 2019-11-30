@@ -17,66 +17,52 @@ Detail kurzu
 <div class="row">
     <div class="col-sm-12">
         <div class="card bg-default ">
-            <div class="card-header">
-                
+            <div class="card-header"> 
                 <div class="row">
                     <div class="col-md-3 col-sm-12">
                         {$course->id_course}
                     </div>
-                    {ifset $courseActive}
                     {if $userIsGuarantorInCourse == true}
-                        <div class="col-md-9 col-sm-12 ">
-                            
-                                <div class="row float-right">
-                                   
-                                        {ifset $openRegistration}
-                                            <form n:name="closeRegisterForm">
-                                                    {input register}
-                                            </form>
-                                        {else}
-                                            <form n:name="openRegisterForm">
-                                                    {input register}
-                                            </form>
-                                        {/ifset}
-                                    
-                                   
-                                    <a n:href="Garant:managelectors $course->id_course" class="btn btn-sm btn-primary ml-1">Správa lektorů</a>
-                            
-                               
-                                        <a id="btnpopover" class="btn btn-sm btn-primary ml-1"><i class="fas fa-plus-square text-white"></i></a>
-                                  
-                                        <a n:href="Garant:course $course->id_course" class="btn btn-sm btn-primary ml-1"><i class="fas fa-edit "></i></a>
-                              
-                                    
-                                    {ifset $id_course}
-                                     
-                                            <button class="btn btn-sm btn-primary ml-1" onClick="show({$id_course})"><i class="fas fa-trash"></i></button>
-                                       
-
-                                        
-                                        <div class="modal fade" id="{$id_course}">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Potvrzení</h4>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p>Opravdu smazat kurz {$id_course}?</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Zrušit</button>
-                                                        <a class="ajax" n:href="deleteCourse! $id_course"><button onClick="hide({$id_course})" type="button" class="btn btn-primary">Potvrdit</button></a>
-                                                    </div>
-                                                </div>
-                                            </div>
+                        <a n:href="Garant:course $course->id_course" class="btn btn-sm btn-primary ml-1"><i class="fas fa-edit "></i></a>
+                        {ifset $id_course}
+                            <button class="btn btn-sm btn-primary ml-1" onClick="show({$id_course})"><i class="fas fa-trash"></i></button>
+                            <div class="modal fade" id="{$id_course}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Potvrzení</h4>
                                         </div>
-                                        
-                                    {/ifset}
+                                        <div class="modal-body">
+                                            <p>Opravdu smazat kurz {$id_course}?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Zrušit</button>
+                                            <a class="ajax" n:href="deleteCourse! $id_course"><button onClick="hide({$id_course})" type="button" class="btn btn-primary">Potvrdit</button></a>
+                                        </div>
+                                    </div>
                                 </div>
-                            
-                        </div>
-                     {/if}
-                    {/ifset}
+                            </div>
+                        {/ifset}
+
+                        {ifset $courseActive}
+                            <div class="col-md-9 col-sm-12 ">
+                                <div class="row float-right">
+                                    {ifset $openRegistration}
+                                        <form n:name="closeRegisterForm">
+                                                {input register}
+                                        </form>
+                                    {else}
+                                        <form n:name="openRegisterForm">
+                                                {input register}
+                                        </form>
+                                    {/ifset}                                   
+                                    
+                                    <a n:href="Garant:managelectors $course->id_course" class="btn btn-sm btn-primary ml-1">Správa lektorů</a>
+                                    <a id="btnpopover" class="btn btn-sm btn-primary ml-1"><i class="fas fa-plus-square text-white"></i></a>
+                                </div>
+                            </div>
+                        {/ifset}
+                    {/if}
                 </div>
             </div>
             <div class="card-body">
@@ -94,23 +80,22 @@ Detail kurzu
                         <b>{$course->course_price}&nbsp;Kč</b>
                     </div>
                     {ifset $courseActive}
-                    <div class="col-md-3 col-sm-12">
-                        Stav registrací:<br>
-                        <b>{if $course->course_status == 2 }Otevřeno{else}Zavřeno{/if}</b>
-                    </div>
-                    {if $userIsGuarantorInCourse == false && $userIsLectorInCourse == false}
-                    <div class="col-md-3 col-sm-12">
-                        Stav Vaší registrace:<br>
-                        <b>{ifset $userCourseStatus}{if $userCourseStatus == 0 }Čeká se na schválení{elseif $userCourseStatus == 1}Potvrzeno{elseif $userCourseStatus == 2}Zamítnuto{/if}{else}Žádná žádost neexistuje!{/ifset}</b>
-                    </div>
-                    {/if}
+                        <div class="col-md-3 col-sm-12">
+                            Stav registrací:<br>
+                            <b>{if $course->course_status == 2 }Otevřeno{else}Zavřeno{/if}</b>
+                        </div>
+                        {if $userIsGuarantorInCourse == false && $userIsLectorInCourse == false}
+                            <div class="col-md-3 col-sm-12">
+                                Stav Vaší registrace:<br>
+                                <b>{ifset $userCourseStatus}{if $userCourseStatus == 0 }Čeká se na schválení{elseif $userCourseStatus == 1}Potvrzeno{elseif $userCourseStatus == 2}Zamítnuto{/if}{else}Žádná žádost neexistuje!{/ifset}</b>
+                            </div>
+                        {/if}
                     {else}
-                    <div class="col-md-3 col-sm-12">
-                        Stav registrací:<br>
-                        <b>Čeká na se na schválení kurzu vedoucím</b>
-                    </div>
-                   {/ifset}
-                    
+                        <div class="col-md-3 col-sm-12">
+                            Stav registrací:<br>
+                            <b>Čeká na se na schválení kurzu vedoucím</b>
+                        </div>
+                    {/ifset}
                 </div>
                 <br>
                 <div class="row">
