@@ -173,13 +173,23 @@ Detail kurzu
         {foreach $course_tasks as $task}
             <div class="card bg-default ">
                 <div class="card-header">
-                    {$task->task_name}
-                    {if $userIsGuarantorInCourse == true || $userIsLectorInCourse == true}
+                    
+                    
+                    <div class="row">
+                        <div class="col-md-3 col-sm-12 ">
+                            {$task->task_name}
+                        </div>
+                        {if $userIsGuarantorInCourse == true || $userIsLectorInCourse == true}
+                        <div class="col-md-9 col-sm-12 ">
+                            <div class="float-right">
+                                <div class="row">
+                                    <div class="col">
                     <a n:href="Garant:newFile $task->id_course, $task->id_task">
                     <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Přidat soubor</button></a>
-
+                </div>
+                <div class="col">
                     <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0" onClick="show({$task->id_task})"><span>Smazat termín</span></button>
-
+                </div>
                     <div class="modal fade" id="{$task->id_task}">
                       <div class="modal-dialog">
                         <div class="modal-content">
@@ -196,10 +206,16 @@ Detail kurzu
                         </div>
                       </div>
                     </div>
-
+                    <div class="col">
                     <a n:href="Garant:newtask $task->id_course, $task->task_type, $task->id_task">
                     <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Upravit termín</button></a>
+                </div>
+                    </div>
+                    </div>
+                    </div>
                     {/if}
+                    
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
