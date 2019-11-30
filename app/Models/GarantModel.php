@@ -94,13 +94,13 @@ class GarantModel
         if($this->current_course)
         {
             $form->setDefaults([
-                'old_id_course' => $this->current_course->id_course,
-                'id_course' => $this->current_course->id_course,
-                'name' => $this->current_course->course_name,
-                'description' => $this->current_course->course_description,
-                'type' => $this->current_course->course_type,
-                'price' => $this->current_course->course_price,
-                'tags' => $this->current_course->tags,
+                'old_id_course' => $this->current_course['id_course'],
+                'id_course' => $this->current_course['id_course'],
+                'name' => $this->current_course['course_name'],
+                'description' => $this->current_course['course_description'],
+                'type' => $this->current_course['course_type'],
+                'price' => $this->current_course['course_price'],
+                'tags' => $this->current_course['tags'],
             ]);
 
             $form->addSubmit('create', 'Upravit kurz')
