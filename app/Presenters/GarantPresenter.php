@@ -212,7 +212,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	            	
 	            	FileSystem::rename("Files/$values->old_id_course", "Files/$values->id_course");
     				$this->template->success_update = true;
-    				$form->setValues('old_id_course', $values->id_course);
+
+    				$values->old_id_course = $values->id_course;
+    				$form->setValues($values);
 	            }
 	            else
 	            {
