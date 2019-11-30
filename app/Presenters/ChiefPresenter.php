@@ -97,6 +97,9 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
             ->setIcon('edit')
             ->setClass("btn btn-xs btn-default btn-secondary");
 
+		$grid->addAction("vybavení", "Vybavení", 'Chief:roomsEqupment')
+			->setClass("btn btn-xs btn-default btn-secondary");
+			
         $grid->addAction('delete', '', 'deleteRoom!')
             ->setIcon('trash')
             ->setTitle('Smazat')
@@ -140,7 +143,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$this->template->rooms = $data;
 	}
 
-	public function renderRoomsEquipment($id)
+	public function renderRoomsEquipment($id_room)
 	{
 		$data = $this->database->query("SELECT * FROM room_equipment NATURAL JOIN room_has_equipment WHERE id_room = ?",  $id)->fetchAll();
 
