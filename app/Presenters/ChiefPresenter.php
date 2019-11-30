@@ -137,7 +137,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setFilterText();
 			
-        $grid->addAction('delete', '', 'deleteEquipRoom!',$this->actual_room)
+        $grid->addAction('delete', '', 'deleteEquipRoom!',[$this->actual_room])
             ->setIcon('trash')
             ->setTitle('Smazat')
             ->setClass('btn btn-xs btn-danger')
@@ -152,10 +152,10 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		return $grid;
 	}
 
-	public function handleDeleteEquipRoom($room_equipment,$actual_room)
+	public function handleDeleteEquipRoom($room_equipment,$values)
     {
 		Debugger::barDump($room_equipment,"delete_value");
-		Debugger::barDump($actual_room,"actual_room");
+		Debugger::barDump($values,"actual_room");
 		$data = $this->database->table("room_equipment")->where("id_room", $this->actual_room)->where("room_equipment", $room_equipment)
 		->update([
 			'id_room' => NULL,
