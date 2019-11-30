@@ -84,6 +84,11 @@ Vytvoření nového termínu
 <script>$.notify("Časový inteval termínu byl zadán nesprávně!", "error");</script>
 {/if}
 {/ifset}
+{ifset $error_points}
+{if $error_points == 1}
+<script>$.notify("Zadaný počet bodů je v sumě s ostatnými termínmi vyšší než 100!", "error");</script>
+{/if}
+{/ifset}
 {/snippet}
 
 {/block}
