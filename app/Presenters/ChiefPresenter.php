@@ -129,7 +129,6 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	public function createComponentManageEquipmentGrid($name)
 	{
 
-
 		Debugger::barDump($this->actual_room,"dete");
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('room_equipment');
@@ -663,7 +662,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	{
 		$form = new Form;
 
-		$tmp = $this->database->query("SELECT * FROM room_equipment WHERE room_equipment.id_room_equipment NOT IN (SELECT id_room FROM room)")->fetchAll();
+		$tmp = $this->database->query("SELECT * FROM room_equipment WHERE id_room is NULL")->fetchAll();
 
 		$address = array();
 		foreach ($tmp as $row) {
