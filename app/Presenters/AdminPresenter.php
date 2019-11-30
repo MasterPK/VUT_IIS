@@ -78,7 +78,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     private $userInfo;
     public function renderEdituser($id_user)
     {
-        $this->userInfo = $this->mainModel->getUserDetail($id);
+        $this->userInfo = $this->mainModel->getUserDetail($id_user);
     }
 
     public function renderAdduser($id)
