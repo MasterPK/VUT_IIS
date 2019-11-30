@@ -240,22 +240,22 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 						array_push($weekDays, "Pondělí$i");
 						break;
 					case 2:
-						array_push($weekDays, "Úterý");
+						array_push($weekDays, "Úterý$i");
 						break;
 					case 3:
-						array_push($weekDays, "Středa");
+						array_push($weekDays, "Středa$i");
 						break;
 					case 4:
-						array_push($weekDays, "Čtvrtek");
+						array_push($weekDays, "Čtvrtek$i");
 						break;
 					case 5:
-						array_push($weekDays, "Pátek");
+						array_push($weekDays, "Pátek$i");
 						break;
 					case 6:
-						array_push($weekDays, "Sobota");
+						array_push($weekDays, "Sobota$i");
 						break;
 					case 7:
-						array_push($weekDays, "Neděle");
+						array_push($weekDays, "Neděle$i");
 						break;
 				}
 			}
