@@ -45,11 +45,7 @@ Detail kurzu
                                         </div>
                                     </div>
                                 {/ifset}
-                            </div>
-                        </div>
-                        {ifset $courseActive}
-                            <div class="col-md-9 col-sm-12 ">
-                                <div class="row float-right">
+                                {ifset $courseActive}
                                     {ifset $openRegistration}
                                         <form n:name="closeRegisterForm">
                                                 {input register}
@@ -62,9 +58,9 @@ Detail kurzu
                                     
                                     <a n:href="Garant:managelectors $course->id_course" class="btn btn-sm btn-primary ml-1">Správa lektorů</a>
                                     <a id="btnpopover" class="btn btn-sm btn-primary ml-1"><i class="fas fa-plus-square text-white"></i></a>
-                                </div>
+                                {/ifset}
                             </div>
-                        {/ifset}
+                        </div>
                     {/if}
                 </div>
             </div>
