@@ -48,7 +48,30 @@ Detail kurzu
                                         <a n:href="Garant:course $course->id_course" class="btn btn-sm btn-primary"><i class="fas fa-edit "></i></a>
                               
                                     
-                                    
+                                    {ifset $id_course}
+                                     
+                                            <button class="btn btn-sm btn-primary" onClick="show({$id_course})"><i class="fas fa-trash"></i></button>
+                                       
+
+                                        
+                                        <div class="modal fade" id="{$id_course}">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Potvrzení</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Opravdu smazat kurz {$id_course}?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Zrušit</button>
+                                                        <a class="ajax" n:href="deleteCourse! $id_course"><button onClick="hide({$id_course})" type="button" class="btn btn-primary">Potvrdit</button></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    {/ifset}
                                 </div>
                             
                         </div>
@@ -269,30 +292,7 @@ Detail kurzu
     {/if}
 {/ifset}
 {/snippet}
-{ifset $id_course}
-                                     
-    <button class="btn btn-sm btn-primary" onClick="show({$id_course})"><i class="fas fa-trash"></i></button>
 
-
-
-<div class="modal fade" id="{$id_course}">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Potvrzení</h4>
-            </div>
-            <div class="modal-body">
-                <p>Opravdu smazat kurz {$id_course}?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Zrušit</button>
-                <a class="ajax" n:href="deleteCourse! $id_course"><button onClick="hide({$id_course})" type="button" class="btn btn-primary">Potvrdit</button></a>
-            </div>
-        </div>
-    </div>
-</div>
-
-{/ifset}
 
 
 
