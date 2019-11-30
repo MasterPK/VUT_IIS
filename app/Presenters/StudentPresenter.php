@@ -229,8 +229,8 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			array_push($tasks,[
 				"task_name"=>$value->task_name,
 				"day"=>$day,
-				"task_from"=>strftime("%Y,%m,%d,%H,%M,%S",$value->task_from->getTimestamp()),
-				"task_to"=>strftime("%Y,%m,%d,%H,%M,%S",$value->task_to->getTimestamp()),
+				"task_from"=>$value->task_from,
+				"task_to"=>$value->task_from
 				]);
 			
 		}
