@@ -93,12 +93,12 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setFilterText();
 
+		$grid->addAction("vybavení", "Zobrazit vybavení", 'Chief:roomsEquipment')
+		->setClass("btn btn-xs btn-default btn-info");
+
         $grid->addAction("select", "", 'Chief:manageRoom')
             ->setIcon('edit')
             ->setClass("btn btn-xs btn-default btn-secondary");
-
-		$grid->addAction("vybavení", "Vybavení", 'Chief:roomsEquipment')
-			->setClass("btn btn-xs btn-default btn-secondary");
 			
         $grid->addAction('delete', '', 'deleteRoom!')
             ->setIcon('trash')
