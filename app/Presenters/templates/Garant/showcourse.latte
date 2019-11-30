@@ -184,13 +184,12 @@ Detail kurzu
                         {if $userIsGuarantorInCourse == true || $userIsLectorInCourse == true}
                         <div class="col-md-9 col-sm-12 ">
                             <div class="float-right">
-                                <div class="row">
-                                    <div class="col">
+                              
                     <a n:href="Garant:newFile $task->id_course, $task->id_task" class="btn btn-primary btn-xs ">Přidat soubor</a>
-                </div>
-                <div class="col">
-                    <a class="btn btn-primary btn-xs" onClick="show({$task->id_task})">Smazat termín</a>
-                </div>
+              
+             
+                    <a class="btn btn-primary btn-xs ml-1" onClick="show({$task->id_task})">Smazat termín</a>
+             
                     <div class="modal fade" id="{$task->id_task}">
                       <div class="modal-dialog">
                         <div class="modal-content">
@@ -207,10 +206,10 @@ Detail kurzu
                         </div>
                       </div>
                     </div>
-                    <div class="col">
+                   
                     <a n:href="Garant:newtask $task->id_course, $task->task_type, $task->id_task">
-                    <button class="btn btn-primary btn-xs">Upravit termín</button></a>
-                </div>
+                    <button class="btn btn-primary btn-xs ml-1">Upravit termín</button></a>
+              
                     </div>
                     </div>
                     </div>
