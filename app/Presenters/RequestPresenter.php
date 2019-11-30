@@ -160,6 +160,19 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 				$this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'error'] ) );
 				return;
 			}
+			else
+			{
+				$tasks = $this->database->query("SELECT id_task FROM task WHERE id_course = ?", $id_course)->fetchAll();
+				foreach($tasks as $task)
+				{
+					$result = $this->database->query("INSERT INTO student_has_task (id_user, id_task) VALUES (?, ?)", $user, $task->id_task);
+					if($result->getRowCount() == 0)
+					{
+						$this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'error'] ) );
+						return;
+					}
+				}
+			}
 		}
 		
 
