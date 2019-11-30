@@ -63,7 +63,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	 */
 	public function renderCourses($id): void
 	{
-		$this->id_course=$id;
+		
 	}
 
 	public function createComponentCourses($name)
@@ -538,10 +538,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	public function renderCourse($id)
 	{
-		if($id)
-        {
-			$this->garantModel->getCurrentCourse($this, $id);
-		}
+		$this->id_course=$id;
 	}
 
 	public function createComponentCreateCourseForm(): Form
