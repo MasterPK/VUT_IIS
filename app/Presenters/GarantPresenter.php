@@ -292,7 +292,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		])
 		->setSortable();
 
-		$grid->addFilterSelect('course_type', 'Typ kurzu:', ["P" => 'Povinný', "V" => 'Volitelný']);
+		$grid->addFilterSelect('course_type', 'Typ kurzu:', [""=>"Vše", "P" => 'Povinný', "V" => 'Volitelný']);
 		
 
 		$grid->addColumnText('course_status', 'Stav kurzu')
@@ -305,6 +305,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 				'4' => 'Zamítnut'
             ])
             ->setFilterSelect([
+				"" => "Vše",
                 '0' => 'Čeká na schválení',
 				'1' => 'Schválen',
 				'2' => 'Otevřené registrace',
