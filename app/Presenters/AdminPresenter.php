@@ -76,7 +76,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     }
 
     private $userInfo;
-    public function renderEdituser($id)
+    public function renderEdituser($id_user)
     {
         $this->userInfo = $this->mainModel->getUserDetail($id);
     }
@@ -347,19 +347,18 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
         $grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
-            $container->addText('id_user', '');
             $container->addText('email', '');
             $container->addText('first_name', '');
             $container->addText('surname', '');
             $container->addText('phone', '');
-            $container->addSelect('rank', '',[
+            $container->addSelect('rank', '', [
                 '1' => 'Student',
                 '2' => 'Lektor',
                 '3' => 'Garant',
                 '4' => 'Vedoucí',
                 '5' => 'Administrátor'
             ]);
-            $container->addSelect('active', '',[
+            $container->addSelect('active', '', [
                 '0' => 'Neaktivní',
                 '1' => 'Aktivní'
             ]);
@@ -368,7 +367,6 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         $grid->getInlineEdit()->onSetDefaults[] = function (Nette\Forms\Container $container, $item): void {
 
             $container->setDefaults([
-                'id_user' => $item->id_user,
                 'email' => $item->email,
                 'first_name' => $item->first_name,
                 'surname' => $item->surname,
@@ -380,18 +378,18 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
         $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): void {
             $this->database->table("user")->where("id_user", $id)
-            ->update([
-                'email' => $values->email,
-                'first_name' => $values->first_name,
-                'surname' => $values->surname,
-                'phone' => $values->phone,
-                'rank' => $values->rank,
-                'active' => $values->active,
-            ]);
+                ->update([
+                    'email' => $values->email,
+                    'first_name' => $values->first_name,
+                    'surname' => $values->surname,
+                    'phone' => $values->phone,
+                    'rank' => $values->rank,
+                    'active' => $values->active,
+                ]);
         };
 
-        /*$grid->addAction("select","Detail", 'Homepage:showcourse')
-		->setClass("btn btn-primary");*/
+        $grid->addAction("select", "Změna hesla", 'Admin:edituser')
+            ->setClass("btn btn-primary");
 
         $grid->setTranslator($this->dataGridTranslator);
 
@@ -399,19 +397,4 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         return $grid;
     }
 
-    public function updateUser($id_user, $value, $key)
-    {
-        Debugger::barDump($id_user, "id_user ");
-        Debugger::barDump($value, "value");
-        Debugger::barDump($key, "key");
-        $this->database->table("user")->where("id_user", $id_user)->update([
-            'email' => $row->email,
-            'first_name' => $row->first_name,
-            'surname' => $row->surname,
-            'phone' => $row->phone,
-            'active' => $row->active,
-            'rank' => $row->rank,
-            'password' => password_hash($row->password, PASSWORD_BCRYPT)
-        ]);
-    }
 }
