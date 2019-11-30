@@ -55,12 +55,13 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	public function renderDefault(): void
 	{ }
 
+	
 	/**
 	 * Generuje aktuálne zapsané predmety lektora
 	 *
 	 * @return void
 	 */
-	public function renderCourses(): void
+	public function renderCourses($id): void
 	{
 		
 	}
@@ -254,10 +255,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			}
     	}
 
-        if ($this->isAjax()) 
-        {
-            $this->redrawControl("course_snippet");
-        }		
+        $this->redirect("");
+            
+        
 	}
 
 	public function createComponentRegisterForm()
@@ -538,13 +538,10 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	public function renderCourse($id)
 	{
-		if($id)
-        {
-			$this->garantModel->getCurrentCourse($this, $id);
-		}
+		$this->id_course=$id;
 	}
 
-	public function createComponentCreateCourseForm($id): Form
+	public function createComponentCreateCourseForm(): Form
     {
         $form = new Form;
 
@@ -583,9 +580,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
         $form->addText('tags', 'tags',)
         ->setHtmlAttribute('class', 'form-control');
-        \Tracy\Debugger::barDump($id);
+        \Tracy\Debugger::barDump($this->id_course);
 
-        $data=$this->database->table("course")->where("id_course",$id);
+        $data=$this->database->table("course")->where("id_course",$this->id_course)->fetchAll();
         \Tracy\Debugger::barDump($data);
         if($data)
         {
@@ -600,12 +597,12 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
             ]);
 
             $form->addSubmit('create', 'Upravit kurz')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary ');
         }
         else
         {
             $form->addSubmit('create', 'Vytvořit kurz')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary ');
         }
         
         $form->onSuccess[] = [$this, 'createCourseForm'];
