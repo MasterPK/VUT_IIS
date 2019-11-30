@@ -400,8 +400,11 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 	public function renderManageRoom($id_room)
 	{
+		if($id_room == null)
+		{
+			$this->redirect("Homepage:");
+		}
 		$this->current_room = $this->database->table("room")->where("id_room", $id_room)->fetch();
-		$this->redirect("Homepage:");
 	}
 
 	public function createComponentUpdateRoom()
