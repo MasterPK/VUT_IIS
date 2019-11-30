@@ -138,19 +138,25 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     {
         $values = $form->getValues();
 
-        $data = $this->database->table("user")->where("id_user", $values->id_user)
-            ->update([
-                'email' => $values->email,
-                'first_name' => $values->first_name,
-                'surname' => $values->surname,
-                'phone' => $values->phone,
-                'rank' => $values->rank,
-                'active' => $values->active,
-            ]);
-
-        $this->template->success_notify = true;
-        if ($this->isAjax()) {
-            $this->redrawControl("notify");
+        try {
+            $data = $this->database->table("user")->where("id_user", $values->id_user)
+                ->update([
+                    'email' => $values->email,
+                    'first_name' => $values->first_name,
+                    'surname' => $values->surname,
+                    'phone' => $values->phone,
+                    'rank' => $values->rank,
+                    'active' => $values->active,
+                ]);
+            $this->template->success_notify = true;
+            if ($this->isAjax()) {
+                $this->redrawControl("notify");
+            }
+        } catch (Nette\Database\UniqueConstraintViolationException $e) {
+            $this->template->duplicate_notify = true;
+            if ($this->isAjax()) {
+                $this->redrawControl("notify");
+            }
         }
     }
 
@@ -410,7 +416,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     {
         $this->database->table("user")->where("id_user", $id_user)->delete();
         if ($this->isAjax()) {
-            $this->template->success_notify=true;
+            $this->template->success_notify = true;
             $this->redrawControl('notify');
         } else {
             $this->redirect('this');
