@@ -15,6 +15,7 @@ Vytvoření nového kurzu
         {/ifset}
         {ifset $success_update}
         <script>$.notify("Kurz byl úspěšně aktualizován!", "success");</script>
+        {/ifset}
         {ifset $error_update}
         <script>$.notify("Nastala chyba při aktualizování kurzu!", "error");</script>
         {/ifset}
