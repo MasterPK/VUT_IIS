@@ -94,10 +94,10 @@ class GarantModel
                 'type' => $this->current_course->course_type,
                 'price' => $this->current_course->course_price,
                 'tags' => $this->current_course->tags,
-
-                $form->addSubmit('create', 'Upravit kurz')
-                ->setHtmlAttribute('class', 'btn btn-block btn-primary');
             ]);
+
+            $form->addSubmit('create', 'Upravit kurz')
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary');
         }
         else
         {
