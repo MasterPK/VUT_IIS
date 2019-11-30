@@ -40,10 +40,10 @@ Seznam žádostí
                         <td>{$row->course_type}</td>
                         <td>{$row->id_guarantor}</td>
                         <td>
-                            <a class="ajax" n:href="approveCourse! $course->id_course">
+                            <a class="ajax" n:href="approveCourse! $row->id_course">
                                 <button class="btn btn-primary"><i class="fas fa-check"></i></button>
                             </a>
-                            <a class="ajax" n:href="denyCourse! $course->id_course">
+                            <a class="ajax" n:href="denyCourse! $row->id_course">
                                 <button class="btn btn-primary"><i class="fas fa-times"></i></button>
                             </a>
                         </td>
