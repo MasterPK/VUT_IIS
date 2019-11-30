@@ -53,7 +53,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		
 	}
 
-	public function createComponentCourses($name)
+	public function createComponentMyCourses($name)
 	{
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('id_course');
@@ -94,7 +94,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		return $grid;
 	}
 
-	public function createComponentMyCourses($name)
+	public function createComponentCourses($name)
 	{
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('id_course');
