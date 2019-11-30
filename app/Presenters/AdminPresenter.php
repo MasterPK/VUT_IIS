@@ -78,7 +78,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     private $userInfo;
     public function renderEdituser($id_user)
     {
-        $this->userInfo = $this->mainModel->getUserDetail($id);
+        $this->userInfo = $this->mainModel->getUserDetail($id_user);
     }
 
     public function renderAdduser($id)
@@ -344,7 +344,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 '0' => 'Neaktivní',
                 '1' => 'Aktivní'
             ]);
-
+        /*
         $grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
             $container->addText('email', '');
@@ -386,15 +386,16 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                     'rank' => $values->rank,
                     'active' => $values->active,
                 ]);
-        };
+        };*/
 
-        $grid->addAction("select", "Změna hesla", 'Admin:edituser')
-            ->setClass("btn btn-primary");
+        $grid->addAction("select", "Upravit", 'Admin:edituser')
+            ->setIcon('pencil')
+            ->setClass("btn btn-xs btn-default btn-secondary");
+
 
         $grid->setTranslator($this->dataGridTranslator);
 
 
         return $grid;
     }
-
 }
