@@ -16,7 +16,13 @@ Vytvoření nového kurzu
         {ifset $success_update}
         <script>
             $.notify("Kurz byl úspěšně aktualizován a čeká na schválení.", "success");
-            $("#button").attr("disabled", true);
+            $(document).ready(function () 
+            {
+                $("#createCourseForm").submit(function (e) 
+                {
+                    $("#button").attr("disabled", true);
+                }
+            }
         </script>
         {/ifset}
         {ifset $error_update}
