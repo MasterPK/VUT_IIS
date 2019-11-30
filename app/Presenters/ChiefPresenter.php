@@ -166,7 +166,8 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
         if ($this->isAjax()) {
             $this->redrawControl('content_snipet');
         } else {
-            $this->redirect('this');
+			$this->redirect('this');
+		}
     }
 
 	public function handleDeleteRoom($id_room)
