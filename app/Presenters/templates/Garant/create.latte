@@ -22,6 +22,9 @@ Vytvoření nového kurzu
         {ifset $error_course_exists}
         <script>$.notify("Kurz se zadanou zkratkou již existuje!", "error");</script>
         {/ifset}
+        {ifset $no_change}
+        <script>$.notify("Nenastala žádná změna.", "warn");</script>
+        {/ifset}
         {/snippet}
         
         

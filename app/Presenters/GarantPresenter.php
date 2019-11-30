@@ -157,9 +157,16 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 					"tags" => $values->tags
 	            ]);
 
-				FileSystem::rename("Files/$values->old_id_course", "Files/$values->id_course");
-			
-    			$this->template->success_update = true;
+	            if($data == 1)
+	            {
+	            	FileSystem::rename("Files/$values->old_id_course", "Files/$values->id_course");
+    				$this->template->success_update = true;
+	            }
+	            else
+	            {
+	            	$this->template->no_change = true;
+	            }
+				
 	    	}
 	    	catch(Nette\Database\UniqueConstraintViolationException $e)
 	    	{
