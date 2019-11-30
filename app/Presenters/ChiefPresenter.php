@@ -212,7 +212,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	
 	public function renderAddEquipment($id_room)
 	{
-		Debugger::barDump($this->actual_room,"iiiid");
+		Debugger::barDump($id_room,"d");
 		$this->actual_room = $id_room;
 		$this->template->actual_room = $id_room;
 	}
