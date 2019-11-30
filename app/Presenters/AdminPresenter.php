@@ -338,10 +338,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 '0' => 'Neaktivní',
                 '1' => 'Aktivní'
             ])
-            ->setFilterSelect([
-                '0' => 'Neaktivní',
-                '1' => 'Aktivní'
-            ]);
+            ->setFilterSelect();
 
         $grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
