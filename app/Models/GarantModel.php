@@ -11,6 +11,7 @@ class GarantModel
     private $lectorModel;
     private $mainModel;
     private $database;
+    private $current_course;
 	public function __construct(Nette\Database\Context $database, \App\Model\MainModel $mainModel, \App\Model\LectorModel $lectorModel)
 	{
         $this->database = $database;
@@ -158,4 +159,11 @@ class GarantModel
         return $form;
 	}
 
+    public function getCurrentCourse($presenter, $id_course)
+    {
+        $this->current_course=$this->database->table("course")->where("id_course",$id_course)->fetch();
+        if($this->current_course->id_guarantor!=$presenter->user->identity->id)
+        {
+            $presenter->redirect("Homepage:");
+        }
 }

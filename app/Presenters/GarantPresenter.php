@@ -447,19 +447,12 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         }
 	}
 
-	private $current_course;
 	public function renderCreate($id)
 	{
 		if($id)
-		{
-			$this->current_course=$this->database->table("course")->where("id_course",$id)->fetch();
-			if($this->current_course->id_guarantor!=$this->user->identity->id)
-			{
-				$this->redirect("Homepage:");
-			}
-			$this->template->id_course = $this->current_course->id_course;
+        {
+			$this->garantModel->getCurrentCourse($this, $id);
 		}
-		
 	}
 
 	public function handleDeleteCourse($id_course)
