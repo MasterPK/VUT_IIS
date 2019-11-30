@@ -138,19 +138,25 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     {
         $values = $form->getValues();
 
-        $data = $this->database->table("user")->where("id_user", $values->id_user)
-            ->update([
-                'email' => $values->email,
-                'first_name' => $values->first_name,
-                'surname' => $values->surname,
-                'phone' => $values->phone,
-                'rank' => $values->rank,
-                'active' => $values->active,
-            ]);
-
-        $this->template->success_notify = true;
-        if ($this->isAjax()) {
-            $this->redrawControl("notify");
+        try {
+            $data = $this->database->table("user")->where("id_user", $values->id_user)
+                ->update([
+                    'email' => $values->email,
+                    'first_name' => $values->first_name,
+                    'surname' => $values->surname,
+                    'phone' => $values->phone,
+                    'rank' => $values->rank,
+                    'active' => $values->active,
+                ]);
+            $this->template->success_notify = true;
+            if ($this->isAjax()) {
+                $this->redrawControl("notify");
+            }
+        } catch (Nette\Database\UniqueConstraintViolationException $e) {
+            $this->template->duplicate_notify = true;
+            if ($this->isAjax()) {
+                $this->redrawControl("notify");
+            }
         }
     }
 
@@ -397,9 +403,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             ->setIcon('trash')
             ->setTitle('Smazat')
             ->setClass('btn btn-xs btn-danger ajax')
-            ->setConfirmation(
-                new StringConfirmation('Opravdu chcet smazat uživatele %s?', 'email') // Second parameter is optional
-            );
+            ->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet smazat uživatele %s?', 'email'));
 
 
         $grid->setTranslator($this->dataGridTranslator);
@@ -412,7 +416,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     {
         $this->database->table("user")->where("id_user", $id_user)->delete();
         if ($this->isAjax()) {
-            $this->template->success_notify=true;
+            $this->template->success_notify = true;
             $this->redrawControl('notify');
         } else {
             $this->redirect('this');
