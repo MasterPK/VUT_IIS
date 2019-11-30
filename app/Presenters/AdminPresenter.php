@@ -100,6 +100,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         $form->addText('email', 'Email:')
             ->setHtmlAttribute('class', 'form-control')
             ->setRequired("Tohle pole je povinné.")
+            ->addRule(Form::EMAIL, 'Email není platný.')
             ->setDefaultValue($this->userInfo["email"]);
 
         $form->addText('first_name', 'Křestní jméno:')
