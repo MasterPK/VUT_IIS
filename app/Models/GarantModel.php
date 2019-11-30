@@ -173,9 +173,13 @@ class GarantModel
     public function getCurrentCourse($presenter, $id_course)
     {
         $this->current_course=$this->database->table("course")->where("id_course",$id_course)->fetch();
-        if($this->current_course && $this->current_course->id_guarantor != $presenter->user->identity->id)
+        if($this->current_course)
         {
-            $presenter->redirect("Homepage:");
+            if($this->current_course->id_guarantor != $presenter->user->identity->id)
+            {
+                $presenter->redirect("Homepage:");
+            }
+            $presenter->template->current_course = $this->current_course;
         }
     }
 
