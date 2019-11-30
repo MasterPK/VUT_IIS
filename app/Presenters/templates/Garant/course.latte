@@ -52,7 +52,7 @@ Vytvoření nového kurzu
             <div class="form-group">
                 <label>Štítky</label> {input tags}
             </div>
-            <div id="button" class="form-group text-center">
+            <div id="button" class="form-group text-center" {ifset $success_insert}disabled{/if}>
                 {input create}
             </div>
         </form>
