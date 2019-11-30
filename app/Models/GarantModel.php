@@ -87,8 +87,6 @@ class GarantModel
 
         if($this->current_course)
         {
-            
-
             $form->setDefaults([
                 'old_id_course' => $this->current_course->id_course,
                 'id_course' => $this->current_course->id_course,
@@ -146,7 +144,7 @@ class GarantModel
         ]);
 
         $form->addSubmit('register', 'Otevřít registrace do kurzu')
-		->setHtmlAttribute('class', 'btn btn-xs btn-primary ajax');
+		->setHtmlAttribute('class', 'btn btn-sm btn-primary ajax');
 		
 		$form->onSuccess[] = [$presenter, 'openRegisterFormHandle'];
         return $form;
@@ -164,7 +162,7 @@ class GarantModel
         ]);
 
         $form->addSubmit('register', 'Zavřít registrace do kurzu')
-		->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+		->setHtmlAttribute('class', 'btn btn-sm btn-primary ajax');
 		
 		$form->onSuccess[] = [$presenter, 'closeRegisterFormHandle'];
         return $form;
