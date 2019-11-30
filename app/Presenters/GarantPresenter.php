@@ -606,7 +606,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	    			}
 	    		}
 
-	    		
+
 				try
 				{
 					FileSystem::createDir("Files/$values->id_course/$task_id");
@@ -816,8 +816,8 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	public function createComponentTaskStudentsGrid($name)
 	{
 		$grid = new DataGrid($this, $name);
-		$grid->setPrimaryKey('email');
-		$grid->setDataSource($this->database->query("SELECT email, first_name, surname, points FROM user NATURAL JOIN student_has_task WHERE id_task = ?", $this->id_task)->fetchAll());
+		$grid->setPrimaryKey('id_user');
+		$grid->setDataSource($this->database->query("SELECT id_user, email, first_name, surname, points FROM user NATURAL JOIN student_has_task WHERE id_task = ?", $this->id_task)->fetchAll());
 
 		$grid->addColumnText('email', 'Email studenta')
 		->setSortable()
@@ -836,6 +836,23 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		->setFilterText();
 	
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
+
+		$grid->addInlineEdit()
+            ->onControlAdd[] = function (Nette\Forms\Container $container): void {
+            $container->addText('points', '');
+            ]);
+        };
+
+        $grid->getInlineEdit()->onSetDefaults[] = function (Nette\Forms\Container $container, $item): void {
+
+            $container->setDefaults([
+                'points' => $item->points
+            ]);
+        };
+
+        $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): void {
+            $this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $values->points, $id, $this->id_task);
+        };
 
 		return $grid;
 	}
