@@ -350,8 +350,8 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             $container->addText('first_name', '');
             $container->addText('surname', '');
             $container->addText('phone', '');
-            $container->addStatus('rank', '');
-            $container->addStatus('active', '');
+            $container->addSelect('rank', '');
+            $container->addSelect('active', '');
         };
 
         $grid->getInlineEdit()->onSetDefaults[] = function (Nette\Forms\Container $container, $item): void {
