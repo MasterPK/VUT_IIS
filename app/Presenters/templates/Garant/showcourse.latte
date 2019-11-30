@@ -188,7 +188,7 @@ Detail kurzu
                     <a n:href="Garant:newFile $task->id_course, $task->id_task" class="btn btn-primary btn-sm ">Přidat soubor</a>
               
              
-                    <a class="btn btn-primary btn-sm ml-1" onClick="show({$task->id_task})">Smazat termín</a>
+                    <a class="btn btn-primary btn-sm ml-1 text-white" onClick="show({$task->id_task})">Smazat termín</a>
              
                     <div class="modal fade" id="{$task->id_task}">
                       <div class="modal-dialog">
@@ -207,7 +207,7 @@ Detail kurzu
                       </div>
                     </div>
                    
-                    <a n:href="Garant:newtask $task->id_course, $task->task_type, $task->id_task" class="btn btn-primary btn-sm ml-1 text-white">Upravit termín</a>
+                    <a n:href="Garant:newtask $task->id_course, $task->task_type, $task->id_task" class="btn btn-primary btn-sm ml-1 ">Upravit termín</a>
               
                     </div>
                     </div>
