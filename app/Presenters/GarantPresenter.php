@@ -195,10 +195,10 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     			$data = $this->database->table("course")->where("id_course", $values->old_id_course)
 	            ->update([
 	            	"id_course" => $values->id_course,
-	                'course_name' => $values->name,
-	                'course_description' => $values->description,
-	                'course_type' => $values->type,
-	                'course_price' => $values->price,
+	                'course_name' => $values->course_name,
+	                'course_description' => $values->course_description,
+	                'course_type' => $values->course_type,
+	                'course_price' => $values->course_price,
 					"tags" => $values->tags
 	            ]);
 
@@ -235,10 +235,10 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	    	{
 				$this->database->table("course")->insert([
 					"id_course" => $values->id_course,
-					"course_name" => $values->name,
-					"course_description" => $values->description,
-					"course_type" => $values->type,
-					"course_price" => $values->price,
+	                'course_name' => $values->course_name,
+	                'course_description' => $values->course_description,
+	                'course_type' => $values->course_type,
+	                'course_price' => $values->course_price,
 					"id_guarantor" => $this->user->identity->id,
 					"course_status" => 0,
 					"tags" => $values->tags
@@ -257,7 +257,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	    		$this->template->error_insert=true;
 			}
     	}
-    	
+
 		if($this->isAjax())
 		{
 			$this->redrawControl('course_snippet');
