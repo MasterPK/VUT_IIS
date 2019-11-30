@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 
 namespace App\Presenters;
+
 use Nette;
 use Nette\Application\UI\Form;
 use Ublaboo\DataGrid\DataGrid;
 use Tracy\Debugger;
 use Nette\Utils\DateTime;
-
-
 
 class StudentPresenter extends Nette\Application\UI\Presenter
 {
@@ -214,7 +213,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		foreach ($data as $value) {
 			setlocale(LC_TIME,"cs-CZ");
 			$day = date ('l',$value->task_date->getTimestamp());
-			Debugger:barDump($day,"den");
+			Debugger::barDump($day,"den");
 		}
 		
 
