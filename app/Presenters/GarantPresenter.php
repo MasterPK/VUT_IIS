@@ -122,11 +122,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	}
 
 	
-	public function rendershowCourse($id_course)
+	public function rendershowCourse($id)
 	{
-		$this->garantModel->renderShowCourse($this,$id_course);
-		$this->id_course=$id_course;
-		$this->template->id_course = $id_course;
+		$this->garantModel->renderShowCourse($this,$id);
+		$this->id_course=$id;
+		$this->template->id_course = $id;
 	}
 
 	private $course_id;
