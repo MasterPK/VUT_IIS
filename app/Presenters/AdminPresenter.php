@@ -299,11 +299,6 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             ->setFilterText();
 
         $grid->addColumnText('email', 'Email')
-            ->setEditableCallback(function ($id, $value): void {
-                $this->database->table("user")->where("id_user", $id)->update([
-                    'email' => $value,
-                ]);
-            })
             ->setSortable()
             ->setFilterText();
 
@@ -367,9 +362,15 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         };
 
         $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): void {
-            /**
-             * Save new values
-             */
+            $this->database->table("user")->where("id_user", $id)
+            ->update([
+                'email' => $values->email,
+                'first_name' => $values->first_name,
+                'surname' => $values->surname,
+                'phone' => $values->phone,
+                'rank' => $values->rank,
+                'active' => $values->active,
+            ]);
         };
 
         /*$grid->addAction("select","Detail", 'Homepage:showcourse')
