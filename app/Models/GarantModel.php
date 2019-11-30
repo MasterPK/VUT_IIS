@@ -98,6 +98,7 @@ class GarantModel
             ]);
 
             $form->addSubmit('create', 'Upravit kurz')
+            ->setHtmlAttribute('id', 'button')
             ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
         }
         else

@@ -40,17 +40,17 @@ Detail kurzu
                                         {/ifset}
                                     
                                    
-                                    <a n:href="Garant:managelectors $course->id_course" class="btn btn-sm btn-primary m-l-1">Správa lektorů</a>
+                                    <a n:href="Garant:managelectors $course->id_course" class="btn btn-sm btn-primary ml-1">Správa lektorů</a>
                             
                                
-                                        <a id="btnpopover" class="btn btn-sm btn-primary m-l-1"><i class="fas fa-plus-square text-white"></i></a>
+                                        <a id="btnpopover" class="btn btn-sm btn-primary ml-1"><i class="fas fa-plus-square text-white"></i></a>
                                   
-                                        <a n:href="Garant:course $course->id_course" class="btn btn-sm btn-primary m-l-1"><i class="fas fa-edit "></i></a>
+                                        <a n:href="Garant:course $course->id_course" class="btn btn-sm btn-primary ml-1"><i class="fas fa-edit "></i></a>
                               
                                     
                                     {ifset $id_course}
                                      
-                                            <button class="btn btn-sm btn-primary m-l-1" onClick="show({$id_course})"><i class="fas fa-trash"></i></button>
+                                            <button class="btn btn-sm btn-primary ml-1" onClick="show({$id_course})"><i class="fas fa-trash"></i></button>
                                        
 
                                         
@@ -184,13 +184,12 @@ Detail kurzu
                         {if $userIsGuarantorInCourse == true || $userIsLectorInCourse == true}
                         <div class="col-md-9 col-sm-12 ">
                             <div class="float-right">
-                                <div class="row">
-                                    <div class="col">
-                    <a n:href="Garant:newFile $task->id_course, $task->id_task" class="btn btn-primary btn-xs ">Přidat soubor</a>
-                </div>
-                <div class="col">
-                    <a class="btn btn-primary btn-xs" onClick="show({$task->id_task})">Smazat termín</a>
-                </div>
+                              
+                    <a n:href="Garant:newFile $task->id_course, $task->id_task" class="btn btn-primary btn-sm ">Přidat soubor</a>
+              
+             
+                    <a class="btn btn-primary btn-sm ml-1" onClick="show({$task->id_task})">Smazat termín</a>
+             
                     <div class="modal fade" id="{$task->id_task}">
                       <div class="modal-dialog">
                         <div class="modal-content">
@@ -207,10 +206,9 @@ Detail kurzu
                         </div>
                       </div>
                     </div>
-                    <div class="col">
-                    <a n:href="Garant:newtask $task->id_course, $task->task_type, $task->id_task">
-                    <button class="btn btn-primary btn-xs">Upravit termín</button></a>
-                </div>
+                   
+                    <a n:href="Garant:newtask $task->id_course, $task->task_type, $task->id_task" class="btn btn-primary btn-sm ml-1 text-white">Upravit termín</a>
+              
                     </div>
                     </div>
                     </div>
