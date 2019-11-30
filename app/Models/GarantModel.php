@@ -50,7 +50,10 @@ class GarantModel
     {
         $form = new Form;
 
-        \Tracy\Debugger::barDump($_POST);
+        if(count($_POST) > 0)
+        {
+            $this->current_course = $_POST;
+        }
 
         $form->addHidden('old_id_course', NULL);
 
@@ -101,12 +104,12 @@ class GarantModel
             ]);
 
             $form->addSubmit('create', 'Upravit kurz')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary');
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
         }
         else
         {
             $form->addSubmit('create', 'Vytvořit kurz')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary');
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
         }
         
         $form->onSuccess[] = [$meno, 'createCourseForm'];
