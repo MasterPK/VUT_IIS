@@ -46,7 +46,7 @@ class GarantModel
         else return $lectorCourses;
     }
 
-    public function createCourseF($meno): Form
+    public function createCourseF($meno,$id): Form
     {
         $form = new Form;
 
@@ -85,8 +85,11 @@ class GarantModel
 
         $form->addText('tags', 'tags',)
         ->setHtmlAttribute('class', 'form-control');
-        \Tracy\Debugger::barDump($this->current_course);
-        if($this->current_course)
+        \Tracy\Debugger::barDump($id);
+
+        $data=$this->table->database("course")->where("id_course",$id);
+        \Tracy\Debugger::barDump($data);
+        if($data)
         {
             $form->setDefaults([
                 'old_id_course' => $this->current_course->id_course,
