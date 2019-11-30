@@ -585,7 +585,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         ->setHtmlAttribute('class', 'form-control');
         \Tracy\Debugger::barDump($id);
 
-        $data=$this->table->database->table("course")->where("id_course",$id);
+        $data=$this->database->table("course")->where("id_course",$id);
         \Tracy\Debugger::barDump($data);
         if($data)
         {
