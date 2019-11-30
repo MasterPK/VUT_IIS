@@ -833,11 +833,14 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 		$grid->addColumnText('points', 'Body')
 		->setSortable()
-		->setFilterText();
+		->setFilterText()
+		->setEditableCallback(function($id, $value): void {
+			echo("Id: $id, new value: $value"); die;
+		});
 	
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
-		$grid->addInlineEdit()
+		/*$grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
             $container->addText('points', '');
         };
@@ -851,7 +854,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
         $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): void {
             $this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $values->points, $id, $this->id_task);
-        };
+        };*/
 
 		return $grid;
 	}
