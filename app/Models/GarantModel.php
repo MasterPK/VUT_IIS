@@ -49,6 +49,8 @@ class GarantModel
     {
         $form = new Form;
 
+        $form->addHidden('old_id_course');
+
         $form->addText('id_course', 'Zkratka kurzu')
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired("Tohle pole je povinné")
@@ -85,9 +87,10 @@ class GarantModel
 
         if($this->current_course)
         {
-            $form->addHidden('old_id_course', $this->current_course->id_course);
+            
 
             $form->setDefaults([
+                'old_id_course' => $this->current_course->id_course,
                 'id_course' => $this->current_course->id_course,
                 'name' => $this->current_course->course_name,
                 'description' => $this->current_course->course_description,
