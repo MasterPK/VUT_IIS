@@ -128,35 +128,66 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     {
     	$values = $form->getValues();
 
-    	try
+    	if($values->old_id_course)
     	{
-			$this->database->table("course")->insert([
-				"id_course" => $values->id_course,
-				"course_name" => $values->name,
-				"course_description" => $values->description,
-				"course_type" => $values->type,
-				"course_price" => $values->price,
-				"id_guarantor" => $this->user->identity->id,
-				"course_status" => 0,
-				"tags" => $values->tags
-			]);
-    		//$data = $this->database->query("INSERT INTO course (id_course, course_name, course_description, course_type, course_price, id_guarantor, course_status) VALUES (?, ?, ?, ?, ?, ?, 0, ?);", $values->id_course, $values->name, $values->description, $values->type, $values->price, $values->tags,  $this->user->identity->id);
-			FileSystem::createDir("Files/$values->id_course");
-			
-    		$this->template->success_insert = true;
+    		try
+	    	{
+				$this->database->table("course")->update([
+					"id_course" => $values->id_course,
+					"course_name" => $values->name,
+					"course_description" => $values->description,
+					"course_type" => $values->type,
+					"course_price" => $values->price,
+					"id_guarantor" => $this->user->identity->id,
+					"course_status" => 0,
+					"tags" => $values->tags
+				]);
+	    		//$data = $this->database->query("INSERT INTO course (id_course, course_name, course_description, course_type, course_price, id_guarantor, course_status) VALUES (?, ?, ?, ?, ?, ?, 0, ?);", $values->id_course, $values->name, $values->description, $values->type, $values->price, $values->tags,  $this->user->identity->id);
+				FileSystem::renameDir("Files/$values->id_course");
+				
+	    		$this->template->success_update = true;
+	    	}
+	    	catch(Nette\Database\UniqueConstraintViolationException $e)
+	    	{
+	    		$this->template->error_update=true;
+	    		$this->template->error_course=$values->id_course;
+			}
+			catch(Nette\IOException $e)
+	    	{
+	    		$this->template->error_update=true;
+	    		$this->template->error_course=$values->id_course;
+			}
     	}
-    	catch(Nette\Database\UniqueConstraintViolationException $e)
+    	else
     	{
-    		$this->template->error_insert=true;
-    		$this->template->error_course=$values->id_course;
-		}
-		catch(Nette\IOException $e)
-    	{
-    		$this->template->error_insert=true;
-    		$this->template->error_course=$values->id_course;
-		}
-		
-	
+    		try
+	    	{
+				$this->database->table("course")->insert([
+					"id_course" => $values->id_course,
+					"course_name" => $values->name,
+					"course_description" => $values->description,
+					"course_type" => $values->type,
+					"course_price" => $values->price,
+					"id_guarantor" => $this->user->identity->id,
+					"course_status" => 0,
+					"tags" => $values->tags
+				]);
+	    		//$data = $this->database->query("INSERT INTO course (id_course, course_name, course_description, course_type, course_price, id_guarantor, course_status) VALUES (?, ?, ?, ?, ?, ?, 0, ?);", $values->id_course, $values->name, $values->description, $values->type, $values->price, $values->tags,  $this->user->identity->id);
+				FileSystem::createDir("Files/$values->id_course");
+				
+	    		$this->template->success_insert = true;
+	    	}
+	    	catch(Nette\Database\UniqueConstraintViolationException $e)
+	    	{
+	    		$this->template->error_insert=true;
+	    		$this->template->error_course=$values->id_course;
+			}
+			catch(Nette\IOException $e)
+	    	{
+	    		$this->template->error_insert=true;
+	    		$this->template->error_course=$values->id_course;
+			}
+    	}		
 	}
 
 	public function createComponentRegisterForm()
@@ -310,6 +341,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         if($this->task)
         {
         	$form->setDefaults([
+        		'id_task' => $this->task->id_task,
 	            'task_name' => $this->task->task_name,
 	            'task_type' => $this->task->task_type,
 	            'task_description' => $this->task->task_description,
@@ -318,10 +350,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	            'task_from' => $this->task->task_from,
 	            'task_to' => $this->task->task_to,
 	            'id_room' => $this->task->id_room,
-	        ]);
-
-	        $form->setDefaults([
-	            'id_task' => $this->task->id_task,
 	        ]);
 
 	         $form->addSubmit('create', 'Aktualizovat termín')
