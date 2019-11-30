@@ -203,37 +203,42 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		foreach ($data as $value) {
 			Debugger::barDump($value,"value");
 			$day = date('N', $value->task_date->getTimestamp());
-			$dayTasksCount[$day] += 1;
+			
+			$day_p="";
 			switch ($day) {
 				case 1:
-					$day="Pondělí";
+					$day_p="Pondělí";
 					break;
 				case 2:
-					$day="Úterý";
+					$day_p="Úterý";
 					break;
 				case 3:
-					$day="Středa";
+					$day_p="Středa";
 					break;
 				case 4:
-					$day="Čtvrtek";
+					$day_p="Čtvrtek";
 					break;
 				case 5:
-					$day="Pátek";
+					$day_p="Pátek";
 					break;
 				case 6:
-					$day="Sobota";
+					$day_p="Sobota";
 					break;
 				case 7:
-					$day="Neděle";
+					$day_p="Neděle";
 					break;
+			}
+			if($dayTasksCount[$day]>0)
+			{
+				$day_p=$day_p+$dayTasksCount[$day];
 			}
 			array_push($tasks,[
 				"task_name"=>$value->task_name,
-				"day"=>$day,
+				"day"=>$day_p,
 				"task_from"=>$value->task_from==NULL?$value->task_to:$value->task_from,
 				"task_to"=>$value->task_from==NULL?$value->task_to+1:$value->task_to
 				]);
-			
+			$dayTasksCount[$day] += 1;
 		}
 		$weekDays = array();
 		foreach ($dayTasksCount as $key => $value) {
@@ -266,25 +271,25 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			for ($i = 0; $i < $value-1; $i++) {
 				switch ($key) {
 					case 1:
-						array_push($weekDays, "Po$i");
+						array_push($weekDays, "Pondělí$i");
 						break;
 					case 2:
-						array_push($weekDays, "Út$i");
+						array_push($weekDays, "Úterý$i");
 						break;
 					case 3:
-						array_push($weekDays, "St$i");
+						array_push($weekDays, "Středa$i");
 						break;
 					case 4:
-						array_push($weekDays, "Čt$i");
+						array_push($weekDays, "Čtvrtek$i");
 						break;
 					case 5:
-						array_push($weekDays, "Pá$i");
+						array_push($weekDays, "Pátek$i");
 						break;
 					case 6:
-						array_push($weekDays, "So$i");
+						array_push($weekDays, "Sobota$i");
 						break;
 					case 7:
-						array_push($weekDays, "Ne$i");
+						array_push($weekDays, "Neděle$i");
 						break;
 				}
 			}
