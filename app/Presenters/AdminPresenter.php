@@ -372,6 +372,9 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 'email' => $item->email,
                 'first_name' => $item->first_name,
                 'surname' => $item->surname,
+                'phone' => $item->phone,
+                'rank' => $item->rank,
+                'active' => $item->active
             ]);
         };
 
