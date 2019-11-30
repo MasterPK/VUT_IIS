@@ -10,6 +10,8 @@ use Ublaboo\DataGrid\DataGrid;
 use Tracy\Debugger;
 use Nette\Utils\DateTime;
 
+setlocale(LC_TIME,"cs-CZ");
+
 class StudentPresenter extends Nette\Application\UI\Presenter
 {
 	/** @var \App\Model\StartUp @inject */
@@ -30,7 +32,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 	public function startUp()
 	{
 		parent::startup();
-		setlocale(LC_TIME,"Czech");
+		
 		
 		$this->startup->mainStartUp($this);
 		if(!$this->startup->roleCheck($this,1))
