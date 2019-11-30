@@ -21,8 +21,8 @@ Detail kurzu
                 {$course->id_course}
                 {ifset $courseActive}
                 {if $userIsGuarantorInCourse == true}
-                <button id="popbutton" style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0" >Nový termín</button>
-                <a n:href="Garant:modifyCourse $course->id_course"><button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Správa kurzu</button></a>
+                <a id="btnpopover" data-placement="left" style="float: right;"><i class="fas fa-plus-square"></i></a>
+                <a n:href="Garant:modifyCourse $course->id_course"><i class="fas fa-edit"></i></a>
                 {/if}
                 {/ifset}
             </div>
@@ -171,7 +171,7 @@ Detail kurzu
                       </div>
                     </div>
 
-                    <a n:href="Garant:newtask $task->id_course, $task->id_task">
+                    <a n:href="Garant:newtask $task->id_course, $task->task_type, $task->id_task">
                     <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Upravit termín</button></a>
                     {/if}
                 </div>
@@ -252,6 +252,46 @@ Detail kurzu
 
 
 
+
+
+
+
+
+
+
+<div class="popover_title" style="display: none">
+<h6 style="text-align:center;">Přidat</h6>
+</div>
+<div id="popover_content_wrapper" style="display: none">                 
+    <div class="col-md-12 align-items-center">
+        <div class="form-group">
+            <a n:href="Garant:newtask $course->id_course, 'PR'" class="btn btn-primary btn-sm text-white order-1 order-sm-0">
+              Přednáška
+            </a>
+        </div>
+        <div class="form-group">
+            <a n:href="Garant:newtask $course->id_course, 'CV'" class="btn btn-primary btn-sm text-white order-1 order-sm-0">
+              Cvičení
+            </a>
+        </div>
+        <div class="form-group">
+            <a n:href="Garant:newtask $course->id_course, 'DU'" class="btn btn-primary btn-sm text-white order-1 order-sm-0">
+              Domácí úkol
+            </a>
+        </div>
+        <div class="form-group">
+            <a n:href="Garant:newtask $course->id_course, 'PJ'" class="btn btn-primary btn-sm text-white order-1 order-sm-0">
+              Projekt
+            </a>
+        </div>
+        <div class="form-group">
+            <a n:href="Garant:newtask $course->id_course, 'ZK'" class="btn btn-primary btn-sm text-white order-1 order-sm-0">
+              Zkouška
+            </a>
+        </div>
+    </div>
+</div>
+
 <script>
 function show(id)
 {
@@ -263,27 +303,31 @@ function hide(id)
     $("#" + id).modal("hide"); 
 }
 
-$('[data-toggle="popover"]').popover();
 
-$('body').on('click', function (e) {
-    $('[data-toggle="popover"]').each(function () {
-        //the 'is' for buttons that trigger popups
-        //the 'has' for icons within a button that triggers a popup
-        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
-            $(this).popover('hide');
-        }
-    });
+$("html").on("mouseup", function (e) {
+    var l = $(e.target);
+    if (l[0].className.indexOf("popover") == -1) {
+        $(".popover").each(function () {
+            $(this).popover("hide");
+        });
+    }
 });
 
-$(document).ready(function() {
-    $("#popbutton").popover({
-        placement: 'bottom',
-        html: true,
-        title : '<span class="text-info"><strong>title</strong></span>'+
-                '<button type="button" id="close" class="close" onclick="$("#popbutton").popover("hide");">Zavriet</button>',
-        content : 'test'
+$(document).ready(function(){
+     $('#btnpopover').popover({
+       html : true,
+       title:function(){
+          return $('.popover_title').html();
+       },
+       content:function(){
+          return $('#popover_content_wrapper').html();
+       }
+       
     });
-}); 
+      
+});    
+    
+    
 
 </script>
 

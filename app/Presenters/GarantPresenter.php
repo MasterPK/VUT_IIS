@@ -29,6 +29,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	private $task;
 	private $id_course;
+	private $task_type;
 	private $rooms;
 
 	private $coursetype = [
@@ -90,9 +91,12 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$this->task_id = $task_id;
 	}
 
-	public function renderNewtask($id_course, $id_task)
+	public function renderNewtask($id_course, $task_type, $id_task)
 	{
 		$this->id_course = $id_course;
+		$this->task_type = $task_type;
+		$this->template->task_type = $task_type;
+
 		if($id_task != NULL)
 		{
 			$this->task = $this->database->query("SELECT * FROM task WHERE id_task = ? AND id_course = ?", $id_task, $id_course)->fetch();
@@ -232,26 +236,18 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
         $form->addHidden('id_course');
         $form->addHidden('id_task');
+        $form->addHidden('task_type');
 
         $form->setDefaults([
             'id_course' => $this->id_course,
             'id_task' => NULL,
+            'task_type' => $this->task_type,
         ]);
 
         $form->addText('task_name', 'Název termínu')
         ->setHtmlAttribute('class', 'form-control')
         ->setRequired()
         ->addRule(Form::MAX_LENGTH, 'Dĺžka názvu je maximálně 50 znaků!', 50);
-
-        $form->addSelect('task_type', 'Typ termínu', [
-		    'CV' => 'Cvičení',
-		    'PR' => 'Přednáška',
-		    'DU' => 'Domácí úkol',
-		    'PJ' => 'Projekt',
-		    'ZK' => 'Zkouška',
-		])
-		->setHtmlAttribute('class', 'form-control')
-        ->setRequired("Tohle pole je povinné.");
 
         $form->addText('task_description', 'Popis')
         ->setHtmlAttribute('class', 'form-control')
@@ -273,22 +269,43 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         $form->addSelect('id_room', 'Místnost', $rooms)
 		->setHtmlAttribute('class', 'form-control');
 
-        $form->addText('task_date', 'Datum')
-        ->setType('date')
-        ->setDefaultValue((new \DateTime)->format('Y-m-d'))
-        ->setHtmlAttribute('class', 'form-control')
-        ->setRequired("Tohle pole je povinné.");
+		switch($this->task_type)
+		{
+			case 'DU':
+			case 'PJ':
+				$form->addText('task_date', 'Datum odevzdání')
+		        ->setType('date')
+		        ->setDefaultValue((new \DateTime)->format('Y-m-d'))
+		        ->setHtmlAttribute('class', 'form-control')
+		        ->setRequired("Tohle pole je povinné.");
 
-        $form->addText('task_from', 'Od')
-        ->setHtmlAttribute('class', 'form-control')
-        ->addRule(Form::RANGE, "Zadejte číslo v rozmezí 0 - 23!", [0,23])
-        ->addRule(Form::MAX_LENGTH, "Zadejte číslo v rozmezí 0 - 23!", 2);
+		        $form->addText('task_to', 'Čas odevzdání')
+		        ->setHtmlAttribute('class', 'form-control')
+		        ->addRule(Form::RANGE, "Zadejte číslo v rozmezí 0 - 23!", [0,23])
+		        ->addRule(Form::MAX_LENGTH, "Zadejte číslo v rozmezí 0 - 23!", 2);
 
-        $form->addText('task_to', 'Do')
-        ->setHtmlAttribute('class', 'form-control')
-        ->addRule(Form::RANGE, "Zadejte číslo v rozmezí 0 - 23!", [0,23])
-        ->addRule(Form::MAX_LENGTH, "Zadejte číslo v rozmezí 0 - 23!", 2)
-        ->setRequired("Tohle pole je povinné.");
+				break;
+			default:
+				 $form->addText('task_date', 'Datum')
+		        ->setType('date')
+		        ->setDefaultValue((new \DateTime)->format('Y-m-d'))
+		        ->setHtmlAttribute('class', 'form-control')
+		        ->setRequired("Tohle pole je povinné.");
+
+		        $form->addText('task_from', 'Od')
+		        ->setHtmlAttribute('class', 'form-control')
+		        ->addRule(Form::RANGE, "Zadejte číslo v rozmezí 0 - 23!", [0,23])
+		        ->addRule(Form::MAX_LENGTH, "Zadejte číslo v rozmezí 0 - 23!", 2);
+
+		        $form->addText('task_to', 'Do')
+		        ->setHtmlAttribute('class', 'form-control')
+		        ->addRule(Form::RANGE, "Zadejte číslo v rozmezí 0 - 23!", [0,23])
+		        ->addRule(Form::MAX_LENGTH, "Zadejte číslo v rozmezí 0 - 23!", 2)
+		        ->setRequired("Tohle pole je povinné.");
+		        
+				break;
+		}
+       
 
         if($this->task)
         {
