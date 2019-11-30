@@ -155,6 +155,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	public function handleDeleteEquipRoom($room_equipment)
     {
 		
+		Debugger::barDump($this->actual_room,"delete_value");
 		$data = $this->database->table("room_equipment")->where("id_room", $this->actual_room)->where("room_equipment", $room_equipment)
 		->update([
 			'id_room' => NULL,
@@ -208,6 +209,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$this->template->equip = $data;
 		$this->template->id = $id_room;
 		$this->actual_room = $id_room;
+		Debugger::barDump($this->actual_room,"render_value");
 	}
 
 	
