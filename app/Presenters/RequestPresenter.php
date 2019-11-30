@@ -224,7 +224,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		$count = $this->database->table('course')
 		->where('id_course', $id)
 		->update([
-			'course_status' => '2'
+			'course_status' => '4'
 		]);
 
 		if($count == 1)
