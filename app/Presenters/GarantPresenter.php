@@ -255,10 +255,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			}
     	}
 
-        if ($this->isAjax()) 
-        {
-            $this->redrawControl("course_snippet");
-        }		
+        $this->redirect("");
+            
+        
 	}
 
 	public function createComponentRegisterForm()
@@ -601,12 +600,12 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
             ]);
 
             $form->addSubmit('create', 'Upravit kurz')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary ');
         }
         else
         {
             $form->addSubmit('create', 'Vytvořit kurz')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary ');
         }
         
         $form->onSuccess[] = [$this, 'createCourseForm'];
