@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Presenters;
 
-use Ublaboo;
+
 use Ublaboo\DataGrid\DataGrid;
 use Tracy\Debugger;
 use Nette;
@@ -17,6 +17,9 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
     /** @var \App\Model\MainModel @inject */
     public $mainModel;
+
+    /** @var \App\Model\DataGridModel @inject */
+    public $dataGridModel;
 
     private $database;
 
@@ -38,27 +41,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     public function __construct(Nette\Database\Context $database)
     {
         $this->database = $database;
-        $this->dataGridTranslator = new Ublaboo\DataGrid\Localization\SimpleTranslator([
-            'ublaboo_datagrid.no_item_found_reset' => 'Žádné položky nenalezeny. Filtr můžete vynulovat',
-            'ublaboo_datagrid.no_item_found' => 'Žádné položky nenalezeny.',
-            'ublaboo_datagrid.here' => 'zde',
-            'ublaboo_datagrid.items' => 'Položky',
-            'ublaboo_datagrid.all' => 'všechny',
-            'ublaboo_datagrid.from' => 'z',
-            'ublaboo_datagrid.reset_filter' => 'Resetovat filtr',
-            'ublaboo_datagrid.group_actions' => 'Hromadné akce',
-            'ublaboo_datagrid.show_all_columns' => 'Zobrazit všechny sloupce',
-            'ublaboo_datagrid.hide_column' => 'Skrýt sloupec',
-            'ublaboo_datagrid.action' => 'Akce',
-            'ublaboo_datagrid.previous' => 'Předchozí',
-            'ublaboo_datagrid.next' => 'Další',
-            'ublaboo_datagrid.choose' => 'Vyberte',
-            'ublaboo_datagrid.execute' => 'Provést',
-            'ublaboo_datagrid.per_page_submit' => "Aktualizovat",
-
-            'Name' => 'Jméno',
-            'Inserted' => 'Vloženo'
-        ]);
+        
     }
 
 
@@ -411,7 +394,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             ->setClass('btn btn-xs btn-primary');
 
 
-        $grid->setTranslator($this->dataGridTranslator);
+        $grid->setTranslator($this->dataGridModel->getDataGridTranslator);
 
 
         return $grid;
