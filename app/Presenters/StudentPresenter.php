@@ -207,7 +207,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			$day_p="";
 			switch ($day) {
 				case 1:
-					$day_p="Pondělí";
+					$day_p="<div class=\"invisible\">Pondělí";
 					break;
 				case 2:
 					$day_p="Úterý";
@@ -230,7 +230,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			}
 			if($dayTasksCount[$day]>0)
 			{
-				$day_p=$day_p.$dayTasksCount[$day];
+				$day_p=$day_p.$dayTasksCount[$day]."</div>";
 			}
 			array_push($tasks,[
 				"task_name"=>$value->task_name,
