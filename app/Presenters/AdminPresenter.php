@@ -401,7 +401,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         };
 
         $grid->getInlineEdit()->onCustomRedraw[] = function() use ($grid): void {
-            $grid->redrawControl();
+            $this->redrawControl('content_snippet');
         };
 
         $grid->addInlineAdd()
