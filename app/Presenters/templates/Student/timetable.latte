@@ -11,7 +11,7 @@ timetable.setScope(0, 23);
 var data ={$weekDays|noescape};
 timetable.addLocations(data);
 {foreach $tasks as $row}
-timetable.addEvent({$row[task_name]}, {$row[day]}, new Date(0000,0,00,{$row[task_from]|noescape},00), new Date(0000,0,00,{$row[task_to]|noescape},00));
+timetable.addEvent({$row[task_name]}, {$row[day]|noescape}, new Date(0000,0,00,{$row[task_from]|noescape},00), new Date(0000,0,00,{$row[task_to]|noescape},00));
 {/foreach}
 var renderer = new Timetable.Renderer(timetable);
 renderer.draw('.timetable'); // any css selector

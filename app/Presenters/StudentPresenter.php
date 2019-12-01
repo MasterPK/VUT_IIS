@@ -207,36 +207,36 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			$day_p="";
 			switch ($day) {
 				case 1:
-					$day_p="Pondělí";
+					$day_p="\"<div class='invisible'>Pondělí";
 					break;
 				case 2:
-					$day_p="Úterý";
+					$day_p="\"<div class='invisible'>Úterý";
 					break;
 				case 3:
-					$day_p="Středa";
+					$day_p="\"<div class='invisible'>Středa";
 					break;
 				case 4:
-					$day_p="Čtvrtek";
+					$day_p="\"<div class='invisible'>Čtvrtek";
 					break;
 				case 5:
-					$day_p="Pátek";
+					$day_p="\"<div class='invisible'>Pátek";
 					break;
 				case 6:
-					$day_p="Sobota";
+					$day_p="\"<div class='invisible'>Sobota";
 					break;
 				case 7:
-					$day_p="Neděle";
+					$day_p="\"<div class='invisible'>Neděle";
 					break;
 			}
 			if($dayTasksCount[$day]>0)
 			{
-				$day_p=$day_p.$dayTasksCount[$day];
+				$day_p=$day_p.$dayTasksCount[$day]."</div>\"";
 			}
 			array_push($tasks,[
 				"task_name"=>$value->task_name,
 				"day"=>$day_p,
-				"task_from"=>$value->task_from==NULL?$value->task_to:$value->task_from,
-				"task_to"=>$value->task_from==NULL?$value->task_to+1:$value->task_to
+				"task_from"=>$value->task_from==NULL?$value->task_to-1:$value->task_from,
+				"task_to"=>$value->task_from==NULL?$value->task_to:$value->task_to
 				]);
 			$dayTasksCount[$day] += 1;
 		}
@@ -271,25 +271,25 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			for ($i = 1; $i < $value; $i++) {
 				switch ($key) {
 					case 1:
-						array_push($weekDays, "Pondělí$i");
+						array_push($weekDays, "<div class=\"invisible\">Pondělí$i</div>");
 						break;
 					case 2:
-						array_push($weekDays, "Úterý$i");
+						array_push($weekDays, "<div class=\"invisible\">Úterý$i</div>");
 						break;
 					case 3:
-						array_push($weekDays, "Středa$i");
+						array_push($weekDays, "<div class=\"invisible\">Středa$i</div>");
 						break;
 					case 4:
-						array_push($weekDays, "Čtvrtek$i");
+						array_push($weekDays, "<div class=\"invisible\">Čtvrtek$i</div>");
 						break;
 					case 5:
-						array_push($weekDays, "Pátek$i");
+						array_push($weekDays, "<div class=\"invisible\">Pátek$i</div>");
 						break;
 					case 6:
-						array_push($weekDays, "Sobota$i");
+						array_push($weekDays, "<div class=\"invisible\">Sobota$i</div>");
 						break;
 					case 7:
-						array_push($weekDays, "Neděle$i");
+						array_push($weekDays, "<div class=\"invisible\">Neděle$i</div>");
 						break;
 				}
 			}
