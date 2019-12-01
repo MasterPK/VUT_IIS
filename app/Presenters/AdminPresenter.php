@@ -402,7 +402,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             if ($this->isAjax()) 
             {
                 $values->password = 'SKRYTO';
-                $this->redrawControl("content_snippet");
+                $this->redrawControl("notify");
             }
         };
 
