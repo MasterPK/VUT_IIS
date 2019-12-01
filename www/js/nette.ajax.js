@@ -146,6 +146,44 @@ var nette = function () {
 	};
 
 	/**
+	 * Binds extension callbacks to existing XHR object
+	 *
+	 * @param  {jqXHR|null}
+	 * @param  {object} settings
+	 * @return {jqXHR|null}
+	 */
+	this.handleXHR = function (xhr, settings) {
+		settings = settings || {};
+
+		if (xhr && (typeof xhr.statusText === 'undefined' || xhr.statusText !== 'canceled')) {
+			xhr.done(function (payload, status, xhr) {
+				inner.fire({
+					name: 'success',
+					off: settings.off || {}
+				}, payload, status, xhr, settings);
+			}).fail(function (xhr, status, error) {
+				inner.fire({
+					name: 'error',
+					off: settings.off || {}
+				}, xhr, status, error, settings);
+			}).always(function (xhr, status) {
+				inner.fire({
+					name: 'complete',
+					off: settings.off || {}
+				}, xhr, status, settings);
+			});
+			inner.fire({
+				name: 'start',
+				off: settings.off || {}
+			}, xhr, settings);
+			if (settings.start) {
+				settings.start(xhr, settings);
+			}
+		}
+		return xhr;
+	};
+
+	/**
 	 * Executes AJAX request. Attaches listeners and events.
 	 *
 	 * @param  {object|string} settings or URL
@@ -225,43 +263,6 @@ var nette = function () {
 		return this.handleXHR($.ajax(settings), settings);
 	};
 
-	/**
-	 * Binds extension callbacks to existing XHR object
-	 *
-	 * @param  {jqXHR|null}
-	 * @param  {object} settings
-	 * @return {jqXHR|null}
-	 */
-	this.handleXHR = function (xhr, settings) {
-		settings = settings || {};
-
-		if (xhr && (typeof xhr.statusText === 'undefined' || xhr.statusText !== 'canceled')) {
-			xhr.done(function (payload, status, xhr) {
-				inner.fire({
-					name: 'success',
-					off: settings.off || {}
-				}, payload, status, xhr, settings);
-			}).fail(function (xhr, status, error) {
-				inner.fire({
-					name: 'error',
-					off: settings.off || {}
-				}, xhr, status, error, settings);
-			}).always(function (xhr, status) {
-				inner.fire({
-					name: 'complete',
-					off: settings.off || {}
-				}, xhr, status, settings);
-			});
-			inner.fire({
-				name: 'start',
-				off: settings.off || {}
-			}, xhr, settings);
-			if (settings.start) {
-				settings.start(xhr, settings);
-			}
-		}
-		return xhr;
-	};
 };
 
 $.nette = new ($.extend(nette, $.nette ? $.nette : {}));
