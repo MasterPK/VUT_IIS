@@ -840,9 +840,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		return $grid;
 	}
 
-	public function handleAddPoints($id_user, $id_task)
+	public function handleAddPoints($id_user, $value,  $id_task)
 	{
-		\Tracy\Debugger::barDump($id_user, $id_task);
+		\Tracy\Debugger::barDump($id_user,$value, $id_task);
 		//$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $id, $id_task);
 		
 	}
