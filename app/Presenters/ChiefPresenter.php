@@ -132,7 +132,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		Debugger::barDump($this->actual_room,"dete");
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('room_equipment');
-		$grid->setDataSource($this->database->query("SELECT * FROM room_equipment NATURAL JOIN room")->fetchAll());
+		$grid->setDataSource($this->database->query("SELECT * FROM room_equipment NATURAL JOIN room WHERE id_room = ?", $this->actual_room)->fetchAll());
 
 		$grid->addColumnText('room_equipment', 'Vybavení')
 		->setSortable()
