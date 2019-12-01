@@ -833,22 +833,43 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		->setFilterText();
 		
 		$grid->addColumnText('points', 'Body')
-		->setSortable()
-		->setEditableCallback([$this,"handleTaskPoints"]);
+		->setSortable();
+		
+		$grid->addInlineEdit()
+            ->onControlAdd[] = function (Nette\Forms\Container $container): void {
+            $container->addText('points', '');
+        };
+
+        $grid->getInlineEdit()->onSetDefaults[] = function (Nette\Forms\Container $container, $item): void {
+
+            $container->setDefaults([
+                'points' => $item->points
+            ]);
+        };
+
+        $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): void {
+            $httpRequest = $this->getHttpRequest();
+			$id_task = $httpRequest->getQuery('id_task');
+			$maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
+			if($maxpoints->task_points >= $values->points)
+			{
+				$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $values->points, $id, $id_task);
+			}
+        };
+
+		/*->setEditableCallback(function($id, $value){
+			$httpRequest = $this->getHttpRequest();
+			$id_task = $httpRequest->getQuery('id_task');
+			$maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
+			if($maxpoints->task_points >= $value)
+			{
+				$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $id, $id_task);
+			}
+			die;
+		});*/
 
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
 		return $grid;
-	}
-
-	public function handleTaskPoints($id_user,$value)
-	{
-		$httpRequest = $this->getHttpRequest();
-		$id_task = $httpRequest->getQuery('id_task');
-		$maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
-		if($maxpoints->task_points >= $value)
-		{
-			$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $id_user, $id_task);
-		}
 	}
 }
