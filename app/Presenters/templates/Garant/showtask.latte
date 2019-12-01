@@ -8,4 +8,19 @@ Seznam studentů
 		<script>$.notify("Zadaný počet bodů je vyšší než je maximum!", "error");</script>
 	{/ifset}
 {/snippet}
+<script>
+naja.registerExtension(
+    function MyExtension( // <-- tu musí být konstruktor, Naja vytváří instanci pomocí "new"
+        naja // <-- aktuální instance Najy se vkládá jako první parametr
+    ) {
+        naja.addEventListener( // <-- Naja implementuje standardní rozhraní EventEmitter
+            'success',
+            (event) => { // <-- parametry jsou zabalené v objektu typu Event
+                console.log(event.response.snippets);
+            }
+        );
+    }
+);
+</script>
+naja.initialize();
 {/block}
