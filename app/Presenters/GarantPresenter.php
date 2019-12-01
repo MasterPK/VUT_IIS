@@ -891,10 +891,12 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			{
 				$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $student, $id_task);
 			}
+			$this->redrawControl('content_snippet');
 		}
 		else
 		{
-			$this->redrawControl('grid_snippet');
+			$this->template->error_set = true;
+			$this->redrawControl('error_snippet');
 		}
 	}
 }
