@@ -827,7 +827,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			$id_task = $httpRequest->getQuery('id_task');
 		}else
 		{
-			$post = $httpRequest->getPost(); // vrací pole všech parametrů z POST
 			$id_task = $httpRequest->getPost('id_task'); // vrací POST parametr 'id' (nebo null)
 		}
 
