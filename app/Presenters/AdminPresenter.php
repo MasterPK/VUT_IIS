@@ -281,9 +281,6 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         $grid->setDataSource($this->database->table("user"));
 
 
-
-
-
         $grid->addColumnText('id_user', 'ID')
             ->setSortable()
             ->setFilterText();
