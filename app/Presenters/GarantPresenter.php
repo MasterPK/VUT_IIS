@@ -831,6 +831,10 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setFilterText();
 
+		
+
+		$grid['params']['id_task'] = $this->id_task;
+
 		\Tracy\Debugger::barDump($grid);
 
 		$grid->addColumnText('points', 'Body')
