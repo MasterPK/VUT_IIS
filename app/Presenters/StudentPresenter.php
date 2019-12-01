@@ -271,7 +271,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			for ($i = 1; $i < $value; $i++) {
 				switch ($key) {
 					case 1:
-						array_push($weekDays, "Pondělí$i");
+						array_push($weekDays, "<div class=\"invisible\">Pondělí$i</div>");
 						break;
 					case 2:
 						array_push($weekDays, "Úterý$i");
