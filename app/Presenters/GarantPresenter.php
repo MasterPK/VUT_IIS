@@ -820,7 +820,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('id_user');
 		//$grid->setDataSource($this->database->query("SELECT id_user, email, first_name, surname, points FROM user NATURAL JOIN student_has_task"));
-		$grid->setDataSource($this->database->table("student_has_task")->where("id_task", $this->id_task)->select("user.id_user,user.email,user.first_name,user.surname,points"));
+		$grid->setDataSource($this->database->table("student_has_task")->where("id_task = ?", $this->id_task)->select("user.id_user,user.email,user.first_name,user.surname,points"));
 
 		$grid->addColumnText('email', 'Email studenta')
 		->setSortable()
