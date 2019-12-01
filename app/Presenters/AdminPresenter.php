@@ -332,8 +332,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 '1' => 'Aktivní'
             ]);
 
-        $grid->addColumnText('password', 'Heslo')
-            ->setReplacement('');
+        $grid->addColumnText('password', 'Heslo');
         
         $grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
