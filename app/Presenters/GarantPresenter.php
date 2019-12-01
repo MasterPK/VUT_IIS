@@ -816,7 +816,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	public function createComponentTaskStudentsGrid($name)
 	{
 		$grid = new DataGrid($this, $name);
-		$grid->setPrimaryKey(['id_user', 'id_task']);
+		$grid->setPrimaryKey('id_user');
 		$grid->setDataSource($this->database->query("SELECT id_user, email, first_name, surname, points, id_task FROM user NATURAL JOIN student_has_task WHERE id_task = ?", $this->id_task)->fetchAll());
 
 		$grid->addColumnText('email', 'Email studenta')
@@ -834,10 +834,12 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$grid->addColumnText('surname', 'Přijmení studenta')
 		->setSortable()
 		->setFilterText();
-
+		
 		$grid->addColumnText('points', 'Body')
 		->setSortable()
-		->setEditableCallback([$this, 'handleAddPoints']);
+		->setEditableCallback(function($id, $value) {
+			\Tracy\Debugger::barDump(['adid']);
+		});
 	
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
@@ -846,7 +848,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	public function handleAddPoints($id_user, $value)
 	{
-		\Tracy\Debugger::barDump($id_user,$value);
+		
 		//$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $id, $id_task);
 		
 	}
