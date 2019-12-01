@@ -846,9 +846,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			{
 				$this->template->error_set = true;
 			}
-		})->onCustomRedraw[] = function() use ($grid): void {
-			\Tracy\Debugger::barDump("hello");
-		};
+		});
 
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
