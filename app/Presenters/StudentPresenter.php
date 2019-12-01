@@ -229,7 +229,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			}
 
 			array_push($tasks,[
-				"task_name"=>$value->task_name,
+				"task_name"=>"[$value->id_course] $value->task_name ".$value->task_from==NULL?$value->task_date:"",
 				"day"=>$day,
 				"task_from"=>$from,
 				"task_to"=>$to
