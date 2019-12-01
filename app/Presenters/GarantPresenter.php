@@ -816,11 +816,21 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	public function createComponentTaskStudentsGrid($name)
 	{
-		\Tracy\Debugger::barDump($this->id_task);
+		$id_task;
+		if($this->id_task != NULL)
+		{
+			$id_task = $this->id_task;
+		}
+		else
+		{
+			$httpRequest = $this->getHttpRequest();
+			$id_task = $httpRequest->getQuery('id_task');
+		}
+
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('id_user');
 		//$grid->setDataSource($this->database->query("SELECT id_user, email, first_name, surname, points FROM user NATURAL JOIN student_has_task"));
-		$grid->setDataSource($this->database->table("student_has_task")->where("id_task = ?", $this->id_task)->select("user.id_user,user.email,user.first_name,user.surname,points"));
+		$grid->setDataSource($this->database->table("student_has_task")->where("id_task = ?", $id_task)->select("user.id_user,user.email,user.first_name,user.surname,points"));
 
 		$grid->addColumnText('email', 'Email studenta')
 		->setSortable()
