@@ -380,7 +380,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             ]);
         };
 
-        $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): void {
+        $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): string {
             $this->database->table("user")->where("id_user", $id)
                 ->update([
                     'email' => $values->email,
