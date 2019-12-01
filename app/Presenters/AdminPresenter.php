@@ -333,8 +333,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             ]);
 
         $grid->addColumnText('password', 'Heslo')
-            ->setSortable()
-            ->setFilterText();
+            ->setSortable();
 
         $grid->addAction('delete', '', 'delete!')
             ->setIcon('trash')
