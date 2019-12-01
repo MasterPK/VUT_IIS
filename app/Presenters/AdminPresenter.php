@@ -332,15 +332,13 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 '1' => 'Aktivní'
             ]);
 
-        $grid->addAction('delete', '', 'delete!')
+        $grid->addAction('delete', '', 'confirm! $first_name." ".$surname')
             ->setIcon('trash')
             ->setTitle('Smazat')
-            ->setClass('btn btn-xs btn-danger ajax')
-            ->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet smazat uživatele %s?', 'email'));
+            ->setClass('btn btn-xs btn-danger ajax');
 
 
-        $grid->addColumnText('password', 'Heslo')
-            ->setSortable();
+        $grid->addColumnText('password', 'Heslo');
         
         $grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
@@ -405,6 +403,14 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
 
         return $grid;
+    }
+
+    public function handleConfirm($id_user, $name)
+    {
+        $this->template->delete_confirm = true;
+        $this->template->delete_user = $name;
+        $this->template->delete_user_id = $id_user;
+        $this->redrawControl('confirm_snippet');
     }
 
     public function handleDelete($id_user)
