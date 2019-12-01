@@ -204,11 +204,12 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		$dayTasksCount = array();
 		for ($i = 1; $i <= 7; $i++) {
 			$dayTasksCount[$i] = 0;
-			$tasks[$i]=array();
+			$conflictArray[$i]=array();
 			for ($j=0; $j < 24; $j++) { 
-				$tasks[$i][$j]=array();
+				$conflictArray[$i][$j]=0;
 			}
 		}
+		Debugger::barDump($conflictArray,"konflikty");
 		foreach ($data as $value) {
 			Debugger::barDump($value,"value");
 			$day = date('N', $value->task_date->getTimestamp());
@@ -256,7 +257,11 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 				"task_from"=>$from,
 				"task_to"=>$to
 				]);
-			$dayTasksCount[$day] += 1;
+			
+		}
+
+		foreach ($conflictArray as $key => $value) {
+			$dayTasksCount[$key]=max($value);
 		}
 
 		Debugger::barDump($conflictArray,"konflikty");
