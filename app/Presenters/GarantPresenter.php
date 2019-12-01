@@ -846,7 +846,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		
 		$grid->addColumnText('points', 'Body')
 		->setSortable()
-		->setClass("align-center")
 		->setFilterText();
 
 		$grid->addInlineEdit()
@@ -854,7 +853,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
             $httpRequest = $this->getHttpRequest();
 			$id_task = $httpRequest->getQuery('id_task');
             $maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
-            $container->addText('points', '')->addRule(Form::RANGE, "Zadejte počet bodů v rozmezí 0 - ".$maxpoints->task_points, [0,$maxpoints->task_points]);
+            $container->addText('points', '')
+            		->setClass("align-center")
+            		->addRule(Form::RANGE, "Zadejte počet bodů v rozmezí 0 - ".$maxpoints->task_points, [0,$maxpoints->task_points]);
         };
 
         $grid->getInlineEdit()->onSetDefaults[] = function (Nette\Forms\Container $container, $item): void {
