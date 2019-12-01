@@ -213,8 +213,37 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 	
 			$day = date('N', $value->task_date->getTimestamp());
 			
+			
+			/*
+			if($dayTasksCount[$day]>0)
+			{
+				$day_p=$day_p.$dayTasksCount[$day];
+			}*/
+
+			$from=$value->task_from==NULL?$value->task_to-1:$value->task_from;
+			$to=$value->task_from==NULL?$value->task_to:$value->task_to;
+
+			//Check exist of time in conflict array
+			for ($i=$from; $i < $to; $i++) { 
+				$conflictArray[$day][$i]+=1;
+			}
+
+			array_push($tasks,[
+				"task_name"=>$value->task_name,
+				"day"=>$day,
+				"task_from"=>$from,
+				"task_to"=>$to
+				]);
+			
+		}
+
+		foreach ($conflictArray as $key => $value) {
+			$dayTasksCount[$key]=max($value);
+		}
+		Debugger::barDump($conflictArray,"konflikty");
+		foreach ($tasks as $key => $value) {
 			$day_p="";
-			switch ($day) {
+			switch ($value["day"]) {
 				case 1:
 					$day_p="Pondělí";
 					break;
@@ -237,39 +266,12 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 					$day_p="Neděle";
 					break;
 			}
-			/*
-			if($dayTasksCount[$day]>0)
-			{
-				$day_p=$day_p.$dayTasksCount[$day];
-			}*/
-
-			$from=$value->task_from==NULL?$value->task_to-1:$value->task_from;
-			$to=$value->task_from==NULL?$value->task_to:$value->task_to;
-
-			//Check exist of time in conflict array
-			for ($i=$from; $i < $to; $i++) { 
-				$conflictArray[$day][$i]+=1;
-			}
-
-			array_push($tasks,[
-				"task_name"=>$value->task_name,
-				"day"=>$day_p,
-				"task_from"=>$from,
-				"task_to"=>$to
-				]);
-			
-		}
-
-		foreach ($conflictArray as $key => $value) {
-			$dayTasksCount[$key]=max($value);
-		}
-		Debugger::barDump($conflictArray,"konflikty");
-		foreach ($tasks as $key => $value) {
 			if($conflictArray[$value["day"]][$value["task_from"]]==0)
 			{
+				$value["day"]=$day_p;
 				continue;
 			}
-			$value["day"].=$conflictArray[$value["day"]][$value["task_from"]]--;
+			$value["day"]=$day_p.$conflictArray[$value["day"]][$value["task_from"]]--;
 
 		}
 
