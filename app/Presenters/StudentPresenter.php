@@ -257,7 +257,11 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 				"task_from"=>$from,
 				"task_to"=>$to
 				]);
-			$dayTasksCount[$day] += 1;
+			
+		}
+
+		foreach ($conflictArray as $key => $value) {
+			$dayTasksCount[$key]=max($value);
 		}
 
 		Debugger::barDump($conflictArray,"konflikty");
