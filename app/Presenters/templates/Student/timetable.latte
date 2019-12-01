@@ -4,10 +4,11 @@ Osobní rozvrh
 {block content}
 <div class="row">
 <div class="col-sm-12">
-<div class="timetable"></div>
+
 
 {ifset $weekDays}
 {ifset $tasks}
+<div class="timetable"></div>
 <script>
 var timetable = new Timetable();
 timetable.setScope(0, 23);
