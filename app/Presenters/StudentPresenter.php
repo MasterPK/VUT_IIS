@@ -191,7 +191,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 	{
 		//Get all tasks in student courses
 		$data = $this->database->query("SELECT task.* FROM course NATURAL JOIN course_has_student NATURAL JOIN task WHERE id_user=?;", $this->user->identity->id)->fetchAll();
-
+		Debugger::barDump($data,"data");
 		if (!$data) {
 			return;
 		}
@@ -213,8 +213,44 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 	
 			$day = date('N', $value->task_date->getTimestamp());
 			
+			
+			/*
+			if($dayTasksCount[$day]>0)
+			{
+				$day_p=$day_p.$dayTasksCount[$day];
+			}*/
+
+			$from=$value->task_from==NULL?$value->task_to-1:$value->task_from;
+			$to=$value->task_from==NULL?$value->task_to:$value->task_to;
+			$date=$value->task_from==NULL?$value->task_date:"";
+			if($value->task_type="ZK")
+			{
+				$date=$value->task_date;
+			}
+			
+
+			//Check exist of time in conflict array
+			for ($i=$from; $i < $to; $i++) { 
+				$conflictArray[$day][$i]+=1;
+			}
+
+			array_push($tasks,[
+				"task_name"=>"[$value->id_course] $value->task_name ".$date,
+				"day"=>$day,
+				"task_from"=>$from,
+				"task_to"=>$to
+				]);
+			
+		}
+
+		foreach ($conflictArray as $key => $value) {
+			$dayTasksCount[$key]=max($value);
+		}
+
+		Debugger::barDump($conflictArray,"konflikty");
+		foreach ($tasks as $key => $value) {
 			$day_p="";
-			switch ($day) {
+			switch ($value["day"]) {
 				case 1:
 					$day_p="Pondělí";
 					break;
@@ -237,72 +273,22 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 					$day_p="Neděle";
 					break;
 			}
-			/*
-			if($dayTasksCount[$day]>0)
-			{
-				$day_p=$day_p.$dayTasksCount[$day];
-			}*/
-
-			$from=$value->task_from==NULL?$value->task_to-1:$value->task_from;
-			$to=$value->task_from==NULL?$value->task_to:$value->task_to;
-
-			//Check exist of time in conflict array
-			for ($i=$from; $i < $to; $i++) { 
-				$conflictArray[$day][$i]+=1;
-			}
-
-			array_push($tasks,[
-				"task_name"=>$value->task_name,
-				"day"=>$day_p,
-				"task_from"=>$from,
-				"task_to"=>$to
-				]);
-			
-		}
-
-		foreach ($conflictArray as $key => $value) {
-			$dayTasksCount[$key]=max($value);
-		}
-		Debugger::barDump($conflictArray,"konflikty");
-		foreach ($tasks as $key => $value) {
 			if($conflictArray[$value["day"]][$value["task_from"]]==0)
 			{
+				$tasks[$key]["day"]=$day_p;
 				continue;
 			}
-			$value["day"].=$conflictArray[$value["day"]][$value["task_from"]]--;
-
+			$tasks[$key]["day"]=$day_p.$conflictArray[$value["day"]][$value["task_from"]];
+			$conflictArray[$value["day"]][$value["task_from"]]-=1;
 		}
 
 		
 		$weekDays = array();
 		foreach ($dayTasksCount as $key => $value) {
-			switch ($key) {
-				case 1:
-					array_push($weekDays, "Pondělí");
-					break;
-				case 2:
-					array_push($weekDays, "Úterý");
-					break;
-				case 3:
-					array_push($weekDays, "Středa");
-					break;
-				case 4:
-					array_push($weekDays, "Čtvrtek");
-					break;
-				case 5:
-					array_push($weekDays, "Pátek");
-					break;
-				case 6:
-					array_push($weekDays, "Sobota");
-					break;
-				case 7:
-					array_push($weekDays, "Neděle");
-					break;
-			}
-			if ($value == 0 || $value == 1) {
+			if ($value == 0) {
 				continue;
 			}
-			for ($i = 1; $i < $value; $i++) {
+			for ($i = 1; $i <= $value; $i++) {
 				switch ($key) {
 					case 1:
 						array_push($weekDays, "Pondělí$i");
