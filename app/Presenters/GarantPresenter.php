@@ -836,6 +836,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			\Tracy\Debugger::barDump($group_points);
 			if($maxpoints->task_points < (int)$group_points)
 			{
+				\Tracy\Debugger::barDump("YES");
 				$this->template->error_set = true;
 				$this->redrawControl('error_snippet');
 			}
