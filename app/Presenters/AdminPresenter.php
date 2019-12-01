@@ -275,6 +275,8 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
     public function createComponentUserMng($name)
     {
+
+        \Tracy\Debugger::barDump($_POST);
         $grid = new DataGrid($this, $name);
 
         $grid->setPrimaryKey('id_user');
@@ -380,7 +382,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             ]);
         };
 
-        $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): string {
+        $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): void {
             $this->database->table("user")->where("id_user", $id)
                 ->update([
                     'email' => $values->email,
@@ -398,8 +400,6 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                     'password' => password_hash($values->password, PASSWORD_BCRYPT)
                 ]);
             }
-            $password = 'SKRYTO';
-            return $password;
         };
 
         $grid->addInlineAdd()
