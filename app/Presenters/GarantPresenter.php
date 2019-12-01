@@ -833,7 +833,8 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		->setFilterText();
 		
 		$grid->addColumnText('points', 'Body')
-		->setSortable();
+		->setSortable()
+		->setFilterText();
 		
 		$grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
