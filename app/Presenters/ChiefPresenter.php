@@ -223,7 +223,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
             ->setTitle('Zpátky')
 			->setClass('btn btn-xs btn-primary');
 			
-		$grid->addToolbarButton('Chief:createEquipment', 'Přidat vybavení')
+		$grid->addToolbarButton('Chief:createAdres', 'Přidat adresu')
             ->setTitle('Přidat vybavení')
 			->setClass('btn btn-xs btn-primary');
 
