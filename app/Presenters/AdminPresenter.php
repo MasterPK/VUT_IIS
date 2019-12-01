@@ -332,7 +332,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 '1' => 'Aktivní'
             ]);
 
-        $grid->addAction('delete', '', 'confirm!', $first_name." ".$surname)
+        $grid->addAction('delete', '', 'confirm!')
             ->setIcon('trash')
             ->setTitle('Smazat')
             ->setClass('btn btn-xs btn-danger ajax');
@@ -405,11 +405,12 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         return $grid;
     }
 
-    public function handleConfirm($id_user, $name)
+    public function handleConfirm($id_user)
     {
         $this->template->delete_confirm = true;
-        $this->template->delete_user = $name;
         $this->template->delete_user_id = $id_user;
+        $this->template->delete_user = $this->database->query("SELECT first_name, surname FROM user WHERE id_user = ?", $id_user)->fetch();
+        $this->template->delete_user = $this->template->delete_user->first_name . " " . $this->template->delete_user->surname;
         $this->redrawControl('confirm_snippet');
     }
 
