@@ -338,7 +338,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             ->setClass('btn btn-xs btn-danger ajax');
 
 
-        //$grid->addColumnText('password', 'Heslo');
+        $grid->addColumnText('password', 'Heslo');
         
         $grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
@@ -393,10 +393,30 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             }
         };
 
-        $grid->addToolbarButton('adduser', '')
+        $grid->addInlineAdd()
+            ->onControlAdd[] = function(Nette\Forms\Container $container) {
+                $container->addText('email', '')->addRule(Form::EMAIL, 'Email není platný.');
+                $container->addText('first_name', '')->setRequired("Tohle pole je povinné");
+                $container->addText('surname', '')->setRequired("Tohle pole je povinné");
+                $container->addText('phone', '');
+                $container->addSelect('rank', '', [
+                '1' => 'Student',
+                '2' => 'Lektor',
+                '3' => 'Garant',
+                '4' => 'Vedoucí',
+                '5' => 'Administrátor'
+            ]);
+            $container->addSelect('active', '', [
+                '0' => 'Neaktivní',
+                '1' => 'Aktivní'
+            ]);
+            $container->addText('password', '')->setRequired("Tohle pole je povinné");
+        };
+
+        /*$grid->addToolbarButton('adduser', '')
             ->setIcon('plus')
             ->setTitle('Přidat uživatele')
-            ->setClass('btn btn-xs btn-primary');
+            ->setClass('btn btn-xs btn-primary');*/
 
 
         $grid->setTranslator($this->dataGridModel->dataGridTranslator);
