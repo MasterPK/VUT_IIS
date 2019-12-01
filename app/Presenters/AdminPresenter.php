@@ -338,7 +338,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             ->setClass('btn btn-xs btn-danger ajax');
 
 
-        $grid->addColumnText('password', 'Heslo');
+        //$grid->addColumnText('password', 'Heslo');
         
         $grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
@@ -369,7 +369,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 'phone' => $item->phone,
                 'rank' => $item->rank,
                 'active' => $item->active,
-                'password' => $item->password,
+                'password' => '',
             ]);
         };
 
