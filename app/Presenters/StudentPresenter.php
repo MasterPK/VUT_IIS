@@ -215,10 +215,10 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 
 			$from=$value->task_from==NULL?$value->task_to-1:$value->task_from;
 			$to=$value->task_from==NULL?$value->task_to:$value->task_to;
-			$date=$value->task_from==NULL?strftime("%Y-%m-%d",$value->task_date):"";
+			$date=$value->task_from==NULL?strftime("%Y-%m-%d",$value->task_date->getTimestamp()):"";
 			if($value->task_type=="ZK")
 			{
-				$date=$value->task_date;
+				$date=strftime("%Y-%m-%d",$value->task_date->getTimestamp());
 			}
 
 			if($from<$minHour)
