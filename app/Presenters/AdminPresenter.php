@@ -337,8 +337,15 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             ->setTitle('Smazat')
             ->setClass('btn btn-xs btn-danger ajax');
 
+        $all_passwords = $this->database->query("SELECT password FROM user")->fetchAll();
+        $replacement = [];
+        foreach($all_passwords as $password)
+        {
+            $replacement[$password] = 'SKRYTO';
+        }
 
-        $grid->addColumnText('password', 'Heslo');
+        $grid->addColumnText('password', 'Heslo')
+            ->setReplacement($replacement);
         
         $grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
