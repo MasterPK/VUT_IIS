@@ -230,11 +230,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			}
 			if($dayTasksCount[$day]>0)
 			{
-				$day_p="\"<div class='invisible'>".$day_p.$dayTasksCount[$day]."</div>\"";
-			}
-			else
-			{
-				$day_p="\"".$day_p."\"";
+				$day_p=$day_p.$dayTasksCount[$day];
 			}
 			array_push($tasks,[
 				"task_name"=>$value->task_name,
@@ -275,25 +271,25 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			for ($i = 1; $i < $value; $i++) {
 				switch ($key) {
 					case 1:
-						array_push($weekDays, "<div class='invisible'>Pondělí$i</div>");
+						array_push($weekDays, "Pondělí$i");
 						break;
 					case 2:
-						array_push($weekDays, "<div class='invisible'>Úterý$i</div>");
+						array_push($weekDays, "Úterý$i");
 						break;
 					case 3:
-						array_push($weekDays, "<div class='invisible'>Středa$i</div>");
+						array_push($weekDays, "Středa$i");
 						break;
 					case 4:
-						array_push($weekDays, "<div class='invisible'>Čtvrtek$i</div>");
+						array_push($weekDays, "Čtvrtek$i");
 						break;
 					case 5:
-						array_push($weekDays, "<div class='invisible'>Pátek$i</div>");
+						array_push($weekDays, "Pátek$i");
 						break;
 					case 6:
-						array_push($weekDays, "<div class='invisible'>Sobota$i</div>");
+						array_push($weekDays, "Sobota$i");
 						break;
 					case 7:
-						array_push($weekDays, "<div class='invisible'>Neděle$i</div>");
+						array_push($weekDays, "Neděle$i");
 						break;
 				}
 			}
