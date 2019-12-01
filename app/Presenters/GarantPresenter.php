@@ -863,7 +863,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
             ]);
         };
 
-        $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): string {
+        $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): void {
             $httpRequest = $this->getHttpRequest();
 			$id_task = $httpRequest->getQuery('id_task');
 			
