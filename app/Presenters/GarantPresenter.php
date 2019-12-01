@@ -816,7 +816,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	public function createComponentTaskStudentsGrid($name)
 	{
-		\Tracy\Debugger::barDump($_POST);
+		\Tracy\Debugger::barDump($this->template);
 		$id_task;
 		if($this->id_task != NULL)
 		{
@@ -863,7 +863,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 				}
 				else
 				{
-					$_POST['error_set'] = true;
+					$this->template->error_set = true;
 					$this->redrawControl('error_snippet');
 				}
 			};
