@@ -232,6 +232,10 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			{
 				$day_p=$day_p.$dayTasksCount[$day]."</div>\"";
 			}
+			else
+			{
+				$day_p.="</div>\"";
+			}
 			array_push($tasks,[
 				"task_name"=>$value->task_name,
 				"day"=>$day_p,
