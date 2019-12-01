@@ -384,7 +384,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             {
                 $this->database->table("user")->where("id_user", $id)
                 ->update([
-                    'password' => $values->password
+                    'password' => password_hash($values->password, PASSWORD_BCRYPT)
                 ]);
             }
         };
