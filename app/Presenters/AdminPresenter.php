@@ -398,6 +398,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                     'password' => password_hash($values->password, PASSWORD_BCRYPT)
                 ]);
             }
+            $this->redrawControl('content_snippet');
         };
 
         $grid->addInlineAdd()
