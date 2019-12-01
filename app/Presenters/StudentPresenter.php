@@ -205,6 +205,9 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		for ($i = 1; $i <= 7; $i++) {
 			$dayTasksCount[$i] = 0;
 			$tasks[$i]=array();
+			for ($j=0; $j < 24; $j++) { 
+				$tasks[$i][$j]=array();
+			}
 		}
 		foreach ($data as $value) {
 			Debugger::barDump($value,"value");
@@ -244,7 +247,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 
 			//Check exist of time in conflict array
 			for ($i=$from; $i < $to; $i++) { 
-				$conflictArray[$day]+=1;
+				$conflictArray[$day][$i]+=1;
 			}
 
 			array_push($tasks,[
