@@ -833,16 +833,16 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 		$grid->addColumnText('points', 'Body')
 		->setSortable()
-		->setEditableCallback([$this, 'handleAddPoints']);
+		->setEditableCallback([$this, 'handleAddPoints'])->addParameters(['id_task' => $this->id_task]);
 	
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
 		return $grid;
 	}
 
-	public function handleAddPoints($data)
+	public function handleAddPoints($data1, $data2, $data3)
 	{
-		\Tracy\Debugger::barDump($data);
+		\Tracy\Debugger::barDump($data1, $data2, $data3);
 		//$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $id, $id_task);
 		
 	}
