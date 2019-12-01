@@ -265,7 +265,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		}
 		Debugger::barDump($conflictArray,"konflikty");
 		foreach ($tasks as $key => $value) {
-			if($conflictArray[$value->day][$value->from]==0)
+			if($conflictArray[$value["day"]][$value["from"]]==0)
 			{
 				continue;
 			}
