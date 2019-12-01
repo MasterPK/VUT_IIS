@@ -4,8 +4,6 @@ Seznam studentů
 {block content}
 {control taskStudentsGrid}
 {snippet grid_snippet}
-	{ifset error_set}
-		<script>$.notify("Zadaný počet bodů je vyšší než je maximum!", "error");</script>
-	{/ifset}
+	<script>$.notify("Zadaný počet bodů je vyšší než je maximum!", "error");</script>
 {/snippet}
 {/block}
