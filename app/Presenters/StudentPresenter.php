@@ -209,6 +209,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 				$conflictArray[$i][$j]=array();
 			}
 		}
+		Debugger::barDump($conflictArray,"konflikty");
 		foreach ($data as $value) {
 			Debugger::barDump($value,"value");
 			$day = date('N', $value->task_date->getTimestamp());
