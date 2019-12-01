@@ -3,28 +3,6 @@ Vytvoření nové místnosti
 {/block}
 {block content}
 {snippet content_snipet}
-    <div class="row">
-        <div class="col-sm-12">
-        {ifset $rooms}
-            <table class="table table-bordered">
-                <thead class="thead-dark">
-                    <tr class="text-right">
-                        <th colspan = "5"><a n:href="Chief:createEquipment"><button class="btn btn-dark">Přidat vybavení</button></a></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {foreach $rooms as $row}
-                    <tr class="text-center">
-                        <td style="min-width:100px">{$row->room_equipment}</td>
-                        <td><a n:href="Chief:changeEquipment $row->id_room_equipment"><button class="btn btn-dark">Upravit</button></a></td>
-                    </tr>
-                    {/foreach}
-                </tbody>
-            </table>
-            <a n:href="Chief:rooms"><button class="btn btn-primary">Zpátky</button></a>
-        {/ifset}
-        </div>
-    </div>
 {control manageAllEquipmentGrid}
 {/snippet}
 {/block}
