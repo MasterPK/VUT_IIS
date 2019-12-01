@@ -331,13 +331,13 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 '0' => 'Neaktivní',
                 '1' => 'Aktivní'
             ]);
-        /*
+        
         $grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
-            $container->addText('email', '');
-            $container->addText('first_name', '');
-            $container->addText('surname', '');
-            
+            $container->addText('email', '')->addRule(Form::EMAIL, 'Email není platný.');
+            $container->addText('first_name', '')->setRequired("Tohle pole je povinné");
+            $container->addText('surname', '')->setRequired("Tohle pole je povinné");
+            $container->addText('phone', '');
             $container->addSelect('rank', '', [
                 '1' => 'Student',
                 '2' => 'Lektor',
@@ -357,7 +357,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 'email' => $item->email,
                 'first_name' => $item->first_name,
                 'surname' => $item->surname,
-                
+                'phone' => $item->phone,
                 'rank' => $item->rank,
                 'active' => $item->active
             ]);
@@ -373,11 +373,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                     'rank' => $values->rank,
                     'active' => $values->active,
                 ]);
-        };*/
-
-        $grid->addAction("select", "", 'Admin:edituser')
-            ->setIcon('edit')
-            ->setClass("btn btn-xs btn-default btn-secondary");
+        };
 
         $grid->addAction('delete', '', 'delete!')
             ->setIcon('trash')
