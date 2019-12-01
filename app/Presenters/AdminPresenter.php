@@ -332,7 +332,16 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 '1' => 'Aktivní'
             ]);
 
-        $grid->addColumnText('password', 'Heslo');
+        $grid->addColumnText('password', 'Heslo')
+            ->setSortable()
+            ->setFilterText();
+
+        $grid->addAction('delete', '', 'delete!')
+            ->setIcon('trash')
+            ->setTitle('Smazat')
+            ->setClass('btn btn-xs btn-danger ajax')
+            ->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet smazat uživatele %s?', 'email'));
+
         
         $grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
@@ -386,12 +395,6 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 ]);
             }
         };
-
-        $grid->addAction('delete', '', 'delete!')
-            ->setIcon('trash')
-            ->setTitle('Smazat')
-            ->setClass('btn btn-xs btn-danger ajax')
-            ->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet smazat uživatele %s?', 'email'));
 
         $grid->addToolbarButton('adduser', '')
             ->setIcon('plus')
