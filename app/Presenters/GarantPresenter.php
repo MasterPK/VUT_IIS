@@ -846,7 +846,15 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		
 		$grid->addColumnText('points', 'Body')
 		->setSortable()
-		->setFilterText();
+		->setFilterText()
+		->onControlAdd[] = function($container) {
+
+	    	/**
+	     	 * @var $container Container
+	     	 */
+	     	$container->addText('points', '')
+	     		->setRequired('Zadejte prosím počet bodu.');
+	     };
 		
 		
 		$grid->addInlineEdit()
