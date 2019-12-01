@@ -380,7 +380,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             ]);
         };
 
-        $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): string {
+        $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): void {
             $this->database->table("user")->where("id_user", $id)
                 ->update([
                     'email' => $values->email,
@@ -398,7 +398,15 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                     'password' => password_hash($values->password, PASSWORD_BCRYPT)
                 ]);
             }
-            return 'SKRYTO';
+            $this->template->success_notify = true;
+            if ($this->isAjax()) 
+            {   
+                $this->redrawControl("pass_change");
+            }
+        };
+
+        $grid->getInlineEdit()->onCustomRedraw[] = function() use ($grid): void {
+            $grid->redrawControl();
         };
 
         $grid->addInlineAdd()
