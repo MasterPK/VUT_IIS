@@ -844,7 +844,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			}
 			else
 			{
-				new Nette\Diagnostics\Exception("error");
+				throw new \Exception("Zadané body jsou vyšší než maximální počet bodů!");
 			}
 			$this->redrawControl("grid_snippet");
 			
