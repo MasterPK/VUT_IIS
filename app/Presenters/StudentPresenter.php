@@ -269,7 +269,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			{
 				continue;
 			}
-			$value->day.=$conflictArray[$value->day][$value->from]--;
+			$value["day"].=$conflictArray[$value["day"]][$value["from"]]--;
 
 		}
 
