@@ -833,7 +833,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 		$grid->addColumnText('points', 'Body')
 		->setSortable()
-		->setEditableCallback(function($id, $value) use ($this) {
+		->setEditableCallback(function($id, $value){
             $this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $id, $this->id_task);
         });
 	
