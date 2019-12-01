@@ -848,6 +848,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setFilterText();
 		
+		
 		$grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
             $container->addText('points', '');
@@ -860,14 +861,17 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
             ]);
         };
 
-        $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): void {
+        $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): string {
+        	$result = '0';
             $httpRequest = $this->getHttpRequest();
 			$id_task = $httpRequest->getQuery('id_task');
 			$maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
 			if($maxpoints->task_points >= $values->points)
 			{
 				$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $values->points, $id, $id_task);
+				$result = $value;
 			}
+			return $result;
         };
 
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
