@@ -237,14 +237,28 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	public function handleDeleteAdres($id_room_address)
     {
 
-		$this->database->table("room_address")->where("id_room_address", $id_room_address)->delete();
+		try
+		{
+			$this->database->table("room_address")->where("id_room_address", $id_room_address)->delete();
 
-        $this->template->success_notify = true;
-        if ($this->isAjax()) {
-            $this->redrawControl('content_snipet');
-        } else {
-			$this->redirect('this');
+			if ($this->isAjax()) {
+				$this->redrawControl('content_snipet');
+			} else {
+				$this->redirect('this');
+			}
 		}
+		catch(Nette\IOException $e)
+		{
+			$this->template->error_notify = true;
+
+			if ($this->isAjax()) {
+				$this->redrawControl('notify');
+			} else {
+				$this->redirect('this');
+			}
+		}
+        
+
     }
 
 
