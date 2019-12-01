@@ -275,9 +275,6 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
     public function createComponentUserMng($name)
     {
-
-        \Tracy\Debugger::barDump($_POST);
-        \Tracy\Debugger::barDump($_GET);
         $grid = new DataGrid($this, $name);
 
         $grid->setPrimaryKey('id_user');
