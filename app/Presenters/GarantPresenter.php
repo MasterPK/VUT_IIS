@@ -816,7 +816,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	public function createComponentTaskStudentsGrid($name)
 	{
-		$id_task;
+		$id_task=NULL;
 		if($this->id_task != NULL)
 		{
 			$id_task = $this->id_task;
