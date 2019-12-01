@@ -884,9 +884,18 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	{
 		$httpRequest = $this->getHttpRequest();
 		$id_task = $httpRequest->getQuery('id_task');
-		foreach($students as $student)
+		$maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
+		if($maxpoints->task_points >= $value)
 		{
-			$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $student, $id_task);
+			foreach($students as $student)
+			{
+				$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $student, $id_task);
+			}
+		}
+		else
+		{
+			$this->template->error_set = true;
+			$this->redrawControl('grid_snippet');
 		}
 	}
 }
