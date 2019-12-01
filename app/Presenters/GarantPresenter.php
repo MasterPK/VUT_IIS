@@ -828,16 +828,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			$id_task = $httpRequest->getQuery('id_task');
 		}
 
-		if($_POST && $_POST['group_action'])
-		{
-			$group_points = $_POST['group_action']['1'];
-			$maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
-			if($maxpoints->task_points < $group_points)
-			{
-				$this->redrawControl('error_snippet');
-			}
-		}
-
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('user.id_user');
 		//$grid->setDataSource($this->database->query("SELECT id_user, email, first_name, surname, points FROM user NATURAL JOIN student_has_task"));
@@ -870,6 +860,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 					{
 						$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $student, $id_task);
 					}
+				}
+				else
+				{
+					$this->template->error_set = true;
+					$this->redrawControl('error_snippet');
 				}
 			};
 
