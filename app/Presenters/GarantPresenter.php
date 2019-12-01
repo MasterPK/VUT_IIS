@@ -886,7 +886,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$id_task = $httpRequest->getQuery('id_task');
 		foreach($students as $student)
 		{
-			$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $student->id_user, $id_task);
+			$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $student, $id_task);
 		}
 	}
 }
