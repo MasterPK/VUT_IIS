@@ -816,7 +816,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	public function createComponentTaskStudentsGrid($name)
 	{
 		$grid = new DataGrid($this, $name);
-		$grid->setPrimaryKey('id_user');
+		$grid->setPrimaryKey(['id_user', 'id_task']);
 		$grid->setDataSource($this->database->query("SELECT id_user, email, first_name, surname, points, id_task FROM user NATURAL JOIN student_has_task WHERE id_task = ?", $this->id_task)->fetchAll());
 
 		$grid->addColumnText('email', 'Email studenta')
