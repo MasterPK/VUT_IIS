@@ -845,15 +845,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			$this->redirect("this");
 		});
 
-		$grid->addActionCallback('custom_callback', '')
-			->setIcon('sun-o')
-			->setTitle('Hello, sun')
-			->setClass('btn btn-xs btn-default ajax')
-			->onClick[] = function($item_id) use ($this) {
-				$this->flashMessage('Custom callback triggered, id: ' . $item_id);
-				$this->redrawControl('flashes');
-		};
-
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
 		return $grid;
