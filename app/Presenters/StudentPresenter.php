@@ -238,10 +238,11 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 					$day_p="Neděle";
 					break;
 			}
+			/*
 			if($dayTasksCount[$day]>0)
 			{
 				$day_p=$day_p.$dayTasksCount[$day];
-			}
+			}*/
 
 			$from=$value->task_from==NULL?$value->task_to-1:$value->task_from;
 			$to=$value->task_from==NULL?$value->task_to:$value->task_to;
@@ -262,6 +263,15 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 
 		foreach ($conflictArray as $key => $value) {
 			$dayTasksCount[$key]=max($value);
+		}
+
+		foreach ($tasks as $key => $value) {
+			if($conflictArray[$value->day][$value->from]==0)
+			{
+				continue;
+			}
+			$value->day.=$conflictArray[$value->day][$value->from]--;
+
 		}
 
 		Debugger::barDump($conflictArray,"konflikty");
