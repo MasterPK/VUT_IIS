@@ -517,9 +517,9 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$this->current_Adres = $this->database->table("room_address")->where("id_room_address", $id)->fetch();
 	}
 
-	public function renderChangeEquipment($id)
+	public function renderChangeEquipment($id_room_equipment)
 	{
-		$this->current_Equip = $this->database->table("room_equipment")->where("id_room_equipment", $id)->fetch();
+		$this->current_Equip = $this->database->table("room_equipment")->where("id_room_equipment", $id_room_equipment)->fetch();
 	}
 
 	public function renderManageRoom($id_room)
