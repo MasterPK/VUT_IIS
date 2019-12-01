@@ -11,7 +11,8 @@
 
 {snippet confirm_snippet}
     {ifset $delete_confirm}
-        <button class="btn btn-sm btn-primary ml-1" onClick="show({$delete_user_id})"><i class="fas fa-trash"></i></button>
+        <script>eventFire(document.getElementById('{$delete_user_id}'), 'click');</script>
+        <button class="btn btn-sm btn-primary ml-1 hidden" id="{$delete_user_id}" onClick="show({$delete_user_id})"></button>
         <div class="modal fade" id="{$delete_user_id}">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -46,5 +47,16 @@ function hide(id)
 {
     $("#" + id).modal("hide"); 
 }
+
+function eventFire(el, etype){
+  if (el.fireEvent) {
+    el.fireEvent('on' + etype);
+  } else {
+    var evObj = document.createEvent('Events');
+    evObj.initEvent(etype, true, false);
+    el.dispatchEvent(evObj);
+  }
+}
+
 </script>
 {/block}
