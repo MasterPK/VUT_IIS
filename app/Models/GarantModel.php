@@ -104,12 +104,12 @@ class GarantModel
             ]);
 
             $form->addSubmit('create', 'Upravit kurz')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary AJAX');
         }
         else
         {
             $form->addSubmit('create', 'Vytvořit kurz')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
+            ->setHtmlAttribute('class', 'btn btn-block btn-primary AJAX');
         }
         
         $form->onSuccess[] = [$meno, 'createCourseForm'];
