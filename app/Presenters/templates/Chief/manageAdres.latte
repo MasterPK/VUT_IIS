@@ -1,7 +1,8 @@
 {block header}
-Vytvoření nové místnosti
+Správa adres
 {/block}
 {block content}
+{snippet content_snipet}
     <div class="row">
         <div class="col-sm-12">
         {ifset $rooms}
@@ -24,4 +25,6 @@ Vytvoření nové místnosti
         {/ifset}
         </div>
     </div>
+{control manageAllAdresesGrid}
+{/snippet}
 {/block}

@@ -197,6 +197,57 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	}
 
 
+	public function createComponentManageAllAdresesGrid($name)
+	{
+
+		$grid = new DataGrid($this, $name);
+		$grid->setPrimaryKey('id_room_address');
+		$grid->setDataSource($this->database->table("room_address"));
+
+		$grid->addColumnText('room_address', 'Adresy')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addAction("select", "", 'Chief:changeAdres')
+			->setIcon('edit')
+			->setClass("btn btn-xs btn-default btn-secondary");
+			
+        $grid->addAction('delete', '', 'deleteAdres!')
+            ->setIcon('trash')
+            ->setTitle('Smazat')
+            ->setClass('btn btn-xs btn-danger ajax')
+			->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet smazat vybavení?'));
+
+		$grid->addToolbarButton('Chief:rooms', '')
+			->setIcon('arrow-left')
+            ->setTitle('Zpátky')
+			->setClass('btn btn-xs btn-primary');
+			
+		$grid->addToolbarButton('Chief:createEquipment', 'Přidat vybavení')
+            ->setTitle('Přidat vybavení')
+			->setClass('btn btn-xs btn-primary');
+
+
+		$grid->setTranslator($this->dataGridTranslator);
+
+		return $grid;
+	}
+
+
+	public function handleDeleteAdres($id_room_address)
+    {
+
+		$this->database->table("room_address")->where("id_room_address", $id_room_address)->delete();
+
+        $this->template->success_notify = true;
+        if ($this->isAjax()) {
+            $this->redrawControl('content_snipet');
+        } else {
+			$this->redirect('this');
+		}
+    }
+
+
 	public function handleDeleteEquip($id_room_equipment)
     {
 
@@ -508,9 +559,9 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	private $current_Equip;
 
 	private $current_room;
-	public function renderChangeAdres($id)
+	public function renderChangeAdres($id_room_address)
 	{
-		$this->current_Adres = $this->database->table("room_address")->where("id_room_address", $id)->fetch();
+		$this->current_Adres = $this->database->table("room_address")->where("id_room_address", $id_room_address)->fetch();
 	}
 
 	public function renderChangeEquipment($id_room_equipment)
@@ -586,35 +637,6 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 		$this->template->success_notify = true;
 		$this->redirect("Chief:rooms");
-	}
-
-
-	public function createComponentDeleteAdres()
-	{
-		$form = new Form;
-
-		$form->addHidden('id_room_address', '')
-			->setRequired()
-			->setDefaultValue($this->current_Adres);
-
-		$form->addCheckBox("really")
-			->setRequired()
-			->addCondition(Form::EQUAL, true);
-
-		$form->addSubmit('submit', 'Smazat?!')
-			->setHtmlAttribute('class', 'btn btn-primary');
-
-		$form->onSuccess[] = [$this, 'deleteAdresSubmit'];
-
-		return $form;
-	}
-
-	public function deleteAdresSubmit(Form $form)
-	{
-		$values = $form->getValues();
-
-		$this->database->table("room_address")->where("id_room_address", $values->id_room_address)->delete();
-		$this->redirect("Chief:manageAdres");
 	}
 
 	public function createComponentChangeAdres()

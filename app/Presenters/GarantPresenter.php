@@ -815,12 +815,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	public function createComponentTaskStudentsGrid($name)
 	{
-		\Tracy\Debugger::barDump($_POST);
-		if(count($_POST) > 0)
-        {
-            $this->id_task = $_POST['id_task'];
-        }
-
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('id_user');
 		$grid->setDataSource($this->database->query("SELECT id_user, email, first_name, surname, points FROM user NATURAL JOIN student_has_task WHERE id_task = ?", $this->id_task)->fetchAll());
@@ -839,30 +833,25 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 		$grid->addColumnText('points', 'Body')
 		->setSortable()
-		->setEditableCallback(function($id, $value): void {
-			$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $id, $this->id_task);
-        	$value = $this->id_task;
-        	$this->redrawControl();
-		});
+		->setClass('ajax')
+		->setEditableCallback([$this, 'addPoints!']);
 	
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
-		/*$grid->addInlineEdit()
-            ->onControlAdd[] = function (Nette\Forms\Container $container): void {
-            $container->addText('points', '');
-        };
-
-        $grid->getInlineEdit()->onSetDefaults[] = function (Nette\Forms\Container $container, $item): void {
-
-            $container->setDefaults([
-                'points' => $item->points
-            ]);
-        };
-
-        $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): void {
-            $this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $values->points, $id, $this->id_task);
-        };*/
-
 		return $grid;
+	}
+
+	public function handleAddPoints($id_user, $id_task, $points)
+	{
+		$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $points, $id_user, $id_task);
+
+        if ($this->isAjax()) 
+        {
+            $this->redrawControl('content_snipet');
+        } 
+        else 
+        {
+			$this->redirect('this');
+		}
 	}
 }
