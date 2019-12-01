@@ -833,9 +833,19 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		->setFilterText();
 		
 		$grid->addColumnText('points', 'Body')
-		->setSortable();
+		->setSortable()
+		->setEditableCallback(function($id, $value){
+			$httpRequest = $this->getHttpRequest();
+			$id_task = $httpRequest->getQuery('id_task');
+			$maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
+			if($maxpoints->task_points >= $value)
+			{
+				$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $id, $id_task);
+			}
+			die;
+		});
 		
-		$grid->addInlineEdit()
+		/*$grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
             $container->addText('points', '');
         };
@@ -855,18 +865,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			{
 				$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $values->points, $id, $id_task);
 			}
-        };
+        };*/
 
-		/*->setEditableCallback(function($id, $value){
-			$httpRequest = $this->getHttpRequest();
-			$id_task = $httpRequest->getQuery('id_task');
-			$maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
-			if($maxpoints->task_points >= $value)
-			{
-				$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $id, $id_task);
-			}
-			die;
-		});*/
+		
 
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
