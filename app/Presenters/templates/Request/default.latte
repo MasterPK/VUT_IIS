@@ -2,22 +2,24 @@
 Seznam žádostí
 {/block}
 {block content}
-<div class="row">
-    <div class="col-sm-12">
-        {snippet error_notif_snippet}
-        {ifset $error_notif}
-        {if $error_notif==3}
-        <script>$.notify("Kurz byl povolen!", "success");</script>
-        {elseif $error_notif==4}
-        <script>$.notify("Došlo k chybě při povolování kurzu!", "error");</script>
+    {ifset success_approve}
+        {if success_approve == true}
+            <script>$.notify("Kurz byl úspěšně povolen.", "success");</script>
+        {else}
+            <script>$.notify("Kurz nebylo možné povolit!", "error");</script>
         {/if}
-        {/ifset}
-        {/snippet}
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-12">
-        {ifset $courses}
+    {/ifset}
+
+    {ifset success_deny}
+        {if success_deny == true}
+            <script>$.notify("Kurz byl úspěšně zamítnut.", "success");</script>
+        {else}
+            <script>$.notify("Kurz nebylo možné zamítnout!", "error");</script>
+        {/if}
+    {/ifset}
+
+
+    {ifset $courses}
         <h3>Seznam žádostí o schválení kurzů</h3>
         <table class="table">
             <thead>
@@ -29,27 +31,29 @@ Seznam žádostí
                     <th scope="col">Potvrzení</th>
                 </tr>
             </thead>
+
             <tbody>
-
                 {foreach $courses as $row}
-                <tr>
-                    <th scope="row"><a n:href="Request:request $row->id_course">{$row->id_course}</a></th>
-                    <td>{$row->course_name}</td>
-                    <td>{$row->course_type}</td>
-                    <td>{$row->id_guarantor}</td>
-                    <td>
-                        <a class="ajax" n:href="approveCourse! $row->id_course">
-                            <button class="btn btn-primary" >Potvrdit</button>
-                        </a>
-                    </td>
-                </tr>
+                    <tr>
+                        <th scope="row"><a n:href="Request:request $row->id_course">{$row->id_course}</a></th>
+                        <td>{$row->course_name}</td>
+                        <td>{$row->course_type}</td>
+                        <td>{$row->id_guarantor}</td>
+                        <td>
+                            <a class="ajax" n:href="approveCourse! $row->id_course">
+                                <button class="btn btn-primary"><i class="fas fa-check"></i></button>
+                            </a>
+                            <a class="ajax" n:href="denyCourse! $row->id_course">
+                                <button class="btn btn-primary"><i class="fas fa-times"></i></button>
+                            </a>
+                        </td>
+                    </tr>
                 {/foreach}
-
             </tbody>
         </table>
-        {/ifset}
+    {/ifset}
 
-        {ifset $requests}
+    {ifset $requests}
         <h3>Seznam žádostí studentů o kurz</h3>
         <table class="table">
             <thead>
@@ -60,20 +64,17 @@ Seznam žádostí
                     <th scope="col">Počet Žádostí</th>
                 </tr>
             </thead>
+
             <tbody>
-
                 {foreach $requests as $row}
-                <tr>
-                    <th scope="row"><a n:href="Request:request $row->id_course">{$row->id_course}</a></th>
-                    <td>{$row->course_name}</td>
-                    <td>{$row->course_type}</td>
-                    <td>{$row->cnt}</td>
-                </tr>
+                    <tr>
+                        <th scope="row"><a n:href="Request:request $row->id_course">{$row->id_course}</a></th>
+                        <td>{$row->course_name}</td>
+                        <td>{$row->course_type}</td>
+                        <td>{$row->cnt}</td>
+                    </tr>
                 {/foreach}
-
             </tbody>
         </table>
-        {/ifset}
-    </div>
-</div>
+    {/ifset}
 {/block}

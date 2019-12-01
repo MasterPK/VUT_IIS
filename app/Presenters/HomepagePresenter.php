@@ -22,35 +22,11 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 	/** @var \App\Model\MainModel @inject */
 	public $mainModel;
 
+	/** @var \App\Model\DataGridModel @inject */
+	public $dataGridModel;
 
-	private $dataGridTranslator;
-	private $database;
-	public function __construct(Nette\Database\Context $database)
-	{
-		$this->database = $database;
-		$this->dataGridTranslator=new Ublaboo\DataGrid\Localization\SimpleTranslator([
-			'ublaboo_datagrid.no_item_found_reset' => 'Žádné položky nenalezeny. Filtr můžete vynulovat',
-			'ublaboo_datagrid.no_item_found' => 'Žádné položky nenalezeny.',
-			'ublaboo_datagrid.here' => 'zde',
-			'ublaboo_datagrid.items' => 'Položky',
-			'ublaboo_datagrid.all' => 'všechny',
-			'ublaboo_datagrid.from' => 'z',
-			'ublaboo_datagrid.reset_filter' => 'Resetovat filtr',
-			'ublaboo_datagrid.group_actions' => 'Hromadné akce',
-			'ublaboo_datagrid.show_all_columns' => 'Zobrazit všechny sloupce',
-			'ublaboo_datagrid.hide_column' => 'Skrýt sloupec',
-			'ublaboo_datagrid.action' => 'Akce',
-			'ublaboo_datagrid.previous' => 'Předchozí',
-			'ublaboo_datagrid.next' => 'Další',
-			'ublaboo_datagrid.choose' => 'Vyberte',
-			'ublaboo_datagrid.execute' => 'Provést',
-			'ublaboo_datagrid.per_page_submit'=>"Aktualizovat",
-
-			'Name' => 'Jméno',
-			'Inserted' => 'Vloženo'
-		]);
-
-	}
+	/** @var Nette\Database\Context @inject */
+	public $database;
 
 	private $current_course_id;
 
@@ -89,7 +65,7 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 		])
 		->setSortable();
 
-		$grid->addFilterSelect('course_type', 'Typ kurzu:', ["P" => 'Povinný', "V" => 'Volitelný']);
+		$grid->addFilterSelect('course_type', 'Typ kurzu:', [""=>"Vše","P" => 'Povinný', "V" => 'Volitelný']);
 		
 		$grid->addColumnText('course_price', 'Cena kurzu')
 		->setSortable()
@@ -99,9 +75,17 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setFilterText();
 
-		$grid->addAction("select","Detail", 'Homepage:showcourse')
-		->setClass("btn btn-primary");
+		$grid->addAction("select","", 'Homepage:showcourse')
+		->setIcon("info")
+		->setClass("btn btn-info");
 
+		if($this->getUser()->isLoggedIn() && $this->user->identity->rank > 2)
+		{
+			$grid->addAction("select2","", 'Homepage:showcourse')
+			->setIcon("trash")
+			->setClass("btn btn-danger");
+		}
+	
 		$grid->setTranslator($this->dataGridTranslator);
 
 	

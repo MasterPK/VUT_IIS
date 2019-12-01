@@ -106,6 +106,43 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		return $grid;
 	}
 
+	public function createComponentMyCourses($name)
+	{
+		$grid = new DataGrid($this, $name);
+		$grid->setPrimaryKey('id_course');
+		$grid->setDataSource($this->database->query("SELECT id_course, course_name, course_type, course_price FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_user = ? AND student_status = 1 AND course_status != 0",  $this->user->identity->id)->fetchAll());
+
+		$grid->addColumnText('id_course', 'Zkratka kurzu')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('course_name', 'Jméno kurzu')
+		->setSortable()
+		->setFilterText();
+		
+
+		$grid->addColumnText('course_type', 'Typ kurzu')
+		->setReplacement([
+			'P' => 'Povinný',
+			'V' => 'Volitelný'
+		])
+		->setSortable();
+
+		$grid->addFilterSelect('course_type', 'Typ kurzu:', [""=>"Vše","P" => 'Povinný', "V" => 'Volitelný']);
+		
+		$grid->addColumnText('course_price', 'Cena kurzu')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addAction("select","Detail", 'Student:showcourse')
+		->setClass("btn btn-primary");
+
+		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
+
+	
+		return $grid;
+	}
+
 	public function renderMycourses(): void
 	{
 		$this->template->courses=$this->mainModel->getCoursesOfStudent($this->user->identity->id);	
@@ -164,6 +201,20 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$this->template->current_lectors = $this->database->query("SELECT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_lecturer WHERE id_course = ?", $id_course)->fetchAll();
 		$this->template->id_course = $id_course;
 	}
+
+	public function renderCourse($id)
+	{
+		if($id)
+        {
+			$this->garantModel->getCurrentCourse($this, $id);
+		}
+	}
+
+	private $id_task;
+	public function renderShowtask($id_task)
+	{
+		$this->id_task = $id_task;
+	}
 	
 	public function createComponentCreateCourseForm(): Form
 	{
@@ -212,6 +263,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	            	
 	            	FileSystem::rename("Files/$values->old_id_course", "Files/$values->id_course");
     				$this->template->success_update = true;
+
+    				$values->old_id_course = $values->id_course;
+    				$form->setValues($values);
 	            }
 	            else
 	            {
@@ -247,6 +301,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 				FileSystem::createDir("Files/$values->id_course");
 				
 	    		$this->template->success_insert = true;
+	    		
+	    		$values->old_id_course = $values->id_course;
+    			$form->setValues($values);
 	    	}
 	    	catch(Nette\Database\UniqueConstraintViolationException $e)
 	    	{
@@ -262,6 +319,58 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		{
 			$this->redrawControl('course_snippet');
 		}
+	}
+
+	public function createComponentCoursesMng($name)
+	{
+		$grid = new DataGrid($this, $name);
+		$grid->setPrimaryKey('id_course');
+		$grid->setDataSource($this->garantModel->getGarantCourses($this->user->identity->id));
+
+		$grid->addColumnText('id_course', 'Zkratka kurzu')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('course_name', 'Jméno kurzu')
+		->setSortable()
+		->setFilterText();
+		
+
+		$grid->addColumnText('course_type', 'Typ kurzu')
+		->setReplacement([
+			'P' => 'Povinný',
+			'V' => 'Volitelný'
+		])
+		->setSortable();
+
+		$grid->addFilterSelect('course_type', 'Typ kurzu:', [""=>"Vše", "P" => 'Povinný', "V" => 'Volitelný']);
+		
+
+		$grid->addColumnText('course_status', 'Stav kurzu')
+		->setSortable()
+            ->setReplacement([
+                '0' => 'Čeká na schválení',
+				'1' => 'Schválen',
+				'2' => 'Otevřené registrace',
+				'3' => 'Uzavřené registrace',
+				'4' => 'Zamítnut'
+            ])
+            ->setFilterSelect([
+				"" => "Vše",
+                '0' => 'Čeká na schválení',
+				'1' => 'Schválen',
+				'2' => 'Otevřené registrace',
+				'3' => 'Uzavřené registrace',
+				'4' => 'Zamítnut'
+            ]);
+
+		$grid->addAction("select","Detail", 'Garant:showcourse')
+		->setClass("btn btn-primary");
+
+		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
+
+	
+		return $grid;
 	}
 
 	public function createComponentRegisterForm()
@@ -435,12 +544,25 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     	
     	if($values->task_from == '') $values->task_from = NULL;
     	if($values->id_room == '') $values->id_room = NULL;
-    	if($values->task_points == '') $values->task_points = NULL;
     	if($values->task_from >= $values->task_to)
     	{
     		if($this->isAjax())
 	    	{
 	    		$this->template->error = 1;
+	    		$this->redrawControl('error_snippet');
+	    	}
+    		return;
+    	}
+
+
+    	//vezmi vsetky terminy daneho kurzu a spocitaj celkove body
+    	$points = $this->database->query("SELECT SUM(task_points) AS total_points FROM task NATURAL JOIN course WHERE id_course = ? AND id_task != ?", $values->id_course, $values->id_task)->fetch();
+
+    	if(($points->total_points + $values->task_points) > 100)
+    	{
+    		if($this->isAjax())
+	    	{
+	    		$this->template->error_points = 1;
 	    		$this->redrawControl('error_snippet');
 	    	}
     		return;
@@ -469,10 +591,22 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     	{
     		$result = $this->database->query("INSERT INTO task (id_task, task_name, task_type, task_description, task_points, task_date, task_from, task_to, id_room, id_course) VALUES ('',?,?,?,?,?,?,?,?,?)", $values->task_name, $values->task_type, $values->task_description, $values->task_points, $values->task_date, $values->task_from, $values->task_to, $values->id_room, $values->id_course);
 			$task_id = $this->database->getInsertId('task');
-			Debugger::barDump($result);
-			Debugger::barDump($task_id,"id");
+	
     		if($result->getRowCount() > 0)
 	    	{
+	    		$students = $this->database->query("SELECT id_user FROM course_has_student WHERE id_course = ? AND student_status > 0", $values->id_course)->fetchAll();
+	    		foreach($students as $student)
+	    		{
+	    			$result = $this->database->query("INSERT INTO student_has_task (id_user, id_task) VALUES (?,?)", $student->id_user, $task_id);
+	    		
+	    			if($result->getRowCount() == 0)
+	    			{
+	    				$this->template->add_students_success = 0;
+	    				return;
+	    			}
+	    		}
+
+
 				try
 				{
 					FileSystem::createDir("Files/$values->id_course/$task_id");
@@ -538,14 +672,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		{
             $this->redrawControl('content_snippet');
         }
-	}
-
-	public function renderCourse($id)
-	{
-		if($id)
-        {
-			$this->garantModel->getCurrentCourse($this, $id);
-		}
 	}
 
 	public function handleDeleteCourse($id_course)
@@ -685,5 +811,58 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		{
             $this->redrawControl("manage_snippet");
         }	
+	}
+
+	public function createComponentTaskStudentsGrid($name)
+	{
+		\Tracy\Debugger::barDump($_POST);
+		if(count($_POST) > 0)
+        {
+            $this->id_task = $_POST['id_task'];
+        }
+
+		$grid = new DataGrid($this, $name);
+		$grid->setPrimaryKey('id_user');
+		$grid->setDataSource($this->database->query("SELECT id_user, email, first_name, surname, points FROM user NATURAL JOIN student_has_task WHERE id_task = ?", $this->id_task)->fetchAll());
+
+		$grid->addColumnText('email', 'Email studenta')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('first_name', 'Jméno studenta')
+		->setSortable()
+		->setFilterText();
+		
+		$grid->addColumnText('surname', 'Přijmení studenta')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('points', 'Body')
+		->setSortable()
+		->setEditableCallback(function($id, $value): void {
+			$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $id, $this->id_task);
+        	$_POST['id_task'] = $this->id_task;
+        	$grid->redrawControl();
+		});
+	
+		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
+
+		/*$grid->addInlineEdit()
+            ->onControlAdd[] = function (Nette\Forms\Container $container): void {
+            $container->addText('points', '');
+        };
+
+        $grid->getInlineEdit()->onSetDefaults[] = function (Nette\Forms\Container $container, $item): void {
+
+            $container->setDefaults([
+                'points' => $item->points
+            ]);
+        };
+
+        $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): void {
+            $this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $values->points, $id, $this->id_task);
+        };*/
+
+		return $grid;
 	}
 }

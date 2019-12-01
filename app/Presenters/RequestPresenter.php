@@ -160,6 +160,19 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 				$this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'error'] ) );
 				return;
 			}
+			else
+			{
+				$tasks = $this->database->query("SELECT id_task FROM task WHERE id_course = ?", $id_course)->fetchAll();
+				foreach($tasks as $task)
+				{
+					$result = $this->database->query("INSERT INTO student_has_task (id_user, id_task) VALUES (?, ?)", $user, $task->id_task);
+					if($result->getRowCount() == 0)
+					{
+						$this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'error'] ) );
+						return;
+					}
+				}
+			}
 		}
 		
 
@@ -194,17 +207,52 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 			'course_status' => '1'
 		]);
 
-		if ($this->isAjax() && $count==1)
+		if($count == 1)
 		{
-			$this->template->error_notif = 3;
-            $this->redrawControl('content_snippet');
-		}
+			$this->template->success_approve = true;
+        }
 		else
 		{
-			$this->template->error_notif = 4;
-            $this->redrawControl('content_snippet');
+			$this->template->success_approve = false;
+		}
+
+		if($this->isAjax())
+		{
+			$this->redrawControl('content_snippet');
 		}
 		
+		
+    	
+	}
+
+	public function handleDenyCourse($id): void
+    {
+
+		
+		if(empty($id))
+		{
+			return;
+		}
+
+		$count = $this->database->table('course')
+		->where('id_course', $id)
+		->update([
+			'course_status' => '4'
+		]);
+
+		if($count == 1)
+		{
+			$this->template->success_deny = true;
+        }
+		else
+		{
+			$this->template->success_deny = false;
+		}
+
+		if($this->isAjax())
+		{
+			$this->redrawControl('content_snippet');
+		}
 		
     	
 	}
