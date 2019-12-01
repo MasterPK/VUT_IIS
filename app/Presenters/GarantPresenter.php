@@ -834,24 +834,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		
 		$grid->addColumnText('points', 'Body')
 		->setSortable()
-		->setEditableValueCallback(function($row): int {
-			return $row->points;
-		})
-		->setEditableCallback(function($id, $value): string {
-			$result = '0';
-			$httpRequest = $this->getHttpRequest();
-			$id_task = $httpRequest->getQuery('id_task');
-			$maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
-			if($maxpoints->task_points >= $value)
-			{
-				$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $id, $id_task);
-				$result = $value;
-			}
-
-			return $result; // Important line - right here you have to return new content which will be rendered in edited column
-		});
-
-		/*
 		->setEditableCallback(function($id, $value){
 			$httpRequest = $this->getHttpRequest();
 			$id_task = $httpRequest->getQuery('id_task');
@@ -860,8 +842,8 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			{
 				$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $id, $id_task);
 			}
-			$this->redirect("this");
-		});*/
+			die;
+		});
 
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
