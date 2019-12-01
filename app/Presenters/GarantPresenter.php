@@ -834,7 +834,8 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		
 		$grid->addColumnText('points', 'Body')
 		->setSortable()
-		->setEditableCallback(function($id, $value) {
+		->setEditableCallback([$this,"handleTaskPoints"]);
+		/*->setEditableCallback(function($id, $value) {
 			$httpRequest = $this->getHttpRequest();
 			$id_task = $httpRequest->getQuery('id_task');
 			$maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
@@ -842,10 +843,15 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			{
 				$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $id, $id_task);
 			}
-		});
+		});*/
 
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
 		return $grid;
+	}
+
+	public function handleTaskPoints($id_user,$value)
+	{
+
 	}
 }
