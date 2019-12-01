@@ -333,8 +333,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             ]);
 
         $grid->addColumnText('password', 'Heslo')
-            ->setSortable()
-            ->setFilterText();
+            ->setDefaultValue('');
         
         $grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
@@ -365,7 +364,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 'phone' => $item->phone,
                 'rank' => $item->rank,
                 'active' => $item->active,
-                'password' => NULL,
+                'password' => '',
             ]);
         };
 
