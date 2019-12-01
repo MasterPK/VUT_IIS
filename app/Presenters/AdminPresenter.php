@@ -413,11 +413,35 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             $container->addText('password', '')->setRequired("Tohle pole je povinné");
         };
 
-        /*$grid->addToolbarButton('adduser', '')
-            ->setIcon('plus')
-            ->setTitle('Přidat uživatele')
-            ->setClass('btn btn-xs btn-primary');*/
-
+        $grid->getInlineAdd()->onSubmit[] = function(Nette\Utils\ArrayHash $values): void {
+            try 
+            {
+                $this->database->table("user")
+                    ->insert([
+                        'email' => $values->email,
+                        'first_name' => $values->first_name,
+                        'surname' => $values->surname,
+                        'phone' => $values->phone,
+                        'active' => $values->active,
+                        'rank' => $values->rank,
+                        'password' => password_hash($values->password, PASSWORD_BCRYPT)
+                    ]);
+                    
+                $this->template->success_notify = true;
+                if ($this->isAjax()) 
+                {
+                    $this->redrawControl("content_snippet");
+                }
+            } 
+            catch (Nette\Database\UniqueConstraintViolationException $e) 
+            {
+                $this->template->duplicate_notify = true;
+                if ($this->isAjax()) 
+                {
+                    $this->redrawControl("content_snippet");
+                }
+            }
+        };
 
         $grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
