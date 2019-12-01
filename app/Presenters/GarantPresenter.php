@@ -837,7 +837,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		->setEditableValueCallback(function($row): int {
 			return $row->points;
 		})
-		->setEditableCallback(function($id, $value): int {
+		->setEditableCallback(function($id, $value): string {
 			$result = 0;
 			$httpRequest = $this->getHttpRequest();
 			$id_task = $httpRequest->getQuery('id_task');
