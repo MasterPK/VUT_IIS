@@ -190,6 +190,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
             ->setTitle('Přidat vybavení')
 			->setClass('btn btn-xs btn-primary');
 
+
 		$grid->setTranslator($this->dataGridTranslator);
 
 		return $grid;
@@ -721,10 +722,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 			]);
 
 		$this->template->success_notify = true;
-		if ($this->isAjax()) {
-			$this->redrawControl("notify");
-			$this->redrawControl("content_snipet");
-		}
+		$this->redirect("Chief:addEquipment",$values->id_equip);
 	}
 
 	function handleDelete($id,$id2) {
