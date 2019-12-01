@@ -263,7 +263,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		foreach ($conflictArray as $key => $value) {
 			$dayTasksCount[$key]=max($value);
 		}
-
+		Debugger::barDump($conflictArray,"konflikty");
 		foreach ($tasks as $key => $value) {
 			if($conflictArray[$value->day][$value->from]==0)
 			{
@@ -273,7 +273,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 
 		}
 
-		Debugger::barDump($conflictArray,"konflikty");
+		
 		$weekDays = array();
 		foreach ($dayTasksCount as $key => $value) {
 			switch ($key) {
