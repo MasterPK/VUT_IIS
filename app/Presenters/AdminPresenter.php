@@ -400,8 +400,6 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             }
         };
 
-        $grid->addGroupAction('Delete examples')->onSelect[] = [$this, 'deleteExamples'];
-
         $grid->addInlineAdd()
             ->onControlAdd[] = function(Nette\Forms\Container $container) {
                 $container->addText('email', '')->addRule(Form::EMAIL, 'Email není platný.');

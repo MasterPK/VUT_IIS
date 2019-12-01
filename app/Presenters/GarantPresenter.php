@@ -848,6 +848,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setFilterText();
 
+		$grid->addGroupTextAction('Nastavit body')
+			->onSelect[] = [$this, 'changePoints'];
+
 		$grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
             $httpRequest = $this->getHttpRequest();
@@ -875,5 +878,15 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
 		return $grid;
+	}
+
+	public function changePoints($students, $value)
+	{
+		$httpRequest = $this->getHttpRequest();
+		$id_task = $httpRequest->getQuery('id_task');
+		foreach($students as $student)
+		{
+			$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $student->id_user, $id_task);
+		}
 	}
 }
