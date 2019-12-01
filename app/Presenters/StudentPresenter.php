@@ -278,33 +278,10 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		
 		$weekDays = array();
 		foreach ($dayTasksCount as $key => $value) {
-			switch ($key) {
-				case 1:
-					array_push($weekDays, "Pondělí");
-					break;
-				case 2:
-					array_push($weekDays, "Úterý");
-					break;
-				case 3:
-					array_push($weekDays, "Středa");
-					break;
-				case 4:
-					array_push($weekDays, "Čtvrtek");
-					break;
-				case 5:
-					array_push($weekDays, "Pátek");
-					break;
-				case 6:
-					array_push($weekDays, "Sobota");
-					break;
-				case 7:
-					array_push($weekDays, "Neděle");
-					break;
-			}
-			if ($value == 0 || $value == 1) {
+			if ($value == 0) {
 				continue;
 			}
-			for ($i = 1; $i < $value; $i++) {
+			for ($i = 1; $i <= $value; $i++) {
 				switch ($key) {
 					case 1:
 						array_push($weekDays, "Pondělí$i");
