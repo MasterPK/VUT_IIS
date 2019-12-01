@@ -869,7 +869,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			if($maxpoints->task_points >= $values->points)
 			{
 				$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $values->points, $id, $id_task);
-				$result = $value;
+				$result = $values->points;
 			}
 			return $result;
         };
