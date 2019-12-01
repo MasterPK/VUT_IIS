@@ -4,12 +4,14 @@ Osobní rozvrh
 {block content}
 <div class="row">
 <div class="col-sm-12">
-<div class="timetable"></div>
-<script>
+
+
 {ifset $weekDays}
 {ifset $tasks}
+<div class="timetable"></div>
+<script>
 var timetable = new Timetable();
-timetable.setScope({$minHour|noescape}, {$maxHour|noescape});
+timetable.setScope(0, 23);
 var data ={$weekDays|noescape};
 timetable.addLocations(data);
 {foreach $tasks as $row}
@@ -19,9 +21,9 @@ var renderer = new Timetable.Renderer(timetable);
 renderer.draw('.timetable'); // any css selector
 </script>
 {else}
-Žádné termíny
+Žádné termíny k dispozici ve vašich kurzech
 {/ifset}
 {else}
-Žádné termíny
+Žádné termíny k dispozici ve vašich kurzech
 {/ifset}
 {/block}
