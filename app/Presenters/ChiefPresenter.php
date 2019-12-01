@@ -134,7 +134,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$grid->setPrimaryKey('room_equipment');
 		$grid->setDataSource($this->database->query("SELECT * FROM room_equipment NATURAL JOIN room WHERE id_room = ?", $this->actual_room)->fetchAll());
 
-		$grid->addColumnText('room_equipment', 'Vybavení')
+		$grid->addColumnText('room_equipment', 'Vybavení místnosti')
 		->setSortable()
 		->setFilterText();
 			
@@ -159,6 +159,56 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 		return $grid;
 	}
+
+	public function createComponentManageAllEquipmentGrid($name)
+	{
+
+		$grid = new DataGrid($this, $name);
+		$grid->setPrimaryKey('id_room_equipment');
+		$grid->setDataSource($this->database->table("room_equipment"));
+
+		$grid->addColumnText('room_equipment', 'Vybavení')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addAction("select", "", 'Chief:changeEquipment')
+			->setIcon('edit')
+			->setClass("btn btn-xs btn-default btn-secondary");
+			
+        $grid->addAction('delete', '', 'deleteEquip!')
+            ->setIcon('trash')
+            ->setTitle('Smazat')
+            ->setClass('btn btn-xs btn-danger ajax')
+			->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet smazat vybavení?'));
+
+		$grid->addToolbarButton('Chief:rooms', '')
+			->setIcon('arrow-left')
+            ->setTitle('Zpátky')
+			->setClass('btn btn-xs btn-primary');
+			
+		$grid->addToolbarButton('Chief:createEquipment', 'Přidat vybavení')
+            ->setTitle('Přidat vybavení')
+			->setClass('btn btn-xs btn-primary');
+
+
+		$grid->setTranslator($this->dataGridTranslator);
+
+		return $grid;
+	}
+
+
+	public function handleDeleteEquip($id_room_equipment)
+    {
+
+		$this->database->table("room_equipment")->where("id_room_equipment", $id_room_equipment)->delete();
+
+        $this->template->success_notify = true;
+        if ($this->isAjax()) {
+            $this->redrawControl('content_snipet');
+        } else {
+			$this->redirect('this');
+		}
+    }
 
 	public function handleDeleteEquipRoom($room_equipment,$id_room)
     {
@@ -463,9 +513,9 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$this->current_Adres = $this->database->table("room_address")->where("id_room_address", $id)->fetch();
 	}
 
-	public function renderChangeEquipment($id)
+	public function renderChangeEquipment($id_room_equipment)
 	{
-		$this->current_Equip = $this->database->table("room_equipment")->where("id_room_equipment", $id)->fetch();
+		$this->current_Equip = $this->database->table("room_equipment")->where("id_room_equipment", $id_room_equipment)->fetch();
 	}
 
 	public function renderManageRoom($id_room)
@@ -601,36 +651,6 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	}
 
 
-
-
-
-	public function createComponentDeleteEquipment()
-	{
-		$form = new Form;
-
-		$form->addHidden('id_room_equipment', '')
-			->setRequired()
-			->setDefaultValue($this->current_Equip);
-
-		$form->addCheckBox("really")
-			->setRequired()
-			->addCondition(Form::EQUAL, true);
-
-		$form->addSubmit('submit', 'Smazat?!')
-			->setHtmlAttribute('class', 'btn btn-primary');
-
-		$form->onSuccess[] = [$this, 'deleteEquipmentSubmit'];
-
-		return $form;
-	}
-
-	public function deleteEquipmentSubmit(Form $form)
-	{
-		$values = $form->getValues();
-
-		$this->database->table("room_equipment")->where("id_room_equipment", $values->id_room_equipment)->delete();
-		$this->redirect("Chief:manageEquipment");
-	}
 
 	public function createComponentChangeEquipment()
 	{
