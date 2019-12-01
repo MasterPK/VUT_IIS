@@ -833,9 +833,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 		$grid->addColumnText('points', 'Body')
 		->setSortable()
-		->setEditableCallback(function($id, $value): void {
-			handleAddPoints($id, $this->id_task, $value);
-		});
+		->setEditableCallback([$this, 'handleAddPoints'])->addAttributes(['id_task' => $this->id_task]);
 	
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
