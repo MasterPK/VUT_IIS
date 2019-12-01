@@ -332,15 +332,15 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 '1' => 'Aktivní'
             ]);
 
-        $grid->addColumnText('password', 'Heslo')
-            ->setSortable();
-
         $grid->addAction('delete', '', 'delete!')
             ->setIcon('trash')
             ->setTitle('Smazat')
             ->setClass('btn btn-xs btn-danger ajax')
             ->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet smazat uživatele %s?', 'email'));
 
+
+        $grid->addColumnText('password', 'Heslo')
+            ->setSortable();
         
         $grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
