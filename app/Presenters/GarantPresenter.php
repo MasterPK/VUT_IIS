@@ -817,9 +817,13 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	{
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('id_user');
-		$grid->setDataSource($this->database->query("SELECT id_user, email, first_name, surname, points FROM user NATURAL JOIN student_has_task WHERE id_task = ?", $this->id_task)->fetchAll());
+		$grid->setDataSource($this->database->query("SELECT id_user, email, first_name, surname, points, id_task FROM user NATURAL JOIN student_has_task WHERE id_task = ?", $this->id_task)->fetchAll());
 
 		$grid->addColumnText('email', 'Email studenta')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('id_task', '')
 		->setSortable()
 		->setFilterText();
 
@@ -833,16 +837,16 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 		$grid->addColumnText('points', 'Body')
 		->setSortable()
-		->setEditableCallback([$this, 'handleAddPoints'],[$this->id_task]);
+		->setEditableCallback([$this, 'handleAddPoints']);
 	
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
 		return $grid;
 	}
 
-	public function handleAddPoints($id_user, $value,  $id_task)
+	public function handleAddPoints($id_user, $value)
 	{
-		\Tracy\Debugger::barDump($id_user,$value, $id_task);
+		\Tracy\Debugger::barDump($id_user,$value);
 		//$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $id, $id_task);
 		
 	}
