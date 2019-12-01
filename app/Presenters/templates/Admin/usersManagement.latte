@@ -8,10 +8,19 @@
     </div>
     
     {ifset $success_notify}
-        <script>$.notify("Operace byla provedena!", "success");</script>
+        <script>$.notify("Operace byla provedena", "success");</script>
     {/ifset}
     {ifset $error_notif}
         <script>$.notify("Operace selhala!", "error");</script>
+    {/ifset}
+{/snippet}
+
+{snippet pass_change}
+    {ifset $success_notify}
+        <script>$.notify("Heslo úspěšně změněno", "success");</script>
+    {/ifset}
+    {ifset $error_notif}
+        <script>$.notify("Heslo se nepodařilo změnit!", "error");</script>
     {/ifset}
 {/snippet}
 
