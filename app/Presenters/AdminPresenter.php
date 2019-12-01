@@ -400,9 +400,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             }
         };
 
-        $grid->getInlineEdit()->onCustomRedraw[] = function() use ($grid): void {
-            $this['groupActionsGrid']->reload();
-        };
+        $grid->addGroupAction('Delete examples')->onSelect[] = [$this, 'deleteExamples'];
 
         $grid->addInlineAdd()
             ->onControlAdd[] = function(Nette\Forms\Container $container) {
