@@ -206,7 +206,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			$dayTasksCount[$i] = 0;
 			$tasks[$i]=array();
 			for ($j=0; $j < 24; $j++) { 
-				$tasks[$i][$j]=array();
+				$tasks[$i]=array();
 			}
 		}
 		foreach ($data as $value) {
