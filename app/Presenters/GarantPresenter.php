@@ -848,7 +848,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setFilterText();
 
-		$grid->addGroupTextAction('Nastavit body')
+		$grid->addGroupTextAction('Nastavit body')->addRule(Form::RANGE, "Zadejte počet bodů v rozmezí 0 - 10", [0,10])
 			->onSelect[] = [$this, 'changePoints'];
 
 		$grid->addInlineEdit()
