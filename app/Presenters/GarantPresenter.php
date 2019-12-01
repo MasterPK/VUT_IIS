@@ -854,7 +854,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			$id_task = $httpRequest->getQuery('id_task');
             $maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
             $container->addText('points', '')
-            		->setClass("align-center")
+            		->setHtmlAttribute('class', 'align-center')
             		->addRule(Form::RANGE, "Zadejte počet bodů v rozmezí 0 - ".$maxpoints->task_points, [0,$maxpoints->task_points]);
         };
 
