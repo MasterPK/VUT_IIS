@@ -134,7 +134,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$grid->setPrimaryKey('room_equipment');
 		$grid->setDataSource($this->database->query("SELECT * FROM room_equipment NATURAL JOIN room WHERE id_room = ?", $this->actual_room)->fetchAll());
 
-		$grid->addColumnText('room_equipment', 'Vybavení')
+		$grid->addColumnText('room_equipment', 'Vybavení místnosti')
 		->setSortable()
 		->setFilterText();
 			
@@ -151,6 +151,43 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 			
 		$grid->addToolbarButton('Chief:addEquipment', 'Přidat vybavení',[$this->actual_room])
             ->setTitle('Správa adres')
+			->setClass('btn btn-xs btn-primary');
+			
+
+
+		$grid->setTranslator($this->dataGridTranslator);
+
+		return $grid;
+	}
+
+	public function createComponentManageAllEquipmentGrid($name)
+	{
+
+		$grid = new DataGrid($this, $name);
+		$grid->setPrimaryKey('id_room_equipment');
+		$grid->setDataSource($this->database->table("room_equipment"));
+
+		$grid->addColumnText('room_equipment', 'Vybavení')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addAction("select", "", 'Chief:changeEquipment')
+			->setIcon('edit')
+			->setClass("btn btn-xs btn-default btn-secondary");
+			
+        $grid->addAction('delete', '', 'deleteEquip!')
+            ->setIcon('trash')
+            ->setTitle('Smazat')
+            ->setClass('btn btn-xs btn-danger ajax')
+			->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet smazat vybavení?'));
+
+		$grid->addToolbarButton('Chief:rooms', '')
+			->setIcon('arrow-left')
+            ->setTitle('Zpátky')
+			->setClass('btn btn-xs btn-primary');
+			
+		$grid->addToolbarButton('Chief:createEquipment', 'Přidat vybavení')
+            ->setTitle('Přidat vybavení')
 			->setClass('btn btn-xs btn-primary');
 			
 

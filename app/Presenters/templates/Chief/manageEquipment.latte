@@ -2,6 +2,7 @@
 Vytvoření nové místnosti
 {/block}
 {block content}
+{snippet content_snipet}
     <div class="row">
         <div class="col-sm-12">
         {ifset $rooms}
@@ -24,4 +25,6 @@ Vytvoření nové místnosti
         {/ifset}
         </div>
     </div>
+{control manageAllEquipmentGrid}
+{/snippet}
 {/block}
