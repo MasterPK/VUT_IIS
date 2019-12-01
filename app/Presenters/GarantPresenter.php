@@ -844,10 +844,10 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			}
 			else
 			{
-				throw new \Exception("Zadané body jsou vyšší než maximální počet bodů!");
+				$this->template->error_set = true;
 			}
 			$this->redrawControl("grid_snippet");
-			
+			return;
 		});
 	
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
