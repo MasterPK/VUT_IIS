@@ -846,7 +846,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			{
 				$this->template->error_set = true;
 			}
-			$this->sendResponse( new Nette\Application\Responses\JsonResponse( ['status' => 'success'] ) );
+			$this->sendResponse($this->redrawControl("grid_snippet"));
 		});
 
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
