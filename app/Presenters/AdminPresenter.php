@@ -401,7 +401,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         };
 
         $grid->getInlineEdit()->onCustomRedraw[] = function() use ($grid): void {
-            $this->redrawControl('notify');
+            $this['groupActionsGrid']->reload();
         };
 
         $grid->addInlineAdd()
