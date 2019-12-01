@@ -836,19 +836,21 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setEditableCallback(function($id, $value) {
 			$httpRequest = $this->getHttpRequest();
-			$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $id, $httpRequest->getQuery('id_task'));
-			//\Tracy\Debugger::barDump($httpRequest->getQuery('id_task'));
+			$maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?" $httpRequest->getQuery('id_task'))->fetch();
+			if($maxpoints->task_points > $value)
+			{
+				$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $id, $httpRequest->getQuery('id_task'));
+			}
+			else
+			{
+				$this->template->error_set = true;
+				$this->redrawControl('error_set_points');
+			}
+			
 		});
 	
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
 		return $grid;
-	}
-
-	public function handleAddPoints($id_user, $value)
-	{
-		
-		//$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $id, $id_task);
-		
 	}
 }
