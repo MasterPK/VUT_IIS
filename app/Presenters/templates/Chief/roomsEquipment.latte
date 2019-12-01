@@ -3,31 +3,6 @@ Správa místností
 {/block}
 {block content}
 {snippet content_snipet}
-    <div class="row">
-        <div class="col-sm-12">
-        {ifset $equip}
-        {ifset $id}
-            <table class="table table-bordered">
-                <thead class="thead-dark">
-                    <tr class="text-center">
-                        <th>Equipment</th>
-                        <th class="text-right"><a n:href="Chief:addEquipment $id"><button class="btn btn-dark">Přidat vybavení do místnosti</button></a></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {foreach $equip as $row}
-                    <tr class="text-center">
-                        <td style="min-width:100px">{$row->room_equipment}</td>
-                        <td><a n:href="delete! $row->id_room_equipment,$id"><button class="btn btn-dark">Smazat záznam</button></a></td>
-                    </tr>
-                    {/foreach}
-                </tbody>
-            </table>
-            <a n:href="Chief:rooms"><button class="btn btn-primary">Zpátky</button></a>
-        {/ifset}
-        {/ifset}
-        </div>
-    </div>
 {control manageEquipmentGrid}
 {/snippet}
 {/block}
