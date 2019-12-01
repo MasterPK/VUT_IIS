@@ -833,8 +833,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 		$grid->addColumnText('points', 'Body')
 		->setSortable()
-		->setClass('ajax')
-		->setEditableCallback([$this, 'addPoints!']);
+		->setEditableCallback([$this, 'handleAddPoints']);
 	
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
@@ -843,15 +842,8 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	public function handleAddPoints($id_user, $id_task, $points)
 	{
-		$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $points, $id_user, $id_task);
-
-        if ($this->isAjax()) 
-        {
-            $this->redrawControl('content_snipet');
-        } 
-        else 
-        {
-			$this->redirect('this');
-		}
+		\Tracy\Debugger::barDump($id_user, $id_task, $points);
+		\Tracy\Debugger::barDump($_POST);
+		//$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $points, $id_user, $id_task);
 	}
 }
