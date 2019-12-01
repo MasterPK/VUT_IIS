@@ -52,7 +52,7 @@
 Pro implementaci jsme zvolil framework Nette. Projekt je rozdìlený na ¹ablony, presentery a modely. Ka¾dá úroveò u¾ivatelù ma vlastní presenter plus je je¹tì dodateèný presenter pro zpracování po¾adavkù na u¾ivatele.<br>
 Pro zobrazení dat z databáze jsme pou¾ili ublaboo/datagrid, který poskytuje pøehledné zobrazení dat s filtrováním. Rozvrh se zobrazuje pomocí pluginu <a href="http://timetablejs.org/">timetable.js</a> a zobbrazuje v¹echny termíny, na kterým má daný student pøístup.<br>
 Jako základ pro vzhled webu slou¾í <a href="https://getbootstrap.com/">Bootstrap 4</a> a <a href="https://fontawesome.com/">FontAwesome</a>. Vzhled vychází z opensource ¹ablony <a href="https://startbootstrap.com/templates/sb-admin/">SB Admin</a>. Web z velké èásti pou¾ívá <a href="https://jquery.com/">jQuery</a> a AJAX pro zpracování po¾adavkù a dal¹í roz¹íøení, která jsou dostupná pøímo v Nette.
-Notifikace jsou zobrazeny pomocí <a href="https://notifyjs.jpillora.com/">notify.js</a> a vyskakovací okna pomocí <a href="https://notifyjs.jpillora.com/">popper.js</a>.<br>
+Notifikace jsou zobrazeny pomocí <a href="https://notifyjs.jpillora.com/">notify.js</a> a vyskakovací okna pomocí <a href="https://notifyjs.jpillora.com/">popper.js</a> a modal boxy pomocí Bootstrap..<br>
 
 Ka¾dý presenter pøi své inicializaci nejprve zavolá startUpModel, který se postará o kontrou pøihlá¹ení a jestli má u¾ivatel dostateèná opravnìní, pokud ne tak je pøesmìrován na domovskou stránku.
 Pro ka¾dý presenter existuje model, který implementuje èást funkcí, které pou¾ívá. Modely jsou kaskádovì propojené, aby AdminModel mìl pøístup k StudentModel.
