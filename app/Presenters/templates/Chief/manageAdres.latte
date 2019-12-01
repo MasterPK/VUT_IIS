@@ -2,6 +2,11 @@
 Správa adres
 {/block}
 {block content}
+{snippet notify}
+{ifset $error_notify}
+<script>$.notify("Operace selhala!", "error");</script>
+{/ifset}
+{/snippet}
 {snippet content_snipet}
 {control manageAllAdresesGrid}
 {/snippet}
