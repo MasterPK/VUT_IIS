@@ -367,7 +367,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 '0' => 'Neaktivní',
                 '1' => 'Aktivní'
             ]);
-            $container->addPassword('password', '');
+            $container->addText('password', '');
         };
 
         $grid->getInlineEdit()->onSetDefaults[] = function (Nette\Forms\Container $container, $item): void {
