@@ -234,7 +234,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 				$this->template->error_course_exists=true;
 				if($this->isAjax())
 				{
-					\Tracy\Debugger::barDump("YES");
 					$this->redrawControl('course_snippet');
 				}
 				return;
@@ -319,12 +318,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 		if($this->isAjax())
 		{
-			\Tracy\Debugger::barDump("YES");
 			$this->redrawControl('course_snippet');
-		}
-		else
-		{
-			\Tracy\Debugger::barDump("NO");
 		}
 	}
 
@@ -839,20 +833,9 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		->setFilterText();
 		
 		$grid->addColumnText('points', 'Body')
-		->setSortable()
-		->setEditableCallback(function($id, $value){
-			$httpRequest = $this->getHttpRequest();
-			$id_task = $httpRequest->getQuery('id_task');
-			$value = $httpRequest->getQuery('value');
-			$maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
-			if($maxpoints->task_points >= $value)
-			{
-				$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $id, $id_task);
-			}
-			$this->redirect("Garant:showtask",$value);
-		});
+		->setSortable();
 		
-		/*$grid->addInlineEdit()
+		$grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
             $container->addText('points', '');
         };
@@ -872,9 +855,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			{
 				$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $values->points, $id, $id_task);
 			}
-        };*/
-
-		
+        };
 
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
