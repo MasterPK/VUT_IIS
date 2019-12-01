@@ -852,7 +852,5 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		{
 			$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $id_user, $id_task);
 		}
-		$this['taskStudentsGrid']->redrawItem($id_user);
-		//$this->redrawControl("content_snippet");
 	}
 }
