@@ -848,7 +848,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			}
 		});
 		
-		$grid->getInlineEdit()->onCustomRedraw[] = function(): void {
+		$grid->getInlineEdit()->onCustomRedraw[] = function() use ($this): void {
 			$this->redrawControl("grid_snippet");
 		};
 
