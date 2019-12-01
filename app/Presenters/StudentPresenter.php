@@ -207,25 +207,25 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			$day_p="";
 			switch ($day) {
 				case 1:
-					$day_p="\"<div class=\'invisible\'>Pondělí";
+					$day_p="\"<div class='invisible'>Pondělí";
 					break;
 				case 2:
-					$day_p="\"<div class=\'invisible\'>Úterý";
+					$day_p="\"<div class='invisible'>Úterý";
 					break;
 				case 3:
-					$day_p="\"<div class=\'invisible\'>Středa";
+					$day_p="\"<div class='invisible'>Středa";
 					break;
 				case 4:
-					$day_p="\"<div class=\'invisible\'>Čtvrtek";
+					$day_p="\"<div class='invisible'>Čtvrtek";
 					break;
 				case 5:
-					$day_p="\"<div class=\'invisible\'>Pátek";
+					$day_p="\"<div class='invisible'>Pátek";
 					break;
 				case 6:
-					$day_p="\"<div class=\'invisible\'>Sobota";
+					$day_p="\"<div class='invisible'>Sobota";
 					break;
 				case 7:
-					$day_p="\"<div class=\'invisible\'>Neděle";
+					$day_p="\"<div class='invisible'>Neděle";
 					break;
 			}
 			if($dayTasksCount[$day]>0)
