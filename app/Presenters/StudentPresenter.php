@@ -268,10 +268,10 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			}
 			if($conflictArray[$value["day"]][$value["task_from"]]==0)
 			{
-				$value["day"]=$day_p;
+				$tasks[$key]["day"]=$day_p;
 				continue;
 			}
-			$value["day"]=$day_p.$conflictArray[$value["day"]][$value["task_from"]]--;
+			$tasks[$key]["day"]=$day_p.$conflictArray[$value["day"]][$value["task_from"]]--;
 
 		}
 
