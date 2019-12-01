@@ -850,7 +850,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			
 		$grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
-            $container->addText('points', '');
+            $container->addText('points', '')->setRule(Container::RANGE, "0 - 10", [0,10]);
         };
 
         $grid->getInlineEdit()->onSetDefaults[] = function (Nette\Forms\Container $container, $item): void {
