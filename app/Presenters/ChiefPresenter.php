@@ -142,7 +142,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
             ->setIcon('trash')
             ->setTitle('Smazat')
             ->setClass('btn btn-xs btn-danger ajax')
-			->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet smazat místnost?'));
+			->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet odstranit vybavení?'));
 
 		$grid->addToolbarButton('Chief:rooms', '')
 			->setIcon('arrow-left')
@@ -216,7 +216,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
             ->setIcon('trash')
             ->setTitle('Smazat')
             ->setClass('btn btn-xs btn-danger ajax')
-			->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet smazat vybavení?'));
+			->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet smazat adresu?'));
 
 		$grid->addToolbarButton('Chief:rooms', '')
 			->setIcon('arrow-left')
