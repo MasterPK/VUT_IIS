@@ -195,8 +195,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		if (!$data) {
 			return;
 		}
-		$minHour=24;
-		$maxHour=0;
+
 
 		$conflictArray=array();
 
@@ -219,16 +218,6 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			if($value->task_type=="ZK")
 			{
 				$date=strftime("%Y-%m-%d",$value->task_date->getTimestamp());
-			}
-
-			if($from<$minHour)
-			{
-				$minHour=$from;
-			}
-			
-			if($to>$maxHour)
-			{
-				$maxHour=$to;
 			}
 
 			//Check exist of time in conflict array
@@ -317,13 +306,6 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		}
 		$this->template->weekDays=Json::encode($weekDays);
 		$this->template->tasks=$tasks;
-		if($maxHour-$minHour<5)
-		{
-			$maxHour+=2;
-			$minHour-=2;
-		}
-		$this->template->minHour=$minHour;
-		$this->template->maxHour=$maxHour;
 
 	}
 }
