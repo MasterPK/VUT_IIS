@@ -255,6 +255,8 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 				]);
 			$dayTasksCount[$day] += 1;
 		}
+
+		Debugger::barDump($conflictArray,"konflikty");
 		$weekDays = array();
 		foreach ($dayTasksCount as $key => $value) {
 			switch ($key) {
