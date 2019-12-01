@@ -223,6 +223,11 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			$from=$value->task_from==NULL?$value->task_to-1:$value->task_from;
 			$to=$value->task_from==NULL?$value->task_to:$value->task_to;
 			$date=$value->task_from==NULL?$value->task_date:"";
+			if($value->task_type="ZK")
+			{
+				$date=$value->task_date;
+			}
+			
 
 			//Check exist of time in conflict array
 			for ($i=$from; $i < $to; $i++) { 
