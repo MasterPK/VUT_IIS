@@ -6,7 +6,7 @@
  * @copyright Copyright (c) 2012-2014 Vojtěch Dobeš
  * @license MIT
  *
- * @version 2.3.0
+ * @version 2.0.0
  */
 
 (function(window, $, undefined) {
@@ -315,14 +315,7 @@ $.nette.ext('validation', {
 			if (analyze.isSubmit || analyze.isImage) {
 				analyze.form.get(0)["nette-submittedBy"] = analyze.el.get(0);
 			}
-			var notValid;
-			if ((typeof Nette.version === 'undefined' || Nette.version == '2.3')) { // Nette 2.3 and older
-				var ie = this.ie();
-				notValid = (analyze.form.get(0).onsubmit && analyze.form.get(0).onsubmit((typeof ie !== 'undefined' && ie < 9) ? undefined : e) === false);
-			} else { // Nette 2.4 and up
-				notValid = ((analyze.form.get(0).onsubmit ? analyze.form.triggerHandler('submit') : Nette.validateForm(analyze.form.get(0))) === false)
-			}
-			if (notValid) {
+			if ((analyze.form.get(0).onsubmit ? analyze.form.triggerHandler('submit') : Nette.validateForm(analyze.form.get(0))) === false) {
 				e.stopImmediatePropagation();
 				e.preventDefault();
 				return false;
@@ -331,15 +324,7 @@ $.nette.ext('validation', {
 
 		if (validate.url) {
 			// thx to @vrana
-			var urlToValidate = analyze.form ? settings.url : analyze.el.attr('href');
-			// Check if URL is absolute
-			if (/(?:^[a-z][a-z0-9+.-]*:|\/\/)/.test(urlToValidate)) {
-				// Parse absolute URL
-				var parsedUrl = new URL(urlToValidate);
-				if (/:|^#/.test(parsedUrl['pathname'] + parsedUrl['search'] + parsedUrl['hash'])) return false;
-			} else {
-				if (/:|^#/.test(urlToValidate)) return false;
-			}
+			if (/:|^#/.test(analyze.form ? settings.url : analyze.el.attr('href'))) return false;
 		}
 
 		if (!passEvent) {
