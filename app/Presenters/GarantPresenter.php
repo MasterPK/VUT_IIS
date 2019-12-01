@@ -864,6 +864,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 				else
 				{
 					$this->template->error_set = true;
+					\Tracy\Debugger::barDump($this->template);
 					$this->redrawControl('error_snippet');
 				}
 			};
