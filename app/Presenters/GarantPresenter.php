@@ -846,9 +846,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			{
 				$this->template->error_set = true;
 			}
-		});
-		
-		$grid->getInlineEdit()->onCustomRedraw[] = function() use ($grid): void {
+		})->onCustomRedraw[] = function() use ($grid): void {
 			\Tracy\Debugger::barDump("hello");
 		};
 
