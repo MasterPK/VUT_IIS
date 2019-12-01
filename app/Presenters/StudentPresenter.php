@@ -235,8 +235,8 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			array_push($tasks,[
 				"task_name"=>$value->task_name,
 				"day"=>$day_p,
-				"task_from"=>$value->task_from==NULL?$value->task_to:$value->task_from,
-				"task_to"=>$value->task_from==NULL?$value->task_to+1:$value->task_to
+				"task_from"=>$value->task_from==NULL?$value->task_to-1:$value->task_from,
+				"task_to"=>$value->task_from==NULL?$value->task_to:$value->task_to
 				]);
 			$dayTasksCount[$day] += 1;
 		}
