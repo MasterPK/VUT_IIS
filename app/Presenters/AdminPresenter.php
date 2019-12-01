@@ -398,10 +398,8 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                     'password' => password_hash($values->password, PASSWORD_BCRYPT)
                 ]);
             }
-        };
-
-        $grid->getInlineEdit()->onCustomRedraw[] = function() use ($grid): void {
-            $this->redrawControl('notify');
+            $password = 'SKRYTO';
+            return $password;
         };
 
         $grid->addInlineAdd()
