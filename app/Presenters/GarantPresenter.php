@@ -834,7 +834,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		
 		$grid->addColumnText('points', 'Body')
 		->setSortable()
-		->setEditableValueCallback(function(Dibi\Row $row): string {
+		->setEditableValueCallback(function($row): string {
 			return $row->points;
 		})
 		->setEditableCallback(function($id, $value): int {
