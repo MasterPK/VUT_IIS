@@ -848,8 +848,8 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			}
 		});
 		
-		$grid->getInlineEdit()->onCustomRedraw[] = function() use ($this): void {
-			$this->redrawControl("grid_snippet");
+		$grid->getInlineEdit()->onCustomRedraw[] = function() use ($grid): void {
+			\Tracy\Debugger::barDump("hello");
 		};
 
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
