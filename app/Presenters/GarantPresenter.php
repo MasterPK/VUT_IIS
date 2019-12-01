@@ -837,10 +837,10 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		
 		$grid->addColumnText('points', 'Body')
 		->setSortable()
-		->setEditableCallback(function($id, $value) {
+		->setEditableCallback(function($id, $value,$item) {
 			\Tracy\Debugger::barDump($id);
 			\Tracy\Debugger::barDump($value);
-			\Tracy\Debugger::barDump(['id_task']);
+			\Tracy\Debugger::barDump($item);
 		});
 	
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
