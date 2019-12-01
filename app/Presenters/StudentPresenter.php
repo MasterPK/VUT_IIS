@@ -274,22 +274,22 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 						array_push($weekDays, "<div class=\"invisible\">Pondělí$i</div>");
 						break;
 					case 2:
-						array_push($weekDays, "Úterý$i");
+						array_push($weekDays, "<div class=\"invisible\">Úterý$i</div>");
 						break;
 					case 3:
-						array_push($weekDays, "Středa$i");
+						array_push($weekDays, "<div class=\"invisible\">Středa$i</div>");
 						break;
 					case 4:
-						array_push($weekDays, "Čtvrtek$i");
+						array_push($weekDays, "<div class=\"invisible\">Čtvrtek$i</div>");
 						break;
 					case 5:
-						array_push($weekDays, "Pátek$i");
+						array_push($weekDays, "<div class=\"invisible\">Pátek$i</div>");
 						break;
 					case 6:
-						array_push($weekDays, "Sobota$i");
+						array_push($weekDays, "<div class=\"invisible\">Sobota$i</div>");
 						break;
 					case 7:
-						array_push($weekDays, "Neděle$i");
+						array_push($weekDays, "<div class=\"invisible\">Neděle$i</div>");
 						break;
 				}
 			}
