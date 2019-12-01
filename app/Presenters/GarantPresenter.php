@@ -863,7 +863,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 				}
 				else
 				{
-					$this->template->error_set = true;
+					$_POST['error_set'] = true;
 					$this->redrawControl('error_snippet');
 				}
 			};
