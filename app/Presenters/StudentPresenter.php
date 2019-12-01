@@ -195,10 +195,16 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		if (!$data) {
 			return;
 		}
+		$minHour=24;
+		$maxHour=0;
+
+		$conflictArray=array();
+
 		$tasks = array();
 		$dayTasksCount = array();
 		for ($i = 1; $i <= 7; $i++) {
 			$dayTasksCount[$i] = 0;
+			$tasks[$i]=array();
 		}
 		foreach ($data as $value) {
 			Debugger::barDump($value,"value");
@@ -232,11 +238,20 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			{
 				$day_p=$day_p.$dayTasksCount[$day];
 			}
+
+			$from=$value->task_from==NULL?$value->task_to-1:$value->task_from;
+			$to=$value->task_from==NULL?$value->task_to:$value->task_to;
+
+			//Check exist of time in conflict array
+			for ($i=$from; $i < $to; $i++) { 
+				$conflictArray[$day]+=1;
+			}
+
 			array_push($tasks,[
 				"task_name"=>$value->task_name,
 				"day"=>$day_p,
-				"task_from"=>$value->task_from==NULL?$value->task_to-1:$value->task_from,
-				"task_to"=>$value->task_from==NULL?$value->task_to:$value->task_to
+				"task_from"=>$from,
+				"task_to"=>$to
 				]);
 			$dayTasksCount[$day] += 1;
 		}
