@@ -850,6 +850,8 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 		$grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
+            $httpRequest = $this->getHttpRequest();
+			$id_task = $httpRequest->getQuery('id_task');
             $maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
             $container->addText('points', '')->addRule(Form::RANGE, "Zadejte počet bodu v rozmezi 0 - ".$maxpoints, [0,$maxpoints]);
         };
@@ -862,16 +864,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
         };
 
         $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): string {
-        	$result = '0';
             $httpRequest = $this->getHttpRequest();
 			$id_task = $httpRequest->getQuery('id_task');
-			$maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
-			if($maxpoints->task_points >= $values->points)
-			{
-				$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $values->points, $id, $id_task);
-				$result = $values->points;
-			}
-			return $result;
+			
+			$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $values->points, $id, $id_task);
+				
         };
 
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
