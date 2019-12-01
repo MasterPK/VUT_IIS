@@ -846,6 +846,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		
 		$grid->addColumnText('points', 'Body')
 		->setSortable()
+		->setClass("align-center")
 		->setFilterText();
 
 		$grid->addInlineEdit()
