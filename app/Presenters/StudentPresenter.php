@@ -317,6 +317,11 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		}
 		$this->template->weekDays=Json::encode($weekDays);
 		$this->template->tasks=$tasks;
+		if($maxHour-$minHour<5)
+		{
+			$maxHour+=2;
+			$minHour-=2;
+		}
 		$this->template->minHour=$minHour;
 		$this->template->maxHour=$maxHour;
 
