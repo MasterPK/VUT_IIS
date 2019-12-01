@@ -398,11 +398,6 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                     'password' => password_hash($values->password, PASSWORD_BCRYPT)
                 ]);
             }
-            $this->template->success_notify = true;
-            if ($this->isAjax()) 
-            {   
-                $this->redrawControl("pass_change");
-            }
         };
 
         $grid->getInlineEdit()->onCustomRedraw[] = function() use ($grid): void {
