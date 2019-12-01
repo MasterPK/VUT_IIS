@@ -319,6 +319,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 		if($this->isAjax())
 		{
+			\Tracy\Debugger::barDump("YES");
 			$this->redrawControl('course_snippet');
 		}
 	}
