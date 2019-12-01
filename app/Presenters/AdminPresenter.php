@@ -332,7 +332,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 '1' => 'Aktivní'
             ]);
 
-        $grid->addAction('delete', '', 'confirm! $first_name." ".$surname')
+        $grid->addAction('delete', '', 'confirm!', $first_name." ".$surname)
             ->setIcon('trash')
             ->setTitle('Smazat')
             ->setClass('btn btn-xs btn-danger ajax');
