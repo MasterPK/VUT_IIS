@@ -821,7 +821,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		{
 			$id_task = $this->id_task;
 		}
-		elseif($id_task==NULL
+		elseif($id_task==NULL)
 		{
 			$httpRequest = $this->getHttpRequest();
 			$id_task = $httpRequest->getQuery('id_task');
