@@ -828,7 +828,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		}else
 		{
 			$post = $httpRequest->getPost(); // vrací pole všech parametrů z POST
-			$id = $httpRequest->getPost('id_task'); // vrací POST parametr 'id' (nebo null)
+			$id_task = $httpRequest->getPost('id_task'); // vrací POST parametr 'id' (nebo null)
 		}
 
 		$grid = new DataGrid($this, $name);
