@@ -200,11 +200,8 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 
 	public function handleDeleteEquip($id_room_equipment)
     {
-		$data = $this->database->table("room_equipment")->where("id_room", $id_room)->where("room_equipment", $room_equipment)
-		->update([
-			'id_room' => NULL,
-		]);
 
+		$this->database->table("room_equipment")->where("id_room_equipment", $id_room_equipment)->delete();
 
         $this->template->success_notify = true;
         if ($this->isAjax()) {
@@ -655,36 +652,6 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	}
 
 
-
-
-
-	public function createComponentDeleteEquipment()
-	{
-		$form = new Form;
-
-		$form->addHidden('id_room_equipment', '')
-			->setRequired()
-			->setDefaultValue($this->current_Equip);
-
-		$form->addCheckBox("really")
-			->setRequired()
-			->addCondition(Form::EQUAL, true);
-
-		$form->addSubmit('submit', 'Smazat?!')
-			->setHtmlAttribute('class', 'btn btn-primary');
-
-		$form->onSuccess[] = [$this, 'deleteEquipmentSubmit'];
-
-		return $form;
-	}
-
-	public function deleteEquipmentSubmit(Form $form)
-	{
-		$values = $form->getValues();
-
-		$this->database->table("room_equipment")->where("id_room_equipment", $values->id_room_equipment)->delete();
-		$this->redirect("Chief:manageEquipment");
-	}
 
 	public function createComponentChangeEquipment()
 	{
