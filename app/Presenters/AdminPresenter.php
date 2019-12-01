@@ -426,7 +426,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                         'rank' => $values->rank,
                         'password' => password_hash($values->password, PASSWORD_BCRYPT)
                     ]);
-                    
+
                 $this->template->success_notify = true;
                 if ($this->isAjax()) 
                 {
@@ -462,10 +462,12 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     {
         $this->database->table("user")->where("id_user", $id_user)->delete();
         $this->template->success_notify = true;
-        if ($this->isAjax()) {
-            
+        if ($this->isAjax()) 
+        {
             $this->redrawControl('notify');
-        } else {
+        } 
+        else 
+        {
             $this->redirect('this');
         }
     }

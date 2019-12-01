@@ -1,6 +1,12 @@
 {block header} Správa uživatelů{/block}
 {block content}
 {snippet notify}
+    <div class="row">
+        <div class="col-sm-12">
+            {control userMng}
+        </div>
+    </div>
+    
     {ifset $success_notify}
         <script>$.notify("Operace byla provedena!", "success");</script>
     {/ifset}
@@ -30,11 +36,6 @@
         <script>$('#' + {$delete_user_id}).modal('show');</script>
     {/ifset}
 {/snippet}
-<div class="row">
-    <div class="col-sm-12">
-        {control userMng}
-    </div>
-</div>
 
 <script>
 function hide(id)
