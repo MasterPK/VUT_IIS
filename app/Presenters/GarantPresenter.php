@@ -827,7 +827,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			$id_task = $httpRequest->getQuery('id_task');
 		}
 
-		if($_POST && $_POST('group_action'))
+		if($_POST && $_POST['group_action'])
 		{
 			$group_points = $_POST['1'];
 			$maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
