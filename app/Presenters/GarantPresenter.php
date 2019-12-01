@@ -234,6 +234,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 				$this->template->error_course_exists=true;
 				if($this->isAjax())
 				{
+					\Tracy\Debugger::barDump("YES");
 					$this->redrawControl('course_snippet');
 				}
 				return;
@@ -316,9 +317,15 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			}
     	}
 
-
-		$this->redrawControl('course_snippet');
-		
+		if($this->isAjax())
+		{
+			\Tracy\Debugger::barDump("YES");
+			$this->redrawControl('course_snippet');
+		}
+		else
+		{
+			\Tracy\Debugger::barDump("NO");
+		}
 	}
 
 	public function createComponentCoursesMng($name)
