@@ -271,25 +271,25 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			for ($i = 1; $i < $value; $i++) {
 				switch ($key) {
 					case 1:
-						array_push($weekDays, "<div class=\"invisible\">Pondělí$i</div>");
+						array_push($weekDays, "<div class='invisible'>Pondělí$i</div>");
 						break;
 					case 2:
-						array_push($weekDays, "<div class=\"invisible\">Úterý$i</div>");
+						array_push($weekDays, "<div class='invisible'>Úterý$i</div>");
 						break;
 					case 3:
-						array_push($weekDays, "<div class=\"invisible\">Středa$i</div>");
+						array_push($weekDays, "<div class='invisible'>Středa$i</div>");
 						break;
 					case 4:
-						array_push($weekDays, "<div class=\"invisible\">Čtvrtek$i</div>");
+						array_push($weekDays, "<div class='invisible'>Čtvrtek$i</div>");
 						break;
 					case 5:
-						array_push($weekDays, "<div class=\"invisible\">Pátek$i</div>");
+						array_push($weekDays, "<div class='invisible'>Pátek$i</div>");
 						break;
 					case 6:
-						array_push($weekDays, "<div class=\"invisible\">Sobota$i</div>");
+						array_push($weekDays, "<div class='invisible'>Sobota$i</div>");
 						break;
 					case 7:
-						array_push($weekDays, "<div class=\"invisible\">Neděle$i</div>");
+						array_push($weekDays, "<div class='invisible'>Neděle$i</div>");
 						break;
 				}
 			}
