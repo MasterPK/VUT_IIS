@@ -816,8 +816,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	public function createComponentTaskStudentsGrid($name)
 	{
-		\Tracy\Debugger::barDump($_POST);
-		\Tracy\Debugger::barDump($_GET);
 		$id_task;
 		if($this->id_task != NULL)
 		{
@@ -827,6 +825,17 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		{
 			$httpRequest = $this->getHttpRequest();
 			$id_task = $httpRequest->getQuery('id_task');
+		}
+
+		if($_POST && $_POST('group_action'))
+		{
+			$group_points = $_POST['1'];
+			$maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
+			if($maxpoints->task_points < $group_points)
+			{
+				$this->template->error_set = true;
+				$this->redrawControl('error_snippet');
+			}
 		}
 
 		$grid = new DataGrid($this, $name);
@@ -893,12 +902,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			{
 				$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $student, $id_task);
 			}
-			$this->redrawControl('content_snippet');
-		}
-		else
-		{
-			$this->template->error_set = true;
-			$this->redrawControl('error_snippet');
 		}
 	}
 }
