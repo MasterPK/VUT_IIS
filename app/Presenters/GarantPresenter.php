@@ -847,7 +847,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 				
 			}
 			$this['taskStudentsGrid']->reload();
-			die;
+			
 		});
 
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
