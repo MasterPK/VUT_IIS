@@ -222,6 +222,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 
 			$from=$value->task_from==NULL?$value->task_to-1:$value->task_from;
 			$to=$value->task_from==NULL?$value->task_to:$value->task_to;
+			$date=$value->task_from==NULL?$value->task_date:"";
 
 			//Check exist of time in conflict array
 			for ($i=$from; $i < $to; $i++) { 
@@ -229,7 +230,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			}
 
 			array_push($tasks,[
-				"task_name"=>"[$value->id_course] $value->task_name ".$value->task_from==NULL?$value->task_date:"",
+				"task_name"=>"[$value->id_course] $value->task_name ".$date,
 				"day"=>$day,
 				"task_from"=>$from,
 				"task_to"=>$to
