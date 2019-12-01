@@ -341,7 +341,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         $replacement = [];
         foreach($all_passwords as $password)
         {
-            $replacement[$password] = 'SKRYTO';
+            $replacement[$password->password] = 'SKRYTO';
         }
 
         $grid->addColumnText('password', 'Heslo')
