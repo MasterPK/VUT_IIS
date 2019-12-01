@@ -52,11 +52,13 @@
 Pro implementaci jsme zvolil framework Nette. Projekt je rozdìlený na ¹ablony, presentery a modely. Ka¾dá úroveò u¾ivatelù ma vlastní presenter plus je je¹tì dodateèný presenter pro zpracování po¾adavkù na u¾ivatele.<br>
 Pro zobrazení dat z databáze jsme pou¾ili ublaboo/datagrid, který poskytuje pøehledné zobrazení dat s filtrováním. Rozvrh se zobrazuje pomocí pluginu <a href="http://timetablejs.org/">timetable.js</a> a zobbrazuje v¹echny termíny, na kterým má daný student pøístup.<br>
 Jako základ pro vzhled webu slou¾í <a href="https://getbootstrap.com/">Bootstrap 4</a> a <a href="https://fontawesome.com/">FontAwesome</a>. Vzhled vychází z opensource ¹ablony <a href="https://startbootstrap.com/templates/sb-admin/">SB Admin</a>. Web z velké èásti pou¾ívá <a href="https://jquery.com/">jQuery</a> a AJAX pro zpracování po¾adavkù a dal¹í roz¹íøení, která jsou dostupná pøímo v Nette.
-Notifikace jsou zobrazeny pomocí <a href="https://notifyjs.jpillora.com/">notify.js</a> a vyskakovací okna pomocí <a href="https://notifyjs.jpillora.com/">popper.js</a>.
+Notifikace jsou zobrazeny pomocí <a href="https://notifyjs.jpillora.com/">notify.js</a> a vyskakovací okna pomocí <a href="https://notifyjs.jpillora.com/">popper.js</a>.<br>
 
 Ka¾dý presenter pøi své inicializaci nejprve zavolá startUpModel, který se postará o kontrou pøihlá¹ení a jestli má u¾ivatel dostateèná opravnìní, pokud ne tak je pøesmìrován na domovskou stránku.
 Pro ka¾dý presenter existuje model, který implementuje èást funkcí, které pou¾ívá. Modely jsou kaskádovì propojené, aby AdminModel mìl pøístup k StudentModel.
-Pro presentery existuje globální Latte ¹ablona s hlavièkou webu. Ta poté podle adresy pou¾ívá dal¹í ¹ablony podle presenteru.
+Pro presentery existuje globální Latte ¹ablona s hlavièkou webu. Ta poté podle adresy pou¾ívá dal¹í ¹ablony podle presenteru.<br>
+
+Hesla jsou v databázi ulo¾ena v za¹ifrované podobì.
 
 <h3>Databáze</h3>
 
@@ -69,7 +71,7 @@ Struènì popi¹te:
 <li>Pro správné fungování je potøeba mít nastavený webový server s podporou mod_rewrite, nejlépe Apache2.</li>
 <li>Projekt vy¾aduje PHP 7.0 a novìj¹í a MySQL 5.6 a novìj¹í. Vyu¾ívá databázi typu InnoDB.</li>
 <li>Projekt je tøeba rozbalit do slo¾ky webového serveru a pomocí .htaccess nastavit ji¾ zmínìné po¾adavky. Server by mìl být také nastavený, aby pøesmìrovával do slo¾ky www, kde je index.php, do jiných slo¾ek by pøístup nemìl umo¾òovat.</li>
-<li>Pomocí pøilo¾eného skriptu je tøeba nastavit databázi. Konfiguraèní soubor local.neon, umístìný v app/config, obsahuje nastavení pøipojení k databázi. V základu je nastavený na server Endory, ten je potøeba zmìnit dle lokálního prostøedí, jeliko¾ server Endory není nastavený pro vzdálené pøipojení.</li>
+<li>Pomocí pøilo¾eného skriptu je mo¾né nastavit databázi. To ale není v základu nutné, proto¾e konfiguraèní soubor local.neon, umístìný v app/config, obsahuje nastavení pøipojení k databázi Endory. Je ale mo¾né to zmìnit a pou¾ít pøilo¾ený skript pro inicializaci databáze.</li>
 <li>Pokud se v¹e povede, tak by mìl být web funkèní</li>
 </ul>
 
