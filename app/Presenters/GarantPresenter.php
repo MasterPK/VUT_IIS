@@ -844,7 +844,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			}
 			else
 			{
-				new Exception("error");
+				new Nette\Diagnostics\Exception("error");
 			}
 			$this->redrawControl("grid_snippet");
 			
