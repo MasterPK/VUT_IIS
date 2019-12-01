@@ -331,6 +331,10 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 '0' => 'Neaktivní',
                 '1' => 'Aktivní'
             ]);
+
+        $grid->addColumnText('password', 'Heslo')
+            ->setSortable()
+            ->setFilterText();
         
         $grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
@@ -349,6 +353,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 '0' => 'Neaktivní',
                 '1' => 'Aktivní'
             ]);
+            $container->addText('password', '');
         };
 
         $grid->getInlineEdit()->onSetDefaults[] = function (Nette\Forms\Container $container, $item): void {
@@ -359,7 +364,8 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 'surname' => $item->surname,
                 'phone' => $item->phone,
                 'rank' => $item->rank,
-                'active' => $item->active
+                'active' => $item->active,
+                'password' => '',
             ]);
         };
 
@@ -373,6 +379,14 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                     'rank' => $values->rank,
                     'active' => $values->active,
                 ]);
+
+            if($values->password != '')
+            {
+                $this->database->table("user")->where("id_user", $id)
+                ->update([
+                    'password' => $values->password
+                ]);
+            }
         };
 
         $grid->addAction('delete', '', 'delete!')
