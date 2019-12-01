@@ -834,7 +834,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			$maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
 			\Tracy\Debugger::barDump($maxpoints->task_points);
 			\Tracy\Debugger::barDump($group_points);
-			if($maxpoints->task_points < $group_points)
+			if($maxpoints->task_points < (int)$group_points)
 			{
 				$this->template->error_set = true;
 				$this->redrawControl('error_snippet');
