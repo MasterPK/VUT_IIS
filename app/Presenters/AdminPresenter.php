@@ -333,7 +333,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             ]);
 
         $grid->addColumnText('password', 'Heslo')
-            ->setDefaultValue('');
+            ->setDefaultHide(true);
         
         $grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
