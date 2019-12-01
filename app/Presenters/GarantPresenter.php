@@ -833,8 +833,8 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 		$grid->addColumnText('points', 'Body')
 		->setSortable()
-		->setEditableCallback(function($id, $value){
-            $this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $id, $this->id_task);
+		->setEditableCallback(function($id, $id_task, $value){
+            $this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $id, $id_task);
         });
 	
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);

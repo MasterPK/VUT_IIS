@@ -9,7 +9,7 @@ Osobní rozvrh
 {ifset $weekDays}
 {ifset $tasks}
 var timetable = new Timetable();
-timetable.setScope(0, 23);
+timetable.setScope({$minHour|noescape}, {$maxHour|noescape});
 var data ={$weekDays|noescape};
 timetable.addLocations(data);
 {foreach $tasks as $row}
