@@ -838,7 +838,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			$httpRequest = $this->getHttpRequest();
 			$id_task = $httpRequest->getQuery('id_task');
 			$maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
-			if($maxpoints->task_points > $value)
+			if($maxpoints->task_points >= $value)
 			{
 				$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $id, $id_task);
 			}
