@@ -5,9 +5,10 @@ Osobní rozvrh
 <div class="row">
 <div class="col-sm-12">
 <div class="timetable"></div>
-<script>
+
 {ifset $weekDays}
 {ifset $tasks}
+<script>
 var timetable = new Timetable();
 timetable.setScope(0, 23);
 var data ={$weekDays|noescape};
