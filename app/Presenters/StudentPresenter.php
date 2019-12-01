@@ -206,7 +206,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 			$dayTasksCount[$i] = 0;
 			$conflictArray[$i]=array();
 			for ($j=0; $j < 24; $j++) { 
-				$conflictArray[$i][$j]=array();
+				$conflictArray[$i][$j]=0;
 			}
 		}
 		Debugger::barDump($conflictArray,"konflikty");
