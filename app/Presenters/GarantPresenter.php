@@ -10,6 +10,7 @@ use Ublaboo\DataGrid\DataGrid;
 use Tracy\Debugger;
 use Nette\Utils\FileSystem;
 use Nette\Utils\Finder;
+use Nette\Http\Url;
 
 final class GarantPresenter extends Nette\Application\UI\Presenter 
 {
@@ -840,7 +841,8 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		->setEditableCallback(function($id, $value) {
 			\Tracy\Debugger::barDump($id);
 			\Tracy\Debugger::barDump($value);
-			\Tracy\Debugger::barDump($this->id_task);
+			$httpRequest = $this->getHttpRequest();
+			\Tracy\Debugger::barDump($httpRequest->getQuery('id_task'));
 		});
 	
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
