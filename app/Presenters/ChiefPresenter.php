@@ -247,7 +247,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 				$this->redirect('this');
 			}
 		}
-		catch(Nette\IOException $e)
+		catch(Nette\Database\ForeignKeyConstraintViolationException $e)
 		{
 			$this->template->error_notify = true;
 
