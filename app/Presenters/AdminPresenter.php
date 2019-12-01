@@ -340,7 +340,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             $container->addText('email', '');
             $container->addText('first_name', '');
             $container->addText('surname', '');
-            $container->addText('phone', '');
+            
             $container->addSelect('rank', '', [
                 '1' => 'Student',
                 '2' => 'Lektor',
@@ -360,7 +360,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 'email' => $item->email,
                 'first_name' => $item->first_name,
                 'surname' => $item->surname,
-                'phone' => $item->phone,
+                
                 'rank' => $item->rank,
                 'active' => $item->active
             ]);
