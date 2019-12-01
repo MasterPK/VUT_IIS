@@ -838,7 +838,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			return $row->points;
 		})
 		->setEditableCallback(function($id, $value): string {
-			$result = 0;
+			$result = '0';
 			$httpRequest = $this->getHttpRequest();
 			$id_task = $httpRequest->getQuery('id_task');
 			$maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
