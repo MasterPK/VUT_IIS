@@ -11,7 +11,7 @@
 
 {snippet confirm_snippet}
     {ifset $delete_confirm}
-        <script>eventFire(document.getElementById('{$delete_user_id}'), 'click');</script>
+        <script>eventFire(document.getElementById({$delete_user_id}), 'click');</script>
         <button class="btn btn-sm btn-primary ml-1 hidden" id="{$delete_user_id}" onClick="show({$delete_user_id})"></button>
         <div class="modal fade" id="{$delete_user_id}">
             <div class="modal-dialog">
