@@ -271,8 +271,8 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 				$tasks[$key]["day"]=$day_p;
 				continue;
 			}
-			$tasks[$key]["day"]=$day_p.$conflictArray[$value["day"]][$value["task_from"]]--;
-
+			$tasks[$key]["day"]=$day_p.$conflictArray[$value["day"]][$value["task_from"]];
+			$conflictArray[$value["day"]][$value["task_from"]]-=1;
 		}
 
 		
