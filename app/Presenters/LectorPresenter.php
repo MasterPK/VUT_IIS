@@ -127,7 +127,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 
 		$grid->addAction("select", "", 'Student:showcourse')
 		->setIcon('info')
-		->setClass("btn btn-sm btn-info");
+		->setClass("btn btn-sm btn-info center-block");
 
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
