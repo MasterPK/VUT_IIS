@@ -420,7 +420,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	{
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('id_user');
-		$grid->setDataSource($this->database->query("SELECT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_lecturer WHERE id_course = ?", $this->id_course)->fetchAll());
+		$grid->setDataSource($this->database->query("SELECT DISTINCT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_lecturer WHERE id_course = ?", $this->id_course)->fetchAll());
 
 		$grid->addColumnText('email', 'Email')
 		->setSortable()
