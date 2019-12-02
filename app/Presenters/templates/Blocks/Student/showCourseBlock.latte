@@ -20,37 +20,6 @@
             <div class="card bg-default mt-1">
                 <div class="card-header">
                     {$task->task_name}
-
-                    {snippet studentRegistration}
-                    {ifset $openRegistration}
-                    {ifset $userCourseStatus}
-                    {if $userCourseStatus==1}
-                    <div class="row">
-                        <div class="col-auto mr-auto"></div>
-                        <div class="col-auto">
-                            <form n:name="unRegisterForm">
-                                <div class="form-group text-center ">
-                                    {input register}
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    {/if}
-                    {else}
-                    <div class="row">
-                        <div class="col-auto mr-auto"></div>
-                        <div class="col-auto">
-                            <form n:name="registerForm">
-                                <div class="form-group text-center ">
-                                    {input register}
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    {/ifset}
-                    {/ifset}
-                    {/snippet}
-
                 </div>
                 <div class="card-body">
                     <div class="row">
