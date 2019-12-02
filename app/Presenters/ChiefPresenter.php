@@ -100,11 +100,10 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
             ->setIcon('edit')
             ->setClass("btn btn-xs btn-default btn-secondary");
 			
-        $grid->addAction('delete', '', 'deleteRoom!')
+        $grid->addAction('delete', '', 'confirmDeleteRoom!')
             ->setIcon('trash')
             ->setTitle('Smazat')
-            ->setClass('btn btn-xs btn-danger ajax')
-			->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet smazat místnost?'));
+            ->setClass('btn btn-xs btn-danger ajax');			
 			
 		$grid->addToolbarButton('Chief:createRoom', '')
             ->setIcon('plus')
@@ -290,6 +289,13 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
         } else {
 			$this->redirect('this');
 		}
+    }
+
+    public function handleConfirmDeleteRoom($id_room)
+    {
+    	$this->template->id_room = $id_room;
+    	$this->template->show_modal = true;
+    	$this->redrawControl('show_modal_snippet');
     }
 
 	public function handleDeleteRoom($id_room)
