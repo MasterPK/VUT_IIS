@@ -112,7 +112,13 @@ VALUES ('IIS', 'Informační systémy', 'Informační systémy', 'P', '0', '1', 
 INSERT INTO `course` (`id_course`, `course_name`, `course_description`, `course_type`, `course_price`, `id_guarantor`, `course_status`, `tags`)
 VALUES ('IOS', 'Operační systémy', 'Operační systémy', 'P', '100', '1', '0', 'os, c');
 INSERT INTO `user` (`email`, `first_name`, `surname`, `phone`, `password`, `rank`, `active`)
-VALUES ('garant@a.a', 'Garant', 'z garantova', '123', '$2y$12$jC7EHEdO2ZvoZAQZWMJ9nOfNUDyfLl9UD9O9kSWiz07bOubOiLJIW', '3', '1');
+VALUES ('student@a.a', 'Student', 'z studentova', '123', '$2y$12$jC7EHEdO2ZvoZAQZWMJ9nOfNUDyfLl9UD9O9kSWiz07bOubOiLJIW', '1', '1');
+INSERT INTO `user` (`email`, `first_name`, `surname`, `phone`, `password`, `rank`, `active`)
+VALUES ('garant@a.a', 'Garant', 'z garantova', '123', '$2y$12$jC7EHEdO2ZvoZAQZWMJ9nOfNUDyfLl9UD9O9kSWiz07bOubOiLJIW', '2', '1');
+INSERT INTO `user` (`email`, `first_name`, `surname`, `phone`, `password`, `rank`, `active`)
+VALUES ('lektor@a.a', 'Lektor', 'z lektorova', '123', '$2y$12$jC7EHEdO2ZvoZAQZWMJ9nOfNUDyfLl9UD9O9kSWiz07bOubOiLJIW', '3', '1');
+INSERT INTO `user` (`email`, `first_name`, `surname`, `phone`, `password`, `rank`, `active`)
+VALUES ('veduci@a.a', 'Veduci z veducova', 'z garantova', '123', '$2y$12$jC7EHEdO2ZvoZAQZWMJ9nOfNUDyfLl9UD9O9kSWiz07bOubOiLJIW', '4', '1');
 INSERT INTO `course_has_lecturer` (`id_course`, `id_user`)
 VALUES ('IIS', '2');
 INSERT INTO `room_address` (`room_address`)
