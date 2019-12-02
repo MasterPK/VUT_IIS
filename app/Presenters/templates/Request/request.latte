@@ -2,21 +2,23 @@
 Seznam žádostí
 {/block}
 {block content}
-    {ifset success_approve}
-        {if success_approve == true}
-            <script>$.notify("Kurz byl úspěšně povolen.", "success");</script>
-        {else}
-            <script>$.notify("Kurz nebylo možné povolit!", "error");</script>
-        {/if}
-    {/ifset}
+    {snippet student_snippet}
+        {ifset success_approve}
+            {if success_approve == true}
+                <script>$.notify("Kurz byl úspěšně povolen.", "success");</script>
+            {else}
+                <script>$.notify("Kurz nebylo možné povolit!", "error");</script>
+            {/if}
+        {/ifset}
 
-    {ifset success_deny}
-        {if success_deny == true}
-            <script>$.notify("Kurz byl úspěšně zamítnut.", "success");</script>
-        {else}
-            <script>$.notify("Kurz nebylo možné zamítnout!", "error");</script>
-        {/if}
-    {/ifset}
+        {ifset success_deny}
+            {if success_deny == true}
+                <script>$.notify("Kurz byl úspěšně zamítnut.", "success");</script>
+            {else}
+                <script>$.notify("Kurz nebylo možné zamítnout!", "error");</script>
+            {/if}
+        {/ifset}
+    {/snippet}
 
     {ifset $course}
         <div class="row">
