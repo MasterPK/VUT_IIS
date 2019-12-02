@@ -228,7 +228,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 	{
 		if(!$this->task)
 		{
-			$this->error = 2;
+			$this->template->error = 2;
 			$this->redrawControl('error_snippet');
 			return NULL;
 		}
