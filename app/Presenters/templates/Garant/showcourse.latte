@@ -173,8 +173,8 @@ Detail kurzu
                         {if $userIsGuarantorInCourse == true || $userIsLectorInCourse == true}
                             <div class="col-md-9 col-sm-12 ">
                                 <div class="row float-right">
-                                    <a n:href="Garant:showtask $task->id_task" class="btn btn-primary btn-sm "><i class="fas fa-user-graduate"></i></a>
-                                    <a n:href="Garant:newFile $task->id_course, $task->id_task" class="btn btn-primary btn-sm "><i class="fas fa-file"/></a>
+                                    <a n:href="Garant:showtask $task->id_task" class="btn btn-primary btn-sm ml-1"><i class="fas fa-user-graduate"></i></a>
+                                    <a n:href="Garant:newFile $task->id_course, $task->id_task" class="btn btn-primary btn-sm ml-1"><i class="fas fa-file"/></a>
 
                                     <div class="modal fade" id="{$task->id_task}">
                                         <div class="modal-dialog">
