@@ -105,36 +105,6 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		}
 	}
 
-
-
-	/*protected function createComponentRegisterCheckBox(): Form
-    {
-		$requests = $this->database->query("SELECT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_guarantor = ? AND id_course = ? AND student_status = 0", $this->user->identity->id, $this->id_course)->fetchAll();
-
-		if($requests)
-		{
-			$this->template->requests = $requests;
-		}
-		$form = new Form;
-		$form->getElementPrototype()->class('ajax');
-		foreach($requests as $row)
-		{
-			$form->addCheckbox("id_".strval($row->id_user),"");
-		}
-        $form->addSubmit('submit', 'Zaregistrovat označené')
-        ->setHtmlAttribute('class', 'btn btn-primary ajax');
-		
-		$form->onSuccess[] = [$this, 'registerStudent'];
-        return $form;
-    }
-
-    public function registerStudent($form): void
-    {
-		$values = $form->getValues();
-		
-    	
-	}*/
-
 	public function handleRegister($users, $id_course, $accept): void
     {
     	//ak neni ziaden checkbox, tak sa odosle []
@@ -255,5 +225,46 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		}
 		
     	
+	}
+
+	public function createComponentCourseRequest($name)
+	{
+		$grid = new DataGrid($this, $name);
+		$grid->setPrimaryKey('id_course');
+		$grid->setDataSource($this->database->query("SELECT id_course, course_name, course_type, id_guarantor FROM course WHERE course_status = 0")->fetchAll());
+
+		$grid->addColumnText('id_course', 'Zkratka kurzu')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('course_name', 'Jméno kurzu')
+		->setSortable()
+		->setFilterText();
+		
+
+		$grid->addColumnText('course_type', 'Typ kurzu')
+		->setReplacement([
+			'P' => 'Povinný',
+			'V' => 'Volitelný'
+		])
+		->setSortable();
+
+		$grid->addFilterSelect('course_type', 'Typ kurzu:', [""=>"Vše", "P" => 'Povinný', "V" => 'Volitelný']);
+		
+		$grid->addAction("select1", "", 'Request:request')
+		->setIcon('info')
+		->setClass("btn btn-sm btn-info");
+
+		$grid->addAction("select2", "", 'approveCourse!')
+		->setIcon('check')
+		->setClass("btn btn-sm btn-success");
+
+		$grid->addAction("select3", "", 'denyCourse!')
+		->setIcon('times')
+		->setClass("btn btn-sm btn-danger");
+
+		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
+	
+		return $grid;
 	}
 }
