@@ -359,7 +359,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 
             		if($result->getRowCount() == 0)
 					{
-						$this->template->success_approve = false;
+						$this->template->success_accept = false;
 						$this->redrawControl('student_snippet');
 						return;
 					}
@@ -371,7 +371,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 							$result = $this->database->query("INSERT INTO student_has_task (id_user, id_task) VALUES (?, ?)", $student, $task->id_task);
 							if($result->getRowCount() == 0)
 							{
-								$this->template->success_approve = false;
+								$this->template->success_accept = false;
 								$this->redrawControl('student_snippet');
 								return;
 							}
@@ -379,7 +379,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 					}
             	}
 
-            	$this->template->success_approve = true;
+            	$this->template->success_accept = true;
 				$this->redrawControl('student_snippet');
                 
             };
@@ -394,13 +394,13 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
             	
             		if($result->getRowCount() == 0)
 					{
-						$this->template->success_deny = false;
+						$this->template->success_reject = false;
 						$this->redrawControl('student_snippet');
 						return;
 					}
             	}
 
-            	$this->template->success_deny = true;
+            	$this->template->success_reject = true;
 				$this->redrawControl('student_snippet');
                 
             };

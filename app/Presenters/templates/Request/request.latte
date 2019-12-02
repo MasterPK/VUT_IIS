@@ -2,23 +2,21 @@
 Seznam žádostí
 {/block}
 {block content}
-    {snippet student_snippet}
-        {ifset success_approve}
-            {if success_approve == true}
-                <script>$.notify("Kurz byl úspěšně povolen.", "success");</script>
-            {else}
-                <script>$.notify("Kurz nebylo možné povolit!", "error");</script>
-            {/if}
-        {/ifset}
+    {ifset $success_approve}
+        {if $success_approve == true}
+            <script>$.notify("Kurz byl úspěšně povolen.", "success");</script>
+        {else}
+            <script>$.notify("Kurz nebylo možné povolit!", "error");</script>
+        {/if}
+    {/ifset}
 
-        {ifset success_deny}
-            {if success_deny == true}
-                <script>$.notify("Kurz byl úspěšně zamítnut.", "success");</script>
-            {else}
-                <script>$.notify("Kurz nebylo možné zamítnout!", "error");</script>
-            {/if}
-        {/ifset}
-    {/snippet}
+    {ifset $success_deny}
+        {if $success_deny == true}
+            <script>$.notify("Kurz byl úspěšně zamítnut.", "success");</script>
+        {else}
+            <script>$.notify("Kurz nebylo možné zamítnout!", "error");</script>
+        {/if}
+    {/ifset}
 
     {ifset $course}
         <div class="row">
@@ -81,6 +79,24 @@ Seznam žádostí
         </div>
     {/ifset}
 
+    {snippet student_snippet}
+        
+        {control allStudentsRequests}
 
-    {control allStudentsRequests}
+        {ifset $success_accept}
+            {if $success_accept == true}
+                <script>$.notify("Vybraní studenti byly úspěšně schváleni.", "success");</script>
+            {else}
+                <script>$.notify("Vybrané studenty nebylo možné schválit!", "error");</script>
+            {/if}
+        {/ifset}
+
+        {ifset $success_reject}
+            {if $success_reject == true}
+                <script>$.notify("Vybraní studenti byly úspěšně zamítnuti.", "success");</script>
+            {else}
+                <script>$.notify("Vybrané studenty nebylo možné zamítnout!", "error");</script>
+            {/if}
+        {/ifset}
+    {/snippet}
 {/block}
