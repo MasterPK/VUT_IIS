@@ -7,30 +7,24 @@
 <li n:class="nav-item, $presenter->isLinkCurrent('Garant:courses') ? active">
     <a class="nav-link" n:href="Garant:courses">
         <i class="fas fa-fw fa-graduation-cap"></i>
-        <span>Seznam všech kurzů</span>
+        <span>Kurzy</span>
     </a>
 </li>
 <li n:class="nav-item, $presenter->isLinkCurrent('Garant:mycourses') ? active">
     <a class="nav-link" n:href="Garant:mycourses">
         <i class="fas fa-fw fa-list-ol"></i>
-        <span>Seznam mých kurzů (student)</span>
-    </a>
-</li>
-<li n:class="nav-item, $presenter->isLinkCurrent('Garant:course') ? active">
-    <a class="nav-link" n:href="Garant:course">
-        <i class="fas fa-fw fa-plus-circle"></i>
-        <span>Vytvořit nový kurz</span>
+        <span>Student</span>
     </a>
 </li>
 <li n:class="nav-item, $presenter->isLinkCurrent('Garant:managecourses') ? active">
     <a class="nav-link" n:href="Garant:managecourses">
         <i class="fas fa-fw fa-tasks"></i>
-        <span>Správa mých kurzů (lektor, garant)</span>
+        <span>Učitel</span>
     </a>
 </li>
 <li n:class="nav-item, $presenter->isLinkCurrent('Request:') ? active">
     <a class="nav-link" n:href="Request:">
         <i class="fas fa-fw fa-bell"></i>
-        <span>Žádosti studentů</span>
+        <span>Žádosti</span>
     </a>
 </li>
