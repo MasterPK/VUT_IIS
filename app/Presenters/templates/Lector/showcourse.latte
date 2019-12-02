@@ -178,10 +178,9 @@ Detail kurzu
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            Soubory:<br>
-                            {foreach $files[$task->id_task] as $file}
-                                <a href="/{$file}">{=basename($file)}</a>{if $userIsGuarantorInCourse == true || $userIsLectorInCourse == true}<a class="ajax" n:href="deleteFile! $file"><i class="fas fa-times fa-fw"></i></a>{/if}<br>  
-                            {/foreach}
+                            <div class="col-md-12">
+                                <a n:href="Lector:files $task->id_course, $task->id_task" class="btn btn-sm btn-primary ml-1">Soubory</a>
+                            </div>
                         </div>
                     </div>
                 </div>
