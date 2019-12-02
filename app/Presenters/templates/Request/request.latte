@@ -19,37 +19,54 @@ Seznam žádostí
     {/ifset}
 
     {ifset $course}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Zkratka</th>
-                    <th scope="col">Název</th>
-                    <th scope="col">Popis</th>
-                    <th scope="col">Typ</th>
-                    <th scope="col">Cena</th>
-                    <th scope="col">Garant</th>
-                    <th scope="col">Potvrzení</th>
-                </tr> 
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{$course->id_course}</td>
-                    <td>{$course->course_name}</td>
-                    <td>{$course->course_description}</td>
-                    <td>{$course->course_type}</td>
-                    <td>{$course->course_price}</td>
-                    <td>{$course->id_guarantor}</td>
-                    <td>
-                        <a class="ajax" n:href="approveCourse! $course->id_course">
-                            <button class="btn btn-primary"><i class="fas fa-check"></i></button>
-                        </a>
-                        <a class="ajax" n:href="denyCourse! $course->id_course">
-                            <button class="btn btn-primary"><i class="fas fa-times"></i></button>
-                        </a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card bg-default ">
+                    <div class="card-header"> 
+                        <div class="row">
+                            <div class="col-md-3 col-sm-12">
+                                {$course->id_course}
+                            </div>   
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-12">
+                                Název:<br>
+                                <b>{$course_name}</b>
+                            </div>
+                            <div class="col-md-2 col-sm-12">
+                                Typ:<br>
+                                <b>{$type}</b>
+                            </div>
+                            <div class="col-md-2 col-sm-12">
+                                Garant:<br>
+                                <b>{$guarantor}</b>
+                            </div>
+                            <div class="col-md-2 col-sm-12">
+                                Cena:<br>
+                                <b>{$course->course_price}&nbsp;Kč</b>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                Štítky:<br>
+                                <p class="card-text">{$course->tags}</p>
+                            </div>
+                        </div>
+                        
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                Popis:<br>
+                                <p class="card-text">{$course->course_description}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     {/ifset}
 
     {snippet reg_snippet}
