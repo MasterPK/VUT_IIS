@@ -959,8 +959,16 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
             $httpRequest = $this->getHttpRequest();
             $id_task = $httpRequest->getQuery('id_task');
             
-            $this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $values->points, $id, $id_task);
-                
+			$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $values->points, $id, $id_task);
+			
+			$this->template->error_notify = true;
+
+			if ($this->isAjax()) {
+				$this->redrawControl('notify');
+			} else {
+				$this->redirect('this');
+			}
+		} 
         };
 
         $grid->setTranslator($this->dataGridModel->dataGridTranslator);

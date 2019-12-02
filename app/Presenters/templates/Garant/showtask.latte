@@ -2,6 +2,14 @@
 Seznam studentů
 {/block}
 {block content}
+{snippet notify}
+{ifset $success_notify}
+<script>$.notify("Operace byla provedena!", "success");</script>
+{/ifset}
+{ifset $error_notify}
+<script>$.notify("Operace selhala!", "error");</script>
+{/ifset}
+{/snippet}
 {control taskStudentsGrid}
 {snippet error_snippet}
 	{ifset error_set}
