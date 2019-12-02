@@ -347,7 +347,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setFilterText();
 
-		$grid->addGroupTextAction('Potvrdit')
+		$grid->addGroupAction('Potvrdit')
             ->onSelect[] = function ($students, $value): void {
             	$httpRequest = $this->getHttpRequest();
                 $id_course = $httpRequest->getQuery('id_course');
@@ -358,7 +358,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
                 
             };
 
-        $grid->addGroupTextAction('Zamítnout')
+        $grid->addGroupAction('Zamítnout')
             ->onSelect[] = function ($students, $value): void {
             	$httpRequest = $this->getHttpRequest();
                 $id_course = $httpRequest->getQuery('id_course');
