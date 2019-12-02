@@ -12,25 +12,24 @@ Správa místností
 {control roomsGrid}
 {/snippet}
 
-<div id="myModal" class="modal fade" role="dialog">
-  	<div class="modal-dialog">
-    	<div class="modal-content">
-      		<div class="modal-header">
-        		<h4 class="modal-title">Potvrdit smazání</h4>
-      		</div>
-      		<div class="modal-body">
-				Opravdu smazat místnost {$id_room}?
-      		</div>
-      		<div class="modal-footer">
-        		<button type="button" class="btn btn-default" data-dismiss="modal">Zavřít</button>
-        		<a n:href="deleteRoom! $id_room"><button type="button" class="btn btn-default" data-dismiss="modal">Potvrdit</button></a>
-      		</div>
-    	</div>
-  	</div>
-</div>
-
 {snippet show_modal_snippet}
 	{ifset $show_modal}
+		<div id="myModal" class="modal fade" role="dialog">
+		  	<div class="modal-dialog">
+		    	<div class="modal-content">
+		      		<div class="modal-header">
+		        		<h4 class="modal-title">Potvrdit smazání</h4>
+		      		</div>
+		      		<div class="modal-body">
+						Opravdu smazat místnost {$id_room}?
+		      		</div>
+		      		<div class="modal-footer">
+		        		<button type="button" class="btn btn-default" data-dismiss="modal">Zavřít</button>
+		        		<a n:href="deleteRoom! $id_room"><button type="button" class="btn btn-default" data-dismiss="modal">Potvrdit</button></a>
+		      		</div>
+		    	</div>
+		  	</div>
+		</div>
 		<script>$('#myModal').modal('show'); </script>
 	{/ifset}
 {/snippet}
