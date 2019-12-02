@@ -75,6 +75,10 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setFilterText();
 
+		$grid->addColumnText('link', 'Velikost')
+		->setSortable()
+		->setFilterText();
+
 		$grid->addAction("select", "Stáhnout", '[link]')
 			->setClass("btn btn-primary");
 
