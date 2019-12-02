@@ -59,7 +59,7 @@ class StudentModel
     {
         if($presenter->getUser()->isLoggedIn())
         {
-            $check = $this->database->query("SELECT id_user FROM course NATURAL JOIN course_has_student NATURAL JOIN user WHERE id_course = ? AND id_user = ? AND student_status == 1", $id_course, $presenter->user->identity->id)->fetch();
+            $check = $this->database->query("SELECT id_user FROM course NATURAL JOIN course_has_student NATURAL JOIN user WHERE id_course = ? AND id_user = ? AND student_status = 1", $id_course, $presenter->user->identity->id)->fetch();
             if($check)
             {
                 $presenter->template->files=array();   
