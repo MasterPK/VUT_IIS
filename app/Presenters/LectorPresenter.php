@@ -595,7 +595,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 			->setIcon('fas download')
 			->setClass("btn btn-sm btn-primary");
 
-		$grid->addToolbarButton('Lector:newFile $this->course_id, $this->task_id', '')
+		$grid->addToolbarButton('Lector:newFile', '', [$this->course_id, $this->task_id])
             ->setIcon('plus')
             ->setTitle('Přidat soubor')
 			->setClass('btn btn-xs btn-primary');
