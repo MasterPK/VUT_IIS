@@ -41,7 +41,7 @@ class GarantModel
             {
                 if(in_array($course->id_course, $garantCourses))
                 {
-                    \unset($lectorCourses[$course]);
+                    unset($lectorCourses[$course]);
                 }
             }
             return array_merge($lectorCourses,$garantCourses);
