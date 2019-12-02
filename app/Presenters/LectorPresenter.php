@@ -570,7 +570,6 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 		Debugger::barDump($this->template->files);
 		$grid->setDataSource($this->template->files);
 
-
 		$replacement = [];
         foreach($this->template->files as $file)
         {
@@ -590,10 +589,14 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setFilterText();
 
-
 		$grid->addAction("select", "", "download!")
 			->setIcon('fas download')
 			->setClass("btn btn-sm btn-primary");
+
+		$grid->addToolbarButton('Lector:newFile', '')
+            ->setIcon('plus')
+            ->setTitle('Přidat soubor')
+			->setClass('btn btn-xs btn-primary');
 
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
