@@ -63,9 +63,17 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		Debugger::barDump($this->template->files);
 		$grid->setDataSource($this->template->files);
 
+
+		$replacement = [];
+        foreach($this->template->files as $file)
+        {
+            $replacement[$file->name] = basename($file->name);
+        }
+
 		$grid->addColumnText('name', 'Name', '')
 		->setSortable()
-		->setFilterText();
+		->setFilterText()
+		->setReplacement($replacement);
 
 		$grid->addColumnText('extension', 'Přípona')
 		->setSortable()
