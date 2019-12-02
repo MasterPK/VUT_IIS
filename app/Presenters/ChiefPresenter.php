@@ -241,6 +241,7 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		{
 			$this->database->table("room_address")->where("id_room_address", $id_room_address)->delete();
 
+			$this->template->success_notify = true;
 			if ($this->isAjax()) {
 				$this->redrawControl('content_snipet');
 			} else {
@@ -296,7 +297,6 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
         $this->database->table("room")->where("id_room", $id_room)->delete();
         $this->template->success_notify = true;
         if ($this->isAjax()) {
-            
             $this->redrawControl('content_snipet');
         } else {
             $this->redirect('this');
