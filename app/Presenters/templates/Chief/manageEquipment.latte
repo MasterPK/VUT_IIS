@@ -11,33 +11,4 @@ Správa vybavení
 {/ifset}
 {control manageAllEquipmentGrid}
 {/snippet}
-
-{snippet show_modal_snippet}
-	{ifset $show_modal}
-		<div id="{$room_equipment}" class="modal fade" role="dialog">
-		  	<div class="modal-dialog">
-		    	<div class="modal-content">
-		      		<div class="modal-header">
-		        		<h4 class="modal-title">Potvrdit smazání</h4>
-		      		</div>
-		      		<div class="modal-body">
-						Opravdu smazat vybavení {$room_equipment}?
-		      		</div>
-		      		<div class="modal-footer">
-		        		<button type="button" class="btn btn-default" data-dismiss="modal">Zavřít</button>
-		        		<a class="ajax" n:href="deleteEquipRoom! $room_equipment, $id_room"><button onClick="hide({$room_equipment})" type="button" class="btn btn-primary">Potvrdit</button></a>
-		      		</div>
-		    	</div>
-		  	</div>
-		</div>
-		<script>$('#' + {$room_equipment}).modal('show'); </script>
-	{/ifset}
-{/snippet}
-
-<script>
-function hide(id)
-{
-    $("#" + id).modal("hide"); 
-}
-</script>
 {/block}
