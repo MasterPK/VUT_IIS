@@ -230,7 +230,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 		{
 			$this->error = 2;
 			$this->redrawControl('error_snippet');
-			return;
+			return NULL;
 		}
 
 		$form = new Nette\Application\UI\Form;
