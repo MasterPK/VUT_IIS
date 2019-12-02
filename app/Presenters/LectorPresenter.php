@@ -84,9 +84,10 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 		{
 			$this->task = $this->database->query("SELECT * FROM task WHERE id_task = ? AND id_course = ?", $id_task, $id_course)->fetch();
 		}
-		else
+		
+		if($id_task == NULL || $this->task == NULL)
 		{
-			$this->template->error = 2;
+			$this->template->error = 1;
 			$this->redrawControl("error_snippet");
 			$this->redirect('showcourse',$id_course);
 		}

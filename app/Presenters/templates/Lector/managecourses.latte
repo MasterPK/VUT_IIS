@@ -3,5 +3,14 @@ Seznam všech kurzů, které učíte
 {/block}
 {block content}
 {control coursesMng}
+
+{snippet error_snippet}
+	{ifset $error}
+		{if $error == 1}
+			<script>$.notify("Nemáte povolení na vytváření nových termínů!", "error");</script>
+		{/if}
+	{/ifset}
+{/snippet}
+
 {/block}
 
