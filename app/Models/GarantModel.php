@@ -37,11 +37,14 @@ class GarantModel
         }
         else if($lectorCourses != NULL && $garantCourses != NULL)
         {
-            foreach($lectorCourses as $course)
+            foreach($lectorCourses as $lectorcourse)
             {
-                if(in_array($course->id_course, $garantCourses))
+                foreach($garantCourses as $garantcourse)
                 {
-                    unset($lectorCourses[$course]);
+                    if($lectorcourse->id_course == $garantcourse->id_course)
+                    {
+                        unset($lectorCourses[$lectorcourse]);
+                    }
                 }
             }
             return array_merge($lectorCourses,$garantCourses);
