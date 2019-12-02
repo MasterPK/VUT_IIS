@@ -121,6 +121,8 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 	public function renderFiles($id_course, $id_task)
 	{
 		$this->studentModel->renderFiles($this, $id_course, $id_task);
+		$this->course_id = $id_course;
+		$this->task_id = $id_task;
 	}
 
 	public function createComponentMyCourses($name)
@@ -593,7 +595,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 			->setIcon('fas download')
 			->setClass("btn btn-sm btn-primary");
 
-		$grid->addToolbarButton('Lector:newFile', '')
+		$grid->addToolbarButton('Lector:newFile $this->course_id, $this->task_id', '')
             ->setIcon('plus')
             ->setTitle('Přidat soubor')
 			->setClass('btn btn-xs btn-primary');
