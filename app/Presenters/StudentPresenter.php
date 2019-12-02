@@ -65,6 +65,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 	{
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('id_task');
+		Debugger::barDump($this->template->files);
 		$grid->setDataSource($this->template->files);
 
 		$grid->addColumnLink('name', 'Name', 'edit')
