@@ -63,6 +63,43 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 		
 	}
 
+	private $id_task;
+	public function renderShowtask($id_task)
+	{
+		$this->id_task = $id_task;
+	}
+
+	public function renderShowcourse($id)
+	{
+		$this->lectorModel->renderShowCourse($this, $id);
+		Debugger::barDump($this->presenter->template->files, "soubory");
+	}
+
+	private $task;
+	private $id_course;
+	public function renderNewtask($id_course, $id_task)
+	{
+		$this->id_course = $id_course;
+		if ($id_task != NULL) {
+			$this->task = $this->database->query("SELECT * FROM task WHERE id_task = ? AND id_course = ?", $id_task, $id_course)->fetch();
+		}
+		$rooms = $this->database->query("SELECT id_room FROM room")->fetchAll();
+		$category[NULL] = "Žádná";
+		foreach ($rooms as $room) {
+			$category[$room->id_room] = $room->id_room;
+		}
+		$this->rooms = $category;
+	}
+
+	private $course_id;
+	private $task_id;
+	private $rooms;
+	public function rendernewFile($course_id, $task_id)
+	{
+		$this->course_id = $course_id;
+		$this->task_id = $task_id;
+	}
+
 	public function createComponentMyCourses($name)
 	{
 		$grid = new DataGrid($this, $name);
@@ -181,35 +218,6 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 		return $grid;
 	}
 
-	public function renderShowcourse($id)
-	{
-		$this->lectorModel->renderShowCourse($this, $id);
-		Debugger::barDump($this->presenter->template->files, "soubory");
-	}
-	private $task;
-	private $id_course;
-	public function renderNewtask($id_course, $id_task)
-	{
-		$this->id_course = $id_course;
-		if ($id_task != NULL) {
-			$this->task = $this->database->query("SELECT * FROM task WHERE id_task = ? AND id_course = ?", $id_task, $id_course)->fetch();
-		}
-		$rooms = $this->database->query("SELECT id_room FROM room")->fetchAll();
-		$category[NULL] = "Žádná";
-		foreach ($rooms as $room) {
-			$category[$room->id_room] = $room->id_room;
-		}
-		$this->rooms = $category;
-	}
-
-	private $course_id;
-	private $task_id;
-	private $rooms;
-	public function rendernewFile($course_id, $task_id)
-	{
-		$this->course_id = $course_id;
-		$this->task_id = $task_id;
-	}
 	public function createComponentCreateTaskForm(): Nette\Application\UI\Form
 	{
 		$form = new Nette\Application\UI\Form;
@@ -445,4 +453,9 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 			$this->template->courses=$courses;
 		}
 	}*/
+
+	public function createComponentTaskStudentsGrid($name)
+    {
+        return $this->lectorModel->createComponentTaskStudents($name, $this->id_task);
+    }
 }
