@@ -931,15 +931,14 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
                         $this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $student, $id_task);
 					}
 					
-					$this->template->success_notify = true;
-					$this->redrawControl('content_snipet');
-					$this->redrawControl('notify');
+					$this->template->error = false;
+					$this->redrawControl('content_snippet');
+					$this->redrawControl('points_snippet');
                 }
                 else
                 {
-                    $this->template->error_notify = true;
-                    $this->redrawControl('content_snipet');
-                    $this->redrawControl('notify');
+                    $this->template->error = true;
+                    $this->redrawControl('points_snippet');
                 }
             };
 
@@ -965,11 +964,14 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
             
 			$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $values->points, $id, $id_task);
 			
-			$this->template->success_notify = true;
+			$this->template->error = false;
 
-			if ($this->isAjax()) {
-				$this->redrawControl('notify');
-			} else {
+			if ($this->isAjax()) 
+			{
+				$this->redrawControl('points_snippet');
+			} 
+			else 
+			{
 				$this->redirect('this');
 			}
         };

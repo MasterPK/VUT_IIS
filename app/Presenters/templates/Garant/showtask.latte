@@ -2,20 +2,14 @@
 Seznam studentů
 {/block}
 {block content}
-{snippet notify}
-{ifset $success_notify}
-<script>$.notify("Operace byla provedena!", "success");</script>
-{/ifset}
-{ifset $error_notify}
-<script>$.notify("Operace selhala!", "error");</script>
-{/ifset}
-{/snippet}
-{snippet content_snipet}
 {control taskStudentsGrid}
-{/snippet}
-{snippet error_snippet}
-	{ifset error_set}
-		<script>$.notify("Zadaný počet bodů je vyšší než je maximum!", "error");</script>
+{snippet points_snippet}
+	{ifset $error}
+		{if $error = true}
+			<script>$.notify("Zadaný počet bodů je vyšší než je maximum!", "error");</script>
+		{else}
+			<script>$.notify("Body byly úspěšně aktualizovány", "success");</script>
+		{/if}
 	{/ifset}
 {/snippet}
 {/block}
