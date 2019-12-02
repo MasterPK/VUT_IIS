@@ -28,7 +28,7 @@ class GarantModel
 
     public function getGarantCourses($id_garant)
     {
-        $data = $this->database->query("SELECT id_course, course_name, course_type, course_status FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE (id_user = ? AND course_status != 0) OR (id_guarantor = id_user)",  $id_garant)->fetchAll();
+        $data = $this->database->query("SELECT id_course, course_name, course_type, course_status FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE (id_user = ? AND course_status != 0) OR (id_guarantor = ?)", $id_garant, $id_garant)->fetchAll();
 
         return $data;
     }
