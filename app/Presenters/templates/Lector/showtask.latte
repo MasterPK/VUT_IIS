@@ -1,0 +1,11 @@
+{block header}
+Seznam studentů
+{/block}
+{block content}
+{control taskStudentsGrid}
+{snippet error_snippet}
+	{ifset error_set}
+		<script>$.notify("Zadaný počet bodů je vyšší než je maximum!", "error");</script>
+	{/ifset}
+{/snippet}
+{/block}
