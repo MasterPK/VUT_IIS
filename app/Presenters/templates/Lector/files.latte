@@ -25,6 +25,10 @@ $("html").on("mouseup", function (e) {
     }
 });
 
+$('.popover-dismiss').popover({
+  trigger: 'focus'
+})
+
 $(document).ready(function(){
      $('#btnpopover').popover({
        html : true,
