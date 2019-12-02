@@ -40,18 +40,17 @@ Detail kurzu
                         <b>{if $course->course_status == 2 }Otevřeno{else}Zavřeno{/if}</b>
                     </div>
                     {if $userIsLectorInCourse == false}
-                    <div class="col-md-3 col-sm-12">
-                        Stav Vaší registrace:<br>
-                        <b>{ifset $userCourseStatus}{if $userCourseStatus == 0 }Čeká se na schválení{elseif $userCourseStatus == 1}Potvrzeno{elseif $userCourseStatus == 2}Zamítnuto{/if}{else}Žádná žádost neexistuje!{/ifset}</b>
-                    </div>
+                        <div class="col-md-3 col-sm-12">
+                            Stav Vaší registrace:<br>
+                            <b>{ifset $userCourseStatus}{if $userCourseStatus == 0 }Čeká se na schválení{elseif $userCourseStatus == 1}Potvrzeno{elseif $userCourseStatus == 2}Zamítnuto{/if}{else}Žádná žádost neexistuje!{/ifset}</b>
+                        </div>
                     {/if}
                     {else}
-                    <div class="col-md-3 col-sm-12">
-                        Stav registrací:<br>
-                        <b>Čeká na se na schválení kurzu vedoucím</b>
-                    </div>
-                   {/ifset}
-                    
+                        <div class="col-md-3 col-sm-12">
+                            Stav registrací:<br>
+                            <b>Čeká na se na schválení kurzu vedoucím</b>
+                        </div>
+                    {/ifset} 
                 </div>
                 <br>
                 <div class="row">
@@ -60,7 +59,6 @@ Detail kurzu
                         <p class="card-text">{$course->tags}</p>
                     </div>
                 </div>
-                
                 <br>
                 <div class="row">
                     <div class="col-sm-12">
@@ -120,7 +118,7 @@ Detail kurzu
                                 <a n:href="Lector:showtask $task->id_task" class="btn btn-primary btn-sm "><i class="fas fa-user-graduate"></i></a>
                                 <a n:href="Lector:newFile $task->id_course, $task->id_task" class="btn btn-primary btn-sm "><i class="fas fa-file"/></a>
                             </div>
-                        </if>
+                        {/if}
                     </div>
                 </div>
                 <div class="card-body">
