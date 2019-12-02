@@ -82,7 +82,12 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 	{
 		if($id_task != NULL)
 		{
-			$this->task = $this->database->query("SELECT * FROM task WHERE id_task = ? AND id_course = ?", $id_task, $id_course)->fetch();
+			$check = $this->database->query("SELECT id_course FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE id_user = ? AND course_status != 0",  $this->user->identity->id)->fetchAll();
+
+			if(in_array($id_course, $check))
+			{
+				$this->task = $this->database->query("SELECT * FROM task WHERE id_task = ? AND id_course = ?", $id_task, $id_course)->fetch();
+			}
 		}
 		
 		if($id_task == NULL || $this->task == NULL)
