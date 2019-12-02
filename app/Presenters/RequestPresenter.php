@@ -260,11 +260,11 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 
 		$grid->addAction("select2", "", 'approveCourse!')
 		->setIcon('check')
-		->setClass("btn btn-sm btn-success");
+		->setClass("btn btn-sm btn-success ajax");
 
 		$grid->addAction("select3", "", 'denyCourse!')
 		->setIcon('times')
-		->setClass("btn btn-sm btn-danger");
+		->setClass("btn btn-sm btn-danger ajax");
 
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 	
