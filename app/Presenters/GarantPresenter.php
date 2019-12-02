@@ -639,6 +639,24 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     		return;
     	}
 
+    	if($values->id_room != NULL)
+    	{
+    		$conflicts = $this->database->query("SELECT task_from, task_to, id_room FROM task")->fetchAll();
+
+	    	foreach($conflicts as $conflict)
+	    	{
+	    		if($conflict->id_room == $values->id_room)
+	    		{
+	    			if(($conflict->task_from > $values->task_from && $conflict->task_from < $values->task_to) || ($conflict->task_to > $values->task_from && $conflict->task_to < $values->task_to))
+	    			{
+	    				$this->template->error_rooms_conflict = 1;
+	    				$this->redrawControl('error_snippet');
+	    				return;
+	    			}
+	    		}
+	    	}
+		}	
+
     	//ak je id_task, tak upravujeme
     	if($values->id_task != NULL)
     	{
