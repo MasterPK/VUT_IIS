@@ -5,14 +5,15 @@
             {control userMng}
         </div>
     </div>
-    
-    {ifset $success_notify}
-        <script>$.notify("Operace byla provedena", "success");</script>
-    {/ifset}
-    {ifset $error_notify}
-        <script>$.notify("Operace selhala!", "error");</script>
-    {/ifset}
-{/snippet}
+
+
+{ifset $success_notify}
+    <script>$.notify("Operace byla provedena", "success");</script>
+{/ifset}
+{ifset $error_notify}
+    <script>$.notify("Operace selhala!", "error");</script>
+{/ifset}
+
 
 {snippet password_snippet}
     {ifset $success_password}
