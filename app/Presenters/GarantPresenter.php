@@ -887,10 +887,15 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
     {
         \Tracy\Debugger::barDump($this->template);
         
-        if($id_task == NULL)
+        $id_task;
+        if($this->id_task == NULL)
         {
             $httpRequest = $this->getHttpRequest();
             $id_task = $httpRequest->getQuery('id_task');
+        }
+        else
+        {
+        	$id_task = $this->id_task;
         }
 
         $grid = new DataGrid($this, $name);
