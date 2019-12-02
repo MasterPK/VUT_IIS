@@ -25,7 +25,7 @@ Správa místností
 		      		</div>
 		      		<div class="modal-footer">
 		        		<button type="button" class="btn btn-default" data-dismiss="modal">Zavřít</button>
-		        		<a n:href="deleteRoom! $id_room"><button type="button" class="btn btn-primary" data-dismiss="modal">Potvrdit</button></a>
+		        		<a class="ajax" n:href="deleteRoom! $id_room"><button onClick="hide(myModal)" type="button" class="btn btn-primary">Potvrdit</button></a>
 		      		</div>
 		    	</div>
 		  	</div>
@@ -34,4 +34,10 @@ Správa místností
 	{/ifset}
 {/snippet}
 
+<script>
+function hide(id)
+{
+    $("#" + id).modal("hide"); 
+}
+</script>
 {/block}
