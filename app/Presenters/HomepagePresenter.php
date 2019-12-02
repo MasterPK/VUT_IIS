@@ -67,7 +67,7 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 
 		$grid->addFilterSelect('course_type', 'Typ kurzu:', [""=>"Vše","P" => 'Povinný', "V" => 'Volitelný']);
 		
-		$grid->addColumnText('course_price', 'Cena kurzu')
+		$grid->addColumnText('course_price', 'Cena kurzu (Kč)')
 		->setSortable()
 		->setFilterText();
 

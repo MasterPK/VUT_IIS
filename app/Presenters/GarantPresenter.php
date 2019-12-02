@@ -90,7 +90,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 		$grid->addFilterSelect('course_type', 'Typ kurzu:', ["P" => 'Povinný', "V" => 'Volitelný']);
 		
-		$grid->addColumnText('course_price', 'Cena kurzu')
+		$grid->addColumnText('course_price', 'Cena kurzu (Kč)')
 		->setSortable()
 		->setFilterText();
 
@@ -99,7 +99,8 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		->setFilterText();
 
 		$grid->addAction("select","Detail", 'Garant:showcourse')
-		->setClass("btn btn-primary");
+		->setIcon("info")
+		->setClass("btn btn-info");
 
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 

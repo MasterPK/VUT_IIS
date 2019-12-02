@@ -220,7 +220,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 
 		$grid->addFilterSelect('course_type', 'Typ kurzu:', ["P" => 'Povinný', "V" => 'Volitelný']);
 		
-		$grid->addColumnText('course_price', 'Cena kurzu')
+		$grid->addColumnText('course_price', 'Cena kurzu (Kč)')
 		->setSortable()
 		->setFilterText();
 
@@ -228,8 +228,9 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setFilterText();
 
-		$grid->addAction("select","Detail", 'Student:showcourse')
-		->setClass("btn btn-primary");
+		$grid->addAction("select","", 'Student:showcourse')
+		->setIcon("info")
+		->setClass("btn btn-info");
 
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
