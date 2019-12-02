@@ -34,6 +34,7 @@ class GarantModel
         }
         $data = $this->database->query("SELECT id_course, course_name, course_type, course_status FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE (id_user = ? AND course_status != 0)", $id_garant)->fetchAll();
 
+        
         return $data;
     }
 
