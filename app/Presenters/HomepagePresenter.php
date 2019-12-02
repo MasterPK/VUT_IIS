@@ -77,14 +77,7 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 
 		$grid->addAction("select","", 'Homepage:showcourse')
 		->setIcon("info")
-		->setClass("btn btn-info");
-
-		if($this->getUser()->isLoggedIn() && $this->user->identity->rank > 2)
-		{
-			$grid->addAction("select2","", 'Homepage:showcourse')
-			->setIcon("trash")
-			->setClass("btn btn-danger");
-		}
+		->setClass("btn btn-sm btn-info");
 	
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
