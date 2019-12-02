@@ -15,9 +15,19 @@ Soubory
         <h4 class="modal-title">Přidat soubor</h4>
       </div>
       <div class="modal-body">
-      	<label class="btn btn-primary" for="my-file-selector">
-    		{control newFileToCourseForm}
-		</label>
+      	
+    		<form n:name="newFileToCourseForm">
+				{input course_id}
+				{input task_id}
+				    <div class="form-group">
+				    	<label class="btn btn-primary" for="my-file-selector">
+				        	{input file}
+				        </label>
+				    </div>
+				    <div class="form-group">
+				        {input submit}
+				    </div>
+				</form>
         
       </div>
       <div class="modal-footer">
