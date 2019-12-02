@@ -126,7 +126,7 @@ Detail kurzu
 <br>
 {ifset $courseActive}
 {snippet studentRegistration}
-{if $userIsGuarantorInCourse == false}
+{if $userIsGuarantorInCourse == false && $userIsLectorInCourse == false}
 {ifset $openRegistration}
 {ifset $userCourseStatus}
 {if $userCourseStatus==1}
