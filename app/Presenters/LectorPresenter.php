@@ -606,4 +606,9 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 
 		return $grid;
 	}
+
+	public function handleDownload($name)
+	{
+		$this->redirectUrl('/'.$name);
+	}
 }
