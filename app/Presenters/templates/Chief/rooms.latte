@@ -14,7 +14,7 @@ Správa místností
 
 {snippet show_modal_snippet}
 	{ifset $show_modal}
-		<div id="myModal" class="modal fade" role="dialog">
+		<div id="{$id_room}" class="modal fade" role="dialog">
 		  	<div class="modal-dialog">
 		    	<div class="modal-content">
 		      		<div class="modal-header">
@@ -25,13 +25,19 @@ Správa místností
 		      		</div>
 		      		<div class="modal-footer">
 		        		<button type="button" class="btn btn-default" data-dismiss="modal">Zavřít</button>
-		        		<a n:href="deleteRoom! $id_room"><button type="button" class="btn btn-primary" data-dismiss="modal">Potvrdit</button></a>
+		        		<a class="ajax" n:href="deleteRoom! $id_room"><button onClick="hide({$id_room})" type="button" class="btn btn-primary">Potvrdit</button></a>
 		      		</div>
 		    	</div>
 		  	</div>
 		</div>
-		<script>$('#myModal').modal('show'); </script>
+		<script>$('#' + {$id_room}).modal('show'); </script>
 	{/ifset}
 {/snippet}
 
+<script>
+function hide(id)
+{
+    $("#" + id).modal("hide"); 
+}
+</script>
 {/block}
