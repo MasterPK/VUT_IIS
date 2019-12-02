@@ -365,7 +365,31 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
             	foreach($students as $student)
             	{
             		$result = $this->database->query("UPDATE course_has_student SET student_status = 2 WHERE id_user = ? AND id_course = ? AND student_status = 0", $student, $id_course);
+            	
+            		if($result->getRowCount() == 0)
+					{
+						$this->template->error = true;
+						$this->redrawControl('student_snippet');
+						return;
+					}
+					else
+					{
+						$tasks = $this->database->query("SELECT id_task FROM task WHERE id_course = ?", $id_course)->fetchAll();
+						foreach($tasks as $task)
+						{
+							$result = $this->database->query("INSERT INTO student_has_task (id_user, id_task) VALUES (?, ?)", $student, $task->id_task);
+							if($result->getRowCount() == 0)
+							{
+								$this->template->error = true;
+								$this->redrawControl('student_snippet');
+								return;
+							}
+						}
+					}
             	}
+
+            	$this->template->success = true;
+				$this->redrawControl('student_snippet');
                 
             };
 
