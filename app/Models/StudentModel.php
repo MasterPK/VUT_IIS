@@ -69,12 +69,12 @@ class StudentModel
             }
             else
             {
-                $this->redirect("Homepage:default");
+                $presenter->redirect("Homepage:default");
             }
         }
         else
         {
-            $this->redirect("Homepage:default");
+            $presenter->redirect("Homepage:default");
         }
     }
 
