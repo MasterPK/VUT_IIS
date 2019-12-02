@@ -76,7 +76,7 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 		->setFilterText();
 		$user=$this->getUser()->getIdentity();
 
-		if($user->data->rank>=1)
+		if($user->data["rank"]>=1)
 		{
 			$grid->addAction("select","", 'Student:showcourse')
 			->setIcon("info")
