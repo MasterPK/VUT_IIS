@@ -16,6 +16,3 @@ services:
 	-	App\Model\VisitorModel
 	-	App\Model\MainModel
 	-	App\Model\DataGridModel
-	nette.latteFactory:
-		setup:
-			- setAutoRefresh(TRUE)
