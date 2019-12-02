@@ -128,7 +128,6 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	public function createComponentManageEquipmentGrid($name)
 	{
 
-		Debugger::barDump($this->actual_room,"dete");
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('room_equipment');
 		$grid->setDataSource($this->database->query("SELECT * FROM room_equipment NATURAL JOIN room WHERE id_room = ?", $this->actual_room)->fetchAll());
@@ -335,13 +334,12 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		$this->template->equip = $data;
 		$this->template->id = $id_room;
 		$this->actual_room = $id_room;
-		Debugger::barDump($this->actual_room,"render_value");
+
 	}
 
 	
 	public function renderAddEquipment($id_room)
 	{
-		Debugger::barDump($id_room,"d");
 		$this->actual_room = $id_room;
 		$this->template->actual_room = $id_room;
 	}
@@ -496,8 +494,6 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	public function createRoomSubmit(Form $form)
 	{
 		$values = $form->getValues();
-		Debugger::barDump($values->room_id,"values->room_id");
-		Debugger::barDump($values->room_Adres,"values->room_Adres");
 
 		$data = $this->database->table("room")
 			->insert([
@@ -645,7 +641,6 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	public function updateRoomSubmit(Form $form)
 	{
 		$values = $form->getValues();
-		Debugger::barDump($values->room_Adres,"test");
 
 		$data = $this->database->table("room")->where('id_room',$values->id_room)
 			->update([

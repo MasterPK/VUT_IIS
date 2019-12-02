@@ -364,8 +364,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 		} else {
 			$result = $this->database->query("INSERT INTO task (id_task, task_name, task_type, task_description, task_points, task_date, task_from, task_to, id_room, id_course) VALUES ('',?,?,?,?,?,?,?,?,?)", $values->task_name, $values->task_type, $values->task_description, $values->task_points, $values->task_date, $values->task_from, $values->task_to, $values->id_room, $values->id_course);
 			$task_id = $this->database->getInsertId('task');
-			Debugger::barDump($result);
-			Debugger::barDump($task_id, "id");
+
 			if ($result->getRowCount() > 0) {
 				try {
 					FileSystem::createDir("Files/$values->id_course/$task_id");
@@ -400,7 +399,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 	public function handleDeleteFile($file)
 	{
 		/*try {*/
-		Debugger::barDump($file, "souborDelete");
+
 		FileSystem::delete("$file");
 		$this->template->success_notif = true;
 		/*} catch (Nette\IOException $e) {
@@ -483,7 +482,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 
 	public function createComponentTaskStudentsGrid($name)
     {
-        \Tracy\Debugger::barDump($this->template);
+
         
         $id_task;
         if($this->id_task == NULL)
@@ -532,7 +531,6 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
                 else
                 {
                     $this->template->error_set = true;
-                    \Tracy\Debugger::barDump($this->template);
                     $this->redrawControl('error_snippet');
                 }
             };
@@ -570,7 +568,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 	{
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('name');
-		Debugger::barDump($this->template->files);
+
 		$grid->setDataSource($this->template->files);
 
 		$replacement = [];

@@ -330,7 +330,6 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
         	$id_course = $this->id_course;
         }
 
-        \Tracy\Debugger::barDump($id_course);
 
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('id_user');
