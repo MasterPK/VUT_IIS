@@ -77,15 +77,20 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 
 	private $task;
 	private $id_course;
-	public function renderNewtask($id_course, $id_task)
+	public function renderNewtask($id_course, $task_type, $id_task)
 	{
 		$this->id_course = $id_course;
-		if ($id_task != NULL) {
+		$this->task_type = $task_type;
+		$this->template->task_type = $task_type;
+
+		if($id_task != NULL)
+		{
 			$this->task = $this->database->query("SELECT * FROM task WHERE id_task = ? AND id_course = ?", $id_task, $id_course)->fetch();
 		}
 		$rooms = $this->database->query("SELECT id_room FROM room")->fetchAll();
 		$category[NULL] = "Žádná";
-		foreach ($rooms as $room) {
+		foreach($rooms as $room)
+		{
 			$category[$room->id_room] = $room->id_room;
 		}
 		$this->rooms = $category;
