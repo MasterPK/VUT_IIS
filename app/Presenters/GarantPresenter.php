@@ -374,10 +374,18 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		->setIcon('info')
 		->setClass("btn btn-info");
 
-		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
+		$grid->addAction("select2", "", 'editCourse!')
+		->setIcon('fas edit')
+		->setClass("btn btn-secondary");
 
+		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 	
 		return $grid;
+	}
+
+	public function handleEditCourse($id_course)
+	{
+		$this->redirect("Garant:course", $id_course);
 	}
 
 	public function createComponentRegisterForm()
