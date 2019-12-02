@@ -27,12 +27,14 @@ Seznam žádostí
                             <div class="col-md-3 col-sm-12">
                                 {$course->id_course}
                             </div>  
-                            <a class="ajax" n:href="approveCourse! $course->id_course">
-                                <button class="btn btn-success"><i class="fas fa-check"></i></button>
-                            </a>
-                            <a class="ajax" n:href="denyCourse! $course->id_course">
-                                <button class="btn btn-danger"><i class="fas fa-times"></i></button>
-                            </a> 
+                            <div class="float-right">
+                                <a class="ajax" n:href="approveCourse! $course->id_course">
+                                    <button class="btn btn-sm btn-success"><i class="fas fa-check"></i></button>
+                                </a>
+                                <a class="ajax" n:href="denyCourse! $course->id_course">
+                                    <button class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body">
