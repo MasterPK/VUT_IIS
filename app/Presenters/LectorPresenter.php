@@ -226,6 +226,13 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 
 	public function createComponentCreateTaskForm(): Nette\Application\UI\Form
 	{
+		if(!$this->task)
+		{
+			$this->error = 2;
+			$this->redrawControl('error_snippet');
+			return;
+		}
+
 		$form = new Nette\Application\UI\Form;
 
 		$form->addHidden('id_course');
