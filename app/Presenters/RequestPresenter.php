@@ -319,6 +319,17 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 
 	public function createComponentAllStudentsRequests($name)
 	{
+		$id_course;
+        if($this->id_course == NULL)
+        {
+            $httpRequest = $this->getHttpRequest();
+            $id_course = $httpRequest->getQuery('id_course');
+        }
+        else
+        {
+        	$id_course = $this->id_course;
+        }
+
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('id_user');
 		$grid->setDataSource($this->database->query("SELECT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE  id_course = ? AND student_status = 0", $id_course)->fetchAll());
