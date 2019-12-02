@@ -389,11 +389,11 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$this->redirect("Garant:course", $id_course);
 	}
 
-	public function createComponentLectorsMng($name)
+	public function createComponentLectorsAdd($name)
 	{
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('id_user');
-		$grid->setDataSource($this->database->query("SELECT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_lecturer WHERE id_course = ? OR (rank >= 2 AND id_user NOT IN (SELECT id_user FROM user NATURAL LEFT JOIN course_has_lecturer WHERE rank >= 2 AND id_course = ?))", $this->id_course, $this->id_course)->fetchAll());
+		$grid->setDataSource($this->database->query("SELECT id_user, email, first_name, surname FROM user WHERE rank >= 2 AND id_user NOT IN (SELECT id_user FROM user NATURAL LEFT JOIN course_has_lecturer WHERE rank >= 2 AND id_course = ?)", $id_course)->fetchAll());
 
 		$grid->addColumnText('email', 'Email')
 		->setSortable()
@@ -409,6 +409,33 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		
 		$grid->addAction("select", "", 'add!')
 		->setIcon('fas plus')
+		->setClass("btn btn-sm btn-primary");
+
+		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
+	
+		return $grid;
+	}
+
+	public function createComponentLectorsRemove($name)
+	{
+		$grid = new DataGrid($this, $name);
+		$grid->setPrimaryKey('id_user');
+		$grid->setDataSource($this->database->query("SELECT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_lecturer WHERE id_course = ?", $id_course)->fetchAll());
+
+		$grid->addColumnText('email', 'Email')
+		->setSortable()
+		->setFilterText();
+		
+		$grid->addColumnText('first_name', 'Jméno')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('surname', 'Přijmení')
+		->setSortable()
+		->setFilterText();
+		
+		$grid->addAction("select", "", 'remove!')
+		->setIcon('fas minus')
 		->setClass("btn btn-sm btn-primary");
 
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
