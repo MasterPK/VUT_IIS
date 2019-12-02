@@ -84,8 +84,11 @@ Seznam žádostí
 
 
     {snippet student_snippet}
-        {ifset success}
+        {ifset success_accept}
             <script>$.notify("Vybraní studenti byly úspěšně schváleni", "success");</script>
+        {/ifset}
+        {ifset success_deny}
+            <script>$.notify("Vybraní studenti byly úspěšně zamítnuti", "success");</script>
         {/ifset}
         {ifset $error}
             <script>$.notify("U některých studentů došlo k chybě!", "error");</script>
