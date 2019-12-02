@@ -76,6 +76,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 	}
 
 	private $task;
+	private $task_type;
 	private $id_course;
 	public function renderNewtask($id_course, $task_type, $id_task)
 	{
