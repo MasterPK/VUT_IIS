@@ -71,9 +71,9 @@ class StudentPresenter extends Nette\Application\UI\Presenter
         }
 
 		$grid->addColumnText('name', 'Name', '')
+		->setReplacement($replacement)
 		->setSortable()
-		->setFilterText()
-		->setReplacement($replacement);
+		->setFilterText();
 
 		$grid->addColumnText('extension', 'Přípona')
 		->setSortable()
