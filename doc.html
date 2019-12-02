@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0067)https://www.fit.vutbr.cz/study/courses/IIS/private/projekt/doc.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-2">
+    
+    <title>Projekt IIS</title>
+    <style type="text/css">
+    	table { border-collapse: collapse; }
+    	td, th { border: 1px solid black; padding: 0.3em 0.5em; text-align: left; }
+    	dt { font-weight: bold; margin-top: 0.5em; }
+    </style>
+</head>
+<body>
+
+<!-- Zkontrolujte prosím nastavení kódování v hlavičce dokumentu 
+     podle použitého editoru -->
+
+<h1>5. Škola: správa a registrace výukových kurzů	</h1>
+
+<dl>
+	<dt>Autoři</dt>
+	<dd>Křehlík Petr
+	    <a href="mailto:xkrehl04@stud.fit.vutbr.cz">xkrehl04@stud.fit.vutbr.cz</a> -
+		Přihlašování, správa uživatelů, rozvrh, tabulky
+	</dd>
+	<dd>Klobušický Martin
+	    <a href="mailto:xklobu03@stud.fit.vutbr.cz">xklobu03@stud.fit.vutbr.cz</a> - 
+		Správa místností, styl stránky
+	</dd>
+  <dd>Záhorský Matej
+	    <a href="mailto:xzahor04@stud.fit.vutbr.cz">xzahor04@stud.fit.vutbr.cz</a> - 
+		Správa kurzů, termínů, žádostí
+	</dd>
+	<dt>URL aplikace</dt>
+	<dd><a href="http://www.stud.fit.vutbr.cz/~xkrehl04/">http://www.stud.fit.vutbr.cz/~xkrehl04/</a></dd>
+	<dd><a href="http://www.xkrehl04.g6.cz/">http://www.xkrehl04.g6.cz/</a></dd>
+</dl>
+
+<h2>Uživatelé systému pro testování</h2>
+<p>Uveďte prosím existující zástupce <strong>všech rolí uživatelů</strong>.</p>
+<table>
+<tbody><tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
+<tr><td>student@a.a</td><td>123</td><td>Student</td></tr>
+<tr><td>lektor@a.a</td><td>123</td><td>Lektor</td></tr>
+<tr><td>garant@a.a</td><td>123</td><td>Garant</td></tr>
+<tr><td>veduci@a.a</td><td>123</td><td>Vedoucí</td></tr>
+<tr><td>admin@a.a</td><td>123</td><td>Administrátor</td></tr>
+</tbody></table>
+
+<p>Projekt implementuje případy užití podle zadání.</p> 
+
+<h2>Implementace</h2>
+Pro implementaci jsme zvolil framework Nette. Projekt je rozdělený na šablony, presentery a modely. Každá úroveň uživatelů má vlastní presenter plus je ještě dodatečný presenter pro zpracování požadavků na uživatele.<br><br>
+Pro zobrazení dat z databáze jsme použili ublaboo/datagrid, který poskytuje přehledné zobrazení dat s filtrováním. Rozvrh se zobrazuje pomocí pluginu <a href="http://timetablejs.org/">timetable.js</a> a zobrazuje všechny termíny, na které má daný student přístup.<br><br>
+Jako základ pro vzhled webu slouží <a href="https://getbootstrap.com/">Bootstrap 4</a> a <a href="https://fontawesome.com/">FontAwesome</a>. Vzhled vychází z opensource šablony <a href="https://startbootstrap.com/templates/sb-admin/">SB Admin</a>. Web z velké části používá <a href="https://jquery.com/">jQuery</a> a AJAX pro zpracování požadavků a další rozšíření, která jsou dostupná přímo v Nette.
+Notifikace jsou zobrazeny pomocí <a href="https://notifyjs.jpillora.com/">notify.js</a> a vyskakovací okna pomocí <a href="https://notifyjs.jpillora.com/">popper.js</a> a modal boxy pomocí Bootstrap.<br><br>
+
+Každý presenter při své inicializaci nejprve zavolá startUpModel, který se postará o kontrou přihlášení a jestli má uživatel dostatečná opravnění, pokud ne tak je přesměrován na domovskou stránku.
+Pro každý presenter existuje model, který implementuje část funkcí, které používá. Modely jsou kaskádově propojené, aby AdminModel měl přístup k StudentModel.
+Pro presentery existuje globální Latte šablona s hlavičkou webu. Ta poté podle adresy používá další šablony podle presenteru.<br>
+Automatické odhlášení probíhá po 5 minutách nečinnosti myši.<br>
+Vybavení místností se v systému bere jako unikátní a a po přiřazení do místnosti není možné přiřadit jiné.
+<br><br>
+<h3>Databáze</h3>
+Hesla jsou v databázi uložena v zašifrované podobě pomocí BCRYPT.
+<img src="diagram.png"/>
+
+<h2>Instalace</h2>
+
+Stručně popište: 
+<ul>
+<li>Pro správné fungování je potřeba mít nastavený webový server s podporou mod_rewrite (.htaccess je přiložený a nastavený), nejlépe Apache2.</li>
+<li>Projekt vyžaduje PHP 7.0 a novější a MySQL 5.6 a novější. Využívá databázi typu InnoDB.</li>
+<li>Projekt je třeba rozbalit do složky webového serveru a pomocí .htaccess nastavit již zmíněné požadavky. Server by měl být také nastavený, aby přesměrovával do složky www, kde je index.php, do jiných složek by přístup neměl umožňovat.</li>
+<li>Pomocí přiloženého skriptu je nutné nastavit databázi. Protože konfigurační soubor local.neon, umístěný v app/config, obsahuje nastavení připojení k databázi Endory a k té není vzdálený přístup možný. Je ale možné to změnit a použít přiložený skript pro inicializaci databáze.</li>
+<li>Pokud se vše povede, tak by měl být web funkční</li>
+</ul>
+
+<h2>Známé problémy</h2>
+Některé datagrid po změně počtu zobrazovaných záznamů na stránku již nefungují kvůli změně URL a ztracení GET parametru.
+
+</body></html>
