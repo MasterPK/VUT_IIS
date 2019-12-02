@@ -240,11 +240,51 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
     	
 	}
 
-	public function createComponentRequests($name)
+	public function createComponentCourseRequest($name)
 	{
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('id_course');
-		$grid->setDataSource($this->database->query("SELECT COUNT(*) AS cnt, id_course, course_name, course_type, id_guarantor FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_guarantor = ? AND student_status = 0",  $this->user->identity->id)->fetchAll());
+		$grid->setDataSource($this->database->query("SELECT id_course, course_name, course_type, id_guarantor FROM course WHERE course_status = 0")->fetchAll());
+
+		$grid->addColumnText('id_course', 'Zkratka kurzu')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('course_name', 'Jméno kurzu')
+		->setSortable()
+		->setFilterText();
+		
+		$grid->addColumnText('course_type', 'Typ kurzu')
+		->setReplacement([
+			'P' => 'Povinný',
+			'V' => 'Volitelný'
+		])
+		->setSortable();
+
+		$grid->addFilterSelect('course_type', 'Typ kurzu:', [""=>"Vše", "P" => 'Povinný', "V" => 'Volitelný']);
+
+		$grid->addAction("select1", "", 'Request:request')
+		->setIcon('info')
+		->setClass("btn btn-sm btn-info");
+
+		$grid->addAction("select2", "", 'approveCourse!')
+		->setIcon('check')
+		->setClass("btn btn-sm btn-success");
+
+		$grid->addAction("select3", "", 'denyCourse!')
+		->setIcon('times')
+		->setClass("btn btn-sm btn-danger");
+
+		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
+	
+		return $grid;
+	}
+
+	public function createComponentStudentRequest($name)
+	{
+		$grid = new DataGrid($this, $name);
+		$grid->setPrimaryKey('id_course');
+		$grid->setDataSource($this->database->query("SELECT COUNT(*) AS cnt, id_course, course_name, course_type, id_guarantor FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_guarantor = ? AND student_status = 0 HAVING cnt > 0",  $this->user->identity->id)->fetchAll());
 
 		$grid->addColumnText('id_course', 'Zkratka kurzu')
 		->setSortable()
@@ -263,7 +303,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		->setSortable();
 
 		$grid->addFilterSelect('course_type', 'Typ kurzu:', [""=>"Vše", "P" => 'Povinný', "V" => 'Volitelný']);
-		
+
 		$grid->addColumnText('cnt', 'Počet žádostí')
 		->setSortable()
 		->setFilterText();
@@ -272,13 +312,51 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		->setIcon('info')
 		->setClass("btn btn-sm btn-info");
 
-		$grid->addAction("select2", "", 'approveCourse!')
-		->setIcon('check')
-		->setClass("btn btn-sm btn-success");
+		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
+	
+		return $grid;
+	}
 
-		$grid->addAction("select3", "", 'denyCourse!')
-		->setIcon('times')
-		->setClass("btn btn-sm btn-danger");
+	public function createComponentAllStudentsRequests($name)
+	{
+		$grid = new DataGrid($this, $name);
+		$grid->setPrimaryKey('id_user');
+		$grid->setDataSource($this->database->query("SELECT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE  id_course = ? AND student_status = 0", $id_course)->fetchAll());
+
+		$grid->addColumnText('email', 'Email')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('first_name', 'Jméno')
+		->setSortable()
+		->setFilterText();
+		
+
+		$grid->addColumnText('surname', 'Přijmení')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addGroupTextAction('Potvrdit')
+            ->onSelect[] = function ($students, $value): void {
+            	$httpRequest = $this->getHttpRequest();
+                $id_course = $httpRequest->getQuery('id_course');
+            	foreach($students as $student)
+            	{
+            		$result = $this->database->query("UPDATE course_has_student SET student_status = 1 WHERE id_user = ? AND id_course = ? AND student_status = 0", $student, $id_course);
+            	}
+                
+            };
+
+        $grid->addGroupTextAction('Zamítnout')
+            ->onSelect[] = function ($students, $value): void {
+            	$httpRequest = $this->getHttpRequest();
+                $id_course = $httpRequest->getQuery('id_course');
+            	foreach($students as $student)
+            	{
+            		$result = $this->database->query("UPDATE course_has_student SET student_status = 2 WHERE id_user = ? AND id_course = ? AND student_status = 0", $student, $id_course);
+            	}
+                
+            };
 
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 	
