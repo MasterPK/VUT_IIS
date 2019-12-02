@@ -91,7 +91,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 
 			$course->id_guarantor = $guarantor->first_name . " " . $guarantor->surname;
 
-			switch($course->course_type)
+			/*switch($course->course_type)
 			{
 				case 'P':
 					$course->course_type = 'Povinný';
@@ -99,7 +99,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 				default:
 					$course->course_type = 'Volitelný';
 					break;
-			}
+			}*/
 			
 			$this->template->course = $course;
 		}
