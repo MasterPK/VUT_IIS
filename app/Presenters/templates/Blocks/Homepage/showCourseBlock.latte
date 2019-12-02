@@ -2,38 +2,44 @@
     <div class="col-sm-12">
         <div class="card bg-default ">
             <div class="card-header">
-                {$course->id_course}
-
-                {snippet studentRegistration}
-                    {ifset $openRegistration}
-                    {ifset $userCourseStatus}
-                    {if $userCourseStatus==1}
-                    <div class="row">
-                        <div class="col-auto mr-auto"></div>
-                        <div class="col-auto">
-                            <form n:name="unRegisterForm">
-                                <div class="form-group text-center ">
-                                    {input register}
+                <div class="row">
+                    <div class="col-md-3 col-sm-12">
+                        {$course->id_course}
+                    </div>
+                    <div class="col-md-9 col-sm-12 ">
+                        <div class="row float-right">
+                            {snippet studentRegistration}
+                            {ifset $openRegistration}
+                            {ifset $userCourseStatus}
+                            {if $userCourseStatus==1}
+                            <div class="row">
+                                <div class="col-auto mr-auto"></div>
+                                <div class="col-auto">
+                                    <form n:name="unRegisterForm">
+                                        <div class="form-group text-center ">
+                                            {input register}
+                                        </div>
+                                    </form>
                                 </div>
-                            </form>
+                            </div>
+                            {/if}
+                            {else}
+                            <div class="row">
+                                <div class="col-auto mr-auto"></div>
+                                <div class="col-auto">
+                                    <form n:name="registerForm">
+                                        <div class="form-group text-center ">
+                                            {input register}
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            {/ifset}
+                            {/ifset}
+                            {/snippet}
                         </div>
                     </div>
-                    {/if}
-                    {else}
-                    <div class="row">
-                        <div class="col-auto mr-auto"></div>
-                        <div class="col-auto">
-                            <form n:name="registerForm">
-                                <div class="form-group text-center ">
-                                    {input register}
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    {/ifset}
-                    {/ifset}
-                    {/snippet}
-                    
+                </div>
             </div>
             <div class="card-body">
                 <div class="row">
