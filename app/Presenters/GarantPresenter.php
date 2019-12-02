@@ -961,7 +961,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
             
 			$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $values->points, $id, $id_task);
 			
-			$this->template->error_notify = true;
+			$this->template->success_notify = true;
 
 			if ($this->isAjax()) {
 				$this->redrawControl('notify');
