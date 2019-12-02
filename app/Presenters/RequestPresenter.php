@@ -79,11 +79,11 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		}
 	}
 
-	public function renderRequest($id): void
+	public function renderRequest($id_course): void
 	{ 
 		$requests = NULL;
-		$this->template->id_course=$id;
-		$course = $this->database->query("SELECT * FROM course WHERE id_course = ?", $id)->fetch();
+		$this->template->id_course=$id_course;
+		$course = $this->database->query("SELECT * FROM course WHERE id_course = ?", $id_course)->fetch();
 		//ak kurz nebol schvaleny, vypis ho
 		if($this->template->rank > 3 && $course->course_status == 0)
 		{
@@ -98,10 +98,10 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 			//ak bol schvaleny, vypis ziadosti
 			if($this->template->rank >= 3)
 			{
-				$requests = $this->database->query("SELECT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE  id_course = ? AND student_status = 0", $id)->fetchAll();
+				$requests = $this->database->query("SELECT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE  id_course = ? AND student_status = 0", $id_course)->fetchAll();
 			}
 		}
-		$this->id_course=$id;
+		$this->id_course=$id_course;
 		if($requests)
 		{
 			$this->template->requests = $requests;
@@ -165,7 +165,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 		}
 	}
 
-	public function handleApproveCourse($id): void
+	public function handleApproveCourse($id_course): void
     {
 
 		
@@ -198,7 +198,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
     	
 	}
 
-	public function handleDenyCourse($id): void
+	public function handleDenyCourse($id_course): void
     {
 
 		
