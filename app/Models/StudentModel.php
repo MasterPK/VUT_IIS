@@ -72,6 +72,10 @@ class StudentModel
                 $this->redirect("Homepage:default");
             }
         }
+        else
+        {
+            $this->redirect("Homepage:default");
+        }
     }
 
     public function createComponentRegisterForm($presenter)
