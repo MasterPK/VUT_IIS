@@ -58,8 +58,8 @@ class StudentModel
     public function renderFiles($presenter,$id_course,$id_task)
     {
 
-        $\Tracy\Debugger::barDump($id_course);
-        $\Tracy\Debugger::barDump($id_task);
+        \Tracy\Debugger::barDump($id_course);
+        \Tracy\Debugger::barDump($id_task);
         $presenter->template->files=array();   
         $presenter->template->files[$id_task]=array();
         foreach (Finder::findFiles('*')->in("Files/$id_course/$id_task") as $key => $file) {
