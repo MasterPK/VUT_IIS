@@ -66,6 +66,14 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		$grid->addColumnLink('name', 'Name', 'edit')
 			->setOpenInNewTab();
 
+		$grid->addColumnText('extension', 'Přípona')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('size', 'Velikost')
+		->setSortable()
+		->setFilterText();
+
 		$grid->addAction("select", "Stáhnout", '')
 			->setClass("btn btn-primary");
 
