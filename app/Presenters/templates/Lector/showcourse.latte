@@ -114,7 +114,7 @@ Detail kurzu
                     <div class="row">
                         <div class="col-md-3 col-sm-12 ">
                             {$task->task_name}
-                            {if $userIsGuarantorInCourse == true || $userIsLectorInCourse == true}
+                            {if $userIsLectorInCourse == true}
                                 <div class="float-right">
                                     <a n:href="Lector:showtask $task->id_task" class="btn btn-primary btn-sm "><i class="fas fa-user-graduate"></i></a>
                                     <a n:href="Lector:newFile $task->id_course, $task->id_task" class="btn btn-primary btn-sm "><i class="fas fa-file"/></a>
