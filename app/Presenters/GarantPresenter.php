@@ -112,7 +112,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 	{
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('id_course');
-		$grid->setDataSource($this->database->query("SELECT id_course, course_name, course_type, course_status FROM user NATURAL JOIN course_has_lecturer NATURAL JOIN course WHERE (id_user = ? AND course_status != 0) OR (id_guarantor = ?)",  $this->user->identity->id, $this->user->identity->id)->fetchAll());
+		$grid->setDataSource($this->database->query("SELECT id_course, course_name, course_type, course_price FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_user = ? AND student_status = 1 AND course_status != 0",  $this->user->identity->id)->fetchAll());
 
 		$grid->addColumnText('id_course', 'Zkratka kurzu')
 		->setSortable()
