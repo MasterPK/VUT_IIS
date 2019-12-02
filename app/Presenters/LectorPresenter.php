@@ -72,7 +72,6 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 	public function renderShowcourse($id)
 	{
 		$this->lectorModel->renderShowCourse($this, $id);
-		Debugger::barDump($this->presenter->template->files, "soubory");
 	}
 
 	private $task;
