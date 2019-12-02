@@ -645,7 +645,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	    	foreach($conflicts as $conflict)
 	    	{
-	    		if($conflict->id_room == $values->id_room && $conflict->task_date->format('Y-m-d') == $values->task_date->format('Y-m-d'))
+	    		if($conflict->id_room == $values->id_room && $conflict->task_date->format('Y-m-d') == $values->task_date)
 	    		{
 	    			if(($conflict->task_from > $values->task_from && $conflict->task_from < $values->task_to) || ($conflict->task_to > $values->task_from && $conflict->task_to < $values->task_to))
 	    			{
