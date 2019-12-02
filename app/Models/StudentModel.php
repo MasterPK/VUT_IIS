@@ -59,7 +59,7 @@ class StudentModel
     {
         $presenter->template->files=array();   
         foreach (Finder::findFiles('*')->in("Files/$id_course/$id_task") as $key => $file) {
-            array_push($presenter->template->files,["name"=>$file->getBasename(),"extension"=>$file->getExtension(),"size"=>$file->getSize(),"link"=>$key]); // $key je řetězec s názvem souboru včetně cesty
+            array_push($presenter->template->files,["name"=>$key,"extension"=>$file->getExtension(),"size"=>$file->getSize()]); // $key je řetězec s názvem souboru včetně cesty
         }
         
         
