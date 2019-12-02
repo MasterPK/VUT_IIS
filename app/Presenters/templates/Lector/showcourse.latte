@@ -118,8 +118,8 @@ Detail kurzu
                         {if $userIsLectorInCourse == true}
                             <div class="col-md-9 col-sm-12 ">
                                 <div class="row float-right">
-                                    <a n:href="Lector:showtask $task->id_task" class="btn btn-primary btn-sm "><i class="fas fa-user-graduate"></i></a>
-                                    <a n:href="Lector:newFile $task->id_course, $task->id_task" class="btn btn-primary btn-sm "><i class="fas fa-file"/></a>
+                                    <a n:href="Lector:showtask $task->id_task" class="btn btn-primary btn-sm ml-1"><i class="fas fa-user-graduate"></i></a>
+                                    <a n:href="Lector:files $task->id_course, $task->id_task" class="btn btn-sm btn-primary btn-sm ml-1" title="Soubory"><i class="fas fa-file"/></a>
                                     <a n:href="Lector:newtask $task->id_course, $task->task_type, $task->id_task" class="btn btn-primary btn-sm ml-1 "><i class="fas fa-edit"/></a>
                                 </div>
                             </div>
@@ -176,11 +176,6 @@ Detail kurzu
                         <div class="col-sm-12">
                             Popis:<br>
                             <p class="card-text">{$task->task_description}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <a n:href="Lector:files $task->id_course, $task->id_task" class="btn btn-sm btn-primary ml-1">Soubory</a>
                         </div>
                     </div>
                 </div>
