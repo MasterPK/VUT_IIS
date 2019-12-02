@@ -365,8 +365,14 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 				'4' => 'Zamítnut'
             ]);
 
-		$grid->addAction("select","Detail", 'Garant:showcourse')
-		->setClass("btn btn-primary");
+        $grid->addToolbarButton('course', '')
+            ->setIcon('plus')
+            ->setTitle('Nový kurz')
+            ->setClass('btn btn-xs btn-primary');
+
+		$grid->addAction("select", "", 'Garant:showcourse')
+		->setIcon('info')
+		->setClass("btn btn-xs btn-info");
 
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
