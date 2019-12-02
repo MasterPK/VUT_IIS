@@ -933,7 +933,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 					
 					$this->template->error = false;
 					$this->redrawControl('content_snippet');
-					$this->redrawControl('points_snippet');
                 }
                 else
                 {
