@@ -82,7 +82,19 @@ Seznam žádostí
 
     {control allStudentsRequests}
 
-    {snippet reg_snippet}
+
+    {snippet student_snippet}
+        {ifset success_accept}
+            <script>$.notify("Vybraní studenti byly úspěšně schváleni", "success");</script>
+        {/ifset}
+        {ifset success_deny}
+            <script>$.notify("Vybraní studenti byly úspěšně zamítnuti", "success");</script>
+        {/ifset}
+        {ifset $error}
+            <script>$.notify("U některých studentů došlo k chybě!", "error");</script>
+        {/ifset}
+    {/snippet}
+   <!-- {snippet reg_snippet}
         {ifset $requests}
             <table class="table">
                 <thead>
@@ -214,5 +226,5 @@ Seznam žádostí
 
             </script>
         {/ifset}
-    {/snippet}
+    {/snippet}!-->
 {/block}
