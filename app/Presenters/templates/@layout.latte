@@ -119,6 +119,12 @@
   <div id="wrapper">
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
+      <li n:class="nav-item, $presenter->isLinkCurrent('Homepage:default') ? active">
+        <a class="nav-link" n:href="Homepage:">
+          <i class="fas fa-fw fa-graduation-cap"></i>
+          <span>Kurzy</span>
+        </a>
+      </li>
       {switch $rank}
       {case 0}
       {include ./Blocks/Menu/visitor.latte}
