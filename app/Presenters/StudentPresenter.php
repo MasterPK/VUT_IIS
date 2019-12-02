@@ -254,7 +254,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 	public function renderTimetable()
 	{
 		//Get all tasks in student courses
-		$data = $this->database->query("SELECT task.* FROM course NATURAL JOIN course_has_student NATURAL JOIN task WHERE id_user=?;", $this->user->identity->id)->fetchAll();
+		$data = $this->database->query("SELECT * FROM course NATURAL JOIN course_has_student NATURAL JOIN task WHERE id_user=? AND course_status=1;", $this->user->identity->id)->fetchAll();
 		Debugger::barDump($data,"data");
 		if (!$data) {
 			return;
