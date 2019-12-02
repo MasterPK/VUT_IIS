@@ -56,7 +56,8 @@ Notifikace jsou zobrazeny pomocí <a href="https://notifyjs.jpillora.com/">notify
 
 Ka¾dý presenter pøi své inicializaci nejprve zavolá startUpModel, který se postará o kontrou pøihlá¹ení a jestli má u¾ivatel dostateèná opravnìní, pokud ne tak je pøesmìrován na domovskou stránku.
 Pro ka¾dý presenter existuje model, který implementuje èást funkcí, které pou¾ívá. Modely jsou kaskádovì propojené, aby AdminModel mìl pøístup k StudentModel.
-Pro presentery existuje globální Latte ¹ablona s hlavièkou webu. Ta poté podle adresy pou¾ívá dal¹í ¹ablony podle presenteru.<br><br>
+Pro presentery existuje globální Latte ¹ablona s hlavièkou webu. Ta poté podle adresy pou¾ívá dal¹í ¹ablony podle presenteru.<br>
+Automatické odhlá¹ení probíhá po 5 minutách neèinnosti my¹i.<br><br>
 <h3>Databáze</h3>
 Hesla jsou v databázi ulo¾ena v za¹ifrované podobì pomocí BCRYPT.
 <img src="diagram.png"/>
