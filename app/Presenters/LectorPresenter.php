@@ -118,6 +118,11 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 		$this->task_id = $task_id;
 	}
 
+	public function renderFiles($id_course, $id_task)
+	{
+		$this->studentModel->renderFiles($this, $id_course, $id_task);
+	}
+
 	public function createComponentMyCourses($name)
 	{
 		$grid = new DataGrid($this, $name);
