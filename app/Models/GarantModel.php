@@ -37,6 +37,13 @@ class GarantModel
         }
         else if($lectorCourses != NULL && $garantCourses != NULL)
         {
+            foreach($lectorCourses as $course)
+            {
+                if(in_array($course->id_course, $garantCourses))
+                {
+                    \unset($lectorCourses[$course]);
+                }
+            }
             return array_merge($lectorCourses,$garantCourses);
         }
         else if($garantCourses != NULL)
