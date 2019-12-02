@@ -47,23 +47,23 @@ class StudentModel
 
         $presenter->template->course_tasks = $this->database->query("SELECT * FROM task WHERE id_course = ?", $id)->fetchAll();
 
-        $presenter->template->files=array();
-        foreach ($presenter->template->course_tasks as $value) {
-            $presenter->template->files[$value->id_task]=array();
-            foreach (Finder::findFiles('*')->in("Files/$id/$value->id_task") as $key => $file) {
-                array_push($presenter->template->files[$value->id_task],$key); // $key je řetězec s názvem souboru včetně cesty
-            }
-        }
-
-        $presenter->template->course_tasks = $this->database->query("SELECT * FROM task WHERE id_course = ?", $id)->fetchAll();
-		
-
         if($presenter->template->course->course_status>=1 && $presenter->template->course->course_status<=3)
         {
             $presenter->template->courseActive=true;
         }
     
 
+    }
+
+    public function renderFiles($presenter,$id_course,$id_task)
+    {
+
+        $presenter->template->files=array();   
+        $presenter->template->files[$id_task]=array();
+        foreach (Finder::findFiles('*')->in("Files/$id_course/$id_task") as $key => $file) {
+            array_push($presenter->template->files[$id_task],$key); // $key je řetězec s názvem souboru včetně cesty
+        }
+        
     }
 
     public function createComponentRegisterForm($presenter)
