@@ -166,45 +166,36 @@ Detail kurzu
     <div class="col-sm-12">
         {foreach $course_tasks as $task}
             <div class="card bg-default mt-1">
-                <div class="card-header">
-                    
-                    
+                <div class="card-header">  
                     <div class="row">
                         <div class="col-md-3 col-sm-12 ">
                             {$task->task_name}
-                        </div>
-                        {if $userIsGuarantorInCourse == true || $userIsLectorInCourse == true}
-                        <div class="col-md-9 col-sm-12 ">
-                            <div class="float-right">
-                    
-                    <a n:href="Garant:showtask $task->id_task" class="btn btn-primary btn-sm "><i class="fas fa-user-graduate"></i></a>
-                    <a n:href="Garant:newFile $task->id_course, $task->id_task" class="btn btn-primary btn-sm "><i class="fas fa-file"/></a>
+                            {if $userIsGuarantorInCourse == true || $userIsLectorInCourse == true}
+                                <div class="float-right">
+                                    <a n:href="Garant:showtask $task->id_task" class="btn btn-primary btn-sm "><i class="fas fa-user-graduate"></i></a>
+                                    <a n:href="Garant:newFile $task->id_course, $task->id_task" class="btn btn-primary btn-sm "><i class="fas fa-file"/></a>
 
-                    <div class="modal fade" id="{$task->id_task}">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h4 class="modal-title">Potvrzení</h4>
-                          </div>
-                          <div class="modal-body">
-                            <p>Opravdu smazat termín {$task->task_name}?</p>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Zrušit</button>
-                            <a class="ajax" n:href="deleteTask! $task->id_task, $task->id_course"><button onClick="hide({$task->id_task})" type="button" class="btn btn-primary">Potvrdit</button></a>
-                          </div>
+                                    <div class="modal fade" id="{$task->id_task}">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Potvrzení</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Opravdu smazat termín {$task->task_name}?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Zrušit</button>
+                                                    <a class="ajax" n:href="deleteTask! $task->id_task, $task->id_course"><button onClick="hide({$task->id_task})" type="button" class="btn btn-primary">Potvrdit</button></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a n:href="Garant:newtask $task->id_course, $task->task_type, $task->id_task" class="btn btn-primary btn-sm ml-1 "><i class="fas fa-edit"/></a>
+                                    <a class="btn btn-primary btn-sm ml-1 text-white" onClick="show({$task->id_task})"><i class="fas fa-trash"/></a>
+                                </div>
+                            {/if}
                         </div>
-                      </div>
-                    </div>
-                    <a n:href="Garant:newtask $task->id_course, $task->task_type, $task->id_task" class="btn btn-primary btn-sm ml-1 "><i class="fas fa-edit"/></a>
-                    <a class="btn btn-primary btn-sm ml-1 text-white" onClick="show({$task->id_task})"><i class="fas fa-trash"/></a>
-                    
-              
-                    </div>
-                    </div>
-               
-                    {/if}
-                    
                     </div>
                 </div>
                 <div class="card-body">

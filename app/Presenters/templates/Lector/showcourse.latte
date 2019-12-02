@@ -112,16 +112,16 @@ Detail kurzu
     <div class="col-sm-12">
         {foreach $course_tasks as $task}
             <div class="card bg-default ">
-                <div class="card-header">
-                    {$task->task_name}
-                    {if $userIsLectorInCourse == true}
-                    <div class="col-md-9 col-sm-12 ">
-                        <div class="float-right">
-                            <a n:href="Lector:showtask $task->id_task" class="btn btn-primary btn-sm "><i class="fas fa-user-graduate"></i></a>
-                            <a n:href="Lector:newFile $task->id_course, $task->id_task" class="btn btn-primary btn-sm "><i class="fas fa-file"/></a>
-                        </div>
+                <div class="col-md-9 col-sm-12 ">
+                    <div class="card-header">
+                        {$task->task_name}
+                        {if $userIsLectorInCourse == true}
+                            <div class="float-right">
+                                <a n:href="Lector:showtask $task->id_task" class="btn btn-primary btn-sm "><i class="fas fa-user-graduate"></i></a>
+                                <a n:href="Lector:newFile $task->id_course, $task->id_task" class="btn btn-primary btn-sm "><i class="fas fa-file"/></a>
+                            </div>
+                        </if>
                     </div>
-                    {/if}
                 </div>
                 <div class="card-body">
                     <div class="row">
