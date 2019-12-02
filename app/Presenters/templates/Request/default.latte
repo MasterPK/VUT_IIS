@@ -18,41 +18,8 @@ Seznam žádostí
         {/if}
     {/ifset}
     
-    {control courseRequest}
+    {control requests}
 
-    {ifset $courses}
-        <h3>Seznam žádostí o schválení kurzů</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Zkratka</th>
-                    <th scope="col">Název</th>
-                    <th scope="col">Typ</th>
-                    <th scope="col">Garant</th>
-                    <th scope="col">Potvrzení</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                {foreach $courses as $row}
-                    <tr>
-                        <th scope="row"><a n:href="Request:request $row->id_course">{$row->id_course}</a></th>
-                        <td>{$row->course_name}</td>
-                        <td>{$row->course_type}</td>
-                        <td>{$row->id_guarantor}</td>
-                        <td>
-                            <a class="ajax" n:href="approveCourse! $row->id_course">
-                                <button class="btn btn-primary"><i class="fas fa-check"></i></button>
-                            </a>
-                            <a class="ajax" n:href="denyCourse! $row->id_course">
-                                <button class="btn btn-primary"><i class="fas fa-times"></i></button>
-                            </a>
-                        </td>
-                    </tr>
-                {/foreach}
-            </tbody>
-        </table>
-    {/ifset}
 
     {ifset $requests}
         <h3>Seznam žádostí studentů o kurz</h3>

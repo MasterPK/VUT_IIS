@@ -240,11 +240,11 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
     	
 	}
 
-	public function createComponentCourseRequest($name)
+	public function createComponentRequests($name)
 	{
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('id_course');
-		$grid->setDataSource($this->database->query("SELECT id_course, course_name, course_type, id_guarantor FROM course WHERE course_status = 0")->fetchAll());
+		$grid->setDataSource($this->database->query("SELECT COUNT(*) AS cnt, id_course, course_name, course_type, id_guarantor FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_guarantor = ? AND student_status = 0",  $this->user->identity->id)->fetchAll(););
 
 		$grid->addColumnText('id_course', 'Zkratka kurzu')
 		->setSortable()
@@ -264,6 +264,10 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 
 		$grid->addFilterSelect('course_type', 'Typ kurzu:', [""=>"Vše", "P" => 'Povinný', "V" => 'Volitelný']);
 		
+		$grid->addColumnText('cnt', 'Počet žádostí')
+		->setSortable()
+		->setFilterText();
+
 		$grid->addAction("select1", "", 'Request:request')
 		->setIcon('info')
 		->setClass("btn btn-sm btn-info");
