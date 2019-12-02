@@ -88,7 +88,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 		{
 			$this->template->error = 2;
 			$this->redrawControl("error_snippet");
-			$this->redirect('managecourses',$id_course);
+			$this->redirect('showcourse',$id_course);
 		}
 
 		$this->id_course = $id_course;
