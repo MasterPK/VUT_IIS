@@ -63,7 +63,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		Debugger::barDump($this->template->files);
 		$grid->setDataSource($this->template->files);
 
-		$grid->addColumnLink('name', 'Name', 'edit')
+		$grid->addColumnText('name', 'Name', '')
 			->setOpenInNewTab();
 
 		$grid->addColumnText('extension', 'Přípona')
