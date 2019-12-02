@@ -244,7 +244,7 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 	{
 		$grid = new DataGrid($this, $name);
 		$grid->setPrimaryKey('id_course');
-		$grid->setDataSource($this->database->query("SELECT COUNT(*) AS cnt, id_course, course_name, course_type, id_guarantor FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_guarantor = ? AND student_status = 0",  $this->user->identity->id)->fetchAll(););
+		$grid->setDataSource($this->database->query("SELECT COUNT(*) AS cnt, id_course, course_name, course_type, id_guarantor FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE id_guarantor = ? AND student_status = 0",  $this->user->identity->id)->fetchAll());
 
 		$grid->addColumnText('id_course', 'Zkratka kurzu')
 		->setSortable()
