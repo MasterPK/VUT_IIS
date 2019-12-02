@@ -130,8 +130,9 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
             ->setTitle('Nový kurz')
             ->setClass('btn btn-xs btn-primary');
 
-		$grid->addAction("select","Detail", 'Student:showcourse')
-		->setClass("btn btn-primary");
+		$grid->addAction("select", "", 'Student:showcourse')
+		->setIcon('info')
+		->setClass("btn btn-xs btn-info");
 
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
