@@ -59,7 +59,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 	public function createComponentFiles($name)
 	{
 		$grid = new DataGrid($this, $name);
-		$grid->setPrimaryKey('id_task');
+		$grid->setPrimaryKey('name');
 		Debugger::barDump($this->template->files);
 		$grid->setDataSource($this->template->files);
 
