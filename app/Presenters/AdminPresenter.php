@@ -195,13 +195,13 @@ class AdminPresenter extends Nette\Application\UI\Presenter
 
                 if($result == 0)
                 {
-                    $this->template->success_password;
+                    $this->template->success_password = true;
                     $this->redrawControl('password_snippet');
                 }
             }
             else
             {
-                $this->template->success_edit;
+                $this->template->success_edit = true;
                 $this->redrawControl('edit_snippet');
             }
 
