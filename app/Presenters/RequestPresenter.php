@@ -90,6 +90,16 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 			$guarantor = $this->database->query("SELECT first_name, surname FROM user WHERE id_user = ?", $course->id_guarantor)->fetch();
 
 			$course->id_guarantor = $guarantor->first_name . " " . $guarantor->surname;
+
+			switch($course->course_type)
+			{
+				case 'P':
+					$course->course_type = 'Povinný';
+					break;
+				default:
+					$course->course_type = 'Volitelný';
+					break;
+			}
 			
 			$this->template->course = $course;
 		}
