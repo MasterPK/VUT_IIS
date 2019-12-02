@@ -607,7 +607,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 		return $grid;
 	}
 
-	public function triggerModal()
+	public function handleTriggerModal()
 	{
 		$this->template->show_modal = true;
 		$this->redrawControl('show_modal_snippet');
