@@ -67,7 +67,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		$replacement = [];
         foreach($this->template->files as $file)
         {
-            $replacement[$file['name']] = explode(basename($file['name']))[0];
+            $replacement[$file['name']] = explode(".",basename($file['name']))[0];
         }
 
 		$grid->addColumnText('name', 'Name', '')
