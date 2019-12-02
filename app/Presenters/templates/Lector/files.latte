@@ -15,6 +15,8 @@ Soubory
     </div>
 </div>
 
+<button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="{control newFileToCourseForm}">Click to toggle popover</button>
+
 <script>
 $("html").on("mouseup", function (e) {
     var l = $(e.target);
@@ -24,10 +26,6 @@ $("html").on("mouseup", function (e) {
         });
     }
 });
-
-$('.popover-dismiss').popover({
-  trigger: 'focus'
-})
 
 $(document).ready(function(){
      $('#btnpopover').popover({
