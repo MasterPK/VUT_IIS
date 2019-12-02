@@ -558,5 +558,41 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
         return $grid;
     }
 
-    
+    public function createComponentFiles($name)
+	{
+		$grid = new DataGrid($this, $name);
+		$grid->setPrimaryKey('name');
+		Debugger::barDump($this->template->files);
+		$grid->setDataSource($this->template->files);
+
+
+		$replacement = [];
+        foreach($this->template->files as $file)
+        {
+            $replacement[$file['name']] = explode(".",basename($file['name']))[0];
+        }
+
+		$grid->addColumnText('name', 'Name', '')
+		->setReplacement($replacement)
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('extension', 'Přípona')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('size', 'Velikost (B)')
+		->setSortable()
+		->setFilterText();
+
+
+		$grid->addAction("select", "", "download!")
+			->setIcon('fas download')
+			->setClass("btn btn-sm btn-primary");
+
+		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
+
+
+		return $grid;
+	}
 }
