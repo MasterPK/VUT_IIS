@@ -41,7 +41,7 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 
 	public function renderDefault(): void
 	{
-		$this->redirect("Homepage:courses")
+		$this->redirect("Homepage:courses");
 	}
 
 	public function createComponentSimpleGrid($name)
