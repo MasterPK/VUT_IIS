@@ -80,14 +80,21 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 	private $id_course;
 	public function renderNewtask($id_course, $task_type, $id_task)
 	{
-		$this->id_course = $id_course;
-		$this->task_type = $task_type;
-		$this->template->task_type = $task_type;
-
 		if($id_task != NULL)
 		{
 			$this->task = $this->database->query("SELECT * FROM task WHERE id_task = ? AND id_course = ?", $id_task, $id_course)->fetch();
 		}
+		else
+		{
+			$this->template->error = 2;
+			$this->redrawControl("error_snippet");
+			return;
+		}
+
+		$this->id_course = $id_course;
+		$this->task_type = $task_type;
+		$this->template->task_type = $task_type;
+
 		$rooms = $this->database->query("SELECT id_room FROM room")->fetchAll();
 		$category[NULL] = "Žádná";
 		foreach($rooms as $room)
@@ -226,13 +233,6 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 
 	public function createComponentCreateTaskForm(): Nette\Application\UI\Form
 	{
-		if(!$this->task)
-		{
-			$this->template->error = 2;
-			$this->redrawControl('error_snippet');
-			return NULL;
-		}
-
 		$form = new Nette\Application\UI\Form;
 
 		$form->addHidden('id_course');
