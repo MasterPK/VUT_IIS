@@ -60,19 +60,19 @@ class LectorModel
         }   
     }
 
-    public function createComponentTaskStudents($name, $id_task)
+    public function createComponentTaskStudents($presenter, $name, $id_task)
     {
         
         if($id_task == NULL)
         {
-            $httpRequest = $this->getHttpRequest();
+            $httpRequest = $presenter->getHttpRequest();
             $id_task = $httpRequest->getQuery('id_task');
         }
 
-        $grid = new DataGrid($this, $name);
+        $grid = new DataGrid($presenter, $name);
         $grid->setPrimaryKey('user.id_user');
         //$grid->setDataSource($this->database->query("SELECT id_user, email, first_name, surname, points FROM user NATURAL JOIN student_has_task"));
-        $grid->setDataSource($this->database->table("student_has_task")->where("student_has_task.id_task = ?", $id_task)->select("user.id_user,user.email,user.first_name,user.surname,student_has_task.points"));
+        $grid->setDataSource($presenter->database->table("student_has_task")->where("student_has_task.id_task = ?", $id_task)->select("user.id_user,user.email,user.first_name,user.surname,student_has_task.points"));
 
         $grid->addColumnText('email', 'Email studenta')
         ->setSortable()
@@ -92,29 +92,28 @@ class LectorModel
 
         $grid->addGroupTextAction('Nastavit body')
             ->onSelect[] = function ($students, $value): void {
-                $httpRequest = $this->getHttpRequest();
+                $httpRequest = $presenter->getHttpRequest();
                 $id_task = $httpRequest->getQuery('id_task');
-                $maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
+                $maxpoints = $presenter->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
                 if($maxpoints->task_points >= $value)
                 {
                     foreach($students as $student)
                     {
-                        $this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $student, $id_task);
+                        $presenter->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $student, $id_task);
                     }
                 }
                 else
                 {
-                    $this->template->error_set = true;
-                    \Tracy\Debugger::barDump($this->template);
-                    $this->redrawControl('error_snippet');
+                    $presenter->template->error_set = true;
+                    $presenter->redrawControl('error_snippet');
                 }
             };
 
         $grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
-            $httpRequest = $this->getHttpRequest();
+            $httpRequest = $presenter->getHttpRequest();
             $id_task = $httpRequest->getQuery('id_task');
-            $maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
+            $maxpoints = $presenter->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
             $container->addText('points', '')
                     ->addRule(Form::RANGE, "Zadejte počet bodů v rozmezí 0 - ".$maxpoints->task_points, [0,$maxpoints->task_points]);
         };
@@ -127,14 +126,14 @@ class LectorModel
         };
 
         $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): void {
-            $httpRequest = $this->getHttpRequest();
+            $httpRequest = $presenter->getHttpRequest();
             $id_task = $httpRequest->getQuery('id_task');
             
-            $this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $values->points, $id, $id_task);
+            $presenter->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $values->points, $id, $id_task);
                 
         };
 
-        $grid->setTranslator($this->dataGridModel->dataGridTranslator);
+        $grid->setTranslator($presenter->dataGridModel->dataGridTranslator);
 
         return $grid;
     }

@@ -456,6 +456,6 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 
 	public function createComponentTaskStudentsGrid($name)
     {
-        return $this->lectorModel->createComponentTaskStudents($name, $this->id_task);
+        return $this->lectorModel->createComponentTaskStudents($this, $name, $this->id_task);
     }
 }
