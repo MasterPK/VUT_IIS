@@ -51,9 +51,14 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 	public function renderMycourses(): void
 	{ }
 
-	public function renderFiles($id_course, $id_task)
+	public function beforeRender($id_course,$id_task)
 	{
 		$this->studentModel->renderFiles($this, $id_course, $id_task);
+	}
+
+	public function renderFiles($id_course, $id_task)
+	{
+		
 	}
 
 	public function createComponentFiles($name)

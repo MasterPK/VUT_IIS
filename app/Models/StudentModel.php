@@ -58,9 +58,8 @@ class StudentModel
     public function renderFiles($presenter,$id_course,$id_task)
     {
         $presenter->template->files=array();   
-        $presenter->template->files[$id_task]=array();
         foreach (Finder::findFiles('*')->in("Files/$id_course/$id_task") as $key => $file) {
-            array_push($presenter->template->files[$id_task],$key); // $key je řetězec s názvem souboru včetně cesty
+            array_push($presenter->template->files,$key); // $key je řetězec s názvem souboru včetně cesty
         }
         
     }
