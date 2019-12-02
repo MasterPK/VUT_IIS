@@ -84,7 +84,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		->setFilterText();
 
 
-		$grid->addAction("select", "Stáhnout", "download!")
+		$grid->addAction("select", "", "download!")
 			->setIcon('fas download')
 			->setClass("btn btn-sm btn-primary");
 
