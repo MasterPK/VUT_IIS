@@ -3,6 +3,12 @@ Správa vybavení
 {/block}
 {block content}
 {snippet content_snipet}
+{ifset $success_notify}
+<script>$.notify("Operace byla provedena!", "success");</script>
+{/ifset}
+{ifset $error_notify}
+<script>$.notify("Operace selhala!", "error");</script>
+{/ifset}
 {control manageAllEquipmentGrid}
 {/snippet}
 {/block}
