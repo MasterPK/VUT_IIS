@@ -398,20 +398,6 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 						$this->redrawControl('student_snippet');
 						return;
 					}
-            		else
-					{
-						$tasks = $this->database->query("SELECT id_task FROM task WHERE id_course = ?", $id_course)->fetchAll();
-						foreach($tasks as $task)
-						{
-							$result = $this->database->query("DELETE FROM student_has_task WHERE id_user = ? AND id_task = ?", $student, $task->id_task);
-							if($result->getRowCount() == 0)
-							{
-								$this->template->success_deny = false;
-								$this->redrawControl('student_snippet');
-								return;
-							}
-						}
-					}
             	}
 
             	$this->template->success_deny = true;

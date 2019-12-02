@@ -177,6 +177,21 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 
 		if ($get->getRowCount() == 1) {
 			$this->database->table("course_has_student")->where("id_course", $values->id_course)->where("id_user", $this->user->identity->id)->delete();
+
+
+			$tasks = $this->database->query("SELECT id_task FROM task WHERE id_course = ?", $values->id_course)->fetchAll();
+			foreach($tasks as $task)
+			{
+				$result = $this->database->query("DELETE FROM student_has_task WHERE id_user = ? AND id_task = ?", $this->user->identity->id, $task->id_task);
+				if($result->getRowCount() == 0)
+				{
+					$this->template->error_notif = true;
+					$this->redrawControl('content_snippet');
+					return;
+				}
+			}
+					
+
 			$this->template->succes_notif = true;
 		} else {
 			$this->template->error_notif = true;
