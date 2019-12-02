@@ -109,16 +109,19 @@ Detail kurzu
 <div class="row">
     <div class="col-sm-12">
         {foreach $course_tasks as $task}
-            <div class="card bg-default ">
-                <div class="col-md-9 col-sm-12 ">
-                    <div class="card-header">
-                        {$task->task_name}
-                        {if $userIsLectorInCourse == true}
-                            <div class="float-right">
-                                <a n:href="Lector:showtask $task->id_task" class="btn btn-primary btn-sm "><i class="fas fa-user-graduate"></i></a>
-                                <a n:href="Lector:newFile $task->id_course, $task->id_task" class="btn btn-primary btn-sm "><i class="fas fa-file"/></a>
-                            </div>
-                        {/if}
+            <div class="card bg-default mt-1">
+                <div class="card-header">  
+                    <div class="row">
+                        <div class="col-md-3 col-sm-12 ">
+                            {$task->task_name}
+                            {if $userIsGuarantorInCourse == true || $userIsLectorInCourse == true}
+                                <div class="float-right">
+                                    <a n:href="Lector:showtask $task->id_task" class="btn btn-primary btn-sm "><i class="fas fa-user-graduate"></i></a>
+                                    <a n:href="Lector:newFile $task->id_course, $task->id_task" class="btn btn-primary btn-sm "><i class="fas fa-file"/></a>
+                                    <a n:href="Lector:newtask $task->id_course, $task->task_type, $task->id_task" class="btn btn-primary btn-sm ml-1 "><i class="fas fa-edit"/></a>
+                                </div>
+                            {/if}
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">
@@ -160,10 +163,11 @@ Detail kurzu
                         {/ifset}
                         {ifset $task->id_room}
                             <div class="col-md-3 col-sm-12">
-                                Místnost:<br>
-                                <b>{$task->id_room}</b>
-                            </div>
-                        {/ifset}  
+                            Místnost:<br>
+                            <b>{$task->id_room}</b>
+                        </div>
+                        {/ifset}
+                        
                     </div>
                     <br>
                     <div class="row">
@@ -172,12 +176,11 @@ Detail kurzu
                             <p class="card-text">{$task->task_description}</p>
                         </div>
                     </div>
-                    <br>
                     <div class="row">
                         <div class="col-md-12">
                             Soubory:<br>
                             {foreach $files[$task->id_task] as $file}
-                                <a href="/{$file}">{=basename($file)}</a>{if $userIsLectorInCourse == true}<a class="ajax" n:href="deleteFile! $file"><i class="fas fa-times fa-fw"></i></a>{/if}<br>  
+                                <a href="/{$file}">{=basename($file)}</a>{if $userIsGuarantorInCourse == true || $userIsLectorInCourse == true}<a class="ajax" n:href="deleteFile! $file"><i class="fas fa-times fa-fw"></i></a>{/if}<br>  
                             {/foreach}
                         </div>
                     </div>
@@ -188,6 +191,7 @@ Detail kurzu
 </div>
 {/ifset}
 {/snippet}
+
 <script>
 function show(id)
 {
@@ -200,8 +204,5 @@ function hide(id)
 }
 
 </script>
-
-
-
 {/ifset}
 {/block}
