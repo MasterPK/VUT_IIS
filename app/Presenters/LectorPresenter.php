@@ -425,7 +425,8 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 
 		$form->addUpload('file', '')
 			->setHtmlAttribute('class', 'd-none')
-			->setHtmlAttribute('id', 'my-file-selector');
+			->setHtmlAttribute('id', 'my-file-selector')
+			->addRule(Form::MAX_FILE_SIZE, '', 5242880 /* v bytech */);
 
 		$form->addSubmit('submit', 'Odeslat')
 			->setHtmlAttribute('class', 'btn btn-block btn-primary');
