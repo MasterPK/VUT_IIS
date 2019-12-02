@@ -59,7 +59,19 @@ class StudentModel
     {
         if($presenter->getUser()->isLoggedIn())
         {
-            $check = $this->database->query("SELECT id_user FROM course NATURAL JOIN course_has_student NATURAL JOIN user WHERE id_course = ? AND id_user = ? AND student_status = 1", $id_course, $presenter->user->identity->id)->fetch();
+            if($presenter->user->rank == 1)
+            {
+                $check = $this->database->query("SELECT id_user FROM course NATURAL JOIN course_has_student NATURAL JOIN user WHERE id_course = ? AND id_user = ? AND student_status = 1", $id_course, $presenter->user->identity->id)->fetch();
+            }
+            elseif($presenter->user->rank == 2)
+            {
+                $check = $this->database->query("SELECT id_user FROM course NATURAL JOIN course_has_lecturer NATURAL JOIN user WHERE id_course = ? AND id_user = ?", $id_course, $presenter->user->identity->id)->fetch();
+            }
+            elseif($presenter->user->rank > 2)
+            {
+                $check = $this->database->query("SELECT id_guarantor FROM course WHERE id_course = ? AND id_guarantor = ?", $id_course, $presenter->user->identity->id)->fetch();
+            }
+
             if($check)
             {
                 $presenter->template->files=array();   
