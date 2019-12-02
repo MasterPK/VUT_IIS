@@ -84,7 +84,7 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 		}
 		elseif($this->getUser()->isLoggedIn() && $user->data["rank"]==2)
 		{
-			$grid->addAction("select","", 'Lector:showcourse')
+			$grid->addAction("select","", 'Student:showcourse')
 			->setIcon("info")
 			->setClass("btn btn-sm btn-info");
 		}
