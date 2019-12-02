@@ -80,7 +80,7 @@ Seznam žádostí
     {/ifset}
 
 
-    
+    {control allStudentsRequests}
 
 
     {snippet student_snippet}
@@ -94,7 +94,7 @@ Seznam žádostí
             <script>$.notify("U některých studentů došlo k chybě!", "error");</script>
         {/ifset}
     {/snippet}
-   <!-- {snippet reg_snippet}
+   {snippet reg_snippet}
         {ifset $requests}
             <table class="table">
                 <thead>
@@ -226,5 +226,5 @@ Seznam žádostí
 
             </script>
         {/ifset}
-    {/snippet}!-->
+    {/snippet}
 {/block}
