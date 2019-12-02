@@ -15,7 +15,10 @@ Soubory
         <h4 class="modal-title">Přidat soubor</h4>
       </div>
       <div class="modal-body">
-        {control newFileToCourseForm}
+      	<label class="btn btn-primary" for="my-file-selector">
+    		{control newFileToCourseForm}
+		</label>
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Zavřít</button>
@@ -30,9 +33,22 @@ Soubory
     Button Text Here
 </label>
 
-<input type="file" name="file" class="btn btn-block btn-primary text has-error" id="frm-newFileToCourseForm-file" required="" data-nette-rules="[{&quot;op&quot;:&quot;:filled&quot;,&quot;msg&quot;:&quot;This field is required.&quot;},{&quot;op&quot;:&quot;:fileSize&quot;,&quot;msg&quot;:&quot;Maximální velikost souboru je 5 MB.&quot;,&quot;arg&quot;:5242880}]" data-lfv-initialized="true" data-lfv-message-id="frm-newFileToCourseForm-file_message">
+<div class="container">
+<h1>Bootstrap Upload Form demo</h1>
+    <form class="form-horizontal" role="form" action="newFileToCourseFormSubmit!" method="post" enctype="multipart/form-data">        
 
-<input type="submit" name="_submit" class="btn btn-block btn-primary button" value="Odeslat" data-lfv-initialized="true" data-lfv-message-id="frm-newFileToCourseForm-_submit_message">
-
- 
+      <div class="form-group">
+        <label for="selphoto" class="col-sm-2 control-label">Select a File to upload:</label>
+        <div class="col-sm-5">
+          <input type="file" class="inputstl" id="selphoto" name="sentfile">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-4">
+          <button type="submit" class="btn btn-lg btn-block btn-primary"></button>
+        </div>
+      </div>
+    </form>
+   </div>  
 {/block}
