@@ -64,7 +64,8 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		$grid->setDataSource($this->template->files);
 
 		$grid->addColumnText('name', 'Name', '')
-			->setOpenInNewTab();
+		->setSortable()
+		->setFilterText();
 
 		$grid->addColumnText('extension', 'Přípona')
 		->setSortable()
