@@ -755,10 +755,8 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 	public function AddEquipSubmit(Form $form)
 	{
 		$values = $form->getValues();
-		
-		$adres = $this->database->table("room_equipment")->where("id_room_equipment", $values->room_Equip)->fetch();
 
-		$data = $this->database->table("room_equipment")->where("room_equipment", $adres->room_equipment)
+		$data = $this->database->table("room_equipment")->where("id_room_equipment", $values->room_Equip)
 			->update([
 				'id_room' => $values->id_equip,
 			]);
