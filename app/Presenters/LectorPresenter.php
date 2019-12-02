@@ -125,7 +125,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 
 		$grid->addFilterSelect('course_type', 'Typ kurzu:', ["P" => 'Povinný', "V" => 'Volitelný']);
 
-		$grid->addAction("select", "", 'Lector:showcourse')
+		$grid->addAction("select", "", 'showCourse!')
 		->setIcon('info')
 		->setClass("btn btn-sm btn-info center-block");
 
@@ -133,6 +133,11 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 
 	
 		return $grid;
+	}
+
+	public function handleShowCourse($id_course)
+	{
+		$this->redirect('Lector:showcourse', $id_course);
 	}
 
 	public function createComponentCourses($name)
