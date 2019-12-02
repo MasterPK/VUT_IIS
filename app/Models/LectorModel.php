@@ -111,9 +111,9 @@ class LectorModel
 
         $grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {
-            $httpRequest = $presenter->getHttpRequest();
+            $httpRequest = $this->getHttpRequest();
             $id_task = $httpRequest->getQuery('id_task');
-            $maxpoints = $presenter->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
+            $maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
             $container->addText('points', '')
                     ->addRule(Form::RANGE, "Zadejte počet bodů v rozmezí 0 - ".$maxpoints->task_points, [0,$maxpoints->task_points]);
         };
@@ -126,10 +126,10 @@ class LectorModel
         };
 
         $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): void {
-            $httpRequest = $presenter->getHttpRequest();
+            $httpRequest = $this->getHttpRequest();
             $id_task = $httpRequest->getQuery('id_task');
             
-            $presenter->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $values->points, $id, $id_task);
+            $this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $values->points, $id, $id_task);
                 
         };
 
