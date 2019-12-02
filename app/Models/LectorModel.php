@@ -61,7 +61,6 @@ class LectorModel
 
     public function createComponentTaskStudents($name, $id_task)
     {
-        \Tracy\Debugger::barDump($this->template);
         
         if($id_task == NULL)
         {
