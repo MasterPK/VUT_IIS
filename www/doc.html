@@ -57,7 +57,9 @@ Notifikace jsou zobrazeny pomocí <a href="https://notifyjs.jpillora.com/">notify
 Ka¾dý presenter pøi své inicializaci nejprve zavolá startUpModel, který se postará o kontrou pøihlá¹ení a jestli má u¾ivatel dostateèná opravnìní, pokud ne tak je pøesmìrován na domovskou stránku.
 Pro ka¾dý presenter existuje model, který implementuje èást funkcí, které pou¾ívá. Modely jsou kaskádovì propojené, aby AdminModel mìl pøístup k StudentModel.
 Pro presentery existuje globální Latte ¹ablona s hlavièkou webu. Ta poté podle adresy pou¾ívá dal¹í ¹ablony podle presenteru.<br>
-Automatické odhlá¹ení probíhá po 5 minutách neèinnosti my¹i.<br><br>
+Automatické odhlá¹ení probíhá po 5 minutách neèinnosti my¹i.<br>
+Vybavení místností se v systému bere jako unikátní a a po pøiøazení do místnosti není mo¾né pøiøadit jiné.
+<br><br>
 <h3>Databáze</h3>
 Hesla jsou v databázi ulo¾ena v za¹ifrované podobì pomocí BCRYPT.
 <img src="diagram.png"/>
@@ -73,8 +75,39 @@ Struènì popi¹te:
 <li>Pokud se v¹e povede, tak by mìl být web funkèní</li>
 </ul>
 
+<h2>Pou¾íté knihovny</h2>
+bootstrap.min.css,
+fontawesome.css,
+select-row.css,
+datagrid.css,
+datagrid-spinners.css,
+bootstrap-select.min.css,
+timetablejs.css,
+all.css,
+dataTables.bootstrap4.css,
+sb-admin.min.css,
+jquery.min.js,
+jquery-ui-sortable.min.js,
+bootstrap.bundle.min.js,
+jquery.easing.min.js,
+Chart.min.js,
+jquery.dataTables.js,
+dataTables.bootstrap4.js,
+sb-admin.min.js,
+bootstrap-select.min.js,
+netteForms.min.js,
+nette.ajax.js,
+live-form-validation.js,
+notify.min.js,
+datagrid.js,
+datagrid-instant-url-refresh.js,
+datagrid-spinners.js,
+timetable.js,
+webfonts
+<br><br>
+V¹echny knihovny byly pou¾ity v nejnovìj¹í verzi ke dni 2.12.2019.
+
 <h2>Známé problémy</h2>
-Tlaèítko v pravo nahoøe pro zobrazení polo¾ek nastavení profilu a pøihlá¹ení/odhlá¹ení po naètení stránky nereaguje na první stlaèení. Chyba je zpúsobena neznámou chybou v knihovnách bootstrap.bundle.min.js a bootstrap.min.js, která ovlivòuje toto tlaèítko.<br>
 Nìkteré datagrid po zmìnì poètu zobrazovaných záznamù na stránku ji¾ nefungují kvùli zmìnì URL a ztracení GET parametru.
 
 </body></html>
