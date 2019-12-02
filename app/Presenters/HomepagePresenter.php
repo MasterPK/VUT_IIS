@@ -74,10 +74,21 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 		$grid->addColumnText('tags', 'Štítky')
 		->setSortable()
 		->setFilterText();
+		$user=$this->getUser()->getIdentity();
 
-		$grid->addAction("select","", 'Homepage:showcourse')
-		->setIcon("info")
-		->setClass("btn btn-sm btn-info");
+		if($this->getUser()->isLoggedIn() && $user->data["rank"]>=1)
+		{
+			$grid->addAction("select","", 'Student:showcourse')
+			->setIcon("info")
+			->setClass("btn btn-sm btn-info");
+		}
+		else
+		{
+			$grid->addAction("select","", 'Homepage:showcourse')
+			->setIcon("info")
+			->setClass("btn btn-sm btn-info");
+		}
+		
 	
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
