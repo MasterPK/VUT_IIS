@@ -10,7 +10,9 @@ Seznam studentů
 <script>$.notify("Operace selhala!", "error");</script>
 {/ifset}
 {/snippet}
+{snippet content_snipet}
 {control taskStudentsGrid}
+{/snippet}
 {snippet error_snippet}
 	{ifset error_set}
 		<script>$.notify("Zadaný počet bodů je vyšší než je maximum!", "error");</script>
