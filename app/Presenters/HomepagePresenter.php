@@ -76,9 +76,21 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 		->setFilterText();
 		$user=$this->getUser()->getIdentity();
 
-		if($this->getUser()->isLoggedIn() && $user->data["rank"]>=1)
+		if($this->getUser()->isLoggedIn() && $user->data["rank"]==1)
 		{
 			$grid->addAction("select","", 'Student:showcourse')
+			->setIcon("info")
+			->setClass("btn btn-sm btn-info");
+		}
+		elseif($this->getUser()->isLoggedIn() && $user->data["rank"]==2)
+		{
+			$grid->addAction("select","", 'Lector:showcourse')
+			->setIcon("info")
+			->setClass("btn btn-sm btn-info");
+		}
+		elseif($this->getUser()->isLoggedIn() && $user->data["rank"]>2)
+		{
+			$grid->addAction("select","", 'Garant:showcourse')
 			->setIcon("info")
 			->setClass("btn btn-sm btn-info");
 		}
