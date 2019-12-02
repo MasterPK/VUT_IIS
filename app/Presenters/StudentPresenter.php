@@ -79,18 +79,24 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setFilterText();
 
-		$grid->addColumnText('size', 'Velikost')
+		$grid->addColumnText('size', 'Velikost (B)')
 		->setSortable()
 		->setFilterText();
 
 
-		$grid->addAction("select", "Stáhnout", "")
-			->setClass("btn btn-primary");
+		$grid->addAction("select", "Stáhnout", "download!")
+			->setIcon('fas download')
+			->setClass("btn btn-sm btn-primary");
 
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
 
 		return $grid;
+	}
+
+	public function handleDownload($name)
+	{
+		$this->redirect($name);
 	}
 
 	public function createComponentMyCourses($name)
