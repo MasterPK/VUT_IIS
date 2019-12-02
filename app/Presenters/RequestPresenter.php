@@ -169,13 +169,13 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
     {
 
 		
-		if(empty($id))
+		if(empty($id_course))
 		{
 			return;
 		}
 
 		$count = $this->database->table('course')
-		->where('id_course', $id)
+		->where('id_course', $id_course)
 		->update([
 			'course_status' => '1'
 		]);
@@ -202,13 +202,13 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
     {
 
 		
-		if(empty($id))
+		if(empty($id_course))
 		{
 			return;
 		}
 
 		$count = $this->database->table('course')
-		->where('id_course', $id)
+		->where('id_course', $id_course)
 		->update([
 			'course_status' => '4'
 		]);
@@ -260,11 +260,11 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 
 		$grid->addAction("select2", "", 'approveCourse!')
 		->setIcon('check')
-		->setClass("btn btn-sm btn-success ajax");
+		->setClass("btn btn-sm btn-success");
 
 		$grid->addAction("select3", "", 'denyCourse!')
 		->setIcon('times')
-		->setClass("btn btn-sm btn-danger ajax");
+		->setClass("btn btn-sm btn-danger");
 
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 	
