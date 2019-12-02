@@ -316,4 +316,50 @@ final class RequestPresenter extends Nette\Application\UI\Presenter
 	
 		return $grid;
 	}
+
+	public function createComponentAllStudentsRequests($name)
+	{
+		$grid = new DataGrid($this, $name);
+		$grid->setPrimaryKey('id_user');
+		$grid->setDataSource($this->database->query("SELECT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_student NATURAL JOIN course WHERE  id_course = ? AND student_status = 0", $id_course)->fetchAll());
+
+		$grid->addColumnText('email', 'Email')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('first_name', 'Jméno')
+		->setSortable()
+		->setFilterText();
+		
+
+		$grid->addColumnText('surname', 'Přijmení')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addGroupTextAction('Potvrdit')
+            ->onSelect[] = function ($students, $value): void {
+            	$httpRequest = $this->getHttpRequest();
+                $id_course = $httpRequest->getQuery('id_course');
+            	foreach($students as $student)
+            	{
+            		$result = $this->database->query("UPDATE course_has_student SET student_status = 1 WHERE id_user = ? AND id_course = ? AND student_status = 0", $student, $id_course);
+            	}
+                
+            };
+
+        $grid->addGroupTextAction('Zamítnout')
+            ->onSelect[] = function ($students, $value): void {
+            	$httpRequest = $this->getHttpRequest();
+                $id_course = $httpRequest->getQuery('id_course');
+            	foreach($students as $student)
+            	{
+            		$result = $this->database->query("UPDATE course_has_student SET student_status = 2 WHERE id_user = ? AND id_course = ? AND student_status = 0", $student, $id_course);
+            	}
+                
+            };
+
+		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
+	
+		return $grid;
+	}
 }
