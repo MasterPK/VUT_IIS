@@ -968,7 +968,6 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 			} else {
 				$this->redirect('this');
 			}
-		} 
         };
 
         $grid->setTranslator($this->dataGridModel->dataGridTranslator);
