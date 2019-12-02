@@ -96,7 +96,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 
 	public function handleDownload($name)
 	{
-		$this->redirect($name);
+		$this->redirect('/'.$name);
 	}
 
 	public function createComponentMyCourses($name)
