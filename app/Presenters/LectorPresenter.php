@@ -425,7 +425,8 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 
 		$form->addUpload('file', '')
 			->setRequired(true)
-			->addRule(Form::MAX_FILE_SIZE, 'Maximální velikost souboru je 5 MB.', 5242880 /* v bytech */);
+			->addRule(Form::MAX_FILE_SIZE, 'Maximální velikost souboru je 5 MB.', 5242880 /* v bytech */)
+			->setHtmlAttribute('class', 'btn btn-block btn-primary');
 
 		$form->addSubmit('submit', 'Odeslat')
 			->setHtmlAttribute('class', 'btn btn-block btn-primary');
