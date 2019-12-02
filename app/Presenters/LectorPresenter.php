@@ -456,6 +456,83 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 
 	public function createComponentTaskStudentsGrid($name)
     {
-        return $this->lectorModel->createComponentTaskStudents($this, $name, $this->id_task);
+        \Tracy\Debugger::barDump($this->template);
+        
+        if($id_task == NULL)
+        {
+            $httpRequest = $this->getHttpRequest();
+            $id_task = $httpRequest->getQuery('id_task');
+        }
+
+        $grid = new DataGrid($this, $name);
+        $grid->setPrimaryKey('user.id_user');
+        //$grid->setDataSource($this->database->query("SELECT id_user, email, first_name, surname, points FROM user NATURAL JOIN student_has_task"));
+        $grid->setDataSource($this->database->table("student_has_task")->where("student_has_task.id_task = ?", $id_task)->select("user.id_user,user.email,user.first_name,user.surname,student_has_task.points"));
+
+        $grid->addColumnText('email', 'Email studenta')
+        ->setSortable()
+        ->setFilterText();
+
+        $grid->addColumnText('first_name', 'Jméno studenta')
+        ->setSortable()
+        ->setFilterText();
+        
+        $grid->addColumnText('surname', 'Přijmení studenta')
+        ->setSortable()
+        ->setFilterText();
+        
+        $grid->addColumnText('points', 'Body')
+        ->setSortable()
+        ->setFilterText();
+
+        $grid->addGroupTextAction('Nastavit body')
+            ->onSelect[] = function ($students, $value): void {
+                $httpRequest = $this->getHttpRequest();
+                $id_task = $httpRequest->getQuery('id_task');
+                $maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
+                if($maxpoints->task_points >= $value)
+                {
+                    foreach($students as $student)
+                    {
+                        $this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $student, $id_task);
+                    }
+                }
+                else
+                {
+                    $this->template->error_set = true;
+                    \Tracy\Debugger::barDump($this->template);
+                    $this->redrawControl('error_snippet');
+                }
+            };
+
+        $grid->addInlineEdit()
+            ->onControlAdd[] = function (Nette\Forms\Container $container): void {
+            $httpRequest = $this->getHttpRequest();
+            $id_task = $httpRequest->getQuery('id_task');
+            $maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
+            $container->addText('points', '')
+                    ->addRule(Form::RANGE, "Zadejte počet bodů v rozmezí 0 - ".$maxpoints->task_points, [0,$maxpoints->task_points]);
+        };
+
+        $grid->getInlineEdit()->onSetDefaults[] = function (Nette\Forms\Container $container, $item): void {
+
+            $container->setDefaults([
+                'points' => $item->points
+            ]);
+        };
+
+        $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): void {
+            $httpRequest = $this->getHttpRequest();
+            $id_task = $httpRequest->getQuery('id_task');
+            
+            $this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $values->points, $id, $id_task);
+                
+        };
+
+        $grid->setTranslator($this->dataGridModel->dataGridTranslator);
+
+        return $grid;
     }
+
+    
 }
