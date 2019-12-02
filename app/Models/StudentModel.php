@@ -57,12 +57,21 @@ class StudentModel
 
     public function renderFiles($presenter,$id_course,$id_task)
     {
-        $presenter->template->files=array();   
-        foreach (Finder::findFiles('*')->in("Files/$id_course/$id_task") as $key => $file) {
-            array_push($presenter->template->files,["name"=>$key,"extension"=>$file->getExtension(),"size"=>$file->getSize()]); // $key je řetězec s názvem souboru včetně cesty
+        if($presenter->getUser()->isLoggedIn())
+        {
+            $check = $this->database->query("SELECT id_user FROM course NATURAL JOIN course_has_student NATURAL JOIN user WHERE id_course = ? AND id_user = ?", $id_course, $presenter->user->identity->id)->fetch();
+            if($check)
+            {
+                $presenter->template->files=array();   
+                foreach (Finder::findFiles('*')->in("Files/$id_course/$id_task") as $key => $file) {
+                    array_push($presenter->template->files,["name"=>$key,"extension"=>$file->getExtension(),"size"=>$file->getSize()]); // $key je řetězec s názvem souboru včetně cesty
+                }
+            }
+            else
+            {
+                $this->redirect("Homepage:default");
+            }
         }
-        
-        
     }
 
     public function createComponentRegisterForm($presenter)
