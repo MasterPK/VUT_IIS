@@ -76,10 +76,7 @@
                     <br>
                     <div class="row">
                         <div class="col-md-12">
-                            Soubory:<br>
-                            {foreach $files[$task->id_task] as $file}
-                                <a href="/{$file}">{=basename($file)}</a><br>  
-                            {/foreach}
+                            <a n:href="Student:files $task->id_task" class="btn btn-sm btn-primary ml-1">Soubory</a>
                         </div>
                     </div>
                 </div>

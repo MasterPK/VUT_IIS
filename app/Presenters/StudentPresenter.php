@@ -51,6 +51,28 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 	public function renderMycourses(): void
 	{ }
 
+	public function renderFiles($id_task)
+	{
+			
+	}
+
+	public function createComponentFiles($name)
+	{
+		$grid = new DataGrid($this, $name);
+		$grid->setDataSource($this->template->files);
+
+		$grid->addColumnLink('name', 'Name', 'edit')
+			->setOpenInNewTab();
+
+		$grid->addAction("select", "Stáhnout", '')
+			->setClass("btn btn-primary");
+
+		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
+
+
+		return $grid;
+	}
+
 	public function createComponentMyCourses($name)
 	{
 		$grid = new DataGrid($this, $name);
