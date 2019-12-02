@@ -67,212 +67,6 @@ class AdminPresenter extends Nette\Application\UI\Presenter
     public function renderAdduser($id)
     { }
 
-    public function createComponentEditUser()
-    {
-        $form = new Form;
-
-        $form->addHidden('id_user', '')
-            ->setRequired()
-            ->setDefaultValue($this->userInfo["id_user"]);
-
-        $form->addText('id_user_show', '')
-            ->setHtmlAttribute('class', 'form-control')
-            ->setDisabled()
-            ->setDefaultValue($this->userInfo["id_user"]);
-
-        $form->addText('email', 'Email:')
-            ->setHtmlAttribute('class', 'form-control')
-            ->setRequired("Tohle pole je povinné")
-            ->addRule(Form::EMAIL, 'Email není platný.')
-            ->setDefaultValue($this->userInfo["email"]);
-
-        $form->addText('first_name', 'Křestní jméno:')
-            ->setHtmlAttribute('class', 'form-control')
-            ->setRequired("Tohle pole je povinné")
-            ->setDefaultValue($this->userInfo["first_name"]);
-
-        $form->addText('surname', 'Příjmení:')
-            ->setHtmlAttribute('class', 'form-control')
-            ->setRequired("Tohle pole je povinné")
-            ->setDefaultValue($this->userInfo["surname"]);
-
-        $form->addText('phone', 'Telefonní číslo:')
-            ->setHtmlAttribute('class', 'form-control')
-            ->setDefaultValue($this->userInfo["phone"]);
-
-        $form->addSelect('rank', '', $this->ranks)
-            ->setHtmlAttribute('class', 'form-control')
-            ->setRequired("Tohle pole je povinné")
-            ->setDefaultValue($this->userInfo["rank"]);
-
-        $form->addSelect('active', '', $this->activeStatus)
-            ->setHtmlAttribute('class', 'form-control')
-            ->setRequired("Tohle pole je povinné")
-            ->setValue($this->userInfo["active"]);
-
-        $form->addSubmit('submit', 'Potvrdit')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
-
-        $form->onSuccess[] = [$this, 'editUserSubmit'];
-        return $form;
-    }
-
-    public function editUserSubmit(Form $form)
-    {
-        $values = $form->getValues();
-
-        try {
-            $data = $this->database->table("user")->where("id_user", $values->id_user)
-                ->update([
-                    'email' => $values->email,
-                    'first_name' => $values->first_name,
-                    'surname' => $values->surname,
-                    'phone' => $values->phone,
-                    'rank' => $values->rank,
-                    'active' => $values->active,
-                ]);
-            $this->template->success_notify = true;
-            if ($this->isAjax()) {
-                $this->redrawControl("notify");
-            }
-        } catch (Nette\Database\UniqueConstraintViolationException $e) {
-            $this->template->duplicate_notify = true;
-            if ($this->isAjax()) {
-                $this->redrawControl("notify");
-            }
-        }
-    }
-
-    protected function createComponentEditPassword()
-    {
-        $form = new Form;
-
-        $form->addHidden('id_user', '')
-            ->setDefaultValue($this->userInfo["id_user"]);
-
-        $form->addPassword('password', 'Heslo:')
-            ->setHtmlAttribute('class', 'form-control')
-            ->setRequired('Zadejte, prosím, heslo');
-
-        $form->addPassword('passwordCheck', 'Heslo znovu:')
-            ->setHtmlAttribute('class', 'form-control')
-            ->setRequired('Zadejte, prosím, heslo pro kontrolu');
-
-        $form->addSubmit('submit', 'Potvrdit')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
-
-        $form->onSuccess[] = [$this, 'editPasswordSubmit'];
-        return $form;
-    }
-
-    public function editPasswordSubmit(Form $form)
-    {
-        $values = $form->getValues();
-
-        if ($values->password != $values->passwordCheck) {
-            $this->template->password_notify = true;
-            if ($this->isAjax()) {
-                $this->redrawControl("notify");
-            }
-        } else {
-            $data = $this->database->table("user")->where("id_user", $values->id_user)
-                ->update([
-                    'password' => password_hash($values->password, PASSWORD_BCRYPT)
-                ]);
-
-            if ($data == 1) {
-                $this->template->success_notify = true;
-                if ($this->isAjax()) {
-                    $this->redrawControl("content_snippet");
-                }
-            } else {
-                $this->template->error_notify = true;
-                if ($this->isAjax()) {
-                    $this->redrawControl("notify");
-                }
-            }
-        }
-    }
-
-    public function createComponentAddUser()
-    {
-        $form = new Form;
-
-        $form->addEmail('email', 'Email:')
-            ->setHtmlAttribute('class', 'form-control')
-            ->addRule(Form::EMAIL, 'Email není platný.')
-            ->setRequired("Tohle pole je povinné");
-
-        $form->addText('first_name', 'Křestní jméno:')
-            ->setHtmlAttribute('class', 'form-control')
-            ->setRequired("Tohle pole je povinné");
-
-        $form->addText('surname', 'Příjmení:')
-            ->setHtmlAttribute('class', 'form-control')
-            ->setRequired("Tohle pole je povinné");
-
-        $form->addText('phone', 'Telefonní číslo:')
-            ->setHtmlAttribute('class', 'form-control');
-
-        $form->addSelect('rank', '', $this->ranks)
-            ->setHtmlAttribute('class', 'form-control')
-            ->setRequired("Tohle pole je povinné");
-
-        $form->addSelect('active', '', $this->activeStatus)
-            ->setHtmlAttribute('class', 'form-control')
-            ->setRequired("Tohle pole je povinné");
-
-        $form->addPassword('password', 'Heslo:')
-            ->setHtmlAttribute('class', 'form-control')
-            ->setRequired('Zadejte, prosím, heslo');
-
-        $form->addPassword('passwordCheck', 'Heslo znovu:')
-            ->setHtmlAttribute('class', 'form-control')
-            ->setRequired('Zadejte, prosím, heslo pro kontrolu');
-
-
-        $form->addSubmit('submit', 'Potvrdit')
-            ->setHtmlAttribute('class', 'btn btn-block btn-primary ajax');
-
-        $form->onSuccess[] = [$this, 'addUserSubmit'];
-        return $form;
-    }
-
-    public function addUserSubmit(Form $form)
-    {
-        $values = $form->getValues();
-
-        if ($values->password != $values->passwordCheck) {
-            $this->template->password_notify = true;
-            if ($this->isAjax()) {
-                $this->redrawControl("notify");
-            }
-        } else {
-            try {
-                $this->database->table("user")
-                    ->insert([
-                        'email' => $values->email,
-                        'first_name' => $values->first_name,
-                        'surname' => $values->surname,
-                        'phone' => $values->phone,
-                        'active' => $values->active,
-                        'rank' => $values->rank,
-                        'password' => password_hash($values->password, PASSWORD_BCRYPT)
-                    ]);
-                $this->template->success_notify = true;
-                if ($this->isAjax()) {
-                    $form->setValues([], TRUE);
-                    $this->redrawControl("content_snippet");
-                }
-            } catch (Nette\Database\UniqueConstraintViolationException $e) {
-                $this->template->duplicate_notify = true;
-                if ($this->isAjax()) {
-                    $this->redrawControl("content_snippet");
-                }
-            }
-        }
-    }
-
     public function createComponentUserMng($name)
     {
         $grid = new DataGrid($this, $name);
@@ -381,7 +175,8 @@ class AdminPresenter extends Nette\Application\UI\Presenter
         };
 
         $grid->getInlineEdit()->onSubmit[] = function ($id, Nette\Utils\ArrayHash $values): void {
-            $this->database->table("user")->where("id_user", $id)
+
+            $result = $this->database->table("user")->where("id_user", $id)
                 ->update([
                     'email' => $values->email,
                     'first_name' => $values->first_name,
@@ -397,7 +192,19 @@ class AdminPresenter extends Nette\Application\UI\Presenter
                 ->update([
                     'password' => password_hash($values->password, PASSWORD_BCRYPT)
                 ]);
+
+                if($result == 0)
+                {
+                    $this->template->success_password;
+                    $this->redrawControl('password_snippet');
+                }
             }
+            else
+            {
+                $this->template->success_edit;
+                $this->redrawControl('edit_snippet');
+            }
+
         };
 
         $grid->addInlineAdd()
@@ -442,7 +249,7 @@ class AdminPresenter extends Nette\Application\UI\Presenter
             } 
             catch (Nette\Database\UniqueConstraintViolationException $e) 
             {
-                $this->template->duplicate_notify = true;
+                $this->template->error_notify = true;
                 if ($this->isAjax()) 
                 {
                     $this->redrawControl("content_snippet");

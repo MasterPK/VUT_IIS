@@ -1,6 +1,5 @@
 {block header} Správa uživatelů{/block}
 {block content}
-{snippet notify}
     <div class="row">
         <div class="col-sm-12">
             {control userMng}
@@ -10,17 +9,19 @@
     {ifset $success_notify}
         <script>$.notify("Operace byla provedena", "success");</script>
     {/ifset}
-    {ifset $error_notif}
+    {ifset $error_notify}
         <script>$.notify("Operace selhala!", "error");</script>
     {/ifset}
 {/snippet}
 
-{snippet pass_change}
-    {ifset $success_notify}
+{snippet password_snippet}
+    {ifset $success_password}
         <script>$.notify("Heslo úspěšně změněno", "success");</script>
     {/ifset}
-    {ifset $error_notif}
-        <script>$.notify("Heslo se nepodařilo změnit!", "error");</script>
+{/snippet}
+{snippet edit_snippet}
+    {ifset $success_edit}
+        <script>$.notify("Uživatel úspěšně aktualizován", "success");</script>
     {/ifset}
 {/snippet}
 
