@@ -75,7 +75,7 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setFilterText();
 
-		$grid->addAction("select", "Stáhnout", '[\"link\"]')
+		$grid->addAction("select", "Stáhnout", '[link]')
 			->setClass("btn btn-primary");
 
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
