@@ -137,11 +137,10 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
 		->setSortable()
 		->setFilterText();
 			
-        $grid->addAction('delete', '', 'deleteEquipRoom!')
+        $grid->addAction('delete', '', 'confirmDeleteEquipRoom!')
             ->setIcon('trash')
             ->setTitle('Smazat')
-            ->setClass('btn btn-xs btn-danger ajax')
-			->setConfirmation(new \Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation('Opravdu chcet odstranit vybavení?'));
+            ->setClass('btn btn-xs btn-danger ajax');
 
 		$grid->addToolbarButton('Chief:rooms', '')
 			->setIcon('arrow-left')
@@ -273,6 +272,14 @@ final class ChiefPresenter extends Nette\Application\UI\Presenter
         } else {
 			$this->redirect('this');
 		}
+    }
+
+    public function handleConfirmDeleteEquipRoom($room_equipment, $id_room)
+    {
+    	$this->template->room_equipment = $room_equipment;
+    	$this->template->id_room = $id_room;
+    	$this->template->show_modal = true;
+    	$this->redrawControl('show_modal_snippet');
     }
 
 	public function handleDeleteEquipRoom($room_equipment,$id_room)
