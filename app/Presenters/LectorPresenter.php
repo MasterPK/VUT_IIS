@@ -596,7 +596,7 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 			->setIcon('fas download')
 			->setClass("btn btn-sm btn-primary");
 
-		$grid->addToolbarButton('Lector:newFile', '', [$this->course_id, $this->task_id])
+		$grid->addToolbarButton('triggerModal!', '')
             ->setIcon('plus')
             ->setTitle('Přidat soubor')
 			->setClass('btn btn-xs btn-primary');
@@ -605,6 +605,12 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 
 
 		return $grid;
+	}
+
+	public function triggerModal()
+	{
+		$this->template->show_modal = true;
+		$this->redrawControl('show_modal_snippet');
 	}
 
 	public function handleDownload($name)
