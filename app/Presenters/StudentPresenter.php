@@ -53,7 +53,6 @@ class StudentPresenter extends Nette\Application\UI\Presenter
 
 	public function renderFiles($id_course, $id_task)
 	{
-		\Tracy\Debugger::barDump($id_course);
 		$this->studentModel->renderFiles($this, $id_course, $id_task);
 	}
 
