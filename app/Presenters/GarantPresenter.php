@@ -201,6 +201,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 										(SELECT id_user FROM user NATURAL LEFT JOIN course_has_lecturer WHERE rank >= 2 AND id_course = ?)", $id_course)->fetchAll();
 		$this->template->current_lectors = $this->database->query("SELECT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_lecturer WHERE id_course = ?", $id_course)->fetchAll();
 		$this->template->id_course = $id_course;
+		$this->id_course = $id_course;
 	}
 
 	public function renderCourse($id)
@@ -365,11 +366,79 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 				'4' => 'Zamítnut'
             ]);
 
-		$grid->addAction("select","Detail", 'Garant:showcourse')
-		->setClass("btn btn-primary");
+        $grid->addToolbarButton('course', '')
+            ->setIcon('plus')
+            ->setTitle('Nový kurz')
+            ->setClass('btn btn-xs btn-primary');
+
+		$grid->addAction("select", "", 'Garant:showcourse')
+		->setIcon('info')
+		->setClass("btn btn-sm btn-info");
+
+		$grid->addAction("select2", "", 'editCourse!')
+		->setIcon('fas edit')
+		->setClass("btn btn-sm btn-secondary");
 
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
+	
+		return $grid;
+	}
 
+	public function handleEditCourse($id_course)
+	{
+		$this->redirect("Garant:course", $id_course);
+	}
+
+	public function createComponentLectorsAdd($name)
+	{
+		$grid = new DataGrid($this, $name);
+		$grid->setPrimaryKey('id_user');
+		$grid->setDataSource($this->database->query("SELECT id_user, email, first_name, surname FROM user WHERE rank >= 2 AND id_user NOT IN (SELECT id_user FROM user NATURAL LEFT JOIN course_has_lecturer WHERE rank >= 2 AND id_course = ?)", $this->id_course)->fetchAll());
+
+		$grid->addColumnText('email', 'Email')
+		->setSortable()
+		->setFilterText();
+		
+		$grid->addColumnText('first_name', 'Jméno')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('surname', 'Přijmení')
+		->setSortable()
+		->setFilterText();
+		
+		$grid->addAction("select", "", 'add!')
+		->setIcon('fas plus')
+		->setClass("btn btn-sm btn-primary");
+
+		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
+	
+		return $grid;
+	}
+
+	public function createComponentLectorsRemove($name)
+	{
+		$grid = new DataGrid($this, $name);
+		$grid->setPrimaryKey('id_user');
+		$grid->setDataSource($this->database->query("SELECT DISTINCT id_user, email, first_name, surname FROM user NATURAL JOIN course_has_lecturer WHERE id_course = ?", $this->id_course)->fetchAll());
+
+		$grid->addColumnText('email', 'Email')
+		->setSortable()
+		->setFilterText();
+		
+		$grid->addColumnText('first_name', 'Jméno')
+		->setSortable()
+		->setFilterText();
+
+		$grid->addColumnText('surname', 'Přijmení')
+		->setSortable()
+		->setFilterText();
+		
+		$grid->addAction("select", "", 'remove!')
+		->setIcon('fas minus')
+		->setClass("btn btn-sm btn-primary");
+
+		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 	
 		return $grid;
 	}
@@ -816,6 +885,7 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 
 	public function createComponentTaskStudentsGrid($name)
 	{
+		\Tracy\Debugger::barDump($this->template);
 		$id_task;
 		if($this->id_task != NULL)
 		{
@@ -847,6 +917,26 @@ final class GarantPresenter extends Nette\Application\UI\Presenter
 		$grid->addColumnText('points', 'Body')
 		->setSortable()
 		->setFilterText();
+
+		$grid->addGroupTextAction('Nastavit body')
+			->onSelect[] = function ($students, $value): void {
+				$httpRequest = $this->getHttpRequest();
+				$id_task = $httpRequest->getQuery('id_task');
+				$maxpoints = $this->database->query("SELECT task_points FROM task WHERE id_task = ?", $id_task)->fetch();
+				if($maxpoints->task_points >= $value)
+				{
+					foreach($students as $student)
+					{
+						$this->database->query("UPDATE student_has_task SET points = ? WHERE id_user = ? AND id_task = ?", $value, $student, $id_task);
+					}
+				}
+				else
+				{
+					$this->template->error_set = true;
+					\Tracy\Debugger::barDump($this->template);
+					$this->redrawControl('error_snippet');
+				}
+			};
 
 		$grid->addInlineEdit()
             ->onControlAdd[] = function (Nette\Forms\Container $container): void {

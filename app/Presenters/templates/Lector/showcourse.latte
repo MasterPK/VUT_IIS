@@ -115,10 +115,12 @@ Detail kurzu
                 <div class="card-header">
                     {$task->task_name}
                     {if $userIsLectorInCourse == true}
-                    <a n:href="Lector:newFile $task->id_course, $task->id_task">
-                    <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Přidat soubor</button></a>
-                    <a n:href="Lector:newtask $task->id_course, $task->id_task">
-                    <button style="float: right;" class="btn btn-primary btn-sm text-white order-1 order-sm-0">Upravit termín</button></a>
+                    <div class="col-md-9 col-sm-12 ">
+                        <div class="float-right">
+                            <a n:href="Lector:showtask $task->id_task" class="btn btn-primary btn-sm "><i class="fas fa-user-graduate"></i></a>
+                            <a n:href="Lector:newFile $task->id_course, $task->id_task" class="btn btn-primary btn-sm "><i class="fas fa-file"/></a>
+                        </div>
+                    </div>
                     {/if}
                 </div>
                 <div class="card-body">

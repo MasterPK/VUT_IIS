@@ -124,16 +124,20 @@ final class LectorPresenter extends Nette\Application\UI\Presenter
 		->setSortable();
 
 		$grid->addFilterSelect('course_type', 'Typ kurzu:', ["P" => 'Povinný', "V" => 'Volitelný']);
-		
 
-
-		$grid->addAction("select","Detail", 'Student:showcourse')
-		->setClass("btn btn-primary");
+		$grid->addAction("select", "", 'showCourse!')
+		->setIcon('info')
+		->setClass("btn btn-sm btn-info center-block");
 
 		$grid->setTranslator($this->dataGridModel->dataGridTranslator);
 
 	
 		return $grid;
+	}
+
+	public function handleShowCourse($id_course)
+	{
+		$this->redirect('Lector:showcourse', $id_course);
 	}
 
 	public function createComponentCourses($name)
